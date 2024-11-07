@@ -273,7 +273,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -314,7 +314,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -341,8 +341,220 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-heap-exploit/">
+                            linux 堆利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            debug glibc ：对于一些复杂的堆利用，可以先用支持源码调试的 libc 完成利用，然后改偏移打题目提供的 libc 。
+Unlink假设正常情况下，每申请一个 chunk 会保存一个指向该 chunk 内存块的指针。在 chunk1 伪造 fake chunk ，需要注意：
+
+为了绕过
+12if (__builtin_expect(FD-&gt;bk != P || BK-&gt;...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:15:01 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/08/linux-heap-exploit/">Read more<span class="seo-reader-text">linux 堆利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-format-string-exploit/">
+                            linux 格式化字符串利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            基础知识常见格式化字符串函数
+
+
+函数
+基本介绍
+
+
+
+printf
+输出到stdout
+
+
+fprintf
+输出到指定FILE流
+
+
+vprintf
+根据参数列表格式化输出到stdout
+
+
+vfprintf
+根据参数列表格式化输出到FILE流
+
+
+sprintf
+输出到字符串
+
+
+snprintf
+输出指定字节数到字符串
+
+
+vsprintf
+根据参数列表格式化输出到字符串
+
+
+vsnp...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:13:03 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/08/linux-format-string-exploit/">Read more<span class="seo-reader-text">linux 格式化字符串利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-stack-overflow/">
+                            linux 栈溢出
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            逻辑漏洞栈溢出往往可以覆盖栈上的其他局部变量造成逻辑漏洞。
+ret2text栈溢出覆盖返回地址为后门函数从而获取shell。
+ret2shellcode将shellcode写入可执行的内存地址处，然后栈溢出覆盖返回地址到shellcode从而执行shellcode获取shell。测试 shellcode 例题：
+
+32位例题：wdb_2018_3rd_soEasy
+
+64位例题：ciscn_...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:10:56 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/08/linux-stack-overflow/">Read more<span class="seo-reader-text">linux 栈溢出</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-IO_FILE-exploit/">
+                            linux IO_FILE 利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            FILE 结构IO FILE 定义的各种主要结构关系如下图所示。
+
+各种文件结构采用单链表的形式连接起来，通过 _IO_list_all 访问。
+
+vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
+
+初始情况下 _IO_FILE 结构有 _IO_2_1_stderr_ ，_IO_2_1_stdout_，_IO_2_1_stdin_ 三个，通过 _IO_list_all 将...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:07:36 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/08/linux-IO_FILE-exploit/">Read more<span class="seo-reader-text">linux IO_FILE 利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2024/11/08/java-serialization/">
-                            Java反序列化
+                            Java 反序列化
                         </a>
                     </h3>
 
@@ -369,7 +581,7 @@
         
     </div>
 
-    <a href="/2024/11/08/java-serialization/">Read more<span class="seo-reader-text">Java反序列化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2024/11/08/java-serialization/">Read more<span class="seo-reader-text">Java 反序列化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -385,7 +597,7 @@
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
                         <a href="/2024/11/08/CVE-2024-21762/">
-                            CVE-2024-21762分析
+                            CVE-2024-21762 分析
                         </a>
                     </h3>
 
@@ -409,7 +621,7 @@
         
     </div>
 
-    <a href="/2024/11/08/CVE-2024-21762/">Read more<span class="seo-reader-text">CVE-2024-21762分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2024/11/08/CVE-2024-21762/">Read more<span class="seo-reader-text">CVE-2024-21762 分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -493,11 +705,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        3 posts in total
+                        7 posts in total
                     </span>
                     
                         <span>
-                            42.6k words in total
+                            99.1k words in total
                         </span>
                     
                 </p>
