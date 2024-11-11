@@ -251,7 +251,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -292,7 +292,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -319,6 +319,99 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-kernel-pwn-basic-knowlege/">
+                            linux kernel pwn 基础知识
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            基础知识
+内核概述
+内核架构
+通常来说我们可以把内核架构分为两种：宏内核和微内核，现在还有一种内核是混合了宏内核与微内核的特性，称为混合内核。
+ - 宏内核（Monolithic
+kernel），也译为集成式内核、单体式内核，一种操作系统内核架构，此架构的特性是整个内核程序是一个单一二进制可执行文件，在内核态以监管者模式（Supervisor
+Mode）来运行。相对于其他类型的操...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 20:23:30 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/08/linux-kernel-pwn-basic-knowlege/">Read more<span class="seo-reader-text">linux kernel pwn 基础知识</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/musl-pwn/">
+                            musl pwn
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            调试环境搭建
+debug musl
+debug_musl 
+可以源码调试。 运行 setup.sh
+将源码及相关动态链接库解压到根目录下 musl
+文件夹下，用的时候只需要将对应版本的 libc.so
+文件复制到目录下，然后利用 patchelf 运行如下命令修改可执行文件所依赖的
+ld 为 libc.so 即可进行源码调试。 1patchelf --set-interpret...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 19:49:33 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/08/musl-pwn/">Read more<span class="seo-reader-text">musl pwn</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2024/11/08/Chrome-v8-pwn/">
                             Chrome V8 Pwn
                         </a>
@@ -327,16 +420,18 @@
                     <div class="home-article-content markdown-body">
                         
                             
-                            背景知识浏览器框架它是⼀个多进程+IPC的程序, 不同的进程管理不同的内容,
+                            背景知识
+浏览器框架
+它是⼀个多进程+IPC的程序, 不同的进程管理不同的内容,
 
 browser process: 主进程
 rander process: 负责控制渲染内容
 GPU process: 负责渲染内容
 utility process: 标签页进程
-plugin process: 插件进程
+plugin process: 插件进程 
 
-每个插件, 每个标签页都是单独的进程, 有属于自己的PID
-JS 引擎各浏览器对应的 js ...
+每个插件, 每个标签页都是单独的进程, 有属于自己的PID 
+J...
                         
                     </div>
 
@@ -376,10 +471,11 @@ JS 引擎各浏览器对应的 js ...
                     <div class="home-article-content markdown-body">
                         
                             
-                            ptmalloc2 是目前 Linux 标准发行版中使用的堆分配器。
-内存分配基本思想
+                            ptmalloc2 是目前 Linux 标准发行版中使用的堆分配器。 #
+内存分配基本思想 -
 堆管理器负责向操作系统申请内存，然后将其返回给用户程序，但是频繁的系统调用会造成大量的开销。为了保持内存管理的高效性，内核一般都会预先分配很大的一块连续的内存，然后让堆管理器通过某种算法管理这块内存。只有当出现了堆空间不足的情况，堆管理器才会再次与操作系统进行交互。
-一般来说，用户释放的内存并不是直接返还...
+-
+一般来说，用户释放...
                         
                     </div>
 
@@ -419,11 +515,15 @@ JS 引擎各浏览器对应的 js ...
                     <div class="home-article-content markdown-body">
                         
                             
-                            debug glibc ：对于一些复杂的堆利用，可以先用支持源码调试的 libc 完成利用，然后改偏移打题目提供的 libc 。
-Unlink假设正常情况下，每申请一个 chunk 会保存一个指向该 chunk 内存块的指针。在 chunk1 伪造 fake chunk ，需要注意：
+                            debug
+glibc ：对于一些复杂的堆利用，可以先用支持源码调试的 libc
+完成利用，然后改偏移打题目提供的 libc 。 # Unlink
+假设正常情况下，每申请一个 chunk 会保存一个指向该 chunk 内存块的指针。
+
+在 chunk1 伪造 fake chunk ，需要注意：
 
 为了绕过
-12if (__builtin_expect(FD-&gt;bk != P || BK-&gt;...
+12if (__builtin_expect(FD-&gt;bk !=...
                         
                     </div>
 
@@ -463,11 +563,14 @@ Unlink假设正常情况下，每申请一个 chunk 会保存一个指向该 chu
                     <div class="home-article-content markdown-body">
                         
                             
-                            基础知识常见格式化字符串函数
+                            基础知识
+常见格式化字符串函数
+
 
 
 函数
 基本介绍
+
 
 
 
@@ -492,14 +595,7 @@ sprintf
 
 
 snprintf
-输出指定字节数到字符串
-
-
-vsprintf
-根据参数列表格式化输出到字符串
-
-
-vsnp...
+输出指定字节数到字符...
                         
                     </div>
 
@@ -539,13 +635,14 @@ vsnp...
                     <div class="home-article-content markdown-body">
                         
                             
-                            逻辑漏洞栈溢出往往可以覆盖栈上的其他局部变量造成逻辑漏洞。
-ret2text栈溢出覆盖返回地址为后门函数从而获取shell。
-ret2shellcode将shellcode写入可执行的内存地址处，然后栈溢出覆盖返回地址到shellcode从而执行shellcode获取shell。测试 shellcode 例题：
+                            逻辑漏洞
+栈溢出往往可以覆盖栈上的其他局部变量造成逻辑漏洞。 # ret2text
+栈溢出覆盖返回地址为后门函数从而获取shell。
+ret2shellcode
+将shellcode写入可执行的内存地址处，然后栈溢出覆盖返回地址到shellcode从而执行shellcode获取shell。
+测试 shellcode 例题：
 
-32位例题：wdb_2018_3rd_soEasy
-
-64位例题：ciscn_...
+32位例题：wdb_2018_3rd_soEasy...
                         
                     </div>
 
@@ -585,13 +682,17 @@ ret2shellcode将shellcode写入可执行的内存地址处，然后栈溢出覆�
                     <div class="home-article-content markdown-body">
                         
                             
-                            FILE 结构IO FILE 定义的各种主要结构关系如下图所示。
+                            FILE 结构
+IO FILE 定义的各种主要结构关系如下图所示。 
 
-各种文件结构采用单链表的形式连接起来，通过 _IO_list_all 访问。
-
-vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
-
-初始情况下 _IO_FILE 结构有 _IO_2_1_stderr_ ，_IO_2_1_stdout_，_IO_2_1_stdin_ 三个，通过 _IO_list_all 将...
+各种文件结构采用单链表的形式连接起来，通过
+_IO_list_all 访问。
+vatble 为函数指针结构体，存放着各种 IO
+相关的函数的指针。
+初始情况下 _IO_FILE 结构有
+_IO_2_1_stderr_
+，_IO_2_1_stdout_，_IO_2_1_stdin_ 三个，通过
+_IO_...
                         
                     </div>
 
@@ -631,10 +732,12 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                     <div class="home-article-content markdown-body">
                         
                             
-                            反序列化基础Java 的序列化（Serialization）和反序列化（Deserialization）是将对象的状态转换为字节流并恢复的过程。这个过程使对象可以保存到文件、通过网络传输或保存到数据库中，并在稍后恢复成对象。
-
-序列化（Serialization）：将 Java 对象的状态转换为字节流的过程。这使得对象可以保存到文件、发送到其他 JVM 甚至通过网络传输。
-反序列化（Dese...
+                            反序列化基础
+Java
+的序列化（Serialization）和反序列化（Deserialization）是将对象的状态转换为字节流并恢复的过程。这个过程使对象可以保存到文件、通过网络传输或保存到数据库中，并在稍后恢复成对象。
+- 序列化（Serialization）：将 Java
+对象的状态转换为字节流的过程。这使得对象可以保存到文件、发送到其他 JVM
+甚至通过网络传输。 -...
                         
                     </div>
 
@@ -673,7 +776,8 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
 
                     <div class="home-article-content markdown-body">
                         
-                            <p>Here’s something encrypted, password is required to continue reading.</p>
+                            <p>Here's something encrypted, password is required to continue
+reading.</p>
 
                         
                     </div>
@@ -697,55 +801,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/07/linux-user-pwn-basic-knowlege/">
-                            linux user pwn 基础知识
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            环境搭建虚拟机安装
-镜像下载网站 
-为了避免环境问题建议 22.04 ，20.04，18.04，16.04 等常见版本 ubuntu 虚拟机环境各准备一份。注意定期更新快照以防意外。
-虚拟机建议硬盘 256 G 以上，内存也尽量大一些。硬盘大小只是上界，256 G 不是真就占了 256 G，而后期如果硬盘空间不足会很麻烦。
-更换 ubuntu 镜像源  ，建议先在 系统设置 → Softwa...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Nov 07 2024 18:56:56 GMT+0800">
-                
-                    2024-11-07
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/11/07/linux-user-pwn-basic-knowlege/">Read more<span class="seo-reader-text">linux user pwn 基础知识</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-    <a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
 
     </div>
@@ -775,11 +835,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        19 posts in total
+                        21 posts in total
                     </span>
                     
                         <span>
-                            319.9k words in total
+                            347.5k words in total
                         </span>
                     
                 </p>
