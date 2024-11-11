@@ -273,7 +273,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -314,7 +314,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -331,6 +331,97 @@
                 
                     <div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">
+                            SQL 注入基础
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            注意以下都是基于数据库是 MySQL
+的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。
+# SQL 注入基础 ## 数据库的结构 数据库的结构如下图所示： 
+
+数据库实例（Database
+Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。
+数据库（Database）：是有序的数据集合，每...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Nov 11 2024 23:28:16 GMT+0800">
+                
+                    2024-11-11
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/11/SQL%20%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">Read more<span class="seo-reader-text">SQL 注入基础</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+                            PHP 反序列化
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            PHP 测试：https://onlinephp.io/  #
+PHP 序列化格式 ## 基本数据类型
+基本数据类型的序列化格式只描述值，不包含变量名。 ### Null
+格式：N; 12$n = null;$serialized = serialize($n); // 结果: N; ###
+布尔值（Boolean） 格式：b:&lt;value&gt;;
+示例：b:1; 表示 t...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Nov 11 2024 23:25:06 GMT+0800">
+                
+                    2024-11-11
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">Read more<span class="seo-reader-text">PHP 反序列化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -703,101 +794,6 @@ ld 为 libc.so 即可进行源码调试。 1patchelf --set-interpret...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/08/Chrome-v8-pwn/">
-                            Chrome V8 Pwn
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            背景知识
-浏览器框架
-它是⼀个多进程+IPC的程序, 不同的进程管理不同的内容,
-
-browser process: 主进程
-rander process: 负责控制渲染内容
-GPU process: 负责渲染内容
-utility process: 标签页进程
-plugin process: 插件进程 
-
-每个插件, 每个标签页都是单独的进程, 有属于自己的PID 
-J...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Nov 08 2024 13:34:18 GMT+0800">
-                
-                    2024-11-08
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/11/08/Chrome-v8-pwn/">Read more<span class="seo-reader-text">Chrome V8 Pwn</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/08/linux-heap-exploit-basic-knowlege/">
-                            linux 堆利用基础知识
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            ptmalloc2 是目前 Linux 标准发行版中使用的堆分配器。 #
-内存分配基本思想 -
-堆管理器负责向操作系统申请内存，然后将其返回给用户程序，但是频繁的系统调用会造成大量的开销。为了保持内存管理的高效性，内核一般都会预先分配很大的一块连续的内存，然后让堆管理器通过某种算法管理这块内存。只有当出现了堆空间不足的情况，堆管理器才会再次与操作系统进行交互。
--
-一般来说，用户释放...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Nov 08 2024 13:29:47 GMT+0800">
-                
-                    2024-11-08
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/11/08/linux-heap-exploit-basic-knowlege/">Read more<span class="seo-reader-text">linux 堆利用基础知识</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -832,11 +828,11 @@ J...
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        17 posts in total
+                        19 posts in total
                     </span>
                     
                         <span>
-                            300k words in total
+                            319.7k words in total
                         </span>
                     
                 </p>
