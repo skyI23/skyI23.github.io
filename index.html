@@ -349,13 +349,12 @@
                     <div class="home-article-content markdown-body">
                         
                             
-                            注意以下都是基于数据库是 MySQL
-的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。
-# SQL 注入基础 ## 数据库的结构 数据库的结构如下图所示： 
+                            注意以下都是基于数据库是 MySQL 的情况，对于其他数据库来说过程大同小异，只不过需要注意一下数据库和表名的获取等步骤。
+SQL 注入基础数据库的结构数据库的结构如下图所示：
 
-数据库实例（Database
-Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。
-数据库（Database）：是有序的数据集合，每...
+数据库实例（Database Instance）：所有数据库通常运行在某个数据库实例上，实例是一个正在运行的数据库管理系统（DBMS）。
+数据库（Database）：是有序的数据集合，每个数据库包含多个表。
+表（T...
                         
                     </div>
 
@@ -395,12 +394,13 @@ Instance）：所有数据库通常运行在某个数据库实例上，实例是
                     <div class="home-article-content markdown-body">
                         
                             
-                            PHP 测试：https://onlinephp.io/  #
-PHP 序列化格式 ## 基本数据类型
-基本数据类型的序列化格式只描述值，不包含变量名。 ### Null
-格式：N; 12$n = null;$serialized = serialize($n); // 结果: N; ###
-布尔值（Boolean） 格式：b:&lt;value&gt;;
-示例：b:1; 表示 t...
+                            PHP 测试：https://onlinephp.io/ 
+PHP 序列化格式基本数据类型基本数据类型的序列化格式只描述值，不包含变量名。
+Null格式：N;
+12$n = null;$serialized = serialize($n); // 结果: N;
+布尔值（Boolean）格式：b:&lt;value&gt;;
+示例：b:1; 表示 true，b:0; 表示 false。
+12$...
                         
                     </div>
 
@@ -440,12 +440,8 @@ PHP 序列化格式 ## 基本数据类型
                     <div class="home-article-content markdown-body">
                         
                             
-                            环境配置
-切换 python 版本
-运行 IDA 安装目录下的 idapyswitch.exe ，选择使用的
-python 解释器。 ## 在 PyCharm 中写 IDAPython 脚本 在 PyCharm
-的设置→项目→Python解释器点击设置选择全部显示....  点击如下位置添加自定义路径  路径选择 IDA Pro 7.6\python\3
-貌似 3 和 2 表示 P...
+                            环境配置切换 python 版本运行 IDA 安装目录下的 idapyswitch.exe ，选择使用的 python 解释器。
+在 PyCharm 中写 IDAPython 脚本在 PyCharm 的设置→项目→Python解释器点击设置选择全部显示….点击如下位置添加自定义路径路径选择 IDA Pro 7.6\python\3 貌似 3 和 2 表示 Python3 和 Python2 ...
                         
                     </div>
 
@@ -485,15 +481,10 @@ python 解释器。 ## 在 PyCharm 中写 IDAPython 脚本 在 PyCharm
                     <div class="home-article-content markdown-body">
                         
                             
-                            XML（可扩展标记语言）
-XML 的定义
-XML（eXtensible Markup
-Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于
-HTML，但它的标签是自定义的。XML
-的主要目的是传输和存储数据，而不是显示数据。 ## XML 的语法
-XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。
+                            XML（可扩展标记语言）XML 的定义XML（eXtensible Markup Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于 HTML，但它的标签是自定义的。XML 的主要目的是传输和存储数据，而不是显示数据。
+XML 的语法XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。
 基本结构：
-12345&lt;?xm...
+12345&lt;?xml version=&quo...
                         
                     </div>
 
@@ -533,11 +524,9 @@ XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组
                     <div class="home-article-content markdown-body">
                         
                             
-                            栈溢出
-32 位栈溢出
-附件下载链接 
-程序保护如下，没有开 GS 保护。  程序是一个简单的栈溢出：
-12345678910111213141516int __cdecl main_0(int argc, const char **argv, const char **envp)&#123;  char v4; // [esp+0h] [ebp-1D4h]  char v5; //...
+                            栈溢出32 位栈溢出附件下载链接 
+程序保护如下，没有开 GS 保护。程序是一个简单的栈溢出：
+12345678910111213141516int __cdecl main_0(int argc, const char **argv, const char **envp)&#123;  char v4; // [esp+0h] [ebp-1D4h]  char v5; // [esp+0h...
                         
                     </div>
 
@@ -577,15 +566,8 @@ XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组
                     <div class="home-article-content markdown-body">
                         
                             
-                            环境搭建
-checksec
-winchecksec
-winchecksec 
-是 windows 版的 checksec ，不过有时候结果不太准确。 
-checksec（x64dbg）
-x64dbg  的插件 checksec 
-检查效果比较准确，并且可以连同加载的 dll 一起检测。  将 release 的插件按 32 和 64 位分别放到
-x32dbg 和 x64dbg...
+                            环境搭建checksecwinchecksecwinchecksec  是 windows 版的 checksec ，不过有时候结果不太准确。
+checksec（x64dbg）x64dbg  的插件 checksec  检查效果比较准确，并且可以连同加载的 dll 一起检测。将 release 的插件按 32 和 64 位分别放到 x32dbg 和 x64dbg 的 plugins 目录，如...
                         
                     </div>
 
@@ -625,13 +607,9 @@ x32dbg 和 x64dbg...
                     <div class="home-article-content markdown-body">
                         
                             
-                            tty 设备结构体
-tty 设备在 /dev 下的一个伪终端设备 ptmx
-。
-tty_struct（kmalloc-1k
-| GFP_KERNEL_ACCOUNT）
-tty_struct 定义如下 。
-123456789/* tty magic number */#define TTY_MAGIC        0x5401struct tty_struct &#123;   ...
+                            tty 设备结构体tty 设备在 /dev 下的一个伪终端设备 ptmx 。
+tty_struct（kmalloc-1k | GFP_KERNEL_ACCOUNT）tty_struct 定义如下 。 
+123456789/* tty magic number */#define TTY_MAGIC        0x5401struct tty_struct &#123;    int   ...
                         
                     </div>
 
@@ -671,14 +649,10 @@ tty_struct 定义如下 。
                     <div class="home-article-content markdown-body">
                         
                             
-                            NULL Pointer Dereference
-上古利用方法，仅做记录。
-如果内核模块中存在可以被调用的空函数指针，那么调用该空指针函数会执行
-0 地址对应的代码。如果此时在内存 0 地址处实现写入 payload
-就会执行payload。
-首先内核驱动代码如下，其中 my_funptr 是一个空函数指针，且在调用 write
-函数时会执行到。
-123456789101112...
+                            NULL Pointer Dereference上古利用方法，仅做记录。
+如果内核模块中存在可以被调用的空函数指针，那么调用该空指针函数会执行 0 地址对应的代码。如果此时在内存 0 地址处实现写入 payload 就会执行payload。
+首先内核驱动代码如下，其中 my_funptr 是一个空函数指针，且在调用 write 函数时会执行到。
+12345678910111213141516...
                         
                     </div>
 
@@ -718,13 +692,9 @@ tty_struct 定义如下 。
                     <div class="home-article-content markdown-body">
                         
                             
-                            基础知识
-内核概述
-内核架构
-通常来说我们可以把内核架构分为两种：宏内核和微内核，现在还有一种内核是混合了宏内核与微内核的特性，称为混合内核。
- - 宏内核（Monolithic
-kernel），也译为集成式内核、单体式内核，一种操作系统内核架构，此架构的特性是整个内核程序是一个单一二进制可执行文件，在内核态以监管者模式（Supervisor
-Mode）来运行。相对于其他类型的操...
+                            基础知识内核概述内核架构通常来说我们可以把内核架构分为两种：宏内核和微内核，现在还有一种内核是混合了宏内核与微内核的特性，称为混合内核。
+
+宏内核（Monolithic kernel），也译为集成式内核、单体式内核，一种操作系统内核架构，此架构的特性是整个内核程序是一个单一二进制可执行文件，在内核态以监管者模式（Supervisor Mode）来运行。相对于其他类型的操作系统架构，如微内核架...
                         
                     </div>
 
@@ -764,14 +734,8 @@ Mode）来运行。相对于其他类型的操...
                     <div class="home-article-content markdown-body">
                         
                             
-                            调试环境搭建
-debug musl
-debug_musl 
-可以源码调试。 运行 setup.sh
-将源码及相关动态链接库解压到根目录下 musl
-文件夹下，用的时候只需要将对应版本的 libc.so
-文件复制到目录下，然后利用 patchelf 运行如下命令修改可执行文件所依赖的
-ld 为 libc.so 即可进行源码调试。 1patchelf --set-interpret...
+                            调试环境搭建debug musldebug_musl  可以源码调试。运行 setup.sh 将源码及相关动态链接库解压到根目录下 musl 文件夹下，用的时候只需要将对应版本的 libc.so 文件复制到目录下，然后利用 patchelf 运行如下命令修改可执行文件所依赖的 ld 为 libc.so 即可进行源码调试。 
+1patchelf --set-interpreter ./libc...
                         
                     </div>
 
@@ -832,7 +796,7 @@ ld 为 libc.so 即可进行源码调试。 1patchelf --set-interpret...
                     </span>
                     
                         <span>
-                            319.7k words in total
+                            319.9k words in total
                         </span>
                     
                 </p>
