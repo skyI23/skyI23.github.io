@@ -251,7 +251,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">22</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -292,7 +292,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">22</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -309,6 +309,49 @@
                 
                     <div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-kernel-pwn-exploit-technique/">
+                            linux kernel pwn 内核利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            NULL Pointer Dereference上古利用方法，仅做记录。
+如果内核模块中存在可以被调用的空函数指针，那么调用该空指针函数会执行 0 地址对应的代码。如果此时在内存 0 地址处实现写入 payload 就会执行payload。
+首先内核驱动代码如下，其中 my_funptr 是一个空函数指针，且在调用 write 函数时会执行到。
+12345678910111213141516...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 20:28:24 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/11/08/linux-kernel-pwn-exploit-technique/">Read more<span class="seo-reader-text">linux kernel pwn 内核利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -740,46 +783,6 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/08/CVE-2024-21762/">
-                            CVE-2024-21762 分析
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <p>Here’s something encrypted, password is required to continue reading.</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Nov 08 2024 02:24:40 GMT+0800">
-                
-                    2024-11-08
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/11/08/CVE-2024-21762/">Read more<span class="seo-reader-text">CVE-2024-21762 分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -814,11 +817,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        21 posts in total
+                        22 posts in total
                     </span>
                     
                         <span>
-                            347.7k words in total
+                            376.4k words in total
                         </span>
                     
                 </p>
