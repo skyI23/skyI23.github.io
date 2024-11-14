@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-useful-structs/images/92b01e4f650bec3bae57d61c3fdf5a64.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-useful-structs/images/49f1ae3de8033bbcdf7a0be6bde9e1ec.png">
 <meta property="article:published_time" content="2024-11-08T12:33:04.185Z">
-<meta property="article:modified_time" content="2024-11-12T05:36:37.822Z">
+<meta property="article:modified_time" content="2024-11-14T21:24:14.081Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-useful-structs/images/b4829bf55668e513c31f40e641cae294.png">
@@ -303,8 +303,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-12 13:36:37</span>
-            <span class="mobile">2024-11-12 13:36:37</span>
+            <span class="desktop">2024-11-15 05:24:14</span>
+            <span class="mobile">2024-11-15 05:24:14</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -315,7 +315,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>28.6k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>28.7k Words</span>
         </span>
     
     
@@ -841,6 +841,18 @@
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">skb_shared_info</span> &#123;</span></span><br><span class="line">	__u8		flags;</span><br><span class="line">	__u8		meta_len;</span><br><span class="line">	__u8		nr_frags;</span><br><span class="line">	__u8		tx_flags;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">short</span>	gso_size;</span><br><span class="line">	<span class="comment">/* Warning: this field is not always filled in (UFO)! */</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">short</span>	gso_segs;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sk_buff</span>	*<span class="title">frag_list</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">skb_shared_hwtstamps</span> <span class="title">hwtstamps</span>;</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span>	gso_type;</span><br><span class="line">	u32		tskey;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * Warning : all fields before dataref are cleared in __alloc_skb()</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="type">atomic_t</span>	dataref;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Intermediate layers must ensure that destructor_arg</span></span><br><span class="line"><span class="comment">	 * remains valid until skb destructor */</span></span><br><span class="line">	<span class="type">void</span> *		destructor_arg;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* must be last field, see pskb_expand_head() */</span></span><br><span class="line">	<span class="type">skb_frag_t</span>	frags[MAX_SKB_FRAGS];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 
 <p><code>skb_shared_info</code> 结构体的<strong>大小为 320 字节，这意味着我们能够利用分配的 object 最小的大小也得是 512 字节，这无疑为我们的利用增添了几分难度</strong>，但不可否认的是 <code>sk_buff</code> 仍为我们提供了较大对象的任意分配写入与释放。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>为数据包分配的内存是从 <code>kmalloc-xx</code> 而不是从 <code>kmalloc-cg-</code> 中申请的。</p>
+
+    </div>
+  </div>
+
 <h3 id="释放"><a href="#释放" class="headerlink" title="释放"></a>释放</h3><p>我们只需要沿着发送的路径接收该包就能将其释放掉，例如若是我们通过向套接字中写入数据创建了一个包，则从套接字中读出该包便能将其释放</p>
 <p>在内核中调用的是 <code>kfree_skb()</code> 函数进行释放，对于数据，其最终会调用到 <code>skb_release_data()</code> ，在这其中调用到 <code>skb_free_head()</code> 进行释放：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">skb_free_head</span><span class="params">(<span class="keyword">struct</span> sk_buff *skb)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">char</span> *head = skb-&gt;head;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (skb-&gt;head_frag) &#123;</span><br><span class="line">		<span class="keyword">if</span> (skb_pp_recycle(skb, head))</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		skb_free_frag(head);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		kfree(head);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
@@ -862,6 +874,18 @@
 <p>现在我们来看具体过程，在 <code>add_key()</code> 系统调用中其会为 <code>decription</code> 与 <code>payload</code> 都分配对应大小的对象，并将数据拷贝到内核空间当中：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL_DEFINE5(add_key, <span class="type">const</span> <span class="type">char</span> __user *, _type,</span><br><span class="line">		<span class="type">const</span> <span class="type">char</span> __user *, _description,</span><br><span class="line">		<span class="type">const</span> <span class="type">void</span> __user *, _payload,</span><br><span class="line">		<span class="type">size_t</span>, plen,</span><br><span class="line">		<span class="type">key_serial_t</span>, ringid)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">	<span class="keyword">if</span> (_description) &#123;</span><br><span class="line">        <span class="comment">// 为 decription 分配对象并将数据拷贝到内核空间当中</span></span><br><span class="line">		description = strndup_user(_description, KEY_MAX_DESC_SIZE); </span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">	<span class="keyword">if</span> (plen) &#123;</span><br><span class="line">		ret = -ENOMEM;</span><br><span class="line">        <span class="comment">// 为 payload 分配对象</span></span><br><span class="line">		payload = kvmalloc(plen, GFP_KERNEL);</span><br><span class="line">		<span class="keyword">if</span> (!payload)</span><br><span class="line">			<span class="keyword">goto</span> error2;</span><br><span class="line"></span><br><span class="line">		ret = -EFAULT;</span><br><span class="line">        <span class="comment">// 将 payload 数据拷贝到内核空间当中</span></span><br><span class="line">		<span class="keyword">if</span> (copy_from_user(payload, _payload, plen) != <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">goto</span> error3;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 再次为 decription 和 payload 分配对象</span></span><br><span class="line">	key_ref = key_create_or_update(keyring_ref, type, description,</span><br><span class="line">				       payload, plen, KEY_PERM_UNDEF,</span><br><span class="line">				       KEY_ALLOC_IN_QUOTA);</span><br><span class="line">    ...</span><br><span class="line"> error3:</span><br><span class="line">	<span class="keyword">if</span> (payload) &#123;</span><br><span class="line">		memzero_explicit(payload, plen);</span><br><span class="line">        <span class="comment">// 释放第一次分配的 payload</span></span><br><span class="line">		kvfree(payload);</span><br><span class="line">	&#125;</span><br><span class="line"> error2:</span><br><span class="line">    <span class="comment">// 释放第一次分配的 description</span></span><br><span class="line">	kfree(description);</span><br><span class="line"> error:</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>这个函数的真实名称是 <code>__x64_sys_add_key</code> ，我们在调试的时候应该按照这个真实名称下断点。</p>
+
+    </div>
+  </div>
+
 <p>拷贝 <code>description</code> 使用的是 <code>strndup_user()</code> ，可以看作 <code>kmalloc() + strcpy()</code> 的结合体，并限制了最大长度为 <code>KEY_MAX_DESC_SIZE</code>（4096），其核心是使用 <code>memdup_user()</code> 进行对象的分配与拷贝，使用的分配 flag 为 <code>GFP_USER | __GFP_NOWARN</code>，而 <code>GFP_USER</code> 其实等价于 <code>GFP_KERNEL | __GFP_HARDWALL</code> ：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">memdup_user</span><span class="params">(<span class="type">const</span> <span class="type">void</span> __user *src, <span class="type">size_t</span> len)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">void</span> *p;</span><br><span class="line"></span><br><span class="line">	p = kmalloc_track_caller(len, GFP_USER | __GFP_NOWARN);</span><br><span class="line">	<span class="keyword">if</span> (!p)</span><br><span class="line">		<span class="keyword">return</span> ERR_PTR(-ENOMEM);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (copy_from_user(p, src, len)) &#123;</span><br><span class="line">		kfree(p);</span><br><span class="line">		<span class="keyword">return</span> ERR_PTR(-EFAULT);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line">EXPORT_SYMBOL(memdup_user);</span><br></pre></td></tr></table></figure></div>
 
@@ -869,6 +893,18 @@
 <p>不过这两个对象都为<strong>临时对象</strong>，类似于 <code>setxattr</code> ，在 <code>add_key()</code> 系统调用结束时这两个用来存储数据的临时对象便会被释放掉。</p>
 <p>但是实际上在 <code>add_key()</code> 调用的 <code>key_create_or_update()</code> 中还会进行第二次对象分配。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">key_ref_t</span> <span class="title function_">key_create_or_update</span><span class="params">(<span class="type">key_ref_t</span> keyring_ref,</span></span><br><span class="line"><span class="params">			       <span class="type">const</span> <span class="type">char</span> *type,</span></span><br><span class="line"><span class="params">			       <span class="type">const</span> <span class="type">char</span> *description,</span></span><br><span class="line"><span class="params">			       <span class="type">const</span> <span class="type">void</span> *payload,</span></span><br><span class="line"><span class="params">			       <span class="type">size_t</span> plen,</span></span><br><span class="line"><span class="params">			       <span class="type">key_perm_t</span> perm,</span></span><br><span class="line"><span class="params">			       <span class="type">unsigned</span> <span class="type">long</span> flags)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">keyring_index_key</span> <span class="title">index_key</span> =</span> &#123;</span><br><span class="line">		.description	= description,</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">key_preparsed_payload</span> <span class="title">prep</span>;</span></span><br><span class="line">    ...</span><br><span class="line">	<span class="built_in">memset</span>(&amp;prep, <span class="number">0</span>, <span class="keyword">sizeof</span>(prep));</span><br><span class="line">	prep.data = payload;</span><br><span class="line">	prep.datalen = plen;</span><br><span class="line">	prep.quotalen = index_key.type-&gt;def_datalen;</span><br><span class="line">	prep.expiry = TIME64_MAX;</span><br><span class="line">	<span class="keyword">if</span> (index_key.type-&gt;preparse) &#123;</span><br><span class="line">        <span class="comment">// 再次为 payload 分配对象</span></span><br><span class="line">		ret = index_key.type-&gt;preparse(&amp;prep);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 为 key 分配对象并再次为 description 分配对象</span></span><br><span class="line">	key = key_alloc(index_key.type, index_key.description,</span><br><span class="line">			cred-&gt;fsuid, cred-&gt;fsgid, cred, perm, flags, <span class="literal">NULL</span>);</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// user_key_payload 存储到 key </span></span><br><span class="line">	ret = __key_instantiate_and_link(key, &amp;prep, keyring, <span class="literal">NULL</span>, &amp;edit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p>这里会关于 <code>description</code> 去重，也就是说如果我们申请了两个 <code>description</code> 相同的 key，则后一个 key 的申请会导致前一个 key 的 <code>payload</code> 释放。</p>
+
+    </div>
+  </div>
 
 <p>这里的 <code>index_key.type</code> 根据我们传进来的 <code>type</code> 参数决定，对于 <code>&quot;user&quot;</code> 而言该函数表应当为 <code>key_type_user</code>：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">key_type</span> <span class="title">key_type_user</span> =</span> &#123;</span><br><span class="line">	.name			= <span class="string">&quot;user&quot;</span>,</span><br><span class="line">	.preparse		= user_preparse,</span><br><span class="line">	.free_preparse		= user_free_preparse,</span><br><span class="line">	.instantiate		= generic_key_instantiate,</span><br><span class="line">	.update			= user_update,</span><br><span class="line">	.revoke			= user_revoke,</span><br><span class="line">	.destroy		= user_destroy,</span><br><span class="line">	.describe		= user_describe,</span><br><span class="line">	.read			= user_read,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
@@ -1033,7 +1069,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-12 13:36:37
+                    :</strong> 2024-11-15 05:24:14
             </li>
         
         <li>
@@ -1197,7 +1233,7 @@
                     </span>
                     
                         <span>
-                            377.2k words in total
+                            377.4k words in total
                         </span>
                     
                 </p>
