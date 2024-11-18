@@ -325,7 +325,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">25</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -363,7 +363,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">25</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -391,6 +391,88 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2024/11/08/windows-user-pwn-exploit-technique/">
+                            windows user pwn
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            栈溢出
+32 位栈溢出
+附件下载链接 
+程序保护如下，没有开 GS 保护。  程序是一个简单的栈溢出：
+12345678910111213141516int __cdecl main_0(int argc, const char **argv, const char **envp)&#123;  char v4; // [esp+0h] [ebp-1D4h]  char v5; //...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 21:02:45 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/windows-user-pwn/">windows user pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-user-pwn/">windows user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/windows-user-pwn-exploit-technique/">Read more<span class="seo-reader-text">windows user pwn</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2024/11/08/windows-user-pwn-basic-knowlege/">
                             windows user pwn 基础知识
                         </a>
@@ -399,8 +481,15 @@
                     <div class="home-article-content markdown-body">
                         
                             
-                            环境搭建checksecwinchecksecwinchecksec  是 windows 版的 checksec ，不过有时候结果不太准确。
-checksec（x64dbg）x64dbg  的插件 checksec  检查效果比较准确，并且可以连同加载的 dll 一起检测。将 release 的插件按 32 和 64 位分别放到 x32dbg 和 x64dbg 的 plugins 目录，如...
+                            环境搭建
+checksec
+winchecksec
+winchecksec 
+是 windows 版的 checksec ，不过有时候结果不太准确。 
+checksec（x64dbg）
+x64dbg  的插件 checksec 
+检查效果比较准确，并且可以连同加载的 dll 一起检测。  将 release 的插件按 32 和 64 位分别放到
+x32dbg 和 x64dbg...
                         
                     </div>
 
@@ -478,9 +567,13 @@ checksec（x64dbg）x64dbg  的插件 checksec  检查效果比较准确，并�
                     <div class="home-article-content markdown-body">
                         
                             
-                            tty 设备结构体tty 设备在 /dev 下的一个伪终端设备 ptmx 。
-tty_struct（kmalloc-1k | GFP_KERNEL_ACCOUNT）tty_struct 定义如下 。 
-123456789/* tty magic number */#define TTY_MAGIC        0x5401struct tty_struct &#123;    int   ...
+                            tty 设备结构体
+tty 设备在 /dev 下的一个伪终端设备 ptmx
+。
+tty_struct（kmalloc-1k
+| GFP_KERNEL_ACCOUNT）
+tty_struct 定义如下 。
+123456789/* tty magic number */#define TTY_MAGIC        0x5401struct tty_struct &#123;   ...
                         
                     </div>
 
@@ -558,10 +651,14 @@ tty_struct（kmalloc-1k | GFP_KERNEL_ACCOUNT）tty_struct 定义如下 。
                     <div class="home-article-content markdown-body">
                         
                             
-                            NULL Pointer Dereference上古利用方法，仅做记录。
-如果内核模块中存在可以被调用的空函数指针，那么调用该空指针函数会执行 0 地址对应的代码。如果此时在内存 0 地址处实现写入 payload 就会执行payload。
-首先内核驱动代码如下，其中 my_funptr 是一个空函数指针，且在调用 write 函数时会执行到。
-12345678910111213141516...
+                            NULL Pointer Dereference
+上古利用方法，仅做记录。
+如果内核模块中存在可以被调用的空函数指针，那么调用该空指针函数会执行
+0 地址对应的代码。如果此时在内存 0 地址处实现写入 payload
+就会执行payload。
+首先内核驱动代码如下，其中 my_funptr 是一个空函数指针，且在调用 write
+函数时会执行到。
+123456789101112...
                         
                     </div>
 
@@ -639,8 +736,12 @@ tty_struct（kmalloc-1k | GFP_KERNEL_ACCOUNT）tty_struct 定义如下 。
                     <div class="home-article-content markdown-body">
                         
                             
-                            linux 内核概述Linux 内核由 Linus Torvalds 于 1991 年开发，最初的目的是为 Intel 80386 处理器编写一个类 UNIX 系统的内核。当前版本的 Linux 内核由全球社区共同开发维护，通过 Git 管理源代码。
-内核概述内核（Kernel）是操作系统的核心部分，负责管理硬件资源并提供给用户程序使用。它充当硬件和应用程序之间的桥梁，是操作系统最基础和最关...
+                            linux 内核概述
+Linux 内核由 Linus Torvalds 于 1991 年开发，最初的目的是为 Intel
+80386 处理器编写一个类 UNIX 系统的内核。当前版本的 Linux
+内核由全球社区共同开发维护，通过 Git 管理源代码。
+内核概述
+内核（Kernel）是操作系统的核心部分，负责管理硬件资源并提供给用户程序使用。它充当硬件和应用程序之间的桥梁，是操作系...
                         
                     </div>
 
@@ -718,8 +819,15 @@ tty_struct（kmalloc-1k | GFP_KERNEL_ACCOUNT）tty_struct 定义如下 。
                     <div class="home-article-content markdown-body">
                         
                             
-                            调试环境搭建debug musldebug_musl  可以源码调试。运行 setup.sh 将源码及相关动态链接库解压到根目录下 musl 文件夹下，用的时候只需要将对应版本的 libc.so 文件复制到目录下，然后利用 patchelf 运行如下命令修改可执行文件所依赖的 ld 为 libc.so 即可进行源码调试。 
-1patchelf --set-interpreter ./libc...
+                            调试环境搭建
+debug musl
+debug_musl 
+可以源码调试。 运行 setup.sh
+将源码及相关动态链接库解压到根目录下 musl
+文件夹下，用的时候只需要将对应版本的 libc.so
+文件复制到目录下，然后利用 patchelf 运行如下命令修改可执行文件所依赖的
+ld 为 libc.so 即可进行源码调试。
+1patchelf --set-interpre...
                         
                     </div>
 
@@ -797,16 +905,18 @@ tty_struct（kmalloc-1k | GFP_KERNEL_ACCOUNT）tty_struct 定义如下 。
                     <div class="home-article-content markdown-body">
                         
                             
-                            背景知识浏览器框架它是⼀个多进程+IPC的程序, 不同的进程管理不同的内容,
+                            背景知识
+浏览器框架
+它是⼀个多进程+IPC的程序, 不同的进程管理不同的内容,
 
 browser process: 主进程
 rander process: 负责控制渲染内容
 GPU process: 负责渲染内容
 utility process: 标签页进程
-plugin process: 插件进程
+plugin process: 插件进程 
 
-每个插件, 每个标签页都是单独的进程, 有属于自己的PID
-JS 引擎各浏览器对应的 js ...
+每个插件, 每个标签页都是单独的进程, 有属于自己的PID 
+J...
                         
                     </div>
 
@@ -886,8 +996,9 @@ JS 引擎各浏览器对应的 js ...
                             
                             ptmalloc2 是目前 Linux 标准发行版中使用的堆分配器。
 内存分配基本思想
+
 堆管理器负责向操作系统申请内存，然后将其返回给用户程序，但是频繁的系统调用会造成大量的开销。为了保持内存管理的高效性，内核一般都会预先分配很大的一块连续的内存，然后让堆管理器通过某种算法管理这块内存。只有当出现了堆空间不足的情况，堆管理器才会再次与操作系统进行交互。
-一般来说，用户释放的内存并不是直接返还...
+一般来说，用户释放的内存并不...
                         
                     </div>
 
@@ -965,11 +1076,17 @@ JS 引擎各浏览器对应的 js ...
                     <div class="home-article-content markdown-body">
                         
                             
-                            debug glibc ：对于一些复杂的堆利用，可以先用支持源码调试的 libc 完成利用，然后改偏移打题目提供的 libc 。
-Unlink假设正常情况下，每申请一个 chunk 会保存一个指向该 chunk 内存块的指针。在 chunk1 伪造 fake chunk ，需要注意：
+                            debug
+glibc ：对于一些复杂的堆利用，可以先用支持源码调试的 libc
+完成利用，然后改偏移打题目提供的 libc 。
+Unlink
+假设正常情况下，每申请一个 chunk 会保存一个指向该 chunk
+内存块的指针。
+
+在 chunk1 伪造 fake chunk ，需要注意：
 
 为了绕过
-12if (__builtin_expect(FD-&gt;bk != P || BK-&gt;...
+12if (__builtin_expect(FD-&gt;bk !=...
                         
                     </div>
 
@@ -1047,11 +1164,14 @@ Unlink假设正常情况下，每申请一个 chunk 会保存一个指向该 chu
                     <div class="home-article-content markdown-body">
                         
                             
-                            基础知识常见格式化字符串函数
+                            基础知识
+常见格式化字符串函数
+
 
 
 函数
 基本介绍
+
 
 
 
@@ -1076,14 +1196,7 @@ sprintf
 
 
 snprintf
-输出指定字节数到字符串
-
-
-vsprintf
-根据参数列表格式化输出到字符串
-
-
-vsnp...
+输出指定字节数到字符...
                         
                     </div>
 
@@ -1144,90 +1257,6 @@ vsnp...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/08/linux-stack-overflow/">
-                            linux 栈溢出
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            逻辑漏洞栈溢出往往可以覆盖栈上的其他局部变量造成逻辑漏洞。
-ret2text栈溢出覆盖返回地址为后门函数从而获取shell。
-ret2shellcode将shellcode写入可执行的内存地址处，然后栈溢出覆盖返回地址到shellcode从而执行shellcode获取shell。测试 shellcode 例题：
-
-32位例题：wdb_2018_3rd_soEasy
-
-64位例题：ciscn_...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Nov 08 2024 03:10:56 GMT+0800">
-                
-                    2024-11-08
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/pwn/">pwn</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/pwn/linux-user-pwn/">linux user pwn</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/11/08/linux-stack-overflow/">Read more<span class="seo-reader-text">linux 栈溢出</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1262,11 +1291,11 @@ ret2shellcode将shellcode写入可执行的内存地址处，然后栈溢出覆�
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        24 posts in total
+                        25 posts in total
                     </span>
                     
                         <span>
-                            382k words in total
+                            381.7k words in total
                         </span>
                     
                 </p>

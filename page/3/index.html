@@ -325,7 +325,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">25</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -363,7 +363,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">25</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -391,6 +391,93 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-stack-overflow/">
+                            linux 栈溢出
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            逻辑漏洞
+栈溢出往往可以覆盖栈上的其他局部变量造成逻辑漏洞。
+ret2text
+栈溢出覆盖返回地址为后门函数从而获取shell。
+ret2shellcode
+将shellcode写入可执行的内存地址处，然后栈溢出覆盖返回地址到shellcode从而执行shellcode获取shell。
+测试 shellcode 例题：
+
+32位例题：wdb_2018_3rd_soEasy
+...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:10:56 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-user-pwn/">linux user pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-stack-overflow/">Read more<span class="seo-reader-text">linux 栈溢出</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2024/11/08/linux-IO_FILE-exploit/">
                             linux IO_FILE 利用
                         </a>
@@ -399,13 +486,17 @@
                     <div class="home-article-content markdown-body">
                         
                             
-                            FILE 结构IO FILE 定义的各种主要结构关系如下图所示。
+                            FILE 结构
+IO FILE 定义的各种主要结构关系如下图所示。 
 
-各种文件结构采用单链表的形式连接起来，通过 _IO_list_all 访问。
-
-vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
-
-初始情况下 _IO_FILE 结构有 _IO_2_1_stderr_ ，_IO_2_1_stdout_，_IO_2_1_stdin_ 三个，通过 _IO_list_all 将...
+各种文件结构采用单链表的形式连接起来，通过
+_IO_list_all 访问。
+vatble 为函数指针结构体，存放着各种 IO
+相关的函数的指针。
+初始情况下 _IO_FILE 结构有
+_IO_2_1_stderr_
+，_IO_2_1_stdout_，_IO_2_1_stdin_ 三个，通过
+_IO_...
                         
                     </div>
 
@@ -483,10 +574,12 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                     <div class="home-article-content markdown-body">
                         
                             
-                            反序列化基础Java 的序列化（Serialization）和反序列化（Deserialization）是将对象的状态转换为字节流并恢复的过程。这个过程使对象可以保存到文件、通过网络传输或保存到数据库中，并在稍后恢复成对象。
-
-序列化（Serialization）：将 Java 对象的状态转换为字节流的过程。这使得对象可以保存到文件、发送到其他 JVM 甚至通过网络传输。
-反序列化（Dese...
+                            反序列化基础
+Java
+的序列化（Serialization）和反序列化（Deserialization）是将对象的状态转换为字节流并恢复的过程。这个过程使对象可以保存到文件、通过网络传输或保存到数据库中，并在稍后恢复成对象。
+- 序列化（Serialization）：将 Java
+对象的状态转换为字节流的过程。这使得对象可以保存到文件、发送到其他 JVM
+甚至通过网络传输。 -...
                         
                     </div>
 
@@ -563,7 +656,8 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
 
                     <div class="home-article-content markdown-body">
                         
-                            <p>Here’s something encrypted, password is required to continue reading.</p>
+                            <p>Here's something encrypted, password is required to continue
+reading.</p>
 
                         
                     </div>
@@ -604,11 +698,18 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                     <div class="home-article-content markdown-body">
                         
                             
-                            环境搭建虚拟机安装
+                            环境搭建
+虚拟机安装
+
 镜像下载网站 
-为了避免环境问题建议 22.04 ，20.04，18.04，16.04 等常见版本 ubuntu 虚拟机环境各准备一份。注意定期更新快照以防意外。
-虚拟机建议硬盘 256 G 以上，内存也尽量大一些。硬盘大小只是上界，256 G 不是真就占了 256 G，而后期如果硬盘空间不足会很麻烦。
-更换 ubuntu 镜像源  ，建议先在 系统设置 → Softwa...
+为了避免环境问题建议 22.04 ，20.04，18.04，16.04 等常见版本
+ubuntu 虚拟机环境各准备一份。注意定期更新快照以防意外。
+虚拟机建议硬盘 256 G
+以上，内存也尽量大一些。硬盘大小只是上界，256 G 不是真就占了 256
+G，而后期如果硬盘空间不足会很麻烦。
+更换 ubuntu
+镜像源  ，建议先在
+...
                         
                     </div>
 
@@ -703,11 +804,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        24 posts in total
+                        25 posts in total
                     </span>
                     
                         <span>
-                            382k words in total
+                            381.7k words in total
                         </span>
                     
                 </p>
