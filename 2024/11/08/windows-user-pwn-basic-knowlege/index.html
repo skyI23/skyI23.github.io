@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="环境搭建 checksec winchecksec winchecksec  是 windows 版的 checksec ，不过有时候结果不太准确。  checksec（x64dbg） x64dbg  的插件 checksec  检查效果比较准确，并且可以连同加载的 dll 一起检测。  将 release 的插件按 32 和 64 位分别放到 x32dbg 和 x64dbg 的">
+        <meta name="description" content="环境搭建 checksec winchecksec winchecksec 是 windows 版的 checksec ，不过有时候结果不太准确。  checksec（x64dbg） x64dbg 的插件 checksec 检查效果比较准确，并且可以连同加载的 dll 一起检测。  将 release 的插件按 32 和 64 位分别放到 x32dbg 和 x64dbg 的 plu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows user pwn 基础知识">
 <meta property="og:url" content="https://skyi23.github.io/2024/11/08/windows-user-pwn-basic-knowlege/index.html">
 <meta property="og:site_name" content="sky123">
-<meta property="og:description" content="环境搭建 checksec winchecksec winchecksec  是 windows 版的 checksec ，不过有时候结果不太准确。  checksec（x64dbg） x64dbg  的插件 checksec  检查效果比较准确，并且可以连同加载的 dll 一起检测。  将 release 的插件按 32 和 64 位分别放到 x32dbg 和 x64dbg 的">
+<meta property="og:description" content="环境搭建 checksec winchecksec winchecksec 是 windows 版的 checksec ，不过有时候结果不太准确。  checksec（x64dbg） x64dbg 的插件 checksec 检查效果比较准确，并且可以连同加载的 dll 一起检测。  将 release 的插件按 32 和 64 位分别放到 x32dbg 和 x64dbg 的 plu">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/windows-user-pwn-basic-knowlege/images/7ef236576d51ace32a8893c30cff0e9a.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/windows-user-pwn-basic-knowlege/images/975a35d6a67ece4db6590375e3b13fe4.png">
@@ -81,7 +81,7 @@
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8ac4e246eb32e9d376332cff7aee1d80.png%20=50%x">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f00f1505aecb8d06c56dac2fd2b4243b.png%20=70%x">
 <meta property="article:published_time" content="2024-11-08T12:54:39.525Z">
-<meta property="article:modified_time" content="2024-11-18T04:54:12.832Z">
+<meta property="article:modified_time" content="2024-11-19T19:29:27.994Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="windows user pwn">
 <meta name="twitter:card" content="summary">
@@ -89,10 +89,10 @@
     
     
     <!--- Icon Part-->
-    <link rel="icon" type="image/png" href="/images/icon.jpg" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg">
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
     <meta name="theme-color" content="#A31F34">
-    <link rel="shortcut icon" href="/images/icon.jpg">
+    <link rel="shortcut icon" href="/null">
     <!--- Page Info-->
     
     <title>
@@ -114,7 +114,7 @@
 
     
         
-<link rel="stylesheet" href="/assets/build/styles.css">
+<link rel="stylesheet" href="/build/css/tailwind.css">
 
     
 
@@ -136,7 +136,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":4,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.8.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -161,31 +161,28 @@
 <!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
+
 <body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
 
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
-
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container flex flex-col justify-between min-h-dvh">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
     <div class="navbar-content transition-navbar ">
         <div class="left">
             
@@ -362,38 +359,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">windows user pwn 基础知识</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">windows user pwn 基础知识</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="/images/icon.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">sky123</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2024-11-08 20:54:39</span>
@@ -403,8 +399,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-18 12:54:12</span>
-            <span class="mobile">2024-11-18 12:54:12</span>
+            <span class="desktop">2024-11-20 03:29:27</span>
+            <span class="mobile">2024-11-20 03:29:27</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -452,7 +448,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>30.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>30.4k Words</span>
         </span>
     
     
@@ -467,42 +463,50 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="环境搭建">环境搭建</h1>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="环境搭建">环境搭建</h1>
 <h2 id="checksec">checksec</h2>
 <h3 id="winchecksec">winchecksec</h3>
-<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/trailofbits/winchecksec" >winchecksec <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
-是 windows 版的 checksec ，不过有时候结果不太准确。 <img 
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/trailofbits/winchecksec" >winchecksec<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
+是 windows 版的 checksec ，不过有时候结果不太准确。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/7ef236576d51ace32a8893c30cff0e9a.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h3 id="checksecx64dbg">checksec（x64dbg）</h3>
-<p><a class="link"   target="_blank" rel="noopener" href="https://x64dbg.com/" >x64dbg <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 的插件 <a class="link" 
- target="_blank" rel="noopener" href="https://github.com/klks/checksec" >checksec <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
-检查效果比较准确，并且可以连同加载的 dll 一起检测。 <img 
+<p><a class="link"   target="_blank" rel="noopener" href="https://x64dbg.com/" >x64dbg<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i> 的插件 <a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/klks/checksec" >checksec<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
+检查效果比较准确，并且可以连同加载的 dll 一起检测。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/975a35d6a67ece4db6590375e3b13fe4.png"
                      
-alt="在这里插入图片描述" 
-                > 将 release 的插件按 32 和 64 位分别放到
-x32dbg 和 x64dbg 的 plugins 目录，如果找不到 plugins
+                      
+                
+                > 将 release 的插件按
+32 和 64 位分别放到 x32dbg 和 x64dbg 的 plugins 目录，如果找不到 plugins
 目录则打开调试器然后关闭就出现了。</p>
 <h2 id="winpwn">winpwn</h2>
-<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/byzero512/winpwn" >winpwn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 是 windows
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/byzero512/winpwn" >winpwn<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i> 是 windows
 平台上类似 pwntools 的 python 库，使用这个库可以更方便的编写 exp 。</p>
 <p>winpwn 支持如下功能：</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> process</span><br><span class="line">   + process(<span class="string">&quot;./pwn&quot;</span>)</span><br><span class="line">   + process([<span class="string">&quot;./pwn&quot;</span>,<span class="string">&quot;argv[1]&quot;</span>,<span class="string">&quot;argv[2]&quot;</span>])</span><br><span class="line">   + p.readm(addr,n) <span class="comment"># read process memory</span></span><br><span class="line">   + p.writem(addr,con=<span class="string">&quot;&quot;</span>) <span class="comment"># write process memory</span></span><br><span class="line"><span class="number">2.</span> remote</span><br><span class="line">   + remote(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">65535</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> context</span><br><span class="line">   + context.timeout=<span class="number">512</span></span><br><span class="line">   + context.debugger=<span class="string">&quot;gdb&quot;</span> <span class="comment"># or &quot;windbg&quot; or &quot;x64dbg&quot;</span></span><br><span class="line">   + context.endian=<span class="string">&quot;little&quot;</span></span><br><span class="line">   + context.log_level=<span class="string">&quot;&quot;</span> <span class="comment"># or &quot;debug&quot;</span></span><br><span class="line">   + context.terminal=[ ]</span><br><span class="line">   + context.newline=<span class="string">&quot;\r\n&quot;</span></span><br><span class="line">   + context.arch=<span class="string">&quot;i386&quot;</span> <span class="comment"># or &quot;amd64&quot;</span></span><br><span class="line">   + content.pie=<span class="literal">None</span></span><br><span class="line">   + context.dbginit=<span class="literal">None</span> <span class="comment"># used to set debugger init script</span></span><br><span class="line">   + context.windbg=<span class="literal">None</span> <span class="comment"># set debugger path, or use .winpwn to find debugger path</span></span><br><span class="line">   + context.windbgx=<span class="literal">None</span></span><br><span class="line">   + content.gdb=<span class="literal">None</span></span><br><span class="line">   + context.x64dbg=<span class="literal">None</span></span><br><span class="line">   + context.nocolor=<span class="literal">None</span> <span class="comment"># if set, will print non-colorful output to terminal</span></span><br><span class="line">   </span><br><span class="line"><span class="number">4.</span> dbg: windbgx, windbg, gdb, x64dbg</span><br><span class="line">   + windbgx.attach(p,script=<span class="string">&quot;bp 0x401000&quot;</span>)</span><br><span class="line">   + windbg.attach(p,script=<span class="string">&quot;bp 0x401000&quot;</span>)</span><br><span class="line">   + gdb.attach(p, script=<span class="string">&quot;b *0x401000&quot;</span>)</span><br><span class="line">   + x64dbg.attach(p) <span class="comment">#can not parse script file yet</span></span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> disable PIE:</span><br><span class="line">   + PIE(exe_fpath=<span class="string">&quot;&quot;</span>)</span><br><span class="line">   + NOPIE(exe_fpath=<span class="string">&quot;&quot;</span>)</span><br><span class="line"><span class="number">6.</span> asm/disasm:</span><br><span class="line">   + asm(<span class="string">&quot;push ebp&quot;</span>)</span><br><span class="line">   + disasm(<span class="string">&quot;\x55&quot;</span>)</span><br><span class="line">   </span><br><span class="line"><span class="number">7.</span> winfile(fpath=<span class="string">&quot;./main.exe&quot;</span>):</span><br><span class="line">   + winfile.symbols[<span class="string">&quot;CreateProcessA&quot;</span>] <span class="comment"># return symbol&#x27;s IAT/EAT offset of CreateProcessA by image base</span></span><br><span class="line"><span class="number">8.</span> wincs(ip,port)</span><br><span class="line">   + wincs(ip=<span class="literal">None</span>,port=<span class="number">512</span>): run a server to asm/disasm <span class="keyword">in</span> remote machine <span class="keyword">for</span> client where does <span class="keyword">not</span> install keystone/capstone</span><br><span class="line">   + wincs(ip=<span class="string">&#x27;123.123.123.123&#x27;</span>,<span class="number">512</span>): create a client to connet to server</span><br><span class="line">      + wincs.asm(asmcode=<span class="string">&#x27;push ebp&#x27;</span>)</span><br><span class="line">      + wincs.disasm(machinecode=<span class="string">&#x27;\x55&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
@@ -512,7 +516,7 @@ x32dbg 和 x64dbg 的 plugins 目录，如果找不到 plugins
 <h3 id="添加功能">添加功能</h3>
 <p>winpwn 中缺失了一些 pwntools 中的功能，这里我们修改 winpwn
 库添加一下（<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/winpwn" >修改好的项目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）。</p>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/winpwn" >修改好的项目<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>）。</p>
 <ul>
 <li><p>添加 sendline/sendlineafter</p></li>
 <li><p>添加 search ，这里 rebase 决定是否按照 ImageBase 进行重定位。</p>
@@ -525,33 +529,39 @@ x32dbg 和 x64dbg 的 plugins 目录，如果找不到 plugins
 </ul>
 <h2 id="windbg">windbg</h2>
 <h3 id="安装-windbg">安装 windbg</h3>
-<p>直接在微软商店下载 WinDbg Preview 。 <img 
+<p>直接在微软商店下载 WinDbg Preview 。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/2d6cc9a537931fb30b98d491f389e8b1.png"
                      
-alt="在这里插入图片描述" 
-                > 如果 <code>WinDbgX</code>
-已经添加到环境变量就可以使用在 winpwn 脚本中用 windbg 附加调试进程。</p>
+                      
+                
+                > 如果
+<code>WinDbgX</code> 已经添加到环境变量就可以使用在 winpwn 脚本中用
+windbg 附加调试进程。</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">context.windbgx = <span class="string">&#x27;WinDbgX&#x27;</span></span><br><span class="line">windbgx.attach(p)</span><br></pre></td></tr></table></figure></div>
 <p>在 windbg 中 选择 setting-&gt;Debugging settings ，在 Default symbol
 path 一栏填上，其中 <code>c:\mysymbols</code> 可以换成其他路径。</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srv*C:\mysymbols*https://msdl.microsoft.com/download/symbols</span><br></pre></td></tr></table></figure></div>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/d106b9e7b7c5d4722a8d0bedb5f7347d.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <p>这样 windbg
 下载的调试符号就可以保存到对应路径下，下一次调试就不用重新下载符号了。</p>
 <p>另外 WinDbg 支持安装插件，比如 <a class="link" 
- target="_blank" rel="noopener" href="https://github.com/0vercl0k/windbg-scripts" >windbg-scripts <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
+ target="_blank" rel="noopener" href="https://github.com/0vercl0k/windbg-scripts" >windbg-scripts<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
 可以让 WinDbg 支持 <code>!telescope</code> 命令。</p>
 <p>将 windbg-scripts 项目下载下来后，修改项目目录下的
 <code>Minfest</code> 目录下的 <code>config.xml</code> ，将其中的
@@ -565,24 +575,28 @@ alt="在这里插入图片描述"
 windbg 联动调试</h3>
 <p>ret_sync 可以把 windbg 的调试位置同步到 ida 上，配置方法如下：</p>
 <ul>
-<li><p>将 <a class="link"   target="_blank" rel="noopener" href="https://github.com/bootleg/ret-sync" >ret_sync <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
+<li><p>将 <a class="link"   target="_blank" rel="noopener" href="https://github.com/bootleg/ret-sync" >ret_sync<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
 项目下的 <code>ext_ida</code> 文件夹中的文件都复制到 IDA 的 plugins
 文件夹下。</p></li>
 <li><p>到这个<a class="link" 
- target="_blank" rel="noopener" href="https://dev.azure.com/bootlegdev/ret-sync-release/_build/results?buildId=109&amp;view=artifacts&amp;pathAsName=false&amp;type=publishedArtifacts" >网址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>下载
+ target="_blank" rel="noopener" href="https://dev.azure.com/bootlegdev/ret-sync-release/_build/results?buildId=109&amp;view=artifacts&amp;pathAsName=false&amp;type=publishedArtifacts" >网址<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>下载
 <code>ret-sync-release-windbg-Win32</code> 和
 <code>ret-sync-release-windbg-x64</code> 两个插件。</p></li>
 <li><p>把下载好的 <code>sync.dll</code> 和 <code>sync32.dll</code>（ 32
 位文件夹下的 <code>sync.dll</code> 改名为 <code>sync32.dll</code>
 ），复制到
 <code>C:\Users\username\AppData\Local\Microsoft\WindowsApps</code>
-文件夹下（与 WinDbg 在同一目录）。旧版windbg插件安装，参考<img 
+文件夹下（与 WinDbg 在同一目录）。旧版windbg插件安装，参考<img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/a684c3f07fae107bc22bd0a613316326.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p></li>
 <li><p>把要调试的 exe 和 dll 都用 ida 打开，然后都选择
 Edit-&gt;plugins-&gt;ret_sync 。 如果正常的话在 ida
@@ -595,13 +609,17 @@ Edit-&gt;plugins-&gt;ret_sync 。 如果正常的话在 ida
 <p>sync 常用命令如下：</p></li>
 <li><p><code>!synchelp</code> 查看帮助</p></li>
 <li><p><code>!sync</code> 完成ida 和 WinDbg 同步。结合 ida 的
-Synchronize with 就可以实现 windbg 与 ida 反编译结果的同步。 <img 
+Synchronize with 就可以实现 windbg 与 ida 反编译结果的同步。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/df32d63c51ec977256e5dfcc835a6394.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p></li>
 <li><p><code>!idblist</code> 查看已建立连接的 idb 。因为前面我打开了
 <code>ntdll.dll</code> 和 <code>stackoverflow.exe</code> 并且都运行了
@@ -708,7 +726,7 @@ ret_sync 插件，因此这里可以看到 <code>ntdll.dll</code> 和
 <p>安装方法如下：</p>
 <ul>
 <li><p>在 pypi 的 <a class="link" 
- target="_blank" rel="noopener" href="https://pypi.org/project/ropper/#files" >ropper 官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>上下载
+ target="_blank" rel="noopener" href="https://pypi.org/project/ropper/#files" >ropper 官网<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>上下载
 ropper</p></li>
 <li><p>运行安装脚本完成 ropper 安装</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py install</span><br></pre></td></tr></table></figure></div></li>
@@ -719,50 +737,68 @@ ropper</p></li>
 <p>在做 windows pwn 题目时需要搭一个接近远程环境的环境。</p>
 <h3 id="系统获取">系统获取</h3>
 <p>通常题目会提供一个系统版本截图，例如下图所示系统版本为
-<code>1809 17763.615</code> 。 <img 
+<code>1809 17763.615</code> 。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/dfbb8bb84197fd13b83fa87b676782a5.png"
                      
-alt="在这里插入图片描述" 
-                > 搜索这个版本号发现该系统的<a class="link" 
- target="_blank" rel="noopener" href="https://support.microsoft.com/zh-cn/topic/2019-%E5%B9%B4-7-%E6%9C%88-9-%E6%97%A5-kb4507469-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E9%83%A8%E7%89%88%E6%9C%AC-17763-615-388089ed-7308-664f-dc72-d8c91b4e1b23" >相关信息 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，从中可以获取到该版本系统的发布日期。
-<img  
+                      
+                
+                >
+搜索这个版本号发现该系统的<a class="link" 
+ target="_blank" rel="noopener" href="https://support.microsoft.com/zh-cn/topic/2019-%E5%B9%B4-7-%E6%9C%88-9-%E6%97%A5-kb4507469-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E9%83%A8%E7%89%88%E6%9C%AC-17763-615-388089ed-7308-664f-dc72-d8c91b4e1b23" >相关信息<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>，从中可以获取到该版本系统的发布日期。
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/bd9c87ff265567ed56db1eaa4155d70e.png"
                      
-alt="在这里插入图片描述" 
-                > 在一个收集 Windows 系统下载的<a class="link" 
- target="_blank" rel="noopener" href="https://files.rg-adguard.net/version/f0bd8307-d897-ef77-dbd6-216fefbe94c5" >网站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>上搜索时间相近的版本，比如这里我下载的
+                      
+                
+                > 在一个收集
+Windows 系统下载的<a class="link" 
+ target="_blank" rel="noopener" href="https://files.rg-adguard.net/version/f0bd8307-d897-ef77-dbd6-216fefbe94c5" >网站<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>上搜索时间相近的版本，比如这里我下载的
 2019 年 8 月份发布的 <a class="link" 
  target="_blank" rel="noopener" href="https://files.rg-adguard.net/file/c936c649-a7cc-7b46-11c6-dc0936c05461" >Windows
-Server 2019 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 。（<del>最好想办法搞一个
+Server 2019<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i> 。（<del>最好想办法搞一个
 迅雷会员，不然下到一半会失败</del> ）
 （现在这个网站已经不让下载了，可以用这个<a class="link" 
- target="_blank" rel="noopener" href="https://msdn.sjjzm.com/" >网站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>代替） <img 
+ target="_blank" rel="noopener" href="https://msdn.sjjzm.com/" >网站<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>代替） <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/53115c30ae685fce4893795642b396ab.png"
                      
-alt="在这里插入图片描述" 
-                > 搭完后，<code>win+r</code>，输入
-<code>winver</code> 查看版本
+                      
+                
+                >
+搭完后，<code>win+r</code>，输入 <code>winver</code> 查看版本
 <code>1809 17763.678</code>，非常接近题目给的
-<code>1809 17763.615</code> 。 <img 
+<code>1809 17763.615</code> 。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/26d895aeb336947262c6ccb24dd0dbb4.png"
                      
-alt="在这里插入图片描述" 
-                > 通过对比发现 <code>ntdll.dll</code>
-的关键结构偏移都相同。</p>
+                      
+                
+                > 通过对比发现
+<code>ntdll.dll</code> 的关键结构偏移都相同。</p>
 <h3 id="appjaillauncher">AppJailLauncher</h3>
 <p><a class="link" 
- target="_blank" rel="noopener" href="https://github.com/trailofbits/AppJailLauncher" >AppJailLauncher <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
+ target="_blank" rel="noopener" href="https://github.com/trailofbits/AppJailLauncher" >AppJailLauncher<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
 可以将一个 windows 程序的 IO 映射到一个端口上并且能无限重启。</p>
 <p>例如下面的命令可以将 <code>stackoverflow_32.exe</code> 的 IO 映射到
 22333 端口上，之后用 nc 命令连对应 IP 的 22333 端口上。</p>
@@ -773,21 +809,30 @@ alt="在这里插入图片描述"
 库的便捷性，我直接将调试环境搭建在虚拟机中。</p>
 <p>由于该操作系统版本无应用商店，因此我们下载 <a class="link" 
  target="_blank" rel="noopener" href="https://developer.microsoft.com/zh-cn/windows/downloads/windows-sdk/" >Windows
-SDK <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 来安装 WinDbg 。在安装时可以只勾选调试器选项。 <img 
+SDK<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i> 来安装 WinDbg 。在安装时可以只勾选调试器选项。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/30561a046c100aacc2ba2b9011a862be.png"
                      
-alt="在这里插入图片描述" 
-                > 调试发现符号偏移基本一致（我用题目提供的相关
-dll 可以正确计算出虚拟机中 dll 的基址）。 <img 
+                      
+                
+                >
+调试发现符号偏移基本一致（我用题目提供的相关 dll 可以正确计算出虚拟机中
+dll 的基址）。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/f36df3e07aa785eb147bb307b269348f.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h3 id="替换-dll">替换 dll</h3>
 <p>在一些情况下把题目的 dll 和题目的 exe
@@ -800,86 +845,125 @@ B.dll 加载了系统目录下的 C.dll 而没有加载 exe 程序所在目录�
 替换系统目录下的 dll 实现 dll 替换。</p>
 <p>首先看 dll
 的签名信息，里面会有一个签名时间。这个时间跟操做系统的发布时间比较接近（大概有5个月左右的误差，这个误差是可接受的）。
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/adeaad39c4e86aeba4208415e24d2b5a.png"
                      
-alt="在这里插入图片描述" 
-                > 同样在这个收集 Windows 系统下载的<a class="link" 
- target="_blank" rel="noopener" href="https://files.rg-adguard.net/version/f0bd8307-d897-ef77-dbd6-216fefbe94c5" >网站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>上搜索时间相近的版本，这次用到还是
+                      
+                
+                > 同样在这个收集
+Windows 系统下载的<a class="link" 
+ target="_blank" rel="noopener" href="https://files.rg-adguard.net/version/f0bd8307-d897-ef77-dbd6-216fefbe94c5" >网站<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>上搜索时间相近的版本，这次用到还是
 2019 年 8 月发布的 Windows Server 2019 。</p>
 <p><strong>另外操作系统的内部版本号与 dll
 版本号的倒数第二个数字相同，可以通过搜索内部版本号确定操作系统版本。</strong>
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/e60805dd648fd35a1d7c936d63aa70f6.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <p>系统原 dll 和要替换的 dll 的版本差别如下（版本号中 <code>.</code>
-分隔的数字中如果只有最后一个数字不同那么就可以替换）： <img 
+分隔的数字中如果只有最后一个数字不同那么就可以替换）： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/b2ff719b00e7d7b9b38f2395d350458a.png"
                      
-alt="在这里插入图片描述" 
-                > 正常情况下我们没有权限去操作系统目录下的 dll
-也就无法完成 dll 替换，但是有如下方法可以完成。</p>
+                      
+                
+                >
+正常情况下我们没有权限去操作系统目录下的 dll 也就无法完成 dll
+替换，但是有如下方法可以完成。</p>
 <p>正常右键查看 dll
 属性，<code>property → security → Edit → 选择 users</code>
-发现发现权限栏是灰色的，无法修改。 <img 
+发现发现权限栏是灰色的，无法修改。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/3ffb29e1cd65f7ae612a7979296d9a9f.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 > 打开
 <code>property → security → Advanced → Change</code>
 ，然后填入一个存在的用户名，比如创建系统时注册的用户名就行（一般来说这个用户名同时也是当前登录的用户名，我的用户名是
-winpwn），然后点击 ok 。 <img 
+winpwn），然后点击 ok 。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/f5b3fc2cc891d11472cb07c11dab7c80.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 > 此时，打开
 <code>property → security → Edit → 选择 users</code>
-，发现权限栏变成黑色，选择 Full control ，然后 ok 。 <img 
+，发现权限栏变成黑色，选择 Full control ，然后 ok 。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/281d86db328c28a3a02d74a90da0de09.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <p>此时，就可以改名了（但是无法删除），把dll改成其他名字后，就可以把题目环境同名
-dll 复制到 system32 或 sysWOW64 文件夹下了。 <img 
+dll 复制到 system32 或 sysWOW64 文件夹下了。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/45521a3078a45486de5384127f5d269c.png"
                      
-alt="在这里插入图片描述" 
-                > <strong>重启系统</strong>之后 dll
-被成功替换，并且程序可以成功运行。 <img 
-
+                      
+                
+                >
+<strong>重启系统</strong>之后 dll 被成功替换，并且程序可以成功运行。
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/468c407535f6cf5add4f745e1110a038.png"
                      
-alt="在这里插入图片描述" 
-                > 按照题目提供的 dll 的偏移可以打通。 <img 
+                      
+                
+                > 按照题目提供的
+dll 的偏移可以打通。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/0583d8b406f84999354151e529f9bb8c.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h3 id="可能存在的问题">可能存在的问题</h3>
 <h4 id="x1a-问题">0x1a 问题</h4>
@@ -888,16 +972,17 @@ Text character)，输入包含 <code>\x1a</code> 导致程序 EOF
 。<strong>注意，接收 <code>\x1a</code> 不会导致程序 EOF 。</strong></p>
 <p><strong>具体表现为交互卡在某个地方，而且这个地方可能是输入
 <code>\x1a</code> 后的某一步。</strong></p>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/3675ae1287216ddc4766c1a5fb26def4.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <p>要想解决上述问题除了避免输入出现 <code>\x1a</code>
 外还可以通过任意地址写修改 <code>ucrtbase.dll</code> 中的
 <code>__pioinfo</code> 实现绕过。</p>
@@ -921,13 +1006,17 @@ alt="在这里插入图片描述"
 都可以。如果规定只能输入一个字符那么只能是 <code>\n</code> 。</p>
 <p>另外如果输入的地址等数据包含 <code>\x0a</code>
 那么远程程序接收数据的时候会被 <code>\x0a</code>
-截断导致数据接收不完整。 <img 
+截断导致数据接收不完整。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/240ee55fa0621fd16b66a5ea02f1a3c4.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h1 id="基础知识">基础知识</h1>
 <h2 id="windows-函数调用约定">windows 函数调用约定</h2>
@@ -987,21 +1076,30 @@ rcx、rdx、r8、r9，剩余参数布置在栈中。</li>
 <p>在函数调用前前 4 个参数放在寄存器中，第 5 个参数开始依次从
 <code>[rsp + 0x20]</code>
 位置处开始存放。进入调用的函数后会将寄存器中的参数存放到返回地址后空缺的位置上。
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/7c8c529968457fcf18a71c74afd7bfcf.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h2 id="pe-文件格式">PE 文件格式</h2>
 <p>这里以 32 位 PE 文件为例，64 位除数据长度外变化不大。</p>
 <p>其中 PE 头结构如下：</p>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/b0b45f115a50ae1c708e89693d335ec2.png"
+                     
                       width="70%"
+                
                 ></p>
 <h3 id="image_dos_header">IMAGE_DOS_HEADER</h3>
 <ul>
@@ -1098,22 +1196,31 @@ PE
 </ul>
 <h3 id="重定位表">重定位表</h3>
 <p>重定位表在程序的加载基址不是 <code>ImageBase</code>
-时用来修复代码访问字符串，全局变量等数据时使用的地址。 <img 
+时用来修复代码访问字符串，全局变量等数据时使用的地址。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/3477d2f18211ff4e7495029ca11a2c26.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 > 重定位表是一个由
 <code>IMAGE_BASE_RELOCATION + 数据</code> 结构组成的数组。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BASE_RELOCATION</span> &#123;</span></span><br><span class="line">    DWORD   VirtualAddress;</span><br><span class="line">    DWORD   SizeOfBlock;</span><br><span class="line">&#125; IMAGE_BASE_RELOCATION ,* PIMAGE_BASE_RELOCATION;</span><br></pre></td></tr></table></figure></div>
 <p>在内存中的结构如下图所示：
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/06a5522eb1564a035df89341bf6929f4.png"
+                     
                       width="80%"
+                
                 >
 每个块用来记录一个内存页中需要重定位的位置。</p>
 <ul>
@@ -1130,13 +1237,17 @@ alt="在这里插入图片描述"
 <code>SizeOfBlock</code> 均为 0 的模块为结束标志。</li>
 </ul>
 <h3 id="导出表">导出表</h3>
-<p>导出表是一个 <code>IMAGE_EXPORT_DIRECTORY</code> 结构： <img 
+<p>导出表是一个 <code>IMAGE_EXPORT_DIRECTORY</code> 结构： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/ede4f41d2bb72025bbc84ffeba692773.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h3 id="导入表">导入表</h3>
 <p>导入表是一个 <code>IMAGE_IMPORT_DESCRIPTOR</code>
@@ -1156,23 +1267,31 @@ alt="在这里插入图片描述"
 <p><code>IMAGE_IMPORT_BY_NAME</code> 定义如下，其中 <code>Name</code>
 是一个以 <code>\x00</code> 结尾的字符串，长度不确定。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_BY_NAME</span> &#123;</span></span><br><span class="line">    WORD    Hint;						<span class="comment">//可能为空，编译器决定 如果不为空 是函数在导出表中的索引						</span></span><br><span class="line">    BYTE    Name[<span class="number">1</span>];					<span class="comment">//函数名称，以0结尾						</span></span><br><span class="line">&#125; IMAGE_IMPORT_BY_NAME;	</span><br></pre></td></tr></table></figure></div>
-<p>在 PE 文件还未加载到内存时，整个导入表及其相关结构状态如下： <img 
+<p>在 PE 文件还未加载到内存时，整个导入表及其相关结构状态如下： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/878a94b60702926b7b256efb2836305f.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 > 其中 INT 表和 IAT
 表中的内容相同。根据最高位为 1 还是 0 决定 <code>IMAGE_THUNK_DATA</code>
 中的内容是 <code>Ordinal</code> 还是 <code>AddressOfData</code> 。</p>
-<p>当 PE 文件加载到内存中时，IAT 表会被修为函数地址。 <img 
+<p>当 PE 文件加载到内存中时，IAT 表会被修为函数地址。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/76b0ffed0b78f020a21f8c16a9db2df2.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h3 id="节表">节表</h3>
 <p>节表是由 <code>IMAGE_SECTION_HEADER</code>
@@ -1217,11 +1336,16 @@ alt="在这里插入图片描述"
 </ul></li>
 </ul>
 <p>dll 之间的函数调用关系如下图所示：</p>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/261d6aaf847878106fa26a586c569086.png"
+                     
                       width="60%"
+                
                 ></p>
 <p><code>mscrtxxx.dll</code> 和 <code>ucrtbase.dll</code> 的区别：</p>
 <ul>
@@ -1276,16 +1400,20 @@ TEB，该字段的值应该等于 TEB 的地址。</li>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov esp, dword ptr fs:[0]</span><br><span class="line">pop dword ptr fs:[0]</span><br></pre></td></tr></table></figure></div>
 <p><code>_EXCEPTION_REGISTRATION_RECORD</code> 中的 <code>Next</code>
 指向上一个 <code>_EXCEPTION_REGISTRATION_RECORD</code>
-结构，<code>Handler</code> 指向异常处理的代码。 <img 
+结构，<code>Handler</code> 指向异常处理的代码。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/37ce568e423d78eeb65c361cd7a00d37.png"
                      
-alt="在这里插入图片描述" 
-                > MSC 在 32 位模式对异常处理链表的节点
-<code>_EXCEPTION_REGISTRATION_RECORD</code> 被扩充为
-<code>CPPEH_RECORD</code> （具体与编译器版本有关），其成员
+                      
+                
+                > MSC 在 32
+位模式对异常处理链表的节点 <code>_EXCEPTION_REGISTRATION_RECORD</code>
+被扩充为 <code>CPPEH_RECORD</code> （具体与编译器版本有关），其成员
 <code>_EH3_EXCEPTION_REGISTRATION</code> 结构是对原始的 SEH 结构
 <code>_EXCEPTION_REGISTRATION_RECORD</code> 的扩充。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EH4_SCOPETABLE_RECORD</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> EnclosingLevel;</span><br><span class="line">    <span class="type">void</span> *FilterFunc;</span><br><span class="line">    <span class="type">void</span> *HandlerFunc;</span><br><span class="line">&#125; *PSCOPETABLE_ENTRY;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">EH4_SCOPETABLE</span> &#123;</span></span><br><span class="line">    DWORD GSCookieOffset;</span><br><span class="line">    DWORD GSCookieXOROffset;</span><br><span class="line">    DWORD EHCookieOffset;</span><br><span class="line">    DWORD EHCookieXOROffset;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">EH4_SCOPETABLE_RECORD</span> <span class="title">ScopeRecord</span>[];</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">EH3_EXCEPTION_REGISTRATION</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">EH3_EXCEPTION_REGISTRATION</span> *<span class="title">Next</span>;</span></span><br><span class="line">    PVOID ExceptionHandler;</span><br><span class="line">    PSCOPETABLE_ENTRY ScopeTable;</span><br><span class="line">    DWORD TryLevel;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CPPEH_RECORD</span> &#123;</span></span><br><span class="line">    DWORD old_esp;</span><br><span class="line">    EXCEPTION_POINTERS *exc_ptr;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">EH3_EXCEPTION_REGISTRATION</span> <span class="title">registration</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
@@ -1310,18 +1438,22 @@ alt="在这里插入图片描述"
 <li><code>ExceptionCollidedUnwind</code>：表示发生了一些不可恢复的错误，无法继续执行当前线程。此时，线程的栈会被展开，所有的异常处理程序都会被调用，直到找到一个可以处理当前异常的异常处理程序。如果没有找到这样的异常处理程序，程序将终止。</li>
 </ul>
 <p>以下面这段代码为例（<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/SEH.exe" >SEH.exe <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/SEH.pdb" >SEH.pdb <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）：</p>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/SEH.exe" >SEH.exe<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>，<a class="link" 
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/SEH.pdb" >SEH.pdb<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>）：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    __try &#123;</span><br><span class="line">        __try &#123;</span><br><span class="line">            __try &#123;</span><br><span class="line">                <span class="comment">// 可能会引发异常的代码</span></span><br><span class="line">                *(<span class="type">int</span> *) nullptr = <span class="number">1</span>;</span><br><span class="line">            &#125; __except (EXCEPTION_CONTINUE_SEARCH) &#123;</span><br><span class="line">                <span class="comment">// 处理异常</span></span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">&quot;Handler 2&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; __except (EXCEPTION_EXECUTE_HANDLER) &#123;</span><br><span class="line">            <span class="comment">// 处理异常</span></span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">&quot;Handler 1&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        __try &#123;</span><br><span class="line">            <span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line">            x /= x;</span><br><span class="line">        &#125; __finally &#123;</span><br><span class="line">            <span class="comment">// 处理异常</span></span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">&quot;Handler 3&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; __except (EXCEPTION_CONTINUE_EXECUTION) &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;Handler 4&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>在不考虑异常处理函数后汇编代码如下：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">.text:00411810 push    ebp                             ; ebp</span><br><span class="line">.text:00411811 mov     ebp, esp</span><br><span class="line">.text:00411813 push    0FFFFFFFEh                      ; 在 __try 块之外，因此 TryLevel = -2</span><br><span class="line">.text:00411815 push    offset stru_4191F8              ; PSCOPETABLE_ENTRY ScopeTable</span><br><span class="line">.text:0041181A push    offset __except_handler4        ; PVOID ExceptionHandler</span><br><span class="line">.text:0041181F mov     eax, large fs:0</span><br><span class="line">.text:00411825 push    eax                             ; struct _EH3_EXCEPTION_REGISTRATION *Next</span><br><span class="line">.text:00411826 add     esp, -0D4h                      ; 提升栈顶</span><br><span class="line">.text:0041182C push    ebx</span><br><span class="line">.text:0041182D push    esi</span><br><span class="line">.text:0041182E push    edi</span><br><span class="line">.text:0041182F</span><br><span class="line">.text:0041182F __$EncStackInitStart_1:</span><br><span class="line">.text:0041182F lea     edi, [ebp+var_24]</span><br><span class="line">.text:00411832 mov     ecx, 3</span><br><span class="line">.text:00411837 mov     eax, 0CCCCCCCCh</span><br><span class="line">.text:0041183C rep stosd</span><br><span class="line">.text:0041183E</span><br><span class="line">.text:0041183E __$EncStackInitEnd_1:</span><br><span class="line">.text:0041183E mov     eax, ___security_cookie</span><br><span class="line">.text:00411843 xor     [ebp+CPPEH_RECORD.registration.ScopeTable], eax ; ScopeTable ^= ___security_cookie</span><br><span class="line">.text:00411846 xor     eax, ebp</span><br><span class="line">.text:00411848 push    eax                             ; canary = ebp ^ ___security_cookie</span><br><span class="line">.text:00411849 lea     eax, [ebp+CPPEH_RECORD.registration]</span><br><span class="line">.text:0041184C mov     large fs:0, eax                 ; fs:0 -&gt; struct _EH3_EXCEPTION_REGISTRATION registration;</span><br><span class="line">.text:00411852 mov     [ebp+CPPEH_RECORD.old_esp], esp ; DWORD old_esp</span><br><span class="line">.text:00411855 mov     ecx, offset _51A925CF_ConsoleApplication1@cpp ; JMC_flag</span><br><span class="line">.text:0041185A call    j_@__CheckForDebuggerJustMyCode@4 ; __CheckForDebuggerJustMyCode(x)</span><br><span class="line">.text:0041185F mov     [ebp+CPPEH_RECORD.registration.TryLevel], 0 ; 进入 __try0</span><br><span class="line">.text:00411866 mov     [ebp+CPPEH_RECORD.registration.TryLevel], 1 ; 进入 __try1</span><br><span class="line">.text:0041186D mov     [ebp+CPPEH_RECORD.registration.TryLevel], 2 ; 进入 __try2</span><br><span class="line">.text:00411874 mov     large dword ptr ds:0, 1         ; 异常代码</span><br><span class="line">.text:0041187E mov     [ebp+CPPEH_RECORD.registration.TryLevel], 1 ; 退出 __try2</span><br><span class="line">.text:00411885 jmp     short loc_4118AB</span><br><span class="line">...</span><br><span class="line">.text:004118AB loc_4118AB:</span><br><span class="line">.text:004118AB mov     [ebp+CPPEH_RECORD.registration.TryLevel], 0 ; 退出 __try1</span><br><span class="line">.text:004118B2 jmp     short loc_4118DB                ; 进入 __try3</span><br><span class="line">...</span><br><span class="line">.text:004118DB loc_4118DB:</span><br><span class="line">.text:004118DB mov     [ebp+CPPEH_RECORD.registration.TryLevel], 3 ; 进入 __try3</span><br><span class="line">.text:004118E2 mov     [ebp+x], 0</span><br><span class="line">.text:004118E9 mov     eax, [ebp+x]</span><br><span class="line">.text:004118EC cdq</span><br><span class="line">.text:004118ED idiv    [ebp+x]                         ; 异常代码</span><br><span class="line">.text:004118F0 mov     [ebp+x], eax</span><br><span class="line">.text:004118F3 mov     [ebp+CPPEH_RECORD.registration.TryLevel], 0 ; 退出 __try3</span><br><span class="line">.text:004118FA call    $LN20                           ; 调用 __finally</span><br><span class="line">.text:004118FA</span><br><span class="line">.text:004118FF ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004118FF</span><br><span class="line">.text:004118FF loc_4118FF:</span><br><span class="line">.text:004118FF jmp     short $LN23</span><br><span class="line">.text:004118FF</span><br><span class="line">.text:00411901 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:00411901</span><br><span class="line">.text:00411901 $LN20:</span><br><span class="line">.text:00411901 ;   __finally // owned by 4118DB</span><br><span class="line">.text:00411901 mov     esi, esp</span><br><span class="line">.text:00411903 push    offset aHandler3                ; &quot;Handler 3&quot;</span><br><span class="line">.text:00411908 call    ds:__imp__puts</span><br><span class="line">.text:00411908</span><br><span class="line">.text:0041190E add     esp, 4</span><br><span class="line">.text:00411911 cmp     esi, esp</span><br><span class="line">.text:00411913 call    j___RTC_CheckEsp</span><br><span class="line">.text:00411913</span><br><span class="line">.text:00411918</span><br><span class="line">.text:00411918 $LN21:</span><br><span class="line">.text:00411918 retn</span><br><span class="line">.text:00411918 ;   &#125; // starts at 4118F3</span><br><span class="line">.text:00411918</span><br><span class="line">.text:00411919 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:00411919</span><br><span class="line">.text:00411919 $LN23:</span><br><span class="line">.text:00411919 mov     [ebp+CPPEH_RECORD.registration.TryLevel], 0FFFFFFFEh ; 退出 __try0</span><br><span class="line">.text:00411920 jmp     short loc_411947</span><br><span class="line">...</span><br><span class="line">.text:00411947 loc_411947:</span><br><span class="line">.text:00411947 xor     eax, eax</span><br><span class="line">.text:00411949 mov     ecx, [ebp+CPPEH_RECORD.registration.Next]</span><br><span class="line">.text:0041194C mov     large fs:0, ecx                 ; 卸载 SEH</span><br><span class="line">.text:00411953 pop     ecx</span><br><span class="line">.text:00411954 pop     edi</span><br><span class="line">.text:00411955 pop     esi</span><br><span class="line">.text:00411956 pop     ebx</span><br><span class="line">.text:00411957 add     esp, 0E4h</span><br><span class="line">.text:0041195D cmp     ebp, esp</span><br><span class="line">.text:0041195F call    j___RTC_CheckEsp</span><br><span class="line">.text:0041195F</span><br><span class="line">.text:00411964 mov     esp, ebp</span><br><span class="line">.text:00411966 pop     ebp</span><br><span class="line">.text:00411967 retn</span><br></pre></td></tr></table></figure></div>
-<p>通过调试发现相关结构在内存中状态如下： <img 
+<p>通过调试发现相关结构在内存中状态如下： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/fdf618f495a4eb6c9a668f1beed43595.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <p>在 MSC 扩展的 SEH 中，处理函数使用 <code>_except_handler4</code>
 作为代理函数来调用用户定义的处理函数。用户定义的 <code>FilterFunc</code>
@@ -1413,11 +1545,16 @@ chain）</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">text:0000000140011900 push    rbp</span><br><span class="line">.text:0000000140011902 push    rdi</span><br><span class="line">.text:0000000140011903 sub     rsp, 208h</span><br><span class="line">.text:000000014001190A lea     rbp, [rsp+20h]</span><br><span class="line">.text:000000014001190F mov     rdi, rsp</span><br><span class="line">.text:0000000140011912 mov     ecx, 82h</span><br><span class="line">.text:0000000140011917 mov     eax, 0CCCCCCCCh</span><br><span class="line">.text:000000014001191C rep stosd</span><br></pre></td></tr></table></figure></div>
 <p>此时的栈结构如下，其中有一个局部变量 <code>buffer[0x100]</code>
 。</p>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/48bb87488b1d525aef7ef8b21bfdd798.png"
+                     
                       width="60%"
+                
                 ></p>
 <p>在函数结束时的汇编代码如下：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000140011982 lea     rcx, [rbp-20h]                  ; Esp</span><br><span class="line">.text:0000000140011986 lea     rdx, Fd                         ; Fd</span><br><span class="line">.text:000000014001198D call    j__RTC_CheckStackVars</span><br><span class="line">.text:000000014001198D</span><br><span class="line">.text:0000000140011992 mov     eax, edi</span><br><span class="line">.text:0000000140011994 lea     rsp, [rbp+1E8h]</span><br><span class="line">.text:000000014001199B pop     rdi</span><br><span class="line">.text:000000014001199C pop     rbp</span><br><span class="line">.text:000000014001199D retn</span><br></pre></td></tr></table></figure></div>
@@ -1428,13 +1565,17 @@ chain）</p>
 为一个保存在 <code>.rdata</code> 段的一个 <code>_RTC_framedesc</code>
 结构体，该结构体的相关定义如下：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">RTC_vardesc</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="type">int</span> addr;</span><br><span class="line">  <span class="type">int</span> size;</span><br><span class="line">  <span class="type">char</span> *name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">RTC_framedesc</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="type">int</span> varCount;</span><br><span class="line">  _RTC_vardesc *variables;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
-<p>在程序中 <code>_RTC_framedesc</code> 相关结构状态如下： <img 
+<p>在程序中 <code>_RTC_framedesc</code> 相关结构状态如下： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/6401c342f89ca21ea979e0c3a4c7204e.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <ul>
 <li><code>varCount</code> 表示 <code>_RTC_vardesc</code>
@@ -1457,8 +1598,8 @@ alt="在这里插入图片描述"
 即可绕过。</p>
 <h3 id="sehop">SEHOP</h3>
 <p>在 <code>ntdll!RtlDispatchException</code> 中有对 SEH 链表的检查（<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/ntdll.dll" >ntdll.dll <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/ntdll.dll.idb" >ntdll.dll.idb <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）：</p>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/ntdll.dll" >ntdll.dll<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>，<a class="link" 
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/raw/master/windows_pwn/SEH_learning/ntdll.dll.idb" >ntdll.dll.idb<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>）：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">      RtlpGetStackLimits(&amp;StackLimit, &amp;StackBase);</span><br><span class="line">      ExceptionList = NtCurrentTeb()-&gt;NtTib.ExceptionList;</span><br><span class="line">      ProcessInformation = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span> ( ZwQueryInformationProcess((HANDLE)<span class="number">0xFFFFFFFF</span>, ProcessExecuteFlags, &amp;ProcessInformation, <span class="number">4u</span>, <span class="number">0</span>) &lt; <span class="number">0</span> )</span><br><span class="line">        ProcessInformation = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span> ( (ProcessInformation &amp; <span class="number">0x40</span>) != <span class="number">0</span> || RtlpIsValidExceptionChain(ExceptionList, StackLimit, StackBase) )<span class="comment">// SEHOP</span></span><br><span class="line">      &#123;</span><br><span class="line">LABEL_11:</span><br><span class="line">        RegistrationPointerForCheck = ExceptionList;</span><br><span class="line">        NestedRegistration = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ( RegistrationPointerForCheck != (_EXCEPTION_REGISTRATION_RECORD *)<span class="number">-1</span> )<span class="comment">// -1 表示 SEH 链结束</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( (<span class="type">unsigned</span> <span class="type">int</span>)RegistrationPointerForCheck &lt; StackLimit</span><br><span class="line">            || (<span class="type">unsigned</span> <span class="type">int</span>)&amp;RegistrationPointerForCheck[<span class="number">1</span>] &gt; StackBase<span class="comment">// SEH 节点不在栈中</span></span><br><span class="line">            || ((<span class="type">unsigned</span> __int8)RegistrationPointerForCheck &amp; <span class="number">3</span>) != <span class="number">0</span><span class="comment">// SEH 节点的位置没有 4 字节对齐</span></span><br><span class="line">            || (Handler = RegistrationPointerForCheck-&gt;Handler, (<span class="type">unsigned</span> <span class="type">int</span>)Handler &lt; StackBase)</span><br><span class="line">            &amp;&amp; StackLimit &lt;= (<span class="type">unsigned</span> <span class="type">int</span>)Handler</span><br><span class="line">            || !RtlIsValidHandler(Handler, ProcessInformation, pContext) )<span class="comment">// safeSEH</span></span><br><span class="line">          &#123;</span><br><span class="line">            pExcptRec-&gt;ExceptionFlags |= EXCEPTION_STACK_INVALID;<span class="comment">// EXCEPTION_STACK_INVALID</span></span><br><span class="line">            <span class="keyword">goto</span> DispatchExit;</span><br><span class="line">          &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
 <p>其中 <code>RtlpIsValidExceptionChain</code> 内容如下：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> __fastcall <span class="title function_">RtlpIsValidExceptionChain</span><span class="params">(</span></span><br><span class="line"><span class="params">        _EXCEPTION_REGISTRATION_RECORD *ExceptionList,</span></span><br><span class="line"><span class="params">        <span class="type">unsigned</span> <span class="type">int</span> StackLimit,</span></span><br><span class="line"><span class="params">        <span class="type">unsigned</span> <span class="type">int</span> StackBase,</span></span><br><span class="line"><span class="params">        <span class="type">int</span> StackLimita)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> stackBase; <span class="comment">// ebx</span></span><br><span class="line">  <span class="type">int</span> stackLimit; <span class="comment">// eax</span></span><br><span class="line">  _EXCEPTION_DISPOSITION (__stdcall *Handler)(_EXCEPTION_RECORD *, <span class="type">void</span> *, _CONTEXT *, <span class="type">void</span> *); <span class="comment">// edx</span></span><br><span class="line"></span><br><span class="line">  stackBase = StackBase;</span><br><span class="line">  stackLimit = StackLimit;</span><br><span class="line">  <span class="keyword">while</span> ( ExceptionList != (_EXCEPTION_REGISTRATION_RECORD *)<span class="number">-1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( stackLimit &gt; (<span class="type">unsigned</span> <span class="type">int</span>)ExceptionList )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="type">unsigned</span> <span class="type">int</span>)ExceptionList &gt;= stackBase - <span class="number">8</span> )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> ( ((<span class="type">unsigned</span> __int8)ExceptionList &amp; <span class="number">3</span>) != <span class="number">0</span> )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    Handler = ExceptionList-&gt;Handler;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="type">unsigned</span> <span class="type">int</span>)Handler &lt; stackBase &amp;&amp; StackLimit &lt;= (<span class="type">unsigned</span> <span class="type">int</span>)Handler )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> ( ExceptionList-&gt;Next == (_EXCEPTION_REGISTRATION_RECORD *)<span class="number">-1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      stackBase = StackBase;</span><br><span class="line">      <span class="keyword">if</span> ( (NtCurrentTeb()-&gt;SameTebFlags &amp; <span class="number">0x200</span>) != <span class="number">0</span> &amp;&amp; Handler != RtlpFinalExceptionHandler )</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    stackLimit = (<span class="type">int</span>)&amp;ExceptionList[<span class="number">1</span>];</span><br><span class="line">    ExceptionList = ExceptionList-&gt;Next;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
@@ -1486,16 +1627,20 @@ alt="在这里插入图片描述"
 <p>即 Control Flow Guard
 ，为函数指针创建白名单，每次调用前都会检查。</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.text:00000001400017BD                 mov     rbx, [rdi+Node.FuncPtr]</span><br><span class="line">.text:00000001400017C4                 mov     rcx, rbx</span><br><span class="line">.text:00000001400017C7                 call    cs:__guard_check_icall_fptr</span><br><span class="line">.text:00000001400017CD                 mov     rcx, rdi</span><br><span class="line">.text:00000001400017D0                 call    rbx</span><br></pre></td></tr></table></figure></div>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/e7541dac8d6312a1c736ef954694a94c.png"
                      
-alt="在这里插入图片描述" 
-                > 其中函数指针
-<code>__guard_check_icall_fptr</code> 位于不可写的 <code>.rdata</code>
-段，默认初始化为 <code>ntdll!LdrpValidateUserCallTarget</code>
-函数。</p>
+                      
+                
+                >
+其中函数指针 <code>__guard_check_icall_fptr</code> 位于不可写的
+<code>.rdata</code> 段，默认初始化为
+<code>ntdll!LdrpValidateUserCallTarget</code> 函数。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> __fastcall <span class="title function_">LdrpValidateUserCallTarget</span><span class="params">(<span class="type">unsigned</span> __int64 FuncPtr)</span></span><br><span class="line">&#123;</span><br><span class="line">  __int64 BitMap; <span class="comment">// rdx</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 Offset; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  BitMap = CFGBitMap[FuncPtr &gt;&gt; <span class="number">9</span>];</span><br><span class="line">  Offset = FuncPtr &gt;&gt; <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">if</span> ( (FuncPtr &amp; <span class="number">0xF</span>) != <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    Offset &amp;= ~<span class="number">1u</span>i64;</span><br><span class="line">    <span class="keyword">if</span> ( !_bittest64(&amp;BitMap, Offset) )</span><br><span class="line">    &#123;</span><br><span class="line">LABEL_6:</span><br><span class="line">      LdrpHandleInvalidUserCallTarget();</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">LABEL_5:</span><br><span class="line">    <span class="keyword">if</span> ( _bittest64(&amp;BitMap, Offset | <span class="number">1</span>) )</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">goto</span> LABEL_6;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !_bittest64(&amp;BitMap, Offset) )</span><br><span class="line">    <span class="keyword">goto</span> LABEL_5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>绕过方法：</p>
 <ul>
@@ -1640,15 +1785,20 @@ id="process_mitigation_child_process_policy">PROCESS_MITIGATION_CHILD_PROCESS_PO
 <code>ucrtbase.dll</code> 为 Release 版，因此没有 <code>FILE</code>
 结构体的具体定义。不过通过对比 Debug 版的 <code>ucrtbased.dll</code>
 我们发现 <code>FILE</code> 结构体实际上是
-<code>__crt_stdio_stream_data</code> 。 <img 
+<code>__crt_stdio_stream_data</code> 。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/c414e31385537901b6e031d6bbb97de9.png"
                      
-alt="在这里插入图片描述" 
-                > <code>__crt_stdio_stream_data</code>
-相关定义如下，该结构体大小为 0x58 。</p>
+                      
+                
+                >
+<code>__crt_stdio_stream_data</code> 相关定义如下，该结构体大小为 0x58
+。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">RTL_CRITICAL_SECTION</span> &#123;</span></span><br><span class="line">    _RTL_CRITICAL_SECTION_DEBUG *DebugInfo;</span><br><span class="line">    <span class="type">int</span> LockCount;</span><br><span class="line">    <span class="type">int</span> RecursionCount;</span><br><span class="line">    <span class="type">void</span> *OwningThread;</span><br><span class="line">    <span class="type">void</span> *LockSemaphore;</span><br><span class="line">    <span class="type">unsigned</span> __int64 SpinCount;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">crt_stdio_stream_data</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        FILE _public_file;</span><br><span class="line">        <span class="type">char</span>* _ptr; <span class="comment">// 当前结构指针</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">char</span> *_base; <span class="comment">// 输入缓冲区基址</span></span><br><span class="line">    <span class="type">int</span> _cnt; <span class="comment">// 没有被读出的缓冲区剩余大小</span></span><br><span class="line">    <span class="type">int</span> _flags;</span><br><span class="line">    <span class="type">int</span> _file; <span class="comment">// 文件描述符</span></span><br><span class="line">    <span class="type">int</span> _charbuf; <span class="comment">// Local buffer</span></span><br><span class="line">    <span class="type">int</span> _bufsiz; <span class="comment">// buffer size</span></span><br><span class="line">    <span class="type">char</span> *_tmpfname;</span><br><span class="line">    _RTL_CRITICAL_SECTION _lock; <span class="comment">// lock</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 <p>如果要实现任意地址读，<code>fwrite</code>：</p>
 <ul>
@@ -1980,34 +2130,43 @@ CsrClientConnectToServer 函数创建的，该函数在 ntdll.dll
 href="attachment/ntdll.dll(NtHeap).i64">ntdll.dll(NtHeap).i64</a>
 。</strong></p>
 <p>Windows 的 NT Heap 的调用关系如下图所示，NT Heap
-分为前端堆（LFH堆）和后端堆两部分。 <img 
+分为前端堆（LFH堆）和后端堆两部分。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/9f3ae26e17288d1a8d10da45ae0aaad6.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h3 id="后端堆">后端堆</h3>
-<p>当 LFH 没有启用的时候，我们通过后端堆来分配内存。 <img 
+<p>当 LFH 没有启用的时候，我们通过后端堆来分配内存。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/ca4ce43e196de0d83298aff49ffaa21d.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h4 id="相关数据结构">相关数据结构</h4>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/6204d11b8fdab993b6bc17f7a1d71668.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <h5 id="heap">_HEAP</h5>
 <p><code>_HEAP</code> 是堆管理的最核心结构，和 linux glibc 的
 <code>main_arena</code> 作用类似。每一个 HEAP 都有一个
@@ -2052,11 +2211,16 @@ VirtualAlloc 分配的堆</li>
 <h6 id="allocated-chunk">Allocated Chunk</h6>
 <p>Allocated Chunk 的 chunk head 为
 <code>_HEAP_ENTRY</code>，结构如下图所示：
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/363525fea17a0378df64f4214230bb06.png"
+                     
                       alt="在这里插入图片描述" style="zoom:33%;" 
+                
                 ></p>
 <ul>
 <li><p><code>PreviousBlockPrivateData</code>：8 字节，可为前一块 chunk
@@ -2088,13 +2252,17 @@ VirtualAlloc 分配的堆</li>
 0x80 的标志位也可以用来判断 chunk 的状态是前端堆还是后端堆。</p></li>
 </ul>
 <p>如下图所示，chunk head 在内存中是加密的，要想获取原本的 chunk head
-需要异或上 <code>Encoding</code> 。 <img 
+需要异或上 <code>Encoding</code> 。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/04bc3ef5200085fc4df54439d8160d45.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <p>另外可以看到解密后的 chunk head 的 <code>Size</code> 字段为
 <code>0x0034</code> ，<code>Flags</code> 字段为 <code>0x1</code> ，因此
@@ -2105,11 +2273,16 @@ alt="在这里插入图片描述"
 ，不过由于是释放状态，因此会被链到 <code>FreeList</code> 链表中，因此在
 <code>_HEAP_ENTRY</code> 后多了一个 <code>_LIST_ENTRY</code>
 结构，如下图所示：
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/766c62d27cc582231732c56cb4ff13eb.png"
+                     
                       alt="在这里插入图片描述" style="zoom:33%;" 
+                
                 >
 <code>_LIST_ENTRY</code> 定义如下：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0:004&gt; dt _LIST_ENTRY</span><br><span class="line">ntdll!_LIST_ENTRY</span><br><span class="line">   +0x000 Flink            : Ptr64 _LIST_ENTRY</span><br><span class="line">   +0x008 Blink            : Ptr64 _LIST_ENTRY</span><br></pre></td></tr></table></figure></div>
@@ -2127,11 +2300,16 @@ alt="在这里插入图片描述"
 <h6 id="virtualalloc-chunk">VirtualAlloc Chunk</h6>
 <p>VirtualAlloc Chunk 的 chunk head 为
 <code>_HEAP_VIRTUAL_ALLOC_ENTRY</code> 。
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/fbf68921442132033b32bea0c35b49c6.png"
+                     
                       alt="在这里插入图片描述" style="zoom:33%;" 
+                
                 ></p>
 <ul>
 <li><code>Flink</code> 和 <code>Blink</code>：分别指向前⼀个和后⼀个
@@ -2295,24 +2473,29 @@ freed chunk 从 <code>FreeList</code> 中 unlink
 </ul>
 <h3 id="lfh-堆">LFH 堆</h3>
 <p>当同一个大小的堆块分配次数过多的时候，除了从后端堆分配所需堆块外，还会额外分配一块很大的内存供前端堆使用，之后再次分配该大小的堆块的时候会从前端堆分配。
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/fb0c3987f1276779f6861e9555a64ec7.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h4 id="相关数据结构-1">相关数据结构</h4>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/c81311e8c7de48076309b35a3dcd0aeb.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <h5 id="frontendheap_lfh_heap">FrontEndHeap（_LFH_HEAP）</h5>
 <p><code>_LFH_HEAP</code> 是前端堆管理的核心结构，可以通过
 <code>_HEAP</code> 的 <code>FrontEndHeap</code> 成员指针访问。</p>
@@ -2423,11 +2606,16 @@ chunk 的 bitmap</p></li>
 <li><p><code>Block</code>：LFH 返回给使用者的 chunk</p></li>
 </ul>
 <h5 id="chunkblock_heap_entry">chunk/block（_HEAP_ENTRY）</h5>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/c50b88d6d437593c0e66466589eaa074.png"
+                     
                       alt="在这里插入图片描述" style="zoom:33%;" 
+                
                 ></p>
 <ul>
 <li><p><code>SubSegmentCode</code>：用来计算 <code>UserBlock</code>
@@ -2610,16 +2798,17 @@ chunk 时的随机选取范围 <code>SearchWidth</code> 。</li>
 href="attachment/ntdll.dll(SegmentHeap).i64">ntdll.dll(SegmentHeap).i64</a>
 。</strong></p>
 <p>Segment Heap 分为如下几个部分：</p>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/40807d9f243e8d13146a133fd738d050.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <ul>
 <li>Frontend Allocation
 <ul>
@@ -2640,16 +2829,17 @@ Heap分配机制，可以为该进程创建如下注册表，设置
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Mamager\Segment Heap</span><br><span class="line">Enabled = (DWORD)</span><br><span class="line"></span><br><span class="line">0      : Disable Segment Heap</span><br><span class="line">(Not 0): Enable Segment Heap</span><br></pre></td></tr></table></figure></div>
 <h3 id="vs-堆">VS 堆</h3>
 <h4 id="相关数据结构-2">相关数据结构</h4>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/abd10c3f25bbff3064dd86b1c23440e8.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <h5 id="segment_heap">_SEGMENT_HEAP</h5>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">0:000&gt; dt _SEGMENT_HEAP 1c48bd70000</span><br><span class="line">ntdll!_SEGMENT_HEAP</span><br><span class="line">   +0x000 EnvHandle        : RTL_HP_ENV_HANDLE</span><br><span class="line">   +0x010 Signature        : 0xddeeddee</span><br><span class="line">   +0x014 GlobalFlags      : 0x1000</span><br><span class="line">   +0x018 Interceptor      : 0</span><br><span class="line">   +0x01c ProcessHeapListIndex : 4</span><br><span class="line">   +0x01e AllocatedFromMetadata : 0y0</span><br><span class="line">   +0x020 CommitLimitData  : _RTL_HEAP_MEMORY_LIMIT_DATA</span><br><span class="line">   +0x020 ReservedMustBeZero1 : 0</span><br><span class="line">   +0x028 UserContext      : (null) </span><br><span class="line">   +0x030 ReservedMustBeZero2 : 0</span><br><span class="line">   +0x038 Spare            : (null) </span><br><span class="line">   +0x040 LargeMetadataLock : 0</span><br><span class="line">   +0x048 LargeAllocMetadata : _RTL_RB_TREE</span><br><span class="line">   +0x058 LargeReservedPages : 0</span><br><span class="line">   +0x060 LargeCommittedPages : 0</span><br><span class="line">   +0x068 Tag              : 0</span><br><span class="line">   +0x070 StackTraceInitVar : _RTL_RUN_ONCE</span><br><span class="line">   +0x080 MemStats         : _HEAP_RUNTIME_MEMORY_STATS</span><br><span class="line">   +0x0d8 GlobalLockCount  : 0</span><br><span class="line">   +0x0dc GlobalLockOwner  : 0</span><br><span class="line">   +0x0e0 ContextExtendLock : 0</span><br><span class="line">   +0x0e8 AllocatedBase    : 0x000001c4`8bd70840  &quot;&quot;</span><br><span class="line">   +0x0f0 UncommittedBase  : 0x000001c4`8bd71000  &quot;--- memory read error at address 0x000001c4`8bd71000 ---&quot;</span><br><span class="line">   +0x0f8 ReservedLimit    : 0x000001c4`8bdc0000  &quot;--- memory read error at address 0x000001c4`8bdc0000 ---&quot;</span><br><span class="line">   +0x100 ReservedRegionEnd : 0x000001c4`8bdc0000  &quot;--- memory read error at address 0x000001c4`8bdc0000 ---&quot;</span><br><span class="line">   +0x108 CallbacksEncoded : _RTL_HP_HEAP_VA_CALLBACKS_ENCODED</span><br><span class="line">   +0x140 SegContexts      : [2] _HEAP_SEG_CONTEXT</span><br><span class="line">   +0x2c0 VsContext        : _HEAP_VS_CONTEXT</span><br><span class="line">   +0x380 LfhContext       : _HEAP_LFH_CONTEXT</span><br></pre></td></tr></table></figure></div>
 <ul>
@@ -2756,11 +2946,16 @@ chunk</li>
 <h6 id="allocated-chunk-1">Allocated Chunk</h6>
 <p>Allocated Chunk 的 chunk head 为 <code>_HEAP_VS_CHUNK_HEADER</code>
 ，结构如下图所示：
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/f0e4fd63a40a4f65ee2f88657ce0f68e.png"
+                     
                       alt="在这里插入图片描述" style="zoom: 33%;" 
+                
                 ></p>
 <ul>
 <li><p><code>MemoryCost</code>：只有空闲堆块才会使用。</p></li>
@@ -2783,13 +2978,17 @@ Subsegment 中的索引，用于查找 VS Subsegment
 。</p>
 <h6 id="freed-chunk-1">Freed Chunk</h6>
 <p>Allocated Chunk 的 chunk head 为
-<code>_HEAP_VS_CHUNK_FREE_HEADER</code> ，结构如下图所示： <img 
+<code>_HEAP_VS_CHUNK_FREE_HEADER</code> ，结构如下图所示： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/778e7f6d9936699367cab7582c5b3894.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <ul>
 <li><code>MemoryCost</code>：表示 chunk 被申请的时候会有多少 page
@@ -2941,14 +3140,19 @@ chunk 的释放。
 </ul>
 <h3 id="lfh-堆-1">LFH 堆</h3>
 <h4 id="相关数据结构-3">相关数据结构</h4>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/2e39581fa7ad4afad1aef558d523778e.png"
                      
-alt="在这里插入图片描述" 
-                > 与之前的内存管理不同，这里 LFH 堆分配的
-chunk 没有 chunk 头，并被称为 <code>Block</code> 。</p>
+                      
+                
+                >
+与之前的内存管理不同，这里 LFH 堆分配的 chunk 没有 chunk 头，并被称为
+<code>Block</code> 。</p>
 <h5 id="heap_lfh_context">_HEAP_LFH_CONTEXT</h5>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">0:000&gt; dx -r1 (*((ntdll!_HEAP_LFH_CONTEXT *)0x2bef8360380))</span><br><span class="line">(*((ntdll!_HEAP_LFH_CONTEXT *)0x2bef8360380))                 [Type: _HEAP_LFH_CONTEXT]</span><br><span class="line">    [+0x000] BackendCtx       : 0x2bef8360140 [Type: void *]</span><br><span class="line">    [+0x008] Callbacks        [Type: _HEAP_SUBALLOCATOR_CALLBACKS]</span><br><span class="line">    [+0x030] AffinityModArray : 0x7ff902da7733 : 0x1 [Type: unsigned char *]</span><br><span class="line">    [+0x038] MaxAffinity      : 0x20 [Type: unsigned char]</span><br><span class="line">    [+0x039] LockType         : 0x0 [Type: unsigned char]</span><br><span class="line">    [+0x03a] MemStatsOffset   : -768 [Type: short]</span><br><span class="line">    [+0x03c] Config           [Type: _RTL_HP_LFH_CONFIG]</span><br><span class="line">    [+0x040] BucketStats      [Type: _HEAP_LFH_SUBSEGMENT_STATS]</span><br><span class="line">    [+0x048] SubsegmentCreationLock : 0x0 [Type: unsigned __int64]</span><br><span class="line">    [+0x080] Buckets          [Type: _HEAP_LFH_BUCKET * [129]]</span><br></pre></td></tr></table></figure></div>
 <ul>
@@ -3363,16 +3567,17 @@ Subsegment 起始地址的偏移。</li>
 </ul>
 <h3 id="后端堆-1">后端堆</h3>
 <h4 id="相关数据结构-4">相关数据结构</h4>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/5ed12569faf5d64f7cd1539c212ea442.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <h5 id="heap_seg_context">_HEAP_SEG_CONTEXT</h5>
 <p>段分配的核心结构，用于管理由段分配器分配的内存，并在堆中记录段分配器的所有信息和结构。</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">0:002&gt; dx -r1 (*((ntdll!_HEAP_SEG_CONTEXT *)0x23aac050140))</span><br><span class="line">(*((ntdll!_HEAP_SEG_CONTEXT *)0x23aac050140))                 [Type: _HEAP_SEG_CONTEXT]</span><br><span class="line">    [+0x000] SegmentMask      : 0xfffffffffff00000 [Type: unsigned __int64]</span><br><span class="line">    [+0x008] UnitShift        : 0xc [Type: unsigned char]</span><br><span class="line">    [+0x009] PagesPerUnitShift : 0x0 [Type: unsigned char]</span><br><span class="line">    [+0x00a] FirstDescriptorIndex : 0x2 [Type: unsigned char]</span><br><span class="line">    [+0x00b] CachedCommitSoftShift : 0x7 [Type: unsigned char]</span><br><span class="line">    [+0x00c] CachedCommitHighShift : 0x4 [Type: unsigned char]</span><br><span class="line">    [+0x00d] Flags            [Type: &lt;unnamed-tag&gt;]</span><br><span class="line">    [+0x010] MaxAllocationSize : 0x7f000 [Type: unsigned long]</span><br><span class="line">    [+0x014] OlpStatsOffset   : -160 [Type: short]</span><br><span class="line">    [+0x016] MemStatsOffset   : -192 [Type: short]</span><br><span class="line">    [+0x018] LfhContext       : 0x23aac050380 [Type: void *]</span><br><span class="line">    [+0x020] VsContext        : 0x23aac0502c0 [Type: void *]</span><br><span class="line">    [+0x028] EnvHandle        [Type: RTL_HP_ENV_HANDLE]</span><br><span class="line">    [+0x038] Heap             : 0x23aac050000 [Type: void *]</span><br><span class="line">    [+0x040] SegmentLock      : 0x0 [Type: unsigned __int64]</span><br><span class="line">    [+0x048] SegmentListHead  [Type: _LIST_ENTRY]</span><br><span class="line">    [+0x058] SegmentCount     : 0x1 [Type: unsigned __int64]</span><br><span class="line">    [+0x060] FreePageRanges   [Type: _RTL_RB_TREE]</span><br><span class="line">    [+0x070] FreeSegmentListLock : 0x0 [Type: unsigned __int64]</span><br><span class="line">    [+0x078] FreeSegmentList  [Type: _SINGLE_LIST_ENTRY [2]]</span><br></pre></td></tr></table></figure></div>
@@ -3418,13 +3623,17 @@ alt="在这里插入图片描述"
 <p>页面描述符指示页面段中每个页面的状态（已分配或已释放）和信息（页面是否为块的开始、块的大小等）。它可以被划分为已分配和释放。释放状态下的页面范围描述符将存储在自由页面范围中，这是一个
 rbtree 结构。</p>
 <p><code>_HEAP_PAGE_RANGE_DESCRIPTOR</code> 处于已分配状态时结构如下：
-<img 
+<img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://i-blog.csdnimg.cn/blog_migrate/8ac4e246eb32e9d376332cff7aee1d80.png%20=50%x"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <ul>
 <li><p><code>TreeSignature</code>：<code>PageRangeDescriptor</code>
@@ -3461,13 +3670,17 @@ alt="在这里插入图片描述"
 </ul></li>
 </ul>
 <p><code>_HEAP_PAGE_RANGE_DESCRIPTOR</code> 处于已释放状态时结构如下：
-<img 
+<img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://i-blog.csdnimg.cn/blog_migrate/f00f1505aecb8d06c56dac2fd2b4243b.png%20=70%x"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <ul>
 <li><code>TreeNode (_RTL_BALANCED_NODE)</code>：
@@ -3752,11 +3965,11 @@ LB 堆的核心释放函数 <code>RtlpHpLargeFree</code> 。
 </ul></li>
 </ul>
 
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>Title:</strong> windows user pwn 基础知识</li>
         <li><strong>Author:</strong> sky123</li>
@@ -3765,7 +3978,7 @@ LB 堆的核心释放函数 <code>RtlpHpLargeFree</code> 。
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-18 12:54:12
+                    :</strong> 2024-11-20 03:29:27
             </li>
         
         <li>
@@ -3784,62 +3997,56 @@ LB 堆的核心释放函数 <code>RtlpHpLargeFree</code> 。
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/windows-user-pwn/">#windows user pwn</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/windows-user-pwn/">#windows user pwn</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/11/08/windows-user-pwn-exploit-technique/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">windows user pwn</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2024/11/08/linux-kernel-pwn-useful-structs/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">linux kernel pwn 常用结构体</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/11/08/windows-user-pwn-exploit-technique/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">windows user pwn</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/11/08/linux-kernel-pwn-useful-structs/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">linux kernel pwn 常用结构体</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-                <div class="comments-container mt-10 w-full ">
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
     <div id="comment-anchor" class="w-full h-2.5"></div>
     <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
         Comments
@@ -3890,43 +4097,38 @@ LB 堆的核心释放函数 <code>RtlpHpLargeFree</code> 。
     
 </div>
 
-            </div>
-        
-    </div>
+		</div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">windows user pwn 基础知识</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#checksec"><span class="nav-text">checksec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#winchecksec"><span class="nav-text">winchecksec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checksecx64dbg"><span class="nav-text">checksec（x64dbg）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#winpwn"><span class="nav-text">winpwn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD"><span class="nav-text">添加功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#windbg"><span class="nav-text">windbg</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-windbg"><span class="nav-text">安装 windbg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ret_sync-%E5%AE%9E%E7%8E%B0-ida-%E5%92%8C-windbg-%E8%81%94%E5%8A%A8%E8%B0%83%E8%AF%95"><span class="nav-text">ret_sync 实现 ida 和
-windbg 联动调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80"><span class="nav-text">地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%AD%E7%82%B9"><span class="nav-text">断点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-text">内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-text">调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-text">线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E7%AE%97"><span class="nav-text">运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%AC%A6%E5%8F%B7"><span class="nav-text">查看符号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gadget-%E6%90%9C%E7%B4%A2%E5%B7%A5%E5%85%B7"><span class="nav-text">gadget 搜索工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ropgadget"><span class="nav-text">ROPGadget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ropper"><span class="nav-text">ropper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E7%8E%AF%E5%A2%83"><span class="nav-text">远程环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%8E%B7%E5%8F%96"><span class="nav-text">系统获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#appjaillauncher"><span class="nav-text">AppJailLauncher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="nav-text">调试环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2-dll"><span class="nav-text">替换 dll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">可能存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#x1a-%E9%97%AE%E9%A2%98"><span class="nav-text">0x1a 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E8%BD%A6%E9%97%AE%E9%A2%98"><span class="nav-text">回车问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A"><span class="nav-text">windows 函数调用约定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#x86"><span class="nav-text">x86</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x64"><span class="nav-text">x64</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pe-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">PE 文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#image_dos_header"><span class="nav-text">IMAGE_DOS_HEADER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image_nt_headers32"><span class="nav-text">IMAGE_NT_HEADERS32</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#image_file_header"><span class="nav-text">IMAGE_FILE_HEADER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#image_optional_header32"><span class="nav-text">IMAGE_OPTIONAL_HEADER32</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="nav-text">重定位表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="nav-text">导出表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="nav-text">导入表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E8%A1%A8"><span class="nav-text">节表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81-dll"><span class="nav-text">常见 dll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BB%93%E6%9E%84"><span class="nav-text">常见结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#peb"><span class="nav-text">PEB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#teb"><span class="nav-text">TEB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seh"><span class="nav-text">SEH</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E4%BF%9D%E6%8A%A4"><span class="nav-text">常见保护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dep"><span class="nav-text">DEP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aslr"><span class="nav-text">ASLR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gs"><span class="nav-text">GS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkstackvars"><span class="nav-text">CheckStackVars</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sehop"><span class="nav-text">SEHOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#safeseh"><span class="nav-text">SafeSEH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfg"><span class="nav-text">CFG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process_mitigation_child_process_policy"><span class="nav-text">PROCESS_MITIGATION_CHILD_PROCESS_POLICY</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%9C%B0%E5%9D%80%E6%B3%84%E9%9C%B2%E6%96%B9%E6%B3%95"><span class="nav-text">常见地址泄露方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%B3%84%E9%9C%B2"><span class="nav-text">通过导入表泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%A0%86%E6%B3%84%E9%9C%B2"><span class="nav-text">通过堆泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-peb-%E6%B3%84%E9%9C%B2"><span class="nav-text">通过 PEB 泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-teb-%E6%B3%84%E9%9C%B2"><span class="nav-text">通过 TEB 泄露</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-text">windows 异常处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-io_file"><span class="nav-text">windows IO_FILE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-%E5%A0%86%E5%9F%BA%E7%A1%80"><span class="nav-text">windows 堆基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-%E5%A0%86%E6%A6%82%E8%BF%B0"><span class="nav-text">Windows 堆概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-%E5%A0%86%E7%B1%BB%E5%9E%8B"><span class="nav-text">Windows 堆类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-%E7%94%A8%E6%88%B7%E6%80%81%E8%BF%9B%E7%A8%8B%E5%A0%86%E7%A9%BA%E9%97%B4"><span class="nav-text">Windows 用户态进程堆空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E7%AE%A1%E7%90%86%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0"><span class="nav-text">堆管理常见函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#heapcreate"><span class="nav-text">HeapCreate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#heapallocheapfree"><span class="nav-text">HeapAlloc&#x2F;HeapFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#virtualallocvirtualfree"><span class="nav-text">VirtualAlloc&#x2F;VirtualFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#localalloclocalfree"><span class="nav-text">LocalAlloc&#x2F;LocalFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#globalallocglobalfree"><span class="nav-text">GlobalAlloc&#x2F;GlobalFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mallocfree"><span class="nav-text">malloc&#x2F;free</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%A0%86%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="nav-text">常用堆调试命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nt-heap"><span class="nav-text">NT Heap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E5%A0%86"><span class="nav-text">后端堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">相关数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6"><span class="nav-text">分配机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lfh-%E5%A0%86"><span class="nav-text">LFH 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1"><span class="nav-text">相关数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#userblocks_heap_userdata_header"><span class="nav-text">UserBlocks（_HEAP_USERDATA_HEADER）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-1"><span class="nav-text">分配机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#segment-heap"><span class="nav-text">Segment Heap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vs-%E5%A0%86"><span class="nav-text">VS 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-2"><span class="nav-text">相关数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-2"><span class="nav-text">分配机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lfh-%E5%A0%86-1"><span class="nav-text">LFH 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-3"><span class="nav-text">相关数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-3"><span class="nav-text">分配机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E5%A0%86-1"><span class="nav-text">后端堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-4"><span class="nav-text">相关数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-4"><span class="nav-text">分配机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lb-%E5%A0%86"><span class="nav-text">LB 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-5"><span class="nav-text">相关数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-5"><span class="nav-text">分配机制</span></a></li></ol></li></ol></li></ol></li></ol>
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">windows user pwn 基础知识</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#checksec"><span class="nav-text">checksec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#winchecksec"><span class="nav-text">winchecksec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checksecx64dbg"><span class="nav-text">checksec（x64dbg）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#winpwn"><span class="nav-text">winpwn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD"><span class="nav-text">添加功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#windbg"><span class="nav-text">windbg</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-windbg"><span class="nav-text">安装 windbg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ret_sync-%E5%AE%9E%E7%8E%B0-ida-%E5%92%8C-windbg-%E8%81%94%E5%8A%A8%E8%B0%83%E8%AF%95"><span class="nav-text">ret_sync 实现 ida 和
+windbg 联动调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80"><span class="nav-text">地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%AD%E7%82%B9"><span class="nav-text">断点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-text">内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-text">调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-text">线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E7%AE%97"><span class="nav-text">运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%AC%A6%E5%8F%B7"><span class="nav-text">查看符号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gadget-%E6%90%9C%E7%B4%A2%E5%B7%A5%E5%85%B7"><span class="nav-text">gadget 搜索工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ropgadget"><span class="nav-text">ROPGadget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ropper"><span class="nav-text">ropper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E7%8E%AF%E5%A2%83"><span class="nav-text">远程环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%8E%B7%E5%8F%96"><span class="nav-text">系统获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#appjaillauncher"><span class="nav-text">AppJailLauncher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="nav-text">调试环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2-dll"><span class="nav-text">替换 dll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">可能存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#x1a-%E9%97%AE%E9%A2%98"><span class="nav-text">0x1a 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E8%BD%A6%E9%97%AE%E9%A2%98"><span class="nav-text">回车问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A"><span class="nav-text">windows 函数调用约定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#x86"><span class="nav-text">x86</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x64"><span class="nav-text">x64</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pe-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">PE 文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#image_dos_header"><span class="nav-text">IMAGE_DOS_HEADER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image_nt_headers32"><span class="nav-text">IMAGE_NT_HEADERS32</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#image_file_header"><span class="nav-text">IMAGE_FILE_HEADER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#image_optional_header32"><span class="nav-text">IMAGE_OPTIONAL_HEADER32</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="nav-text">重定位表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="nav-text">导出表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="nav-text">导入表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E8%A1%A8"><span class="nav-text">节表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81-dll"><span class="nav-text">常见 dll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BB%93%E6%9E%84"><span class="nav-text">常见结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#peb"><span class="nav-text">PEB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#teb"><span class="nav-text">TEB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seh"><span class="nav-text">SEH</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E4%BF%9D%E6%8A%A4"><span class="nav-text">常见保护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dep"><span class="nav-text">DEP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aslr"><span class="nav-text">ASLR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gs"><span class="nav-text">GS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkstackvars"><span class="nav-text">CheckStackVars</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sehop"><span class="nav-text">SEHOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#safeseh"><span class="nav-text">SafeSEH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfg"><span class="nav-text">CFG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process_mitigation_child_process_policy"><span class="nav-text">PROCESS_MITIGATION_CHILD_PROCESS_POLICY</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%9C%B0%E5%9D%80%E6%B3%84%E9%9C%B2%E6%96%B9%E6%B3%95"><span class="nav-text">常见地址泄露方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%B3%84%E9%9C%B2"><span class="nav-text">通过导入表泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%A0%86%E6%B3%84%E9%9C%B2"><span class="nav-text">通过堆泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-peb-%E6%B3%84%E9%9C%B2"><span class="nav-text">通过 PEB 泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-teb-%E6%B3%84%E9%9C%B2"><span class="nav-text">通过 TEB 泄露</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-text">windows 异常处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-io_file"><span class="nav-text">windows IO_FILE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-%E5%A0%86%E5%9F%BA%E7%A1%80"><span class="nav-text">windows 堆基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-%E5%A0%86%E6%A6%82%E8%BF%B0"><span class="nav-text">Windows 堆概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-%E5%A0%86%E7%B1%BB%E5%9E%8B"><span class="nav-text">Windows 堆类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-%E7%94%A8%E6%88%B7%E6%80%81%E8%BF%9B%E7%A8%8B%E5%A0%86%E7%A9%BA%E9%97%B4"><span class="nav-text">Windows 用户态进程堆空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E7%AE%A1%E7%90%86%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0"><span class="nav-text">堆管理常见函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#heapcreate"><span class="nav-text">HeapCreate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#heapallocheapfree"><span class="nav-text">HeapAlloc&#x2F;HeapFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#virtualallocvirtualfree"><span class="nav-text">VirtualAlloc&#x2F;VirtualFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#localalloclocalfree"><span class="nav-text">LocalAlloc&#x2F;LocalFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#globalallocglobalfree"><span class="nav-text">GlobalAlloc&#x2F;GlobalFree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mallocfree"><span class="nav-text">malloc&#x2F;free</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%A0%86%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="nav-text">常用堆调试命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nt-heap"><span class="nav-text">NT Heap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E5%A0%86"><span class="nav-text">后端堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">相关数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap"><span class="nav-text">_HEAP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#chunk-head"><span class="nav-text">chunk head</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#blocksindex-_heap_list_lookup"><span class="nav-text">BlocksIndex
+(_HEAP_LIST_LOOKUP)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6"><span class="nav-text">分配机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#allocate-rtlallocateheap"><span class="nav-text">Allocate (RtlAllocateHeap)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#free-rtlfreeheap"><span class="nav-text">Free (RtlFreeHeap)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lfh-%E5%A0%86"><span class="nav-text">LFH 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1"><span class="nav-text">相关数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#frontendheap_lfh_heap"><span class="nav-text">FrontEndHeap（_LFH_HEAP）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#buckets_heap_bucket"><span class="nav-text">Buckets（_HEAP_BUCKET）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#segmentinfoarray_heap_local_segment_info"><span class="nav-text">SegmentInfoArray（_HEAP_LOCAL_SEGMENT_INFO）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#activesubsegment_heap_subsegment"><span class="nav-text">ActiveSubsegment（_HEAP_SUBSEGMENT）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#aggregateexchg_interlock_seq"><span class="nav-text">AggregateExchg（_INTERLOCK_SEQ）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#userblocks_heap_userdata_header"><span class="nav-text">UserBlocks（_HEAP_USERDATA_HEADER）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#chunkblock_heap_entry"><span class="nav-text">chunk&#x2F;block（_HEAP_ENTRY）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-1"><span class="nav-text">分配机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#allocate"><span class="nav-text">Allocate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#free"><span class="nav-text">Free</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#segment-heap"><span class="nav-text">Segment Heap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vs-%E5%A0%86"><span class="nav-text">VS 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-2"><span class="nav-text">相关数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#segment_heap"><span class="nav-text">_SEGMENT_HEAP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rtlphpheapglobals_rtlp_hp_heap_globals"><span class="nav-text">RtlpHpHeapGlobals（_RTLP_HP_HEAP_GLOBALS）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_vs_context"><span class="nav-text">_HEAP_VS_CONTEXT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_vs_subsegment"><span class="nav-text">_HEAP_VS_SUBSEGMENT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#chunk-head-1"><span class="nav-text">chunk head</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-2"><span class="nav-text">分配机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#allocate-1"><span class="nav-text">Allocate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#free-1"><span class="nav-text">Free</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lfh-%E5%A0%86-1"><span class="nav-text">LFH 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-3"><span class="nav-text">相关数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_lfh_context"><span class="nav-text">_HEAP_LFH_CONTEXT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_lfh_bucket"><span class="nav-text">_HEAP_LFH_BUCKET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_lfh_subsegment_owner"><span class="nav-text">_HEAP_LFH_SUBSEGMENT_OWNER</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_lfh_affinity_slot"><span class="nav-text">_HEAP_LFH_AFFINITY_SLOT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_lfh_subsegment"><span class="nav-text">_HEAP_LFH_SUBSEGMENT</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-3"><span class="nav-text">分配机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#allocate-2"><span class="nav-text">Allocate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#free-2"><span class="nav-text">Free</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E5%A0%86-1"><span class="nav-text">后端堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-4"><span class="nav-text">相关数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_seg_context"><span class="nav-text">_HEAP_SEG_CONTEXT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_page_segment"><span class="nav-text">_HEAP_PAGE_SEGMENT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_page_range_descriptor"><span class="nav-text">_HEAP_PAGE_RANGE_DESCRIPTOR</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-4"><span class="nav-text">分配机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#allocate-3"><span class="nav-text">Allocate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#free-3"><span class="nav-text">Free</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lb-%E5%A0%86"><span class="nav-text">LB 堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-5"><span class="nav-text">相关数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap_large_alloc_data"><span class="nav-text">_HEAP_LARGE_ALLOC_DATA</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6-5"><span class="nav-text">分配机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#allocate-4"><span class="nav-text">Allocate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#free-4"><span class="nav-text">Free</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
             &copy;
             
-              <span>2022</span>
+              <span>2024</span>
               -
             
             2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
@@ -3938,7 +4140,7 @@ windbg 联动调试</span></a></li><li class="nav-item nav-level-3"><a class="na
                     </span>
                     
                         <span>
-                            380.2k words in total
+                            379.8k words in total
                         </span>
                     
                 </p>
@@ -3963,7 +4165,7 @@ windbg 联动调试</span></a></li><li class="nav-item nav-level-3"><a class="na
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.0</a></span>
         </div>
         
         
@@ -3992,113 +4194,102 @@ windbg 联动调试</span></a></li><li class="nav-item nav-level-3"><a class="na
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
+	
 
 </main>
 
 
-    
+
 <script src="/js/libs/Swup.min.js"></script>
 
 <script src="/js/libs/SwupSlideTheme.min.js"></script>
@@ -4133,9 +4324,7 @@ windbg 联动调试</span></a></li><li class="nav-item nav-level-3"><a class="na
 
 
 
-
-
-
+	
 <script src="/js/tools/imageViewer.js" type="module"></script>
 
 <script src="/js/utils.js" type="module"></script>
@@ -4227,5 +4416,8 @@ windbg 联动调试</span></a></li><li class="nav-item nav-level-3"><a class="na
 
 
 
+
+	
 </body>
+
 </html>

