@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://skyi23.github.io/2024/11/11/Java%20%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/images/1870ddf72522475da1fd9e3789fbd255.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/11/Java%20%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/images/5b496cc2faa84a72a438ed157d63fe21.png">
 <meta property="article:published_time" content="2024-11-11T15:50:14.745Z">
-<meta property="article:modified_time" content="2024-11-15T19:03:09.106Z">
+<meta property="article:modified_time" content="2024-11-19T04:41:22.151Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="java web">
 <meta name="twitter:card" content="summary">
@@ -355,8 +355,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-16 03:03:09</span>
-            <span class="mobile">2024-11-16 03:03:09</span>
+            <span class="desktop">2024-11-19 12:41:22</span>
+            <span class="mobile">2024-11-19 12:41:22</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -404,12 +404,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>9.7k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>9.2k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>42 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>39 Mins</span>
         </span>
     
     
@@ -966,78 +966,9 @@ Java 核心类库的安全性和统一性。</p>
 <code>java.net.URL</code> 类）来寻找 <code>.class</code>
 文件来加载，而这个基础路径有分为三种情况：</p>
 <ul>
-<li>xxxxxxxxxx import regex as refrom idc import <em>import idcfrom
-keystone import </em>from capstone import <em>​asmer = Ks(KS_ARCH_X86,
-KS_MODE_32)disasmer = Cs(CS_ARCH_X86, CS_MODE_32)​​def
-disasm(machine_code, addr=0):    l = ""    for i in
-disasmer.disasm(machine_code, addr):        l += "{:8s}
-{};".format(i.mnemonic, i.op_str)    return l.strip('')​​def asm(asm_code,
-addr=0):    l = b''    for i in asmer.asm(asm_code, addr)[0]:        l
-+= bytes([i])    return l​​def check_call_to_jmp(call_insn_addr):  
- call_target = idc.get_operand_value(call_insn_addr, 0)    if
-call_target not in range(start_ea, end_ea): return None  
- idc.create_insn(call_target)    if ida_bytes.get_bytes(call_target,
-idc.get_item_size(call_target)) == asm('add esp, 4', call_target):      
- return call_target + idc.get_item_size(call_target)    if
-idc.print_insn_mnem(call_target) == 'pop':        return call_target +
-idc.get_item_size(call_target)    insn =
-disasm(ida_bytes.get_bytes(call_target, idc.get_item_size(call_target)),
-call_target)    if '[esp],' in insn and ('add' in insn or 'sub' in insn)
-and idc.get_operand_type(call_target, 1) == o_imm:      
- idc.create_insn(call_target + idc.get_item_size(call_target))        if
-idc.print_insn_mnem(call_target + idc.get_item_size(call_target)) ==
-'retn':            return (call_insn_addr + 5 + (1 if
-idc.print_insn_mnem(call_target) == 'add' else -1) </em>
-idc.get_operand_value(call_target, 1)) &amp; 0xFFFFFFFF    return
-None​​def check_jcc_to_jmp(jcc_insn_addr):    code1 =
-ida_bytes.get_bytes(jcc_insn_addr, idc.get_item_size(jcc_insn_addr))  
- next_insn_addr = jcc_insn_addr + idc.get_item_size(jcc_insn_addr)  
- idc.create_insn(next_insn_addr)    code2 =
-ida_bytes.get_bytes(next_insn_addr, idc.get_item_size(next_insn_addr))  
- if abs(code1[0] - code2[0]) == 1 and min(code1[0], code2[0]) % 2 == 0
-and idc.get_operand_value(jcc_insn_addr, 0) ==
-idc.get_operand_value(next_insn_addr, 0):        return
-idc.get_operand_value(jcc_insn_addr, 0)    code =
-ida_bytes.get_bytes(jcc_insn_addr, 12)​    print("bbbbb")    pattern_list
-= [        re.compile(rb"(?s)7C."),        re.compile(rb"(?s)...."),    
-   re.compile(rb"(?s).")   ]​    for pattern in pattern_list:      
- match = re.match(pattern, code)        if match != None and
-match.span()[1] != 0:            return jcc_insn_addr + match.span()[1]​
-   return None​​st_mnem_map = {'clc': ['jnb'], 'stc': ['jb']}​​def
-check_st_to_jmp(st_insn_addr):    st_mnem =
-idc.print_insn_mnem(st_insn_addr)    next_insn_addr = st_insn_addr +
-idc.get_item_size(st_insn_addr)    idc.create_insn(next_insn_addr)    if
-idc.print_insn_mnem(next_insn_addr) in st_mnem_map[st_mnem]:      
- return idc.get_operand_value(next_insn_addr, 0)    return None​​start_ea
-= 0x401000end_ea = 0x4B9CD0​ea = start_eawhile ea &lt; end_ea:  
- print("aaa: " + hex(ea))    for i in range(ea, ea + 0x10):
-idc.del_items(i)    if idc.create_insn(ea) == 0:        #
-idc.patch_byte(ea, 0x90)        ea += 1        continue    mnem =
-idc.print_insn_mnem(ea)    if mnem == 'call':        jmp_target =
-check_call_to_jmp(ea)        if jmp_target != None:            assert
-jmp_target &gt; ea            print("call: " + hex(ea))          
- print("jmp target: " + hex(jmp_target))            if jmp_target &gt;
-ea and abs(jmp_target - ea) &lt;= 0x80:              
- ida_bytes.patch_bytes(ea, b"" * (jmp_target - ea))                ea =
-jmp_target            else:                code = asm('jmp 0x%x' %
-(jmp_target), ea)                ida_bytes.patch_bytes(ea, code)        
-       ea += len(code)            continue    elif mnem[0] == 'j':      
- jmp_target = check_jcc_to_jmp(ea)        if jmp_target != None:        
-   print("jcc: " + hex(ea))            assert jmp_target &gt; ea        
-   if jmp_target &gt; ea and abs(jmp_target - ea) &lt;= 0x80:          
-     ida_bytes.patch_bytes(ea, b"" * (jmp_target - ea))              
- ea = jmp_target            else:                code = asm('jmp 0x%x' %
-(jmp_target), ea)                ida_bytes.patch_bytes(ea, code)        
-       ea += len(code)            continue    elif mnem in st_mnem_map:
-       jmp_target = check_st_to_jmp(ea)        if jmp_target != None:  
-         print("st: " + hex(ea))            assert jmp_target &gt; ea  
-         if jmp_target &gt; ea and abs(jmp_target - ea) &lt;= 0x80:    
-           ida_bytes.patch_bytes(ea, b"" * (jmp_target - ea))          
-     ea = jmp_target            else:                code = asm('jmp
-0x%x' % (jmp_target), ea)                ida_bytes.patch_bytes(ea, code)
-               ea += len(code)            continue​    ea +=
-idc.get_item_size(ea)​for _ in range(start_ea, end_ea):  
- idc.del_items(_)​idc.jumpto(0x004B8DE4)​print("finish")python</li>
+<li>URL 未以斜杠 <code>/</code> 结尾，则认为是一个 JAR 文件，使用
+<code>JarLoader</code> 来寻找类，即为在 Jar 包中寻找 <code>.class</code>
+文件。</li>
 <li>URL 以斜杠 <code>/</code> 结尾，且协议名是 file ，则使用
 <code>FileLoader</code> 来寻找类，即为在本地文件系统中寻找
 <code>.class</code>文件。</li>
@@ -1148,7 +1079,7 @@ Java 内部对于 JAXP 的实现，所以 BCEL 也被包含在了 JDK 的原生�
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-16 03:03:09
+                    :</strong> 2024-11-19 12:41:22
             </li>
         
         <li>
@@ -1323,7 +1254,7 @@ Loading）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="n
                     </span>
                     
                         <span>
-                            381.7k words in total
+                            380.2k words in total
                         </span>
                     
                 </p>

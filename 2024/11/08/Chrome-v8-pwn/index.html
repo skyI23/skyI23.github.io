@@ -134,7 +134,7 @@
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/Chrome-v8-pwn/images/eef097251127ec745ec4cc2e5270d715.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/Chrome-v8-pwn/images/b2df67a234f2cd34bb32397526594f01.png">
 <meta property="article:published_time" content="2024-11-08T05:34:18.601Z">
-<meta property="article:modified_time" content="2024-11-18T04:48:30.700Z">
+<meta property="article:modified_time" content="2024-11-19T04:39:57.617Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="browser pwn">
 <meta name="twitter:card" content="summary">
@@ -456,8 +456,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-18 12:48:30</span>
-            <span class="mobile">2024-11-18 12:48:30</span>
+            <span class="desktop">2024-11-19 12:39:57</span>
+            <span class="mobile">2024-11-19 12:39:57</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -505,12 +505,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>26.2k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>25.7k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>128 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>125 Mins</span>
         </span>
     
     
@@ -1087,78 +1087,6 @@ file.</p>
 <li>JSRelativeTimeFormat // If V8_INTL_SUPPORT enabled.</li>
 <li>JSSegmenter // If V8_INTL_SUPPORT enabled.</li>
 <li>JSSegments // If V8_INTL_SUPPORT enabled.</li>
-<li>xxxxxxxxxx import regex as refrom idc import <em>import idcfrom
-keystone import </em>from capstone import <em>​asmer = Ks(KS_ARCH_X86,
-KS_MODE_32)disasmer = Cs(CS_ARCH_X86, CS_MODE_32)​​def
-disasm(machine_code, addr=0):    l = ""    for i in
-disasmer.disasm(machine_code, addr):        l += "{:8s}
-{};".format(i.mnemonic, i.op_str)    return l.strip('')​​def asm(asm_code,
-addr=0):    l = b''    for i in asmer.asm(asm_code, addr)[0]:        l
-+= bytes([i])    return l​​def check_call_to_jmp(call_insn_addr):  
- call_target = idc.get_operand_value(call_insn_addr, 0)    if
-call_target not in range(start_ea, end_ea): return None  
- idc.create_insn(call_target)    if ida_bytes.get_bytes(call_target,
-idc.get_item_size(call_target)) == asm('add esp, 4', call_target):      
- return call_target + idc.get_item_size(call_target)    if
-idc.print_insn_mnem(call_target) == 'pop':        return call_target +
-idc.get_item_size(call_target)    insn =
-disasm(ida_bytes.get_bytes(call_target, idc.get_item_size(call_target)),
-call_target)    if '[esp],' in insn and ('add' in insn or 'sub' in insn)
-and idc.get_operand_type(call_target, 1) == o_imm:      
- idc.create_insn(call_target + idc.get_item_size(call_target))        if
-idc.print_insn_mnem(call_target + idc.get_item_size(call_target)) ==
-'retn':            return (call_insn_addr + 5 + (1 if
-idc.print_insn_mnem(call_target) == 'add' else -1) </em>
-idc.get_operand_value(call_target, 1)) &amp; 0xFFFFFFFF    return
-None​​def check_jcc_to_jmp(jcc_insn_addr):    code1 =
-ida_bytes.get_bytes(jcc_insn_addr, idc.get_item_size(jcc_insn_addr))  
- next_insn_addr = jcc_insn_addr + idc.get_item_size(jcc_insn_addr)  
- idc.create_insn(next_insn_addr)    code2 =
-ida_bytes.get_bytes(next_insn_addr, idc.get_item_size(next_insn_addr))  
- if abs(code1[0] - code2[0]) == 1 and min(code1[0], code2[0]) % 2 == 0
-and idc.get_operand_value(jcc_insn_addr, 0) ==
-idc.get_operand_value(next_insn_addr, 0):        return
-idc.get_operand_value(jcc_insn_addr, 0)    code =
-ida_bytes.get_bytes(jcc_insn_addr, 12)​    print("bbbbb")    pattern_list
-= [        re.compile(rb"(?s)7C."),        re.compile(rb"(?s)...."),    
-   re.compile(rb"(?s).")   ]​    for pattern in pattern_list:      
- match = re.match(pattern, code)        if match != None and
-match.span()[1] != 0:            return jcc_insn_addr + match.span()[1]​
-   return None​​st_mnem_map = {'clc': ['jnb'], 'stc': ['jb']}​​def
-check_st_to_jmp(st_insn_addr):    st_mnem =
-idc.print_insn_mnem(st_insn_addr)    next_insn_addr = st_insn_addr +
-idc.get_item_size(st_insn_addr)    idc.create_insn(next_insn_addr)    if
-idc.print_insn_mnem(next_insn_addr) in st_mnem_map[st_mnem]:      
- return idc.get_operand_value(next_insn_addr, 0)    return None​​start_ea
-= 0x401000end_ea = 0x4B9CD0​ea = start_eawhile ea &lt; end_ea:  
- print("aaa: " + hex(ea))    for i in range(ea, ea + 0x10):
-idc.del_items(i)    if idc.create_insn(ea) == 0:        #
-idc.patch_byte(ea, 0x90)        ea += 1        continue    mnem =
-idc.print_insn_mnem(ea)    if mnem == 'call':        jmp_target =
-check_call_to_jmp(ea)        if jmp_target != None:            assert
-jmp_target &gt; ea            print("call: " + hex(ea))          
- print("jmp target: " + hex(jmp_target))            if jmp_target &gt;
-ea and abs(jmp_target - ea) &lt;= 0x80:              
- ida_bytes.patch_bytes(ea, b"" * (jmp_target - ea))                ea =
-jmp_target            else:                code = asm('jmp 0x%x' %
-(jmp_target), ea)                ida_bytes.patch_bytes(ea, code)        
-       ea += len(code)            continue    elif mnem[0] == 'j':      
- jmp_target = check_jcc_to_jmp(ea)        if jmp_target != None:        
-   print("jcc: " + hex(ea))            assert jmp_target &gt; ea        
-   if jmp_target &gt; ea and abs(jmp_target - ea) &lt;= 0x80:          
-     ida_bytes.patch_bytes(ea, b"" * (jmp_target - ea))              
- ea = jmp_target            else:                code = asm('jmp 0x%x' %
-(jmp_target), ea)                ida_bytes.patch_bytes(ea, code)        
-       ea += len(code)            continue    elif mnem in st_mnem_map:
-       jmp_target = check_st_to_jmp(ea)        if jmp_target != None:  
-         print("st: " + hex(ea))            assert jmp_target &gt; ea  
-         if jmp_target &gt; ea and abs(jmp_target - ea) &lt;= 0x80:    
-           ida_bytes.patch_bytes(ea, b"" * (jmp_target - ea))          
-     ea = jmp_target            else:                code = asm('jmp
-0x%x' % (jmp_target), ea)                ida_bytes.patch_bytes(ea, code)
-               ea += len(code)            continue​    ea +=
-idc.get_item_size(ea)​for _ in range(start_ea, end_ea):  
- idc.del_items(_)​idc.jumpto(0x004B8DE4)​print("finish")python</li>
 <li>JSV8BreakIterator // If V8_INTL_SUPPORT enabled.</li>
 <li>WasmExceptionPackage</li>
 <li>WasmTagObject</li>
@@ -2956,7 +2884,7 @@ alt="在这里插入图片描述"
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-18 12:48:30
+                    :</strong> 2024-11-19 12:39:57
             </li>
         
         <li>
@@ -3133,7 +3061,7 @@ Time</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="
                     </span>
                     
                         <span>
-                            381.7k words in total
+                            380.2k words in total
                         </span>
                     
                 </p>
