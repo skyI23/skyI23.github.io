@@ -27,10 +27,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/998ca0e31c4c3ed139bb7b1d1d05e3e4.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/c715813e764b9d971b01092ef652bac5.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/4f2684f1ab4ad202e7f03c900f782bdb.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/5a166703c04f45dcaa7dcbf456f5b673.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/KPTI.drawio.svg">
-<meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/248d52bc78f674d3af4f30326f6a0d3f.png">
-<meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/b8339a49544b7c530101ae2730a11e59.png">
-<meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/3ee0687ee68d9de9d42881361d331098.png">
+<meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/int_0x80.drawio.svg">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/0efc0cedf397c0dfec156cce07f576aa.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/05061c3e0eb8ab90b2b3f95cefd42fe9.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/3e3c2449e2a737aed1da834761c0d355.png">
@@ -81,7 +81,7 @@
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/2b833dffac355164909bec5817f96202.png">
 <meta property="og:image" content="https://skyi23.github.io/2024/11/08/linux-kernel-pwn-basic-knowlege/images/2d026a01540a830c1dc2709f61f097bd.png">
 <meta property="article:published_time" content="2024-11-08T12:23:30.064Z">
-<meta property="article:modified_time" content="2024-11-21T18:44:20.162Z">
+<meta property="article:modified_time" content="2024-11-23T23:18:55.533Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="linux kernel pwn">
 <meta name="twitter:card" content="summary">
@@ -397,8 +397,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-22 02:44:20</span>
-            <span class="mobile">2024-11-22 02:44:20</span>
+            <span class="desktop">2024-11-24 07:18:55</span>
+            <span class="mobile">2024-11-24 07:18:55</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -446,12 +446,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>25.3k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>25.9k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>110 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>111 Mins</span>
         </span>
     
     
@@ -713,14 +713,30 @@
 <td><strong>用户态（User Mode）</strong>：用户程序运行的位置，如 <code>bash</code>、<code>vim</code> 等。</td>
 </tr>
 </tbody></table>
-<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="段保护机制"><a href="#段保护机制" class="headerlink" title="段保护机制"></a>段保护机制</h3><ul>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>Ring Model 主要隔离和保护的是<strong>不同级别的内存访问权限（RWX）</strong>和<strong>特权指令执行</strong>。这是 Ring Model 的两个支柱，也是它提供安全隔离的根本所在。</p>
+
+    </div>
+  </div>
+
+<h2 id="权限保护机制"><a href="#权限保护机制" class="headerlink" title="权限保护机制"></a>权限保护机制</h2><h3 id="段保护机制"><a href="#段保护机制" class="headerlink" title="段保护机制"></a>段保护机制</h3><ul>
 <li><strong>段（Segment）</strong> 是 x86 架构中内存管理的基础单元。每个段定义了一个线性地址范围，程序通过段选择子和偏移量访问内存。</li>
 <li>CPU 使用段保护机制，通过段选择子（Segment Selector）和段描述符（Descriptor）来控制不同权限级别（Ring）的内存访问，防止越权操作。</li>
 </ul>
 <h4 id="段选择子（Segment-Selector）"><a href="#段选择子（Segment-Selector）" class="headerlink" title="段选择子（Segment Selector）"></a>段选择子（Segment Selector）</h4><p>段选择子是存储在 CPU 段寄存器（代码段 <code>cs</code>、数据段 <code>ds</code>、栈段 <code>ss</code> 等）中的低 16 位值，标识了当前程序使用的段。它是程序访问内存段的入口，索引全局或局部段描述符表（GDT 或 LDT）。</p>
 <p>段选择子的格式如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| Index (13 bits) | TI (1 bit) | RPL (2 bits) |</span><br></pre></td></tr></table></figure></div>
-
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/11/08/linux-kernel-pwn-basic-knowlege/images/4f2684f1ab4ad202e7f03c900f782bdb.png"
+                     
+                ></p>
 <ul>
 <li><p><strong>Index（段索引，13 位）</strong>：指向段描述符表（GDT 或 LDT）中的一个条目，标识具体的段。</p>
 </li>
@@ -738,13 +754,17 @@
 </li>
 </ul>
 <h4 id="段描述符（Descriptor）"><a href="#段描述符（Descriptor）" class="headerlink" title="段描述符（Descriptor）"></a>段描述符（Descriptor）</h4><p>每个段在 GDT 或 LDT 中对应一个段描述符。描述符包含了段的基地址、大小、类型和权限等信息。</p>
-<p>段描述符在 64 位模式下的格式如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| Base Address (32 bits) | Limit (20 bits) | Access Rights (8 bits) |</span><br></pre></td></tr></table></figure></div>
-
+<p>段描述符的格式如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/11/08/linux-kernel-pwn-basic-knowlege/images/5a166703c04f45dcaa7dcbf456f5b673.png"
+                     
+                ></p>
 <ul>
 <li><p><strong>Base Address（基地址，32 位）</strong>：段的起始地址。在 64 位模式下，基地址通常被固定为 <code>0</code>，即扁平内存模型。</p>
 </li>
-<li><p><strong>Limit（段大小，20 位）</strong>：定义段的大小（单位为字节）。在 64 位模式下，通常被忽略，因为地址空间被扩展到 48 位或更高。</p>
+<li><p><strong>Segment Limit（段大小，20 位）</strong>：定义段的大小（单位为字节）。在 64 位模式下，通常被忽略，因为地址空间被扩展到 48 位或更高。</p>
 </li>
 <li><p><strong>Access Rights（访问权限，8 位）</strong>：包含段的类型和权限字段：</p>
 <ul>
@@ -860,96 +880,211 @@
 <li>用户态进入内核态：当用户态程序通过 <strong>系统调用</strong> 或 <strong>中断</strong> 进入内核态时，会执行用户态页表映射的系统调用入口代码。在这段代码会将 <strong>CR3 寄存器的第 13 位取反</strong>，切换到内核页表，这样就可以访问完整的内核空间。</li>
 <li>内核态返回用户态：内核完成系统调用或中断处理后，需要切换回用户态，此时内核通过<strong>取反 CR3 的第 13 位</strong>，切换回用户页表。切换完成后，内核地址空间的绝大部分被剥离，仅保留必要的条目。</li>
 </ul>
-<h3 id="中断机制"><a href="#中断机制" class="headerlink" title="中断机制"></a>中断机制</h3><p><strong>中断（Interrupt）</strong> 是硬件或软件引发的事件通知，用于中断当前任务的执行，将控制权转交给内核。在 x86_64 架构中，中断的处理由 <strong>中断描述符表（IDT）</strong> 和特权级检查共同完成。</p>
-<p>中断按类型可以分为：</p>
-<ul>
-<li><p><strong>硬件中断</strong>：由硬件设备发出（如键盘输入、网卡通信）。</p>
-</li>
-<li><p><strong>软件中断</strong>：由程序发出（如 <code>int</code> 指令，或 <code>syscall</code>）。</p>
-</li>
-<li><p><strong>异常</strong>：由处理器在检测到程序错误（如除零、访问非法内存）时触发。</p>
-</li>
-</ul>
-<h4 id="中断描述符表"><a href="#中断描述符表" class="headerlink" title="中断描述符表"></a>中断描述符表</h4><p>中断描述符表（IDT, Interrupt Descriptor Table）是一张存储中断处理程序入口的表，用于将中断向量映射到特定的处理程序。它在系统启动时由操作系统初始化。</p>
-<p>IDT 是一个固定大小的表（最多 256 个条目），每个条目的结构如下：</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Offset (Low, Mid, High)</td>
-<td>中断处理函数的地址（64 位虚拟地址）。</td>
-</tr>
-<tr>
-<td>Selector</td>
-<td>中断处理程序所在段的选择器，指向内核代码段（通常为 <code>__KERNEL_CS</code>）。</td>
-</tr>
-<tr>
-<td>IST（Interrupt Stack Table）</td>
-<td>指定中断发生时使用的内核栈索引，防止栈溢出。</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>描述符类型（中断门或陷阱门）。</td>
-</tr>
-<tr>
-<td>DPL（Descriptor Privilege Level）</td>
-<td>描述符权限级别，限制低权限代码是否可以触发中断。</td>
-</tr>
-<tr>
-<td>P（Present）</td>
-<td>描述符是否有效。</td>
-</tr>
-</tbody></table>
-<h4 id="中断处理流程"><a href="#中断处理流程" class="headerlink" title="中断处理流程"></a>中断处理流程</h4><ol>
-<li><strong>触发中断</strong>：<ul>
-<li>事件来源：<ul>
-<li>硬件设备：如键盘输入。</li>
-<li>软件：如 <code>int</code> 指令或异常。</li>
-</ul>
-</li>
-<li>中断信号送达 CPU，触发中断向量。</li>
-</ul>
-</li>
-<li><strong>中断向量查找</strong>：<ul>
-<li>CPU 根据中断号（Interrupt Number）在 IDT 中查找对应的处理程序入口。</li>
-</ul>
-</li>
-<li><strong>权限检查</strong>：<ul>
-<li>检查触发中断的代码特权级别（CPL）是否符合 IDT 条目 DPL 的要求：<ul>
-<li><strong>CPL ≤ DPL</strong>：允许触发中断。</li>
-<li><strong>CPL &gt; DPL</strong>：触发 <strong>General Protection Fault（GPF）</strong>。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>切换上下文</strong>：<ul>
-<li>保存当前寄存器和程序计数器（RIP）到内核栈。</li>
-<li>切换到指定的中断栈（根据 IST 索引），避免用户态栈溢出。</li>
-</ul>
-</li>
-<li><strong>执行中断处理程序</strong>：<ul>
-<li>控制权转移到内核定义的中断处理程序，完成任务（如处理硬件请求）。</li>
-</ul>
-</li>
-<li><strong>恢复上下文</strong>：<ul>
-<li>恢复寄存器和程序计数器，返回到被中断的程序或下一任务。</li>
-</ul>
-</li>
-</ol>
 <h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><h3 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h3><p><strong>系统调用（System Call）</strong> 是操作系统提供给用户程序的一组接口，用于请求内核执行特定的服务或操作，如文件读写、进程控制、网络通信等。系统调用充当了 <strong>用户态（Ring 3）</strong> 与 <strong>内核态（Ring 0）</strong> 之间的桥梁，允许用户程序以安全且受控的方式访问系统资源。</p>
 <p>由于内核具有更高的权限级别，用户程序不能直接操作硬件资源或访问敏感内存。因此，系统调用是用户程序请求内核服务的唯一合法途径。这种隔离保护机制有助于提升系统的安全性和稳定性。</p>
 <p>在 x86_64 架构中，系统调用通常通过 <strong>syscall 指令</strong> 或 <strong>int 0x80 指令</strong> 实现，两者都可以用来触发用户态到内核态的切换。其中，<code>syscall</code> 是现代 x86_64 架构中常用的实现方式，性能更优。</p>
-<h3 id="x86-架构的系统调用"><a href="#x86-架构的系统调用" class="headerlink" title="x86 架构的系统调用"></a>x86 架构的系统调用</h3><h4 id="执行系统调用指令"><a href="#执行系统调用指令" class="headerlink" title="执行系统调用指令"></a>执行系统调用指令</h4><p>用户程序将系统调用编号和参数加载到相应的寄存器中（如 <code>RAX</code>, <code>RDI</code>, <code>RSI</code>, <code>RDX</code>，<code>R10</code>，<code>R8</code>，<code>R9</code> 和用户态栈）后通过执行 <code>syscall</code> 指令触发系统调用。此时 CPU 会按照操作系统在相关寄存器预设的值进行上下文切换：</p>
+<h3 id="x86-系统调用相关指令"><a href="#x86-系统调用相关指令" class="headerlink" title="x86 系统调用相关指令"></a>x86 系统调用相关指令</h3><h4 id="系统调用指令"><a href="#系统调用指令" class="headerlink" title="系统调用指令"></a>系统调用指令</h4><p>在 32 位架构中，主要的系统调用指令有 <strong><code>int</code></strong> 和 **<code>sysenter</code>**，两者具有不同的性能和适用场景。另外调用门是原本 CPU 专门为操作系统的系统调用设计的，但是用于性能开销大而基本不被操作系统采用，这里不做介绍。</p>
+<h5 id="int-0x80"><a href="#int-0x80" class="headerlink" title="int 0x80"></a>int 0x80</h5><p><code>int</code> 是 x86 架构中的 <strong>软件中断指令</strong>。它是通过生成一个中断信号来改变程序的执行流，跳转到一个特定的中断处理程序。</p>
+<p><code>int</code> 指令通过指定中<strong>断向量号</strong>来触发中断处理，其中中断向量号是一个 8 位的数字（范围：0~255），用来标识中断的类型。</p>
+<p>考虑到硬件兼容性问题，在 32 位下的 linux 系统调用主要是通过 <code>int 0x80</code> 指令实现。也就是将断向量号为 0x80 的中断作为系统调用。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/11/08/linux-kernel-pwn-basic-knowlege/images/int_0x80.drawio.svg"
+                     
+                ></p>
+<p>执行系统调用时，用户态程序需要设置系统调用号和参数，</p>
 <ul>
-<li>将当前用户程序的系统调用的<strong>返回地址</strong>保存到 <strong><code>RCX</code></strong> 寄存器中，标志寄存器 <strong><code>RFLAGS</code></strong> 保存到 <strong><code>R11</code></strong> 寄存器中，以便后续能够快速地通过 <code>sysret</code> 恢复标志寄存器的状态。</li>
-<li>切换栈指针 <code>RSP</code> 到内核栈地址，由 <code>IA32_STAR</code> 寄存器中的值指定。</li>
-<li>将控制权交给内核代码入口地址，由 <code>IA32_LSTAR</code> 寄存器指定。</li>
+<li><strong><code>EAX</code></strong> ：系统调用号。</li>
+<li><strong><code>EBX</code>、<code>ECX</code>、<code>EDX</code>、<code>ESI</code>、<code>EDI</code></strong> ：系统调用的参数。</li>
 </ul>
-<h4 id="内核态系统调用入口"><a href="#内核态系统调用入口" class="headerlink" title="内核态系统调用入口"></a>内核态系统调用入口</h4><h5 id="entry-SYSCALL-64"><a href="#entry-SYSCALL-64" class="headerlink" title="entry_SYSCALL_64"></a>entry_SYSCALL_64</h5><p><code>entry_SYSCALL_64</code> 是系统调用进入内核态的入口函数，定义在 <code>arch/x86/entry/entry_64.S</code> 中。具体步骤为：</p>
+<p>之后，用户态程序执行 <code>int 0x80</code> 指令进行系统调用。<code>int</code> 指令的执行过程十分复杂，这里简单介绍一下执行过程：</p>
+<ol>
+<li><p><strong>查找和加载中断描述符</strong></p>
+<p> 在 <code>int &lt;vector&gt;</code> 指令中，CPU 使用 <strong>中断向量号</strong> 来查找 <strong>IDT 条目</strong>（<code>IDT_ENTRY = IDTR.base + (vector * 8)</code>）。</p>
+<blockquote>
+<p><code>IDTR</code> 寄存器（Interrupt Descriptor Table Register）是一个特殊寄存器，存储了 IDT 的起始地址（<code>base</code>）和长度（<code>limit</code>）。CPU 使用 <code>IDTR</code> 寄存器来找到 IDT 的基地址和大小。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IDTR:</span><br><span class="line">	base  -&gt; IDT 的起始物理地址。</span><br><span class="line">	limit -&gt; IDT 的大小（字节数 - 1）。</span><br></pre></td></tr></table></figure></div>
+</blockquote>
+</li>
+<li><p><strong>权限和属性检查</strong></p>
+<p> 在加载描述符后，CPU 会检查以下内容：</p>
+<ul>
+<li><p><strong>描述符类型</strong>：确保描述符是有效的中断门（Interrupt Gate）或陷阱门（Trap Gate），如果类型无效，会触发异常。</p>
+</li>
+<li><p><strong>特权级检查</strong>：CPU 检查当前代码段的 CPL（Current Privilege Level）与描述符的 DPL（Descriptor Privilege Level），如果 CPL &gt; DPL，则拒绝访问，触发 General Protection Fault。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>保存当前上下文到栈</strong></p>
+<p> CPU 将当前执行环境保存到栈中，以便中断处理完成后能够恢复原状态。</p>
+<ul>
+<li>如果<strong>没有特权级切换</strong>，即中断处理程序和中断触发点的特权级相同（如都在 Ring 0）则依次保存以下内容到当前栈：<ul>
+<li><code>EFLAGS</code></li>
+<li><code>CS</code></li>
+<li><code>EIP</code></li>
+</ul>
+</li>
+<li>如果发生<strong>特权级切换</strong>，即如果从用户态（Ring 3）切换到内核态（Ring 0）则首先<strong>切换到内核栈</strong>，新的栈指针（<code>ESP0</code>）从任务状态段（TSS）中读取。之后依次保存以下内容到内核栈：<ul>
+<li>用户态 <code>SS</code></li>
+<li>用户态 <code>ESP</code></li>
+<li><code>EFLAGS</code></li>
+<li>用户态 <code>CS</code></li>
+<li>用户态 <code>EIP</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>跳转到中断处理程序</strong></p>
+<ul>
+<li>将描述符中的段选择子加载到 <code>CS</code>。</li>
+<li>将描述符中的偏移地址加载到 <code>EIP</code>，跳转到目标处理程序入口。</li>
+<li>清除或保留 <code>IF</code> 标志<ul>
+<li>如果描述符类型是 <strong>中断门</strong>，清除 <code>IF</code> 标志，屏蔽中断。</li>
+<li>如果是 <strong>陷阱门</strong>，保留 <code>IF</code> 标志，允许嵌套中断。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="sysenter"><a href="#sysenter" class="headerlink" title="sysenter"></a>sysenter</h5><p>由于中断指令 <code>int</code> 本身就不是为系统调用而设计的，因此 <code>int 0x80</code> 方式涉及查询中断向量表、权限判断等复杂且没有必要的操作，这对于系统调用这种频繁使用的功能来说会带来很大的开销。因此就有了专门用于系统调用的指令 <code>sysenter</code> 。</p>
+<p>在内核初始化时，操作系统会配置以下 MSR 寄存器，为 <code>sysenter</code> 指令设置入口（这些寄存器需要在内核态配置，用户态无法直接访问）：</p>
+<table>
+<thead>
+<tr>
+<th><strong>寄存器</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>SYSENTER_CS_MSR</code></strong></td>
+<td>指定内核代码段选择子，通常设置为内核代码段（<code>0x10</code>）。</td>
+</tr>
+<tr>
+<td><strong><code>SYSENTER_EIP_MSR</code></strong></td>
+<td>指定内核入口地址，指向内核的系统调用入口函数（如 Linux 中的 <code>system_call</code> 或 <code>sysenter_entry</code>）。</td>
+</tr>
+<tr>
+<td><strong><code>SYSENTER_ESP_MSR</code></strong></td>
+<td>指定内核栈的初始栈指针。</td>
+</tr>
+</tbody></table>
+<p>当用户态程序执行 <code>sysenter</code> 指令时，CPU 直接进行如下操作完整权限和栈切换以及代码跳转：</p>
+<ol>
+<li><p><strong>设置目标代码段和指令指针</strong>：</p>
+<ul>
+<li>将 <code>SYSENTER_CS_MSR</code> 中的值加载到 <code>CS</code>。</li>
+<li>将 <code>SYSENTER_EIP_MSR</code> 的值加载到 <code>EIP</code>，跳转到内核的入口函数。</li>
+</ul>
+</li>
+<li><p><strong>设置目标栈指针</strong>：</p>
+<ul>
+<li>将 <code>SYSENTER_ESP_MSR</code> 的值加载到 <code>ESP</code>，切换到内核栈。</li>
+</ul>
+</li>
+</ol>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p><code>sysenter</code> 寄存器不保存寄存器，因此为了能正确返回用户态，需要在系统调用前的用户代码中保存 <code>EIP</code> 和 <code>ESP</code> 到指定寄存器中。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  lea edx, [next_instruction]   ; 保存返回的 EIP</span><br><span class="line">  mov ecx, esp                  ; 保存返回的 ESP</span><br><span class="line">  sysenter                      ; 执行系统调用</span><br><span class="line">next_instruction:</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure></div>
+
+<p>因为 <code>sysenter</code> 需要用户态程序的配合导致兼容性很差，因此 intel 的这一方案没有被操作系统采用。进入 64 位后 AMD 退出的 <code>syscall</code> 吸取了这个教训，因此能够在 64 位操作系统中一统江湖。</p>
+
+    </div>
+  </div>
+
+<h4 id="返回用户态指令"><a href="#返回用户态指令" class="headerlink" title="返回用户态指令"></a>返回用户态指令</h4><h5 id="retf（远返回指令）"><a href="#retf（远返回指令）" class="headerlink" title="retf（远返回指令）"></a>retf（远返回指令）</h5><p><code>retf</code> 是用于跨段（特权级）返回的指令，在 x86 中用来从调用门（Call Gate）或其他改变段选择子的特权切换中返回。具体执行过程为：</p>
+<ol>
+<li><strong>恢复用户态</strong>：<ul>
+<li>CPU 从当前栈中弹出 <code>EIP</code> 和 <code>CS</code>，更新当前的代码段和指令寄存器。</li>
+</ul>
+</li>
+<li><strong>根据特权级切换栈</strong>：<ul>
+<li>如果 <code>CS</code> 中的 CPL（Current Privilege Level）与当前特权级不同，则说明发生了特权级切换，CPU 从当前栈中弹出<code>SS</code> 和 <code>ESP</code> 切换到用户态栈。</li>
+<li>如果特权级相同，则继续执行，不切换栈。</li>
+</ul>
+</li>
+</ol>
+<h5 id="iretd（中断返回指令）"><a href="#iretd（中断返回指令）" class="headerlink" title="iretd（中断返回指令）"></a>iretd（中断返回指令）</h5><p><code>iretd</code> 是中断处理程序返回用户态时最常用的指令，用于恢复中断发生前的寄存器状态。具体执行过程为：</p>
+<ol>
+<li><strong>恢复用户态</strong>：<ul>
+<li>CPU 从栈中依次弹出以下内容：<ul>
+<li><code>EIP</code>（指令寄存器）：恢复中断发生时的指令地址。</li>
+<li><code>CS</code>（代码段选择子）：恢复用户态代码段。</li>
+<li><code>EFLAGS</code>（标志寄存器）：恢复中断前的状态标志。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>检查 CS 寄存器的有效性</strong>:<ul>
+<li><strong>段存在检查</strong>：确保段描述符存在位是设置的，即段实际存在于内存中。</li>
+<li><strong>类型检查</strong>：确保描述符类型适用于代码执行，例如，不能是数据段或其他非执行类型的段。</li>
+<li><strong>权限检查</strong>：确保代码段的 DPL 至少与 <code>CS</code> 选择子的请求特权级（RPL）一致。</li>
+</ul>
+</li>
+<li><strong>根据特权级切换栈</strong>：<ul>
+<li>如果 <code>CS</code> 中的 CPL（Current Privilege Level）不等于当前特权级，则说明发生了特权级切换，CPU 从栈中弹出用户态的 <code>SS</code> 和 <code>ESP</code>，切换到用户态栈。</li>
+</ul>
+</li>
+<li><strong>重新启用中断（如果需要）</strong>：<ul>
+<li>如果 <code>EFLAGS</code> 中的 IF 位（中断标志）被恢复为 1，则重新启用硬件中断。</li>
+</ul>
+</li>
+</ol>
+<h5 id="sysexit（快速系统调用返回指令）"><a href="#sysexit（快速系统调用返回指令）" class="headerlink" title="sysexit（快速系统调用返回指令）"></a>sysexit（快速系统调用返回指令）</h5><p><code>sysexit</code> 是 Intel 为了优化系统调用性能而引入的快速返回指令，配合 <code>sysenter</code> 使用。具体执行过程为：</p>
+<ol>
+<li><strong>恢复用户态寄存器</strong>：<ul>
+<li><code>EIP</code> 被设置为 <code>EDX</code> 中的值。</li>
+<li><code>ESP</code> 被设置为 <code>ECX</code> 中的值。</li>
+</ul>
+</li>
+<li><strong>切换段寄存器</strong>：<ul>
+<li>将 <code>CS</code> 设置为 <code>SYSENTER_CS_MSR</code>。</li>
+<li>将 <code>SS</code> 设置为 <code>SYSENTER_CS_MSR + 8</code>（内核代码段和内核数据段的选择子通常相差 <code>8</code>，因此由硬件设计直接规定）。</li>
+</ul>
+</li>
+</ol>
+<h3 id="x86-64-系统调用相关指令"><a href="#x86-64-系统调用相关指令" class="headerlink" title="x86-64 系统调用相关指令"></a>x86-64 系统调用相关指令</h3><h4 id="系统调用指令-1"><a href="#系统调用指令-1" class="headerlink" title="系统调用指令"></a>系统调用指令</h4><h5 id="syscall"><a href="#syscall" class="headerlink" title="syscall"></a>syscall</h5><p><code>syscall</code> 是 x86-64 架构中用户态程序进入内核态执行系统调用的主要指令，设计目的是取代传统的 <code>int</code> 或 <code>sysenter</code> 指令，提供更高效的系统调用路径。</p>
+<ol>
+<li><p><strong>保存寄存器</strong>：</p>
+<p>为了保证在执行完系统调用后可以正确地恢复到用户态。</p>
+<ul>
+<li>当前的 <code>RIP</code>（用户态下一条指令的地址）被保存在 <code>RCX</code> 中。</li>
+<li>当前的 <code>RFLAGS</code> 寄存器被保存在 <code>R11</code> 中。</li>
+</ul>
+</li>
+<li><p><strong>设置寄存器</strong>：</p>
+<ul>
+<li><strong>标志寄存器</strong>：通过 <code>IA32_FMASK MSR</code> 定义的 <code>RFLAGS</code> 位被清除，通常包括中断标志（IF），以防止 <code>syscall</code> 执行过程中被中断。</li>
+<li><strong>代码段和栈段选择子</strong>：从 <code>IA32_STAR MSR</code> 读取内核代码段（<code>CS</code>）和栈段（<code>SS</code>）选择子，并更新对应的寄存器。这不涉及栈指针 <code>RSP</code> 的改变，只是段寄存器的更新。</li>
+<li><strong>指令寄存器</strong>：<code>RIP</code> 被设置为 <code>IA32_LSTAR MSR</code> 中的值，即内核定义的入口点地址。</li>
+</ul>
+</li>
+</ol>
+<h4 id="返回用户态指令-1"><a href="#返回用户态指令-1" class="headerlink" title="返回用户态指令"></a>返回用户态指令</h4><h5 id="iretq"><a href="#iretq" class="headerlink" title="iretq"></a>iretq</h5><p> <code>iretq</code>（Interrupt Return）是 x86-64 架构中用于从中断、异常或其他低特权级（如用户态）代码的调用返回的指令，是 <code>iretd</code> 的 32 位形式。</p>
+<h5 id="sysret"><a href="#sysret" class="headerlink" title="sysret"></a>sysret</h5><p><code>sysret</code> 指令是 x86-64 架构中与 <code>syscall</code> 指令配套使用的指令，用于从系统调用中返回用户态。</p>
+<ol>
+<li><p><strong>恢复用户态寄存器</strong>：</p>
+<ul>
+<li><code>RIP</code> 被设置为 <code>RCX</code> 中的值。</li>
+<li><code>RFLAGS </code> 被设置为 <code>R11</code> 中的值。</li>
+</ul>
+</li>
+<li><p><strong>切换段寄存器</strong>：</p>
+<ul>
+<li><p><code>CS</code>（代码段寄存器）被设置为 <code>IA32_STAR MSR</code> 的用户代码段选择子加 16。这通常是 <code>STAR_MSR</code> 中指定的值，指向用户代码段。</p>
+<p><code>SS</code>（栈段寄存器）被设置为用户栈段选择子，通常是 <code>STAR_MSR</code> 的用户栈段选择子加 8。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Linux-系统调用内核实现"><a href="#Linux-系统调用内核实现" class="headerlink" title="Linux 系统调用内核实现"></a>Linux 系统调用内核实现</h3><p>这里仅介绍 64 位 <code>syscall</code> 指令的系统调用过程。</p>
+<h4 id="系统调用入口"><a href="#系统调用入口" class="headerlink" title="系统调用入口"></a>系统调用入口</h4><h5 id="entry-SYSCALL-64"><a href="#entry-SYSCALL-64" class="headerlink" title="entry_SYSCALL_64"></a>entry_SYSCALL_64</h5><p><code>entry_SYSCALL_64</code> 是系统调用进入内核态的入口函数，定义在 <code>arch/x86/entry/entry_64.S</code> 中。具体步骤为：</p>
 <ol>
 <li><p><strong>切换 GS 寄存器的基地址。</strong>在用户态，<code>GS</code> 通常指向用户空间的数据结构；在内核态，<code>GS</code> 指向内核的 <code>per-CPU</code> 数据结构，因此需要切换  GS  寄存器的基地址。</p>
  <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapgs</span><br></pre></td></tr></table></figure></div></li>
@@ -984,7 +1119,7 @@
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nr &amp;= __SYSCALL_MASK;</span><br><span class="line"><span class="keyword">if</span> (likely(nr &lt; NR_syscalls)) &#123;</span><br><span class="line">	nr = array_index_nospec(nr, NR_syscalls);</span><br><span class="line">	regs-&gt;ax = sys_call_table[nr](regs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>另外 <code>do_syscall_64</code> 函数中还有一些与调试（<code>ptrace</code>）、系统调用跟踪（ <code>strace</code>）相关的处理逻辑，不过这些并不重要。另外像栈偏移随机化的 <code>RANDOMIZE_KSTACK_OFFSET</code> 保护也是在这里实现的。</p>
-<h4 id="内核态系统调用返回"><a href="#内核态系统调用返回" class="headerlink" title="内核态系统调用返回"></a>内核态系统调用返回</h4><h5 id="do-syscall-64-1"><a href="#do-syscall-64-1" class="headerlink" title="do_syscall_64"></a>do_syscall_64</h5><p>在 <code>do_syscall_64</code> 中，系统调用完成后会进入 <code>syscall_return_slowpath</code>：</p>
+<h4 id="系统调用返回"><a href="#系统调用返回" class="headerlink" title="系统调用返回"></a>系统调用返回</h4><h5 id="do-syscall-64-1"><a href="#do-syscall-64-1" class="headerlink" title="do_syscall_64"></a>do_syscall_64</h5><p>在 <code>do_syscall_64</code> 中，系统调用完成后会进入 <code>syscall_return_slowpath</code>：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">do_syscall_64</span><span class="params">(...)</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    syscall_return_slowpath(regs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>该函数主要执行一些延迟工作（如调试器事件、审计、跟踪等），并调用其他函数（如 <code>prepare_exit_to_usermode</code>）为最终返回用户态做好准备。</p>
@@ -1020,7 +1155,7 @@
 </ul>
  <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POP_REGS pop_rdi=0 skip_r11rcx=1</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p><strong>切换栈到跳板栈。</strong></p>
+<li><p><strong>保存旧栈指针并切换到跳板栈。</strong></p>
 <blockquote>
 <p><strong>跳板栈（trampoline stack）</strong>：</p>
 <ul>
@@ -1030,77 +1165,75 @@
 </ul>
 </blockquote>
  <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movq	%rsp, %rdi  ; 将当前栈指针（%rsp）保存到 RDI 中，供后续切换栈时使用。</span><br><span class="line">movq	PER_CPU_VAR(cpu_tss_rw + TSS_sp0), %rsp	; 切换到跳板栈</span><br></pre></td></tr></table></figure></div>
+
 </li>
-<li><p><strong>将原本内核栈中保存的 rsp 和 rdi 保存到跳板栈中。</strong>因为这 <code>rdi</code> 寄存器在切换页表时会用到；<code>rsp</code> 寄存器在恢复 <code>rdi</code> 时会用到。</p>
- <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pushq	RSP-RDI(%rdi)	/* RSP */</span><br><span class="line">pushq	(%rdi)		/* RDI */</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><strong>切换到用户页表。</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SWITCH_TO_USER_CR3_STACK scratch_reg=%rdi</span><br></pre></td></tr></table></figure></div>
+<li><p><strong>切换到用户页表。</strong>在这之前需要先将原本内核栈中保存的 rsp 和 rdi 保存到跳板栈中，因为这 <code>rdi</code> 寄存器在切换页表时会用到；<code>rsp</code> 寄存器在恢复 <code>rdi</code> 时会用到。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pushq	RSP-RDI(%rdi)	/* RSP */</span><br><span class="line">pushq	(%rdi)		/* RDI */</span><br><span class="line">SWITCH_TO_USER_CR3_STACK scratch_reg=%rdi</span><br><span class="line">popq %rdi</span><br><span class="line">popq %rsp</span><br></pre></td></tr></table></figure></div>
 
 <p>对应的汇编代码为：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov    rdi, cr3</span><br><span class="line">or     rdi,0x1000</span><br><span class="line">mov    cr3, rdi</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">push   qword ptr [rdi + 0x28]	/* RSP */</span><br><span class="line">push   qword ptr [rdi]			/* RDI */</span><br><span class="line"></span><br><span class="line">mov    rdi, cr3</span><br><span class="line">or     rdi,0x1000</span><br><span class="line">mov    cr3, rdi</span><br><span class="line"></span><br><span class="line">pop    rdi</span><br><span class="line">pop    rsp</span><br></pre></td></tr></table></figure></div>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>关闭 KPTI 后由于内核代码会被动态补丁（patch）修改，导致页表切换代码（<code>SWITCH_TO_USER_CR3_STACK scratch_reg=%rdi</code>）被跳过。</p>
+
+    </div>
+  </div>
+
 </li>
-<li><p><strong>恢复剩余的寄存器 rdi 和 rsp 并返回。</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">popq %rdi</span><br><span class="line">popq %rsp</span><br><span class="line">USERGS_SYSRET64	; 实际汇编为：swapgs; sysretq</span><br></pre></td></tr></table></figure></div></li>
+<li><p><strong>恢复 gs 寄存器并返回。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">USERGS_SYSRET64	; 实际汇编为：swapgs; sysretq</span><br></pre></td></tr></table></figure></div></li>
 </ol>
-<h5 id="慢速返回路径：swapgs-restore-regs-and-return-to-usermode"><a href="#慢速返回路径：swapgs-restore-regs-and-return-to-usermode" class="headerlink" title="慢速返回路径：swapgs_restore_regs_and_return_to_usermode"></a>慢速返回路径：swapgs_restore_regs_and_return_to_usermode</h5><h4 id="执行返回用户态指令"><a href="#执行返回用户态指令" class="headerlink" title="执行返回用户态指令"></a>执行返回用户态指令</h4><h3 id="用户态-内核态"><a href="#用户态-内核态" class="headerlink" title="用户态-&gt;内核态"></a>用户态-&gt;内核态</h3><p>当发生系统调用，产生异常，外设产生中断等事件时，会发生用户态到内核态的切换，具体的过程为：</p>
-<ul>
-<li><p>通过 <code>swapgs</code> 切换 <code>GS</code> 段寄存器，将 <code>GS</code> 寄存器值和一个特定位置的值进行交换，目的是为了保存 <code>GS</code> 值，同时将该位置的值作为内核执行时的 <code>GS</code> 值使用。</p>
-<ul>
-<li><code>GS</code> 寄存器的作用是访问 CPU 特定的内存。</li>
-</ul>
+<h5 id="慢速返回路径：swapgs-restore-regs-and-return-to-usermode"><a href="#慢速返回路径：swapgs-restore-regs-and-return-to-usermode" class="headerlink" title="慢速返回路径：swapgs_restore_regs_and_return_to_usermode"></a>慢速返回路径：swapgs_restore_regs_and_return_to_usermode</h5><ol>
+<li><p><strong>从栈上恢复通用寄存器。</strong><code>pop_rdi=0</code> 表示 <code>rdi</code> 寄存器不恢复，因为 <code>RDI</code> 在后续的栈切换过程中被用作临时寄存器。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POP_REGS pop_rdi=0</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p>将当前栈顶(用户空间栈顶)记录在 CPU 独占变量区域里，将 CPU 独占区域里记录的内核栈顶放入 <code>RSP/ESP</code> 。</p>
+<li><p><strong>保存旧栈指针并切换到跳板栈。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movq	%rsp, %rdi</span><br><span class="line">movq	PER_CPU_VAR(cpu_tss_rw + TSS_sp0), %rsp</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p>通过 <code>push</code> 保存各寄存器值，具体代码如下：</p>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">ENTRY(entry_SYSCALL_64)</span><br><span class="line"><span class="comment">/* SWAPGS_UNSAFE_STACK是一个宏，x86直接定义为swapgs指令 */</span></span><br><span class="line">SWAPGS_UNSAFE_STACK</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 保存栈值，并设置内核栈 */</span></span><br><span class="line">movq %rsp, PER_CPU_VAR(rsp_scratch)</span><br><span class="line">movq <span class="title function_">PER_CPU_VAR</span><span class="params">(cpu_current_top_of_stack)</span>, %rsp</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 通过push保存寄存器值，形成一个pt_regs结构 */</span></span><br><span class="line"><span class="comment">/* Construct struct pt_regs on stack */</span></span><br><span class="line">pushq  $__USER_DS                <span class="comment">/* pt_regs-&gt;ss */</span></span><br><span class="line">pushq  <span class="title function_">PER_CPU_VAR</span><span class="params">(rsp_scratch)</span>  <span class="comment">/* pt_regs-&gt;sp */</span></span><br><span class="line">pushq  %r11                      <span class="comment">/* pt_regs-&gt;flags */</span></span><br><span class="line">pushq  $__USER_CS                <span class="comment">/* pt_regs-&gt;cs */</span></span><br><span class="line">pushq  %rcx                      <span class="comment">/* pt_regs-&gt;ip */</span></span><br><span class="line">pushq  %rax                      <span class="comment">/* pt_regs-&gt;orig_ax */</span></span><br><span class="line">pushq  %rdi                      <span class="comment">/* pt_regs-&gt;di */</span></span><br><span class="line">pushq  %rsi                      <span class="comment">/* pt_regs-&gt;si */</span></span><br><span class="line">pushq  %rdx                      <span class="comment">/* pt_regs-&gt;dx */</span></span><br><span class="line">pushq  %rcx tuichu               <span class="comment">/* pt_regs-&gt;cx */</span></span><br><span class="line">pushq  $-ENOSYS                  <span class="comment">/* pt_regs-&gt;ax */</span></span><br><span class="line">pushq  %r8                       <span class="comment">/* pt_regs-&gt;r8 */</span></span><br><span class="line">pushq  %r9                       <span class="comment">/* pt_regs-&gt;r9 */</span></span><br><span class="line">pushq  %r10                      <span class="comment">/* pt_regs-&gt;r10 */</span></span><br><span class="line">pushq  %r11                      <span class="comment">/* pt_regs-&gt;r11 */</span></span><br><span class="line">sub $<span class="params">(<span class="number">6</span>*<span class="number">8</span>)</span>, %rsp                 <span class="comment">/* pt_regs-&gt;bp, bx, r12-15 not saved */</span></span><br></pre></td></tr></table></figure></div>
+<li><p><strong>复制 IRET 帧到跳板栈。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pushq	6*8(%rdi)	/* SS */</span><br><span class="line">pushq	5*8(%rdi)	/* RSP */</span><br><span class="line">pushq	4*8(%rdi)	/* EFLAGS */</span><br><span class="line">pushq	3*8(%rdi)	/* CS */</span><br><span class="line">pushq	2*8(%rdi)	/* RIP */</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p>通过汇编指令判断是否为 <code>x32_abi</code>。(linux 32 位内核)</p>
+<li><p><strong>切换到用户页表。</strong>在这之前需要先将 <code>rdi</code> 保存到跳板栈中，因为这 <code>rdi</code> 寄存器在切换页表时会用到。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/* Push user RDI on the trampoline stack. */</span><br><span class="line">pushq	(%rdi)</span><br><span class="line">   </span><br><span class="line">SWITCH_TO_USER_CR3_STACK scratch_reg=%rdi</span><br><span class="line">   </span><br><span class="line">/* Restore RDI. */</span><br><span class="line">popq	%rdi</span><br></pre></td></tr></table></figure></div>
+
+<p>对应的汇编代码为：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">push   rdi</span><br><span class="line">mov    rdi, cr3</span><br><span class="line">or     rdi,0x1000</span><br><span class="line">pop    rdi</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>关闭 KPTI 后由于内核代码会被动态补丁（patch）修改，导致页表切换代码（<code>SWITCH_TO_USER_CR3_STACK scratch_reg=%rdi</code>）被跳过。</p>
+
+    </div>
+  </div>
 </li>
-<li><p>通过系统调用号，跳到全局变量 <code>sys_call_table</code> 相应位置继续执行系统调用。</p>
-</li>
-</ul>
-<h3 id="内核态-用户态"><a href="#内核态-用户态" class="headerlink" title="内核态-&gt;用户态"></a>内核态-&gt;用户态</h3><p>具体流程如下：</p>
-<ul>
-<li>通过 <code>swapgs</code> 恢复 <code>GS</code> 值</li>
-<li>通过 <code>sysretq</code> 或者 <code>iretq</code> 恢复到用户空间继续执行。如果使用 <code>iretq</code> 还需要给出用户空间的一些信息(<code>CS, eflags/rflags, esp/rsp</code> 等)，即 <code>trap_frame</code> 。</li>
-</ul>
+<li><p><strong>恢复 gs 寄存器并返回。</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SWAPGS	; swapgs</span><br><span class="line">INTERRUPT_RETURN	; iretq</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="kernel-pwn-如何返回用户态"><a href="#kernel-pwn-如何返回用户态" class="headerlink" title="kernel pwn 如何返回用户态"></a>kernel pwn 如何返回用户态</h3><h4 id="iretq-SIGSEGV"><a href="#iretq-SIGSEGV" class="headerlink" title="iretq + SIGSEGV"></a>iretq + SIGSEGV</h4><p>这种方式需要我们寻找一个 <code>swapgs; iretq;</code> 的 gadget 来返回用户空间。另外还要根据 <code>iretq;</code> 指令的需求设置栈顶为 <code>trap_frame</code> 结构来表示返回用户空间后的状态。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trap_frame</span> &#123;</span></span><br><span class="line">    <span class="type">size_t</span> user_rip;</span><br><span class="line">    <span class="type">size_t</span> user_cs;</span><br><span class="line">    <span class="type">size_t</span> user_rflags;</span><br><span class="line">    <span class="type">size_t</span> user_sp;</span><br><span class="line">    <span class="type">size_t</span> user_ss;</span><br><span class="line">&#125; __attribute__((packed));</span><br></pre></td></tr></table></figure></div>
 
-<p>对于开启了 <code>KPTI</code>（内核页表隔离），我们不能像之前那样直接 <code>swapgs; iret</code> 返回用户态，而是在返回用户态之前还需要将用户进程的页表给切换回来</p>
-<p>众所周知 Linux 采用四级页表结构（PGD-&gt;PUD-&gt;PMD-&gt;PTE），而 CR3 控制寄存器用以存储当前的 PGD 的地址，因此在开启 KPTI 的情况下用户态与内核态之间的切换便涉及到 CR3 的切换，为了提高切换的速度，内核将内核空间的 PGD 与用户空间的 PGD 两张页全局目录表放在一段连续的内存中（两张表，一张一页4k，总计8k，内核空间的在低地址，用户空间的在高地址），这样只需要将 CR3 的第 13 位取反便能完成页表切换的操作<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2024/11/08/linux-kernel-pwn-basic-knowlege/images/248d52bc78f674d3af4f30326f6a0d3f.png"
-                     
-                ><br>需要进行说明的是，在这两张页表上都有着对用户内存空间的完整映射，但在用户页表中只映射了少量的内核代码（例如系统调用入口点、中断处理等），而只有在内核页表中才有着对内核内存空间的完整映射，如下图所示，左侧是未开启 KPTI 后的页表布局，右侧是开启了 KPTI 后的页表布局<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2024/11/08/linux-kernel-pwn-basic-knowlege/images/b8339a49544b7c530101ae2730a11e59.png"
-                     
-                ><br>KPTI 同时还令内核页表中用户地址空间部分对应的页顶级表项不再拥有执行权限（NX），这使得 ret2usr 彻底成为过去式</p>
-<p>除了在系统调用入口中将用户态页表切换到内核态页表的代码外，内核也相应地在 <code>arch/x86/entry/entry_64.S</code> 中提供了一个用于完成内核态页表切换回到用户态页表的函数 <code>swapgs_restore_regs_and_return_to_usermode</code>，地址可以在 <code>/proc/kallsyms</code> 中获得。</p>
-<p><code>swapgs_restore_regs_and_return_to_usermode</code> 定义如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">0xffffffff81c00fb0 &lt;swapgs_restore_regs_and_return_to_usermode&gt;:	nop    DWORD PTR [rax+rax*1+0x0]</span><br><span class="line">0xffffffff81c00fb5 &lt;swapgs_restore_regs_and_return_to_usermode+5&gt;:	pop    r15</span><br><span class="line">0xffffffff81c00fb7 &lt;swapgs_restore_regs_and_return_to_usermode+7&gt;:	pop    r14</span><br><span class="line">0xffffffff81c00fb9 &lt;swapgs_restore_regs_and_return_to_usermode+9&gt;:	pop    r13</span><br><span class="line">0xffffffff81c00fbb &lt;swapgs_restore_regs_and_return_to_usermode+11&gt;:	pop    r12</span><br><span class="line">0xffffffff81c00fbd &lt;swapgs_restore_regs_and_return_to_usermode+13&gt;:	pop    rbp</span><br><span class="line">0xffffffff81c00fbe &lt;swapgs_restore_regs_and_return_to_usermode+14&gt;:	pop    rbx</span><br><span class="line">0xffffffff81c00fbf &lt;swapgs_restore_regs_and_return_to_usermode+15&gt;:	pop    r11</span><br><span class="line">0xffffffff81c00fc1 &lt;swapgs_restore_regs_and_return_to_usermode+17&gt;:	pop    r10</span><br><span class="line">0xffffffff81c00fc3 &lt;swapgs_restore_regs_and_return_to_usermode+19&gt;:	pop    r9</span><br><span class="line">0xffffffff81c00fc5 &lt;swapgs_restore_regs_and_return_to_usermode+21&gt;:	pop    r8</span><br><span class="line">0xffffffff81c00fc7 &lt;swapgs_restore_regs_and_return_to_usermode+23&gt;:	pop    rax</span><br><span class="line">0xffffffff81c00fc8 &lt;swapgs_restore_regs_and_return_to_usermode+24&gt;:	pop    rcx</span><br><span class="line">0xffffffff81c00fc9 &lt;swapgs_restore_regs_and_return_to_usermode+25&gt;:	pop    rdx</span><br><span class="line">0xffffffff81c00fca &lt;swapgs_restore_regs_and_return_to_usermode+26&gt;:	pop    rsi</span><br><span class="line">0xffffffff81c00fcb &lt;swapgs_restore_regs_and_return_to_usermode+27&gt;:	mov    rdi,rsp</span><br><span class="line">0xffffffff81c00fce &lt;swapgs_restore_regs_and_return_to_usermode+30&gt;:	mov    rsp,QWORD PTR gs:0x6004</span><br><span class="line">0xffffffff81c00fd7 &lt;swapgs_restore_regs_and_return_to_usermode+39&gt;:	push   QWORD PTR [rdi+0x30]</span><br><span class="line">0xffffffff81c00fda &lt;swapgs_restore_regs_and_return_to_usermode+42&gt;:	push   QWORD PTR [rdi+0x28]</span><br><span class="line">0xffffffff81c00fdd &lt;swapgs_restore_regs_and_return_to_usermode+45&gt;:	push   QWORD PTR [rdi+0x20]</span><br><span class="line">0xffffffff81c00fe0 &lt;swapgs_restore_regs_and_return_to_usermode+48&gt;:	push   QWORD PTR [rdi+0x18]</span><br><span class="line">0xffffffff81c00fe3 &lt;swapgs_restore_regs_and_return_to_usermode+51&gt;:	push   QWORD PTR [rdi+0x10]</span><br><span class="line">0xffffffff81c00fe6 &lt;swapgs_restore_regs_and_return_to_usermode+54&gt;:	push   QWORD PTR [rdi]</span><br><span class="line">0xffffffff81c00fe8 &lt;swapgs_restore_regs_and_return_to_usermode+56&gt;:	push   rax</span><br><span class="line">0xffffffff81c00fe9 &lt;swapgs_restore_regs_and_return_to_usermode+57&gt;:	xchg   ax,ax</span><br><span class="line">0xffffffff81c00feb &lt;swapgs_restore_regs_and_return_to_usermode+59&gt;:	mov    rdi,cr3</span><br><span class="line">0xffffffff81c00fee &lt;swapgs_restore_regs_and_return_to_usermode+62&gt;:	jmp    0xffffffff81c01024 </span><br><span class="line"></span><br><span class="line">0xffffffff81c01024 &lt;swapgs_restore_regs_and_return_to_usermode+116&gt;:	or     rdi,0x1000</span><br><span class="line">0xffffffff81c0102b &lt;swapgs_restore_regs_and_return_to_usermode+123&gt;:	mov    cr3,rdi</span><br><span class="line">0xffffffff81c0102e &lt;swapgs_restore_regs_and_return_to_usermode+126&gt;:	pop    rax</span><br><span class="line">0xffffffff81c0102f &lt;swapgs_restore_regs_and_return_to_usermode+127&gt;:	pop    rdi</span><br><span class="line">0xffffffff81c01030 &lt;swapgs_restore_regs_and_return_to_usermode+128&gt;:	swapgs </span><br><span class="line">0xffffffff81c01033 &lt;swapgs_restore_regs_and_return_to_usermode+131&gt;:	jmp    0xffffffff81c01060 &lt;native_iret&gt;</span><br><span class="line"></span><br><span class="line">0xffffffff81c01060 &lt;native_iret&gt;:	test   BYTE PTR [rsp+0x20],0x4</span><br><span class="line">0xffffffff81c01065 &lt;native_iret+5&gt;:	jne    0xffffffff81c01069 &lt;native_irq_return_ldt&gt;</span><br><span class="line">0xffffffff81c01067 &lt;native_irq_return_iret&gt;:	iretq </span><br></pre></td></tr></table></figure></div>
-
-<p>大概操作如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov  rdi, cr3</span><br><span class="line">or rdi, 0x1000</span><br><span class="line">mov  cr3, rdi</span><br><span class="line">pop rax</span><br><span class="line">pop rdi</span><br><span class="line">swapgs</span><br><span class="line">iretq</span><br></pre></td></tr></table></figure></div>
-
-<p>前面对寄存器赋值的操作与 <code>pt_regs</code> 结构体对应</p>
-<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">pt_regs</span> &#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * C ABI says these regs are callee-preserved. They aren&#x27;t saved on kernel entry</span></span><br><span class="line"><span class="comment"> * unless syscall needs a complete, fully filled &quot;struct pt_regs&quot;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r15;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r14;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r13;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r12;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rbp;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rbx;</span><br><span class="line"><span class="comment">/* These regs are callee-clobbered. Always saved on kernel entry. */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r11;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r10;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r9;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> r8;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rax;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rcx;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rdx;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rsi;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rdi;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * On syscall entry, this is syscall#. On CPU exception, this is error code.</span></span><br><span class="line"><span class="comment"> * On hw interrupt, it&#x27;s IRQ number:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> orig_rax;</span><br><span class="line"><span class="comment">/* Return frame for iretq */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rip;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> cs;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> eflags;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rsp;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> ss;</span><br><span class="line"><span class="comment">/* top of stack page */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2024/11/08/linux-kernel-pwn-basic-knowlege/images/3ee0687ee68d9de9d42881361d331098.png"
-                     
-                ><br>另外如果找不到 <code>swapgs_restore_regs_and_return_to_usermode</code> 函数可以把 <code>get_shell</code> 函数注册为 <code>SIGSEGV</code> 信号处理函数，然后再用 swapgs + iretq 的方式返回。当出现异常时会跳转到 <code>get_shell</code> 函数继续执行，这样就完成了用户态的返回。</p>
+<p>对于开启 KPTI 保护的内核来说，这种方式缺少页表切换操作，导致返回到用户态后用户态代码没有执行权限造成异常。</p>
+<p>一种方法是把 <code>get_shell</code> 函数注册为 <code>SIGSEGV</code> 信号处理函数，然后再用 swapgs + iretq 的方式返回。当出现异常时会跳转到 <code>get_shell</code> 函数继续执行，这样就完成了用户态的返回。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">signal(SIGSEGV, (<span class="type">void</span> (*)(<span class="type">int</span>)) get_shell);</span><br></pre></td></tr></table></figure></div>
 
 <p>上面这段代码本质就是在程序的段错误信号注册了一个 <code>get_shell</code> 回调函数。开启 KPIT 后  swapgs + iretq 的方式返回位切换页表，执行用户空间代码触发段错误回调 <code>get_shell</code> 函数。而回调 <code>get_shell</code> 函数前也会有系统态到用户态的切换，此时完成了页表和栈的正确切换（栈 0x10 对齐），确保执行 <code>get_shell</code> 函数不会出问题。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">get_shell</span><span class="params">()</span> &#123;</span><br><span class="line">    system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    signal(SIGSEGV, (<span class="type">void</span> (*)(<span class="type">int</span>)) get_shell);</span><br><span class="line">    *(<span class="type">size_t</span> *) <span class="number">0x114514</span> = <span class="number">0x1919810</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="关于-syscall"><a href="#关于-syscall" class="headerlink" title="关于 syscall"></a>关于 <code>syscall</code></h3><p>系统调用，指的是用户空间的程序向操作系统内核请求需要更高权限的服务，比如 IO 操作或者进程间通信。系统调用提供用户程序与操作系统间的接口，部分库函数（如 scanf，puts 等 IO 相关的函数实际上是对系统调用的封装 （read 和 write)）。<br><code>Int $0x80</code> 指令的目的是产生一个编号为128的编程异常，这个编程异常对应的是中断描述符表 IDT 中的第 128 项——也就是对应的系统门描述符。门描述符中含有一个预设的内核空间地址，它指向系统调用处理程程序：<code>system_call()</code> 。</p>
+<h4 id="swapgs-restore-regs-and-return-to-usermode"><a href="#swapgs-restore-regs-and-return-to-usermode" class="headerlink" title="swapgs_restore_regs_and_return_to_usermode"></a>swapgs_restore_regs_and_return_to_usermode</h4><p>根据我们对 <code>swapgs_restore_regs_and_return_to_usermode</code> 函数的分析，忽略掉前面恢复通用寄存器以及切换到跳板栈的操作后，该函数等价于如下代码：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov		rdi, cr3</span><br><span class="line">or		rdi, 0x1000</span><br><span class="line">mov		cr3, rdi</span><br><span class="line">pop		rax	; 根据实际情况，有的内核不需要</span><br><span class="line">pop 	rdi</span><br><span class="line">swapgs</span><br><span class="line">iretq</span><br></pre></td></tr></table></figure></div>
+
+<p>因此我们只需要跳转到该函数恢复通用寄存器之后的代码处，并且在栈上依次设置 <code>rax</code>（如果有）、<code>rdi</code> 和 <code>trap_frame</code> 结构就可以实现页表切换+返回用户态。</p>
+<p>并且对于关闭 KPTI 的情况，内核代码会被动态修改，也就是说该函数中切换页表的操作会被跳过，因此这个方法也可以完美兼容 KPTI 关闭的情况。</p>
 <h2 id="进程权限管理"><a href="#进程权限管理" class="headerlink" title="进程权限管理"></a>进程权限管理</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1873,7 +2006,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-22 02:44:20
+                    :</strong> 2024-11-24 07:18:55
             </li>
         
         <li>
@@ -2002,7 +2135,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">linux kernel pwn 基础知识</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux-%E5%86%85%E6%A0%B8%E6%A6%82%E8%BF%B0"><span class="nav-text">linux 内核概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%A6%82%E8%BF%B0"><span class="nav-text">内核概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%9A%84%E8%81%8C%E8%B4%A3"><span class="nav-text">内核的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">内核的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E5%86%85%E6%A0%B8%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">Linux 内核的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">Linux 内核版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-text">版本命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">版本的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E6%B4%BB%E8%B7%83%E7%9A%84%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">当前活跃的内核版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC"><span class="nav-text">查看系统版本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#uname-%E5%91%BD%E4%BB%A4"><span class="nav-text">uname 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-proc-version-%E6%96%87%E4%BB%B6"><span class="nav-text">查看 &#x2F;proc&#x2F;version 文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-text">内核态函数调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#printf-%E2%86%92-printk"><span class="nav-text">printf → printk()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memcpy-%E2%86%92-copy-from-user-copy-to-user"><span class="nav-text">memcpy → copy_from_user() &#x2F; copy_to_user()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc-%E2%86%92-kmalloc"><span class="nav-text">malloc() → kmalloc()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free-%E2%86%92-kfree"><span class="nav-text">free() → kfree()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ring-Model"><span class="nav-text">Ring Model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-text">实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">段保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E5%AD%90%EF%BC%88Segment-Selector%EF%BC%89"><span class="nav-text">段选择子（Segment Selector）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%88Descriptor%EF%BC%89"><span class="nav-text">段描述符（Descriptor）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B1%BB%E5%9E%8B"><span class="nav-text">权限类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%A3%80%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="nav-text">权限检查过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">页保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E5%AD%97%E6%AE%B5"><span class="nav-text">权限字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E7%9A%84-KPTI-%E6%9C%BA%E5%88%B6"><span class="nav-text">Linux 的 KPTI 机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%9C%BA%E5%88%B6"><span class="nav-text">中断机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8"><span class="nav-text">中断描述符表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-text">中断处理流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x86-%E6%9E%B6%E6%9E%84%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">x86 架构的系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-text">执行系统调用指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%85%A5%E5%8F%A3"><span class="nav-text">内核态系统调用入口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#entry-SYSCALL-64"><span class="nav-text">entry_SYSCALL_64</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#do-syscall-64"><span class="nav-text">do_syscall_64</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E8%BF%94%E5%9B%9E"><span class="nav-text">内核态系统调用返回</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#do-syscall-64-1"><span class="nav-text">do_syscall_64</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#entry-SYSCALL-64-%E5%89%A9%E4%BD%99%E9%83%A8%E5%88%86"><span class="nav-text">entry_SYSCALL_64 剩余部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E8%BF%94%E5%9B%9E%E8%B7%AF%E5%BE%84%EF%BC%9Asyscall-return-via-sysret"><span class="nav-text">快速返回路径：syscall_return_via_sysret</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%85%A2%E9%80%9F%E8%BF%94%E5%9B%9E%E8%B7%AF%E5%BE%84%EF%BC%9Aswapgs-restore-regs-and-return-to-usermode"><span class="nav-text">慢速返回路径：swapgs_restore_regs_and_return_to_usermode</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%BF%94%E5%9B%9E%E7%94%A8%E6%88%B7%E6%80%81%E6%8C%87%E4%BB%A4"><span class="nav-text">执行返回用户态指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%80%81-%E5%86%85%E6%A0%B8%E6%80%81"><span class="nav-text">用户态-&gt;内核态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81-%E7%94%A8%E6%88%B7%E6%80%81"><span class="nav-text">内核态-&gt;用户态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-syscall"><span class="nav-text">关于 syscall</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-text">进程权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%9D%83%E9%99%90%E5%87%AD%E8%AF%81%EF%BC%9A-cred-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">进程权限凭证： cred 结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7-ID-%E5%92%8C%E7%BB%84-ID"><span class="nav-text">用户 ID 和组 ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-text">提权</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO"><span class="nav-text">IO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6"><span class="nav-text">万物皆文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">进程文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%9Aioctl"><span class="nav-text">系统调用：ioctl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98"><span class="nav-text">物理内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buddy-system"><span class="nav-text">buddy system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slub"><span class="nav-text">slub</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-object"><span class="nav-text">关于 object</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kmem-cache-%E5%88%9B%E5%BB%BA"><span class="nav-text">kmem_cache 创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slub-%E5%88%86%E9%85%8D"><span class="nav-text">slub 分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slub-%E9%87%8A%E6%94%BE"><span class="nav-text">slub 释放</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E5%A0%86%E5%88%A9%E7%94%A8%E4%B8%8E%E7%BB%91%E6%A0%B8"><span class="nav-text">内核堆利用与绑核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8-kmalloc-flag"><span class="nav-text">通用 kmalloc flag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slab-alias"><span class="nav-text">slab alias</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">内核保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E9%9A%94%E7%A6%BB%E7%9B%B8%E5%85%B3"><span class="nav-text">空间隔离相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SMEP"><span class="nav-text">SMEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMAP"><span class="nav-text">SMAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KPTI"><span class="nav-text">KPTI</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%9B%B8%E5%85%B3"><span class="nav-text">地址相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KASLR"><span class="nav-text">KASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FG-KASLR"><span class="nav-text">FG_KASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MMAP-MIN-ADDR"><span class="nav-text">MMAP_MIN_ADDR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-RANDOMIZE-KSTACK-OFFSET"><span class="nav-text">CONFIG_RANDOMIZE_KSTACK_OFFSET</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E7%9B%B8%E5%85%B3"><span class="nav-text">信息相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dmesg-Restrictions"><span class="nav-text">Dmesg Restrictions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel-Address-Display-Restriction"><span class="nav-text">Kernel Address Display Restriction</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3"><span class="nav-text">数据相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HARDENED-USERCOPY"><span class="nav-text">HARDENED_USERCOPY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STATIC-USERMODEHELPER"><span class="nav-text">STATIC_USERMODEHELPER</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E7%9B%B8%E5%85%B3"><span class="nav-text">栈相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STACK-PROTECTOR"><span class="nav-text">STACK PROTECTOR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E7%9B%B8%E5%85%B3"><span class="nav-text">堆相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SLAB-FREELIST-HARDENED"><span class="nav-text">SLAB_FREELIST_HARDENED</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SLAB-FREELIST-RANDOM"><span class="nav-text">SLAB_FREELIST_RANDOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INIT-ON-ALLOC-DEFAULT-ON"><span class="nav-text">INIT_ON_ALLOC_DEFAULT_ON</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-MEMCG-KMEM"><span class="nav-text">CONFIG_MEMCG_KMEM</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC"><span class="nav-text">启动脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E9%95%9C%E5%83%8F"><span class="nav-text">内核镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">文件系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">打包文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%BF%9C%E7%A8%8B%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-text">文件远程传输方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-vmlinux"><span class="nav-text">获取 vmlinux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8"><span class="nav-text">编译内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmlinux-to-elf"><span class="nav-text">vmlinux-to-elf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="nav-text">下载镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzImage-%E8%A7%A3%E5%8E%8B"><span class="nav-text">bzImage 解压</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gdb-%E8%B0%83%E8%AF%95"><span class="nav-text">gdb 调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-busybox"><span class="nav-text">编译 busybox</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97"><span class="nav-text">Linux 内核模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-LKMs"><span class="nav-text">什么是 LKMs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">相关指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F-1"><span class="nav-text">文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#file-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">file 结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inode%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">inode结构体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91"><span class="nav-text">内核模块开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World%E6%A8%A1%E5%9D%97"><span class="nav-text">Hello World模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="nav-text">带参数的模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8"><span class="nav-text">字符设备驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%BB%93%E6%9E%84"><span class="nav-text">字符设备驱动结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cdev-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">cdev 结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#file-operations-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">file_operations 结构体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%BB%84%E6%88%90"><span class="nav-text">字符设备驱动组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E3%80%81%E5%AE%8F%E5%8F%8A%E8%AE%BE%E5%A4%87%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">头文件、宏及设备结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8"><span class="nav-text">加载与卸载设备驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E7%A7%81%E6%9C%89%E6%95%B0%E6%8D%AE"><span class="nav-text">使用文件私有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0"><span class="nav-text">读写函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#seek%E5%87%BD%E6%95%B0"><span class="nav-text">seek函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ioctl%E5%87%BD%E6%95%B0"><span class="nav-text">ioctl函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-text">验证</span></a></li></ol></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux-%E5%86%85%E6%A0%B8%E6%A6%82%E8%BF%B0"><span class="nav-text">linux 内核概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%A6%82%E8%BF%B0"><span class="nav-text">内核概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%9A%84%E8%81%8C%E8%B4%A3"><span class="nav-text">内核的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">内核的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E5%86%85%E6%A0%B8%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">Linux 内核的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">Linux 内核版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-text">版本命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">版本的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E6%B4%BB%E8%B7%83%E7%9A%84%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">当前活跃的内核版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC"><span class="nav-text">查看系统版本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#uname-%E5%91%BD%E4%BB%A4"><span class="nav-text">uname 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-proc-version-%E6%96%87%E4%BB%B6"><span class="nav-text">查看 &#x2F;proc&#x2F;version 文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-text">内核态函数调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#printf-%E2%86%92-printk"><span class="nav-text">printf → printk()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memcpy-%E2%86%92-copy-from-user-copy-to-user"><span class="nav-text">memcpy → copy_from_user() &#x2F; copy_to_user()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc-%E2%86%92-kmalloc"><span class="nav-text">malloc() → kmalloc()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free-%E2%86%92-kfree"><span class="nav-text">free() → kfree()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ring-Model"><span class="nav-text">Ring Model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">权限保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">段保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E5%AD%90%EF%BC%88Segment-Selector%EF%BC%89"><span class="nav-text">段选择子（Segment Selector）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%88Descriptor%EF%BC%89"><span class="nav-text">段描述符（Descriptor）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B1%BB%E5%9E%8B"><span class="nav-text">权限类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%A3%80%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="nav-text">权限检查过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">页保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E5%AD%97%E6%AE%B5"><span class="nav-text">权限字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E7%9A%84-KPTI-%E6%9C%BA%E5%88%B6"><span class="nav-text">Linux 的 KPTI 机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x86-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">x86 系统调用相关指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-text">系统调用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#int-0x80"><span class="nav-text">int 0x80</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sysenter"><span class="nav-text">sysenter</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E7%94%A8%E6%88%B7%E6%80%81%E6%8C%87%E4%BB%A4"><span class="nav-text">返回用户态指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#retf%EF%BC%88%E8%BF%9C%E8%BF%94%E5%9B%9E%E6%8C%87%E4%BB%A4%EF%BC%89"><span class="nav-text">retf（远返回指令）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iretd%EF%BC%88%E4%B8%AD%E6%96%AD%E8%BF%94%E5%9B%9E%E6%8C%87%E4%BB%A4%EF%BC%89"><span class="nav-text">iretd（中断返回指令）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sysexit%EF%BC%88%E5%BF%AB%E9%80%9F%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E8%BF%94%E5%9B%9E%E6%8C%87%E4%BB%A4%EF%BC%89"><span class="nav-text">sysexit（快速系统调用返回指令）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x86-64-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">x86-64 系统调用相关指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8C%87%E4%BB%A4-1"><span class="nav-text">系统调用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#syscall"><span class="nav-text">syscall</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E7%94%A8%E6%88%B7%E6%80%81%E6%8C%87%E4%BB%A4-1"><span class="nav-text">返回用户态指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#iretq"><span class="nav-text">iretq</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sysret"><span class="nav-text">sysret</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%86%85%E6%A0%B8%E5%AE%9E%E7%8E%B0"><span class="nav-text">Linux 系统调用内核实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%85%A5%E5%8F%A3"><span class="nav-text">系统调用入口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#entry-SYSCALL-64"><span class="nav-text">entry_SYSCALL_64</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#do-syscall-64"><span class="nav-text">do_syscall_64</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E8%BF%94%E5%9B%9E"><span class="nav-text">系统调用返回</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#do-syscall-64-1"><span class="nav-text">do_syscall_64</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#entry-SYSCALL-64-%E5%89%A9%E4%BD%99%E9%83%A8%E5%88%86"><span class="nav-text">entry_SYSCALL_64 剩余部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E8%BF%94%E5%9B%9E%E8%B7%AF%E5%BE%84%EF%BC%9Asyscall-return-via-sysret"><span class="nav-text">快速返回路径：syscall_return_via_sysret</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%85%A2%E9%80%9F%E8%BF%94%E5%9B%9E%E8%B7%AF%E5%BE%84%EF%BC%9Aswapgs-restore-regs-and-return-to-usermode"><span class="nav-text">慢速返回路径：swapgs_restore_regs_and_return_to_usermode</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel-pwn-%E5%A6%82%E4%BD%95%E8%BF%94%E5%9B%9E%E7%94%A8%E6%88%B7%E6%80%81"><span class="nav-text">kernel pwn 如何返回用户态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iretq-SIGSEGV"><span class="nav-text">iretq + SIGSEGV</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#swapgs-restore-regs-and-return-to-usermode"><span class="nav-text">swapgs_restore_regs_and_return_to_usermode</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-text">进程权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%9D%83%E9%99%90%E5%87%AD%E8%AF%81%EF%BC%9A-cred-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">进程权限凭证： cred 结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7-ID-%E5%92%8C%E7%BB%84-ID"><span class="nav-text">用户 ID 和组 ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-text">提权</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO"><span class="nav-text">IO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6"><span class="nav-text">万物皆文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">进程文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%9Aioctl"><span class="nav-text">系统调用：ioctl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98"><span class="nav-text">物理内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buddy-system"><span class="nav-text">buddy system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slub"><span class="nav-text">slub</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-object"><span class="nav-text">关于 object</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kmem-cache-%E5%88%9B%E5%BB%BA"><span class="nav-text">kmem_cache 创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slub-%E5%88%86%E9%85%8D"><span class="nav-text">slub 分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slub-%E9%87%8A%E6%94%BE"><span class="nav-text">slub 释放</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E5%A0%86%E5%88%A9%E7%94%A8%E4%B8%8E%E7%BB%91%E6%A0%B8"><span class="nav-text">内核堆利用与绑核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8-kmalloc-flag"><span class="nav-text">通用 kmalloc flag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slab-alias"><span class="nav-text">slab alias</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">内核保护机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E9%9A%94%E7%A6%BB%E7%9B%B8%E5%85%B3"><span class="nav-text">空间隔离相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SMEP"><span class="nav-text">SMEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMAP"><span class="nav-text">SMAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KPTI"><span class="nav-text">KPTI</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%9B%B8%E5%85%B3"><span class="nav-text">地址相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KASLR"><span class="nav-text">KASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FG-KASLR"><span class="nav-text">FG_KASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MMAP-MIN-ADDR"><span class="nav-text">MMAP_MIN_ADDR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-RANDOMIZE-KSTACK-OFFSET"><span class="nav-text">CONFIG_RANDOMIZE_KSTACK_OFFSET</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E7%9B%B8%E5%85%B3"><span class="nav-text">信息相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dmesg-Restrictions"><span class="nav-text">Dmesg Restrictions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel-Address-Display-Restriction"><span class="nav-text">Kernel Address Display Restriction</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3"><span class="nav-text">数据相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HARDENED-USERCOPY"><span class="nav-text">HARDENED_USERCOPY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STATIC-USERMODEHELPER"><span class="nav-text">STATIC_USERMODEHELPER</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E7%9B%B8%E5%85%B3"><span class="nav-text">栈相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STACK-PROTECTOR"><span class="nav-text">STACK PROTECTOR</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E7%9B%B8%E5%85%B3"><span class="nav-text">堆相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SLAB-FREELIST-HARDENED"><span class="nav-text">SLAB_FREELIST_HARDENED</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SLAB-FREELIST-RANDOM"><span class="nav-text">SLAB_FREELIST_RANDOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INIT-ON-ALLOC-DEFAULT-ON"><span class="nav-text">INIT_ON_ALLOC_DEFAULT_ON</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-MEMCG-KMEM"><span class="nav-text">CONFIG_MEMCG_KMEM</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC"><span class="nav-text">启动脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E9%95%9C%E5%83%8F"><span class="nav-text">内核镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">文件系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">打包文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%BF%9C%E7%A8%8B%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-text">文件远程传输方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-vmlinux"><span class="nav-text">获取 vmlinux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8"><span class="nav-text">编译内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmlinux-to-elf"><span class="nav-text">vmlinux-to-elf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="nav-text">下载镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzImage-%E8%A7%A3%E5%8E%8B"><span class="nav-text">bzImage 解压</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gdb-%E8%B0%83%E8%AF%95"><span class="nav-text">gdb 调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-busybox"><span class="nav-text">编译 busybox</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97"><span class="nav-text">Linux 内核模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-LKMs"><span class="nav-text">什么是 LKMs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">相关指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F-1"><span class="nav-text">文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#file-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">file 结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inode%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">inode结构体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91"><span class="nav-text">内核模块开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World%E6%A8%A1%E5%9D%97"><span class="nav-text">Hello World模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="nav-text">带参数的模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8"><span class="nav-text">字符设备驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%BB%93%E6%9E%84"><span class="nav-text">字符设备驱动结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cdev-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">cdev 结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#file-operations-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">file_operations 结构体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%BB%84%E6%88%90"><span class="nav-text">字符设备驱动组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E3%80%81%E5%AE%8F%E5%8F%8A%E8%AE%BE%E5%A4%87%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">头文件、宏及设备结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8"><span class="nav-text">加载与卸载设备驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E7%A7%81%E6%9C%89%E6%95%B0%E6%8D%AE"><span class="nav-text">使用文件私有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0"><span class="nav-text">读写函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#seek%E5%87%BD%E6%95%B0"><span class="nav-text">seek函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ioctl%E5%87%BD%E6%95%B0"><span class="nav-text">ioctl函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-text">验证</span></a></li></ol></li></ol></li></ol>
 
 	</div>
 </div>
@@ -2033,7 +2166,7 @@
                     </span>
                     
                         <span>
-                            382.7k words in total
+                            383.3k words in total
                         </span>
                     
                 </p>
