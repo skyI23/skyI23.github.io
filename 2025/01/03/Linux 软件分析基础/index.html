@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2025/01/03/linux 软件分析基础/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Linux 软件分析基础 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Linux 软件分析基础</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-01-03 12:43:33</span>
+        <span class="mobile">2025-01-03 12:43:33</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-01-03 12:45:07</span>
+            <span class="mobile">2025-01-03 12:45:07</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.6k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>9 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="Linux-软件分析基础"><a href="#Linux-软件分析基础" class="headerlink" title="Linux 软件分析基础"></a>Linux 软件分析基础</h1><h2 id="网络通信角度"><a href="#网络通信角度" class="headerlink" title="网络通信角度"></a>网络通信角度</h2><h3 id="系统端口开放情况"><a href="#系统端口开放情况" class="headerlink" title="系统端口开放情况"></a>系统端口开放情况</h3><p><code>netstat</code>（network statistics）是一个用于显示网络连接、路由表、接口状态等网络信息的命令行工具。它可以帮助系统管理员或开发人员了解系统的网络状态、诊断网络问题、查看开放端口和监听服务等。</p>
+<h4 id="netstat-命令的常用选项"><a href="#netstat-命令的常用选项" class="headerlink" title="netstat 命令的常用选项"></a><code>netstat</code> 命令的常用选项</h4><p><code>netstat</code> 命令有许多选项可以用来过滤或详细显示网络连接的不同信息。以下是一些常用的选项：</p>
+<ul>
+<li>**<code>-t</code>**：显示 TCP 连接。</li>
+<li>**<code>-u</code>**：显示 UDP 连接。</li>
+<li>**<code>-l</code>**：仅显示监听状态的套接字（也就是在等待连接的端口）。</li>
+<li>**<code>-n</code>**：以数字形式显示地址和端口（不解析为主机名或服务名）。</li>
+<li>**<code>-p</code>**：显示哪个进程正在使用该端口（需要管理员权限）。</li>
+<li>**<code>-a</code>**：显示所有连接和监听的套接字。</li>
+<li>**<code>-r</code>**：显示路由信息。</li>
+<li>**<code>-i</code>**：显示网络接口信息。</li>
+<li>**<code>-s</code>**：显示各种网络统计信息（例如协议、接口统计等）。</li>
+</ul>
+<h4 id="网络连接状态"><a href="#网络连接状态" class="headerlink" title="网络连接状态"></a>网络连接状态</h4><ul>
+<li><strong>LISTEN</strong>：表示该端口正在监听，等待来自外部的连接。</li>
+<li><strong>ESTABLISHED</strong>：表示连接已经成功建立，可以进行数据传输。</li>
+<li><strong>TIME_WAIT</strong>：连接关闭后，等待一定时间以确保数据完全传输。</li>
+<li><strong>CLOSE_WAIT</strong>：表示对方关闭了连接，但本方还没有关闭连接。</li>
+<li><strong>SYN_SENT</strong>：表示连接正在尝试建立（即 TCP 的三次握手的第一步）。</li>
+<li><strong>SYN_RECV</strong>：表示连接已进入三次握手的第二步。</li>
+<li><strong>FIN_WAIT1</strong>：表示本方请求关闭连接。</li>
+<li><strong>FIN_WAIT2</strong>：表示对方同意关闭连接，并已关闭发送端。</li>
+</ul>
+<h4 id="网络地址类型"><a href="#网络地址类型" class="headerlink" title="网络地址类型"></a>网络地址类型</h4><p>在使用 <code>netstat</code> 命令查看网络连接和监听端口时，你会看到不同的 IP 地址，例如 <code>0.0.0.0</code>、<code>127.0.0.1</code>、本机的具体 IP 地址以及其他一些地址。这些地址表示不同的绑定方式和监听范围。</p>
+<ul>
+<li><p><code>0.0.0.0</code>：<strong>全网卡监听</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      1234/nginx</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>含义</strong>：表示该服务监听 <strong>所有可用的网络接口</strong>。无论是本地回环接口（<code>127.0.0.1</code>）还是其他网卡的 IP 地址，该服务都可以接受来自任何接口的连接请求。</li>
+<li><strong>适用场景</strong>：适用于<strong>需要被多网络接口访问的服务</strong>。例如，一个需要被局域网内的其他机器访问的 Web 服务器，可以绑定到 <code>0.0.0.0</code>，使其在所有网络接口上可用。</li>
+</ul>
+</li>
+<li><p><code>127.0.0.1</code>：<strong>本地回环监听</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      5678/mysqld</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>含义</strong>：<code>127.0.0.1</code> 是 <strong>回环地址（Loopback Address）</strong>，表示该服务只监听 <strong>本地机器内部</strong> 的连接请求，无法被外部机器访问。</li>
+<li><strong>适用场景</strong>：适用于<strong>仅本地访问的服务</strong>。例如，数据库服务如 MySQL 通常绑定到 <code>127.0.0.1</code>，仅允许本地应用程序连接。</li>
+<li></li>
+</ul>
+</li>
+<li><p>本机 IP 地址：<strong>特定接口监听</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 192.168.1.100:22        0.0.0.0:*               LISTEN      2222/sshd</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>含义</strong>：服务绑定到 <strong>某一个具体的 IP 地址</strong>，只在该网络接口上监听连接请求。例如，如果本机有多个网络接口（如以太网和 Wi-Fi），可以选择性地绑定到其中一个接口的 IP 地址。</li>
+<li><strong>适用场景</strong>：适用于<strong>需要限制监听接口的服务</strong>。例如，Web 服务器只需要在内部网络接口上提供服务，而不希望通过公共网络接口访问。</li>
+</ul>
+</li>
+<li><p><code>::</code> 和 <code>::1</code>：<strong>支持 IPv6 的服务</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tcp6       0      0 :::443                  :::*                    LISTEN      1234/nginx</span><br><span class="line">tcp6       0      0 ::1:5432                :::*                    LISTEN      5678/postgres</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>::</code>：相当于 IPv4 的 <code>0.0.0.0</code>，表示 <strong>所有 IPv6 网络接口</strong>。</li>
+<li><code>::1</code>：相当于 IPv4 的 <code>127.0.0.1</code>，表示 <strong>本地回环地址</strong>，仅监听本地连接。</li>
+</ul>
+</li>
+<li><p><code>::ffff:127.0.0.1</code>：<strong>兼容性地址</strong></p>
+</li>
+</ul>
+  <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp6       0      0 ::ffff:127.0.0.1:6379     :::*                    LISTEN      8888/redis-server</span><br></pre></td></tr></table></figure></div>
+
+<p>  表示一个 IPv4 地址通过 IPv6 映射方式表示，例如 <code>::ffff:127.0.0.1</code> 实际上是 IPv4 的 <code>127.0.0.1</code>。</p>
+<h3 id="查找监听指定端口的进程"><a href="#查找监听指定端口的进程" class="headerlink" title="查找监听指定端口的进程"></a>查找监听指定端口的进程</h3><h4 id="使用-netstat-命令"><a href="#使用-netstat-命令" class="headerlink" title="使用 netstat 命令"></a>使用 <code>netstat</code> 命令</h4><p><code>netstat</code> 是一个网络相关的命令，可以显示网络连接、路由表、接口统计信息等。要查找监听 4080 端口的进程，可以使用以下命令：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tuln | grep :4080</span><br></pre></td></tr></table></figure></div>
+
+<p>解释：</p>
+<ul>
+<li><code>-t</code>：显示 TCP 连接。</li>
+<li><code>-u</code>：显示 UDP 连接。</li>
+<li><code>-l</code>：显示正在监听的端口。</li>
+<li><code>-n</code>：显示数字格式的地址和端口（不解析主机名和服务名）。</li>
+</ul>
+<p>这个命令会列出监听 4080 端口的网络连接。如果该端口有进程在监听，输出将类似于：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 0.0.0.0:4080            0.0.0.0:*               LISTEN</span><br></pre></td></tr></table></figure></div>
+
+<p>要查看监听该端口的进程 PID，你可以添加 <code>-p</code> 参数来显示进程信息：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulnp | grep :4080</span><br></pre></td></tr></table></figure></div>
+
+<p>此命令会显示类似于下面的输出：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 0.0.0.0:4080            0.0.0.0:*               LISTEN      1234/myprocess</span><br></pre></td></tr></table></figure></div>
+
+<p>其中 <code>1234/myprocess</code> 就是监听 4080 端口的进程的 PID 和名称。</p>
+<h4 id="使用-ss-命令"><a href="#使用-ss-命令" class="headerlink" title="使用 ss 命令"></a>使用 <code>ss</code> 命令</h4><p><code>ss</code> 是比 <code>netstat</code> 更快速和现代化的工具，功能与 <code>netstat</code> 类似，也可以用于查看网络连接状态和监听的端口。要查找监听 4080 端口的进程，可以运行：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tuln | grep :4080</span><br></pre></td></tr></table></figure></div>
+
+<p>如果要查看监听端口的进程 PID 和名称，可以加上 <code>-p</code> 参数：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tulnp | grep :4080</span><br></pre></td></tr></table></figure></div>
+
+<p>输出示例：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LISTEN     0      128    0.0.0.0:4080            0.0.0.0:*        users:((&quot;myprocess&quot;,pid=1234,fd=3))</span><br></pre></td></tr></table></figure></div>
+
+<p>这里的 <code>myprocess</code> 和 <code>1234</code> 就是监听 4080 端口的进程名称和 PID。</p>
+<h4 id="使用-lsof-命令"><a href="#使用-lsof-命令" class="headerlink" title="使用 lsof 命令"></a>使用 <code>lsof</code> 命令</h4><p><code>lsof</code> 命令可以列出当前打开的文件，包括网络连接。你可以通过以下命令查找哪个进程在监听 4080 端口：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :4080</span><br></pre></td></tr></table></figure></div>
+
+<p>输出可能类似于：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COMMAND   PID   USER   FD   TYPE DEVICE SIZE/OFF NODE NAME</span><br><span class="line">myprocess 1234  user   3u  IPv4  123456      0t0  TCP *:4080 (LISTEN)</span><br></pre></td></tr></table></figure></div>
+
+<p>其中，<code>myprocess</code> 是监听该端口的进程名，<code>1234</code> 是进程的 PID。</p>
+<h4 id="使用-fuser-命令"><a href="#使用-fuser-命令" class="headerlink" title="使用 fuser 命令"></a>使用 <code>fuser</code> 命令</h4><p><code>fuser</code> 命令可以显示哪些进程正在使用某个文件或端口。要查找监听 4080 端口的进程，可以运行：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser 4080/tcp</span><br></pre></td></tr></table></figure></div>
+
+<p>输出类似于：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4080/tcp:            1234</span><br></pre></td></tr></table></figure></div>
+
+<p>这里的 <code>1234</code> 就是监听 4080 端口的进程的 PID。</p>
+<h3 id="查询指定进程监听的端口"><a href="#查询指定进程监听的端口" class="headerlink" title="查询指定进程监听的端口"></a>查询指定进程监听的端口</h3><h4 id="使用-ss-命令-1"><a href="#使用-ss-命令-1" class="headerlink" title="使用 ss 命令"></a>使用 <code>ss</code> 命令</h4><p><code>ss</code> 是一个高效的工具，用于查看网络连接信息，包括监听的端口。你可以使用 <code>ss</code> 结合 <code>-p</code> 参数来查看特定进程监听的端口。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tulnp | grep &lt;pid&gt;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>-t</code>: 显示 TCP 套接字。</li>
+<li><code>-u</code>: 显示 UDP 套接字。</li>
+<li><code>-l</code>: 显示监听的端口。</li>
+<li><code>-n</code>: 显示数字形式的地址和端口。</li>
+<li><code>-p</code>: 显示使用该套接字的进程信息。</li>
+</ul>
+<h4 id="使用-lsof-命令-1"><a href="#使用-lsof-命令-1" class="headerlink" title="使用 lsof 命令"></a>使用 <code>lsof</code> 命令</h4><p><code>lsof</code> 是一个非常强大的工具，用于列出系统中打开的文件，包括网络套接字。你可以通过 <code>lsof</code> 查看某个进程监听的端口。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i -a -p &lt;pid&gt;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>-i</code>: 显示网络连接（包括 TCP、UDP）。</li>
+<li><code>-a</code>: 只显示同时满足多个条件的项。</li>
+<li><code>-p &lt;pid&gt;</code>: 显示指定进程的文件信息。</li>
+</ul>
+<h4 id="使用-netstat-命令-1"><a href="#使用-netstat-命令-1" class="headerlink" title="使用 netstat 命令"></a>使用 <code>netstat</code> 命令</h4><p><code>netstat</code> 是一个经典的网络工具，也可以用来查看进程监听的端口，但在某些系统上，<code>netstat</code> 可能已经被 <code>ss</code> 替代。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulnp | grep &lt;pid&gt;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>-t</code>: 显示 TCP 套接字。</li>
+<li><code>-u</code>: 显示 UDP 套接字。</li>
+<li><code>-l</code>: 只显示监听的端口。</li>
+<li><code>-n</code>: 显示数字形式的地址和端口。</li>
+<li><code>-p</code>: 显示进程 ID 和进程名称。</li>
+</ul>
+<h2 id="进程行为角度"><a href="#进程行为角度" class="headerlink" title="进程行为角度"></a>进程行为角度</h2><h3 id="pstree"><a href="#pstree" class="headerlink" title="pstree"></a>pstree</h3><p><code>pstree</code> 是一个非常实用的命令，它可以以树形结构显示系统中所有进程的层次关系。显示指定进程及其所有子进程和父进程</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree -p -s &lt;pid&gt;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong><code>&#123;&#125;</code> 包裹的进程</strong>：表示这些进程是线程。多个线程共享相同的地址空间和资源，通常它们都是由同一个父进程（通常是主进程）创建的，并且它们的 PID 是通过 <code>pthread</code> 等线程库管理的。线程并不像独立的进程那样拥有独立的资源，它们共享父进程的资源。</li>
+<li><strong>线程与进程的关系</strong>：在 Linux 中，线程是一种特殊类型的进程，它们共享父进程的内存空间和文件描述符等资源。通常，这些线程的 PID 会被标识为进程的 TID（线程 ID）。在 <code>pstree</code> 中，所有属于同一线程组的线程会被表示在一个 <code>&#123;&#125;</code> 中，表示它们属于同一组的进程（线程组）。</li>
+</ul>
+<p>假设你运行 <code>pstree -p -s &lt;pid&gt;</code> 时看到如下输出：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init(1)─┬─sshd(1234)─┬─sshd(1256)─┬─&#123;sshd&#125;(1267)</span><br><span class="line">        │             └─&#123;sshd&#125;(1258)</span><br><span class="line">        └─systemd(5678)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>在这个例子中，<code>sshd</code> 是一个主进程，PID 为 <code>1234</code>，它启动了两个子进程：<code>sshd(1256)</code> 和 <code>sshd(1258)</code>。</li>
+<li><code>sshd(1256)</code> 启动了两个线程：<code>&#123;sshd&#125;(1267)</code> 和 <code>&#123;sshd&#125;(1258)</code>，这些线程是 <code>sshd</code> 进程的一部分，并且共享相同的资源。</li>
+<li>其中，<code>&#123;sshd&#125;(1267)</code> 和 <code>&#123;sshd&#125;(1258)</code> 这两个进程 PID 被包裹在 <code>&#123;&#125;</code> 中，表示它们是 <code>sshd</code> 进程中的线程。</li>
+</ul>
+<h3 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h3><p><code>strace</code> 是一个用于追踪进程发出的系统调用（system calls）和信号（signals）的工具。通过 <code>strace</code>，你可以看到程序是如何与操作系统交互的，例如它如何打开文件、读写数据、进行网络通信等。</p>
+<p>监控指定进程及其子进程（线程）的系统调用：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace -s 1024 -fp &lt;pid&gt;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><code>-s &lt;length&gt;</code> 设置系统调用参数输出长度。</p>
+</li>
+<li><p><code>-f</code> 选项表示 <strong>跟踪子进程</strong>。当你使用 <code>-f</code> 时，<code>strace</code> 不仅会跟踪你指定的进程，还会跟踪它创建的 <strong>所有子进程</strong> 和 <strong>线程</strong>。</p>
+</li>
+<li><p><code>-p &lt;pid&gt;</code> 选项表示 <strong>附加到进程 <code>&lt;pid&gt;</code></strong> 上并开始跟踪它的系统调用。<code>&lt;pid&gt;</code> 是你想要跟踪的目标进程的进程 ID。</p>
+</li>
+</ul>
+<h2 id="文件操作角度"><a href="#文件操作角度" class="headerlink" title="文件操作角度"></a>文件操作角度</h2><h3 id="查看文件描述符"><a href="#查看文件描述符" class="headerlink" title="查看文件描述符"></a>查看文件描述符</h3><p><code>lsof</code> 列出进程打开的文件，包括普通文件、套接字、管道等。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -p &lt;pid&gt;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="搜索文件"><a href="#搜索文件" class="headerlink" title="搜索文件"></a>搜索文件</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -r <span class="string">&quot;特定内容&quot;</span> /path/to/directory</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -n &lt;行数&gt; &lt;日志路径&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Linux 软件分析基础</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2025-01-03 12:43:33</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-01-03 12:45:07
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2025/01/03/Linux 软件分析基础/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/01/02/%E9%80%86%E5%90%91%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">逆向自动化工具</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Linux 软件分析基础</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80"><span class="nav-text">Linux 软件分析基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E8%A7%92%E5%BA%A6"><span class="nav-text">网络通信角度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE%E6%83%85%E5%86%B5"><span class="nav-text">系统端口开放情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#netstat-%E5%91%BD%E4%BB%A4%E7%9A%84%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="nav-text">netstat 命令的常用选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81"><span class="nav-text">网络连接状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E7%B1%BB%E5%9E%8B"><span class="nav-text">网络地址类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E7%9B%91%E5%90%AC%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="nav-text">查找监听指定端口的进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-netstat-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 netstat 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ss-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 ss 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-lsof-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 lsof 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-fuser-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 fuser 命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E8%BF%9B%E7%A8%8B%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="nav-text">查询指定进程监听的端口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ss-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 ss 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-lsof-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 lsof 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-netstat-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 netstat 命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%A1%8C%E4%B8%BA%E8%A7%92%E5%BA%A6"><span class="nav-text">进程行为角度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pstree"><span class="nav-text">pstree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strace"><span class="nav-text">strace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E8%A7%92%E5%BA%A6"><span class="nav-text">文件操作角度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">查看文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="nav-text">搜索文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-text">查看日志</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        29 posts in total
+                    </span>
+                    
+                        <span>
+                            433.2k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>
