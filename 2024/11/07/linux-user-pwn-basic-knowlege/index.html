@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-12-09 22:48:54</span>
-            <span class="mobile">2024-12-09 22:48:54</span>
+            <span class="desktop">2025-01-04 17:11:13</span>
+            <span class="mobile">2025-01-04 17:11:13</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -416,12 +416,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>29.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>29.6k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>123 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>124 Mins</span>
         </span>
     
     
@@ -610,6 +610,14 @@
 
 <p>此时需要重新安装 <code>capstone</code>：</p>
 <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pip uninstall capstone</span><br><span class="line"><span class="built_in">sudo</span> pip install capstone</span><br></pre></td></tr></table></figure></div>
+
+<p>如果出现这个报错：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ROPgadget</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;/usr/local/bin/ROPgadget&quot;</span>, line 4, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    __import__(<span class="string">&#x27;pkg_resources&#x27;</span>).run_script(<span class="string">&#x27;ROPGadget==7.5&#x27;</span>, <span class="string">&#x27;ROPgadget&#x27;</span>)</span><br><span class="line">  File <span class="string">&quot;/usr/lib/python3/dist-packages/pkg_resources/__init__.py&quot;</span>, line 656, <span class="keyword">in</span> run_script</span><br><span class="line">    self.require(requires)[0].run_script(script_name, ns)</span><br><span class="line">  File <span class="string">&quot;/usr/lib/python3/dist-packages/pkg_resources/__init__.py&quot;</span>, line 1441, <span class="keyword">in</span> run_script</span><br><span class="line">    raise ResolutionError(</span><br><span class="line">pkg_resources.ResolutionError: Script <span class="string">&#x27;scripts/ROPgadget&#x27;</span> not found <span class="keyword">in</span> metadata at <span class="string">&#x27;/home/ubuntu/.local/lib/python3.10/site-packages/ROPGadget-7.5.dist-info&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这里需要将 <code>ROPGadget</code> 安装目录下的 <code>script</code> 目录拷贝到 <code>/home/ubuntu/.local/lib/python3.10/site-packages/ROPGadget-7.5.dist-info</code> 中。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ROPGadget</span><br><span class="line">sudo cp -r scripts /home/ubuntu/.local/lib/python3.10/site-packages/ROPGadget-7.5.dist-info</span><br></pre></td></tr></table></figure></div>
+
+
 
 <h4 id="ropper"><a href="#ropper" class="headerlink" title="ropper"></a>ropper</h4><ul>
 <li><p>安装：</p>
@@ -1661,7 +1669,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-12-09 22:48:54
+                    :</strong> 2025-01-04 17:11:13
             </li>
         
         <li>
@@ -1809,7 +1817,7 @@
                     </span>
                     
                         <span>
-                            433.2k words in total
+                            433.4k words in total
                         </span>
                     
                 </p>
