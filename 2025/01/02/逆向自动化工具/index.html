@@ -318,7 +318,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">30</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-02-06 16:21:12</span>
-            <span class="mobile">2025-02-06 16:21:12</span>
+            <span class="desktop">2025-02-06 19:35:45</span>
+            <span class="mobile">2025-02-06 19:35:45</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -379,7 +379,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>33.2k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>33.1k Words</span>
         </span>
     
     
@@ -1720,13 +1720,9 @@
 </li>
 <li><p><code>ida_bytes.patch_qword(addr, value)</code>：以 8 字节为的单位修改地址处的值。</p>
 </li>
-<li><p><code>idc.get_bytes(addr, len)</code>：获取 <code>addr</code> 地址处 <code>len</code> 长度的数据</p>
-<ul>
-<li><p><code>&#39;\x00&#39;</code> 结尾的 <code>bytes</code> 类型数据转换为字符串的方法：</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">idc.get_bytes(addr, idc.get_item_size(addr)).decode(<span class="string">&#x27;utf-8&#x27;</span>).rstrip(<span class="string">&#x27;\x00&#x27;</span>)</span><br><span class="line">idc.get_strlit_contents(str_ptr, -<span class="number">1</span>, ida_nalt.STRTYPE_C) <span class="comment"># 这种方式也行</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
+<li><p><code>idc.get_bytes(addr, len)</code>：获取 <code>addr</code> 地址处 <code>len</code> 长度的数据。</p>
 </li>
-<li><p><code>idc.patch_bytes(addr, data)</code>：在 <code>addr</code> 地址处写入 <code>data</code>（bytes 类型数据）</p>
+<li><p><code>idc.patch_bytes(addr, data)</code>：在 <code>addr</code> 地址处写入 <code>data</code>（bytes 类型数据）。</p>
 </li>
 </ul>
 <h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><ul>
@@ -1888,7 +1884,7 @@
 <h2 id="常用脚本"><a href="#常用脚本" class="headerlink" title="常用脚本"></a>常用脚本</h2><h3 id="全局符号错误修复"><a href="#全局符号错误修复" class="headerlink" title="全局符号错误修复"></a>全局符号错误修复</h3><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/08/CVE-2024-21762/c535ebdc-9440-4019-8bbe-580daa4842bf.png"
+                     data-src="/2025/01/02/%E9%80%86%E5%90%91%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7/images/c535ebdc-9440-4019-8bbe-580daa4842bf.png"
                       alt="c535ebdc-9440-4019-8bbe-580daa4842bf"
                 ></p>
 <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> idc</span><br><span class="line"><span class="keyword">import</span> ida_segment</span><br><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line">data_seg = <span class="built_in">range</span>(ida_segment.get_segm_by_name(<span class="string">&quot;.data&quot;</span>).start_ea, ida_segment.get_segm_by_name(<span class="string">&quot;.data&quot;</span>).end_ea)</span><br><span class="line">rodata_seg = <span class="built_in">range</span>(ida_segment.get_segm_by_name(<span class="string">&quot;.rodata&quot;</span>).start_ea, ida_segment.get_segm_by_name(<span class="string">&quot;.rodata&quot;</span>).end_ea)</span><br><span class="line">text_seg = <span class="built_in">range</span>(ida_segment.get_segm_by_name(<span class="string">&quot;.text&quot;</span>).start_ea, ida_segment.get_segm_by_name(<span class="string">&quot;.text&quot;</span>).end_ea)</span><br><span class="line">got_plt_base = ida_segment.get_segm_by_name(<span class="string">&quot;.got.plt&quot;</span>).start_ea</span><br><span class="line"></span><br><span class="line">start_ea = text_seg.start</span><br><span class="line">end_ea = text_seg.stop</span><br><span class="line"></span><br><span class="line">ea = start_ea</span><br><span class="line"><span class="keyword">while</span> ea &lt; end_ea:</span><br><span class="line">    <span class="keyword">if</span> idc.print_insn_mnem(ea) == <span class="string">&#x27;lea&#x27;</span>:</span><br><span class="line">        sym_addr = ctypes.c_int64(idc.get_operand_value(ea, <span class="number">1</span>)).value + got_plt_base</span><br><span class="line">        <span class="keyword">if</span> sym_addr <span class="keyword">in</span> data_seg <span class="keyword">or</span> sym_addr <span class="keyword">in</span> rodata_seg <span class="keyword">or</span> sym_addr <span class="keyword">in</span> text_seg:</span><br><span class="line">            idc.op_plain_offset(ea, <span class="number">1</span>, got_plt_base)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;%08x: %s&quot;</span> % (ea, idc.generate_disasm_line(ea, <span class="number">0</span>)))</span><br><span class="line">    ea = idc.next_head(ea)</span><br></pre></td></tr></table></figure></div>
@@ -2075,7 +2071,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-02-06 16:21:12
+                    :</strong> 2025-02-06 19:35:45
             </li>
         
         <li>
@@ -2223,11 +2219,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        29 posts in total
+                        30 posts in total
                     </span>
                     
                         <span>
-                            465.7k words in total
+                            466.3k words in total
                         </span>
                     
                 </p>
