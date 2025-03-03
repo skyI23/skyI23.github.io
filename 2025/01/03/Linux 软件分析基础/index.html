@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-01-26 03:02:41</span>
-            <span class="mobile">2025-01-26 03:02:41</span>
+            <span class="desktop">2025-02-27 05:08:23</span>
+            <span class="mobile">2025-02-27 05:08:23</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -379,12 +379,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.7k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.9k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>16 Mins</span>
         </span>
     
     
@@ -609,6 +609,22 @@
 
 <h3 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -n &lt;行数&gt; &lt;日志路径&gt;</span><br></pre></td></tr></table></figure></div>
 
+<h1 id="依赖分析"><a href="#依赖分析" class="headerlink" title="依赖分析"></a>依赖分析</h1><h2 id="搜索导出指定函数的so库"><a href="#搜索导出指定函数的so库" class="headerlink" title="搜索导出指定函数的so库"></a>搜索导出指定函数的so库</h2><p>你可以使用 <code>nm</code> 工具来查看 <code>.so</code> 文件中导出的符号。以下是一个简单的步骤：</p>
+<ol>
+<li><p><strong>使用<code>find</code>命令查找所有的 <code>.so</code> 文件：</strong></p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -name <span class="string">&quot;*.so&quot;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>使用<code>nm</code>命令查看每个 <code>.so</code> 文件中的符号，找出 <code>wgarchive_extract</code>：</strong></p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nm -D /path/to/library.so | grep wgarchive_extract</span><br></pre></td></tr></table></figure></div>
+
+<p>这将会显示出包含 <code>wgarchive_extract</code> 函数的 <code>.so</code> 文件。如果该函数导出，<code>nm</code> 会列出它的符号。</p>
+</li>
+<li><p><strong>将这两者结合在一起：</strong> 你可以将 <code>find</code> 命令和 <code>nm</code> 命令结合，自动对所有 <code>.so</code> 文件进行检查：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/library.so -name <span class="string">&quot;*.so&quot;</span> -<span class="built_in">exec</span> sh -c <span class="string">&#x27;echo &quot;&#123;&#125;&quot;; nm -D &quot;&#123;&#125;&quot;&#x27;</span> \; &gt; res</span><br></pre></td></tr></table></figure></div>
+
+<p>这个命令会在指定目录下查找所有 <code>.so</code> 文件，并使用 <code>nm</code> 命令检查每个 <code>.so</code> 文件中是否导出了 <code>wgarchive_extract</code> 函数。</p>
+</li>
+</ol>
 
 		</div>
 
@@ -623,7 +639,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-01-26 03:02:41
+                    :</strong> 2025-02-27 05:08:23
             </li>
         
         <li>
@@ -744,7 +760,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">Linux 软件分析基础</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80"><span class="nav-text">Linux 软件分析基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7"><span class="nav-text">基础工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#busybox"><span class="nav-text">busybox</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-BusyBox-%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-text">获取 BusyBox 源代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-BusyBox"><span class="nav-text">配置 BusyBox</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-linux-shell"><span class="nav-text">获取 linux shell</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-gdbserver"><span class="nav-text">gdb &amp; gdbserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strace"><span class="nav-text">strace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1"><span class="nav-text">网络通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE%E6%83%85%E5%86%B5"><span class="nav-text">系统端口开放情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AB%AF%E5%8F%A3%E9%80%9A%E4%BF%A1%E6%83%85%E5%86%B5"><span class="nav-text">进程端口通信情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#netstat-%E5%91%BD%E4%BB%A4%E7%9A%84%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="nav-text">netstat 命令的常用选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81"><span class="nav-text">网络连接状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E7%B1%BB%E5%9E%8B"><span class="nav-text">网络地址类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E7%9B%91%E5%90%AC%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="nav-text">查找监听指定端口的进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-netstat-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 netstat 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ss-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 ss 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-lsof-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 lsof 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-fuser-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 fuser 命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E8%BF%9B%E7%A8%8B%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="nav-text">查询指定进程监听的端口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ss-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 ss 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-lsof-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 lsof 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-netstat-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 netstat 命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%A1%8C%E4%B8%BA"><span class="nav-text">进程行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pstree"><span class="nav-text">pstree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strace-1"><span class="nav-text">strace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">查看文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="nav-text">搜索文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-text">查看日志</span></a></li></ol></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80"><span class="nav-text">Linux 软件分析基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7"><span class="nav-text">基础工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#busybox"><span class="nav-text">busybox</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-BusyBox-%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-text">获取 BusyBox 源代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-BusyBox"><span class="nav-text">配置 BusyBox</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-linux-shell"><span class="nav-text">获取 linux shell</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-gdbserver"><span class="nav-text">gdb &amp; gdbserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strace"><span class="nav-text">strace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1"><span class="nav-text">网络通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE%E6%83%85%E5%86%B5"><span class="nav-text">系统端口开放情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AB%AF%E5%8F%A3%E9%80%9A%E4%BF%A1%E6%83%85%E5%86%B5"><span class="nav-text">进程端口通信情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#netstat-%E5%91%BD%E4%BB%A4%E7%9A%84%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="nav-text">netstat 命令的常用选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81"><span class="nav-text">网络连接状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E7%B1%BB%E5%9E%8B"><span class="nav-text">网络地址类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E7%9B%91%E5%90%AC%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="nav-text">查找监听指定端口的进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-netstat-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 netstat 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ss-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 ss 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-lsof-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 lsof 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-fuser-%E5%91%BD%E4%BB%A4"><span class="nav-text">使用 fuser 命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E8%BF%9B%E7%A8%8B%E7%9B%91%E5%90%AC%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="nav-text">查询指定进程监听的端口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ss-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 ss 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-lsof-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 lsof 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-netstat-%E5%91%BD%E4%BB%A4-1"><span class="nav-text">使用 netstat 命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%A1%8C%E4%B8%BA"><span class="nav-text">进程行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pstree"><span class="nav-text">pstree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strace-1"><span class="nav-text">strace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">查看文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="nav-text">搜索文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-text">查看日志</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%88%86%E6%9E%90"><span class="nav-text">依赖分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%AF%BC%E5%87%BA%E6%8C%87%E5%AE%9A%E5%87%BD%E6%95%B0%E7%9A%84so%E5%BA%93"><span class="nav-text">搜索导出指定函数的so库</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -775,7 +791,7 @@
                     </span>
                     
                         <span>
-                            478.5k words in total
+                            478.9k words in total
                         </span>
                     
                 </p>
