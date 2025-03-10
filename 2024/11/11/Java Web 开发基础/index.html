@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-20 03:30:16</span>
-            <span class="mobile">2024-11-20 03:30:16</span>
+            <span class="desktop">2025-03-10 22:07:04</span>
+            <span class="mobile">2025-03-10 22:07:04</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -787,25 +787,36 @@
 <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/mydatabase&quot;</span>, <span class="string">&quot;username&quot;</span>, <span class="string">&quot;password&quot;</span>);</span><br></pre></td></tr></table></figure></div>
 
 <ul>
-<li>**<code>jdbc</code>**：表示使用 JDBC 协议。</li>
-<li>**<code>mysql</code>**：数据库类型或驱动类型，例如 <code>mysql</code>、<code>postgresql</code>、<code>oracle</code> 等。</li>
-<li>**<code>localhost</code>**：数据库服务器的主机名或 IP 地址。</li>
-<li>**<code>3306</code>**：数据库服务器的端口号，通常是数据库的默认端口号，例如 MySQL 的默认端口是 <code>3306</code>。</li>
-<li>**<code>mydatabase</code>**：要连接的数据库的名称。</li>
+<li><strong><code>jdbc</code></strong> ：表示使用 JDBC 协议。</li>
+<li><strong><code>mysql</code></strong> ：数据库类型或驱动类型，例如 <code>mysql</code>、<code>postgresql</code>、<code>oracle</code> 等。</li>
+<li><strong><code>localhost</code></strong> ：数据库服务器的主机名或 IP 地址。</li>
+<li><strong><code>3306</code></strong> ：数据库服务器的端口号，通常是数据库的默认端口号，例如 MySQL 的默认端口是 <code>3306</code>。</li>
+<li><strong><code>mydatabase</code></strong> ：要连接的数据库的名称。</li>
 </ul>
-<p>如果连接的是本机 mysql 服务器，并且 mysql 服务默认端口是 3306，则 url 可以简写为 <code>jdbc:mysql:///数据库名称</code> 。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>如果连接的是本机 mysql 服务器，并且 mysql 服务默认端口是 3306，则 url 可以简写为 <code>jdbc:mysql:///数据库名称</code> 。</p>
+
+    </div>
+  </div>
+
 <p>在实际开发中，与数据库建立连接的相关信息一般都存放于 <code>resources</code> 目录下的配置文件中，这样就不需要在修改数据库配置的情况下重新编译项目。</p>
 <p>首先我们可以在 <code>src/main/resources/</code> 目录下创建一个名为 <code>db.properties</code> 的配置文件，用于存放数据库连接的相关信息：</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># src/main/resources/db.properties</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/mydatabase</span><br><span class="line">jdbc.username=username</span><br><span class="line">jdbc.password=password</span><br><span class="line">jdbc.driverClassName=com.mysql.cj.jdbc.Driver</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># src/main/resources/db.properties</span></span><br><span class="line"><span class="attr">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306/mydatabase</span></span><br><span class="line"><span class="attr">jdbc.username</span>=<span class="string">username</span></span><br><span class="line"><span class="attr">jdbc.password</span>=<span class="string">password</span></span><br><span class="line"><span class="attr">jdbc.driverClassName</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br></pre></td></tr></table></figure></div>
 
 <p>在 Java 代码中，通过以下方式读取这个配置文件：</p>
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 Properties 对象，用于加载配置文件</span></span><br><span class="line"><span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取配置文件（从类路径中）</span></span><br><span class="line"><span class="type">InputStream</span> <span class="variable">input</span> <span class="operator">=</span> DatabaseConnection.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>);</span><br><span class="line">properties.load(input);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取配置文件中的值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;jdbc.url&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">user</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;jdbc.username&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;jdbc.password&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">driverClassName</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;jdbc.driverClassName&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 Properties 对象，用于加载配置文件</span></span><br><span class="line"><span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取配置文件（从类路径中）</span></span><br><span class="line"><span class="type">InputStream</span> <span class="variable">input</span> <span class="operator">=</span> DatabaseConnection.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>);</span><br><span class="line">properties.load(input);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取配置文件中的值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;jdbc.url&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">user</span> <span class="operator">=</span> properti es.getProperty(<span class="string">&quot;jdbc.username&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;jdbc.password&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">driverClassName</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;jdbc.driverClassName&quot;</span>);</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="创建-Statement-对象"><a href="#创建-Statement-对象" class="headerlink" title="创建 Statement 对象"></a>创建 Statement 对象</h4><p><code>Statement</code> 和 <code>PreparedStatement</code> 是 JDBC API 中用于执行 SQL 语句的两个主要接口。</p>
 <p><code>Statement</code> 对象用于执行不带参数的简单 SQL 语句。它通常用于执行静态 SQL 查询，SQL 语句在每次执行时都是重新解析和编译的。如果通过字符串拼接实现带参数查询容易造成 SQL 注入：</p>
 <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> conn.createStatement();</span><br><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;SELECT * FROM users WHERE username = &#x27;&quot;</span> + username + <span class="string">&quot;&#x27;&quot;</span>;</span><br><span class="line"><span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> stmt.executeQuery(sql);</span><br></pre></td></tr></table></figure></div>
 
-<p><code>PreparedStatement</code> 对象用于执行带参数的 SQL 语句。与 <code>Statement</code> 不同的是，<code>PreparedStatement</code> 允许使用占位符（<code>?</code>）在 SQL 语句中代表参数，然后通过设置这些参数来执行 SQL 语句。由于 <code>PreparedStatement</code> 使用参数化查询，它能够<strong>自动对传入的参数进行转义和处理</strong>，从而有效防止 SQL 注入攻击。</p>
+<p><code>PreparedStatement</code> 对象用于执行带参数的 SQL 语句。与 <code>Statement</code> 不同的是，<code>PreparedStatement</code> 允许使用占位符（<code>?</code>）在 SQL 语句中代表参数，然后通过设置这些参数来执行 SQL 语句。由于 <code>PreparedStatement</code> 使用参数化查询，它能够<strong>自动对传入的参数进行转义和处理，因此能够有效防止 SQL 注入攻击</strong>。</p>
 <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PreparedStatement</span> <span class="variable">pstmt</span> <span class="operator">=</span> conn.prepareStatement(<span class="string">&quot;SELECT * FROM users WHERE username = ?&quot;</span>);</span><br><span class="line">pstmt.setString(<span class="number">1</span>, username); <span class="comment">// 通过参数设置 SQL 语句中的占位符</span></span><br><span class="line"><span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> pstmt.executeQuery();</span><br></pre></td></tr></table></figure></div>
 
 <p><code>PreparedStatement</code> 另外一个好处是 SQL 语句在 <code>PreparedStatement</code> 创建时就已经预编译了。执行相同的 SQL 语句多次时，数据库不需要重新解析和编译，从而提高了性能。</p>
@@ -1474,7 +1485,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-20 03:30:16
+                    :</strong> 2025-03-10 22:07:04
             </li>
         
         <li>
@@ -1634,7 +1645,7 @@
                     </span>
                     
                         <span>
-                            478.9k words in total
+                            480.7k words in total
                         </span>
                     
                 </p>
