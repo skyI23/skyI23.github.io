@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-03-12 02:23:35</span>
-            <span class="mobile">2025-03-12 02:23:35</span>
+            <span class="desktop">2025-03-12 22:37:25</span>
+            <span class="mobile">2025-03-12 22:37:25</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -416,7 +416,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>25.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>25.6k Words</span>
         </span>
     
     
@@ -1486,7 +1486,7 @@
 
     </div>
     <div class="notel-content">
-      <p>由于我们无法直接调用 <code>Reflection</code> 的 <code>getCallerClass</code> 方法，因此这里我通过 <code>Class.forName(Thread.currentThread().getStackTrace()[1].getClassName())</code> 来获取调用者对应的 <code>Class</code> 对象。</p>
+      <p>由于我们无法直接调用 <code>Reflection</code> 的 <code>getCallerClass</code> 方法（因为此时 <code>setAccessible</code> 还没有被绕过），因此这里我通过 <code>Class.forName(Thread.currentThread().getStackTrace()[1].getClassName())</code> 来获取调用者对应的 <code>Class</code> 对象。</p>
 <p>其中 <code>Thread.currentThread().getStackTrace()</code> 获取了当前线程的调用栈，返回结果是一个数组表示调用栈中的所有方法。</p>
 <p>需要注意的是 <code>getStackTrace()</code> 返回的堆栈是反向的，第一个元素是当前方法（即调用 <code>getStackTrace</code> 的方法），所以调用栈的第一个元素是当前方法，第二个元素才是调用 <code>getStackTrace</code> 方法的上一个方法。</p>
 <p>我们通过 <code>getClassName</code> 获取调用 <code>getStackTrace</code> 方法的上一个方法对应的类名，然后再使用 <code>Class.forName</code> 获取对应的 <code>Class</code> 对象</p>
@@ -1522,8 +1522,8 @@
 <h3 id="静态代理的实现"><a href="#静态代理的实现" class="headerlink" title="静态代理的实现"></a>静态代理的实现</h3><p>我们以一个简单的服务接口 <code>Service</code> 和它的实现类 <code>RealService</code> 为例，展示静态代理的实现。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/Java%20%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/images/63b65f8d02e44cd69307d579b33ca7d7.png"
-                     
+                     data-src="/2024/11/11/Java%20%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/images/static_proxy.svg"
+                      alt="static_proxy"
                 ></p>
 <p>例如下面这段代码，各个类之间的关系如上图所示：</p>
 <ul>
@@ -1556,8 +1556,8 @@
 <h3 id="基于接口的动态代理"><a href="#基于接口的动态代理" class="headerlink" title="基于接口的动态代理"></a>基于接口的动态代理</h3><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/11/11/Java%20%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/images/1870ddf72522475da1fd9e3789fbd255.png"
-                     
+                     data-src="/2024/11/11/Java%20%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/images/dynamic_proxy.svg"
+                      alt="dynamic_proxy"
                 ></p>
 <ul>
 <li><strong>InvocationHandler 接口</strong>：需要实现 <code>invoke</code> 方法，该方法在代理对象调用<strong>任何</strong>方法时都会被执行。</li>
@@ -1580,7 +1580,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-03-12 02:23:35
+                    :</strong> 2025-03-12 22:37:25
             </li>
         
         <li>
