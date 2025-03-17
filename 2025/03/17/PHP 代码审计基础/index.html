@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2025/03/17/php 代码审计基础/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            PHP 代码审计基础 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">PHP 代码审计基础</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-03-17 22:30:29</span>
+        <span class="mobile">2025-03-17 22:30:29</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-03-18 00:58:11</span>
+            <span class="mobile">2025-03-18 00:58:11</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/php-web/">php web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/php-web/">php web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>21 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="PHPStudy"><a href="#PHPStudy" class="headerlink" title="PHPStudy"></a>PHPStudy</h3><p>通常配置 WEB 环境是一个非常繁琐的过程，但是 <a class="link"   target="_blank" rel="noopener" href="https://www.xp.cn/" >PHPStudy<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 内置了很多自动化的脚本将这个过程变得比较方便，这样我们就可以把主要精力放在审计代码上了。</p>
+<h4 id="Windows-平台"><a href="#Windows-平台" class="headerlink" title="Windows 平台"></a>Windows 平台</h4><p>Windows 版直接<a class="link"   target="_blank" rel="noopener" href="https://old.xp.cn/download.html" >下载<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>安装即可。</p>
+<h4 id="Linux-平台"><a href="#Linux-平台" class="headerlink" title="Linux 平台"></a>Linux 平台</h4><p>Linux 版有专门的安装脚本，安装完后根据提供的网址访问管理网页进行后续配置。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O install.sh https://notdocker.xp.cn/install.sh &amp;&amp; sudo bash install.sh</span><br></pre></td></tr></table></figure></div>
+
+<p>Linux 版有时候登录会有这个错误：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/8bd0314c208c4e4319dd2f9644258ed5.png"
+                     
+                ><br>按照提示修复即可：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">➜  sky123 xp</span><br><span class="line"></span><br><span class="line">===============请输入以下指令编号==============</span><br><span class="line"></span><br><span class="line">1)         启动小皮面板</span><br><span class="line">2)         停止小皮面板</span><br><span class="line">3)         重启小皮面板</span><br><span class="line">4)         查询面板状态</span><br><span class="line">5)         修改登录密码</span><br><span class="line">6)         查看面板登录信息</span><br><span class="line">7)         修复主控web面板</span><br><span class="line">8)         查看首次安装信息</span><br><span class="line">9)         修改面板监听端口</span><br><span class="line">10)        重置登录授权码</span><br><span class="line">11)        检查更新</span><br><span class="line">12)        查看版本</span><br><span class="line">13)        取消域名访问</span><br><span class="line">14)        取消授权ip限制</span><br><span class="line">16)        切换php环境变量版本</span><br><span class="line">98)        卸载小皮面板</span><br><span class="line">99)        退出本页</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">请输入以上指令编号:7</span><br><span class="line">--2024-06-11 01:37:41--  https://backups-nodocker.xp.cn/X1.29/web.tar.xz?ver=20230207</span><br><span class="line">Resolving backups-nodocker.xp.cn (backups-nodocker.xp.cn)... 222.88.95.38</span><br><span class="line">Connecting to backups-nodocker.xp.cn (backups-nodocker.xp.cn)|222.88.95.38|:443... connected.</span><br><span class="line">...</span><br><span class="line">successphpstudy restart</span><br><span class="line"></span><br><span class="line">==============运行状态=========================</span><br><span class="line"></span><br><span class="line">webpanel stop  </span><br><span class="line">phpstudy stop </span><br><span class="line">starting..</span><br><span class="line">[11-Jun-2024 01:39:57] NOTICE: PHP message: PHP Warning:  Module &#x27;xdebug&#x27; already loaded in Unknown on line 0</span><br><span class="line"></span><br><span class="line">==============运行状态=========================</span><br><span class="line"></span><br><span class="line">webpanel running </span><br><span class="line">phpstudy running </span><br><span class="line">修复完成 </span><br></pre></td></tr></table></figure></div>
+
+<p>mysql 安装位置如下，直接 mysql 是小皮的 mysql 管理。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/phpstudy/soft/mysql/mysql-8.0.16/bin/mysql</span><br></pre></td></tr></table></figure></div>
+<h3 id="PHPStorm"><a href="#PHPStorm" class="headerlink" title="PHPStorm"></a>PHPStorm</h3><p><a class="link"   target="_blank" rel="noopener" href="https://www.jetbrains.com/phpstorm/" >PHPStorm<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是一款优秀的 IDE，方便审计调试代码。直接在 Windows 上装一个，调试就远程调试即可。</p>
+<h3 id="xdebug-helper"><a href="#xdebug-helper" class="headerlink" title="xdebug-helper"></a>xdebug-helper</h3><p><a class="link"   target="_blank" rel="noopener" href="https://addons.mozilla.org/zh-CN/firefox/addon/xdebug-helper-for-firefox/" >xdebug-helper<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是一个火狐浏览器插件，用户可以借助其设置 IDE key 从而快速与 IDE 建立调试关系（本质就是在 cookie 中添加 IDE 默认的 IDE key）。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/b2b2c3205743dbfdfe5c5efd638e0dfc.png"
+                     
+                ></p>
+<h2 id="网站搭建"><a href="#网站搭建" class="headerlink" title="网站搭建"></a>网站搭建</h2><p>在审计代码时，测试功能和调试代码是必不可少的。为了方便快速搭建一个测试网站，可以使用 PHPStudy，它是一款集成环境，可以快速部署 PHP + MySQL + Apache&#x2F;Nginx 环境。下面是使用 PHPStudy 搭建网站的主要步骤：</p>
+<ul>
+<li>点击“启动”按钮，启动 Apache 或 Nginx 以及 MySQL 服务。</li>
+<li>创建网站，端口就默认的 80 即可，如果冲突再换其他端口（本质上是在改 WEB 服务器的监听端口，例如 apache 改的是 <code>/usr/local/phpstudy/vhost/apache/ports.conf</code> 文件）。</li>
+<li>根据代码初始化数据库，数据库初始默认账号密码都是 <code>root</code>。</li>
+</ul>
+<h2 id="远程调试-PHP-代码"><a href="#远程调试-PHP-代码" class="headerlink" title="远程调试 PHP 代码"></a>远程调试 PHP 代码</h2><h3 id="配置-Xdebug-插件"><a href="#配置-Xdebug-插件" class="headerlink" title="配置 Xdebug 插件"></a>配置 Xdebug 插件</h3><p>在 PHPStudy 设置开启 XDebug 插件。</p>
+<h4 id="Windows-平台-1"><a href="#Windows-平台-1" class="headerlink" title="Windows 平台"></a>Windows 平台</h4><p>Windows 系统开启位置如下：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/74753d96144d1921493ea68d0fa5d6c0.png"
+                     
+                ></p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p>有时候 PHPStudy 的这个开关可能不太好使，最好到 PHP 的配置文件中看看 <code>xdebug.remote_enable</code> 是否开着。</p>
+
+    </div>
+  </div>
+
+<p>Linux 平台</p>
+<p>Linux 系统开启位置如下：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/685336a22cbf53fe63b95ce2ec986637.png"
+                     
+                ><br><strong>坑点：</strong></p>
+<ul>
+<li>这里 PHPStudy 可能有一些 BUG，比如 5.3.29 版本的 PHP 没有这个选项，但可能 PHP 已经自带 XDebug 了。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/a9c7bb2f839c7d3752a43ff9c8fb4b60.png"
+                     
+                ></li>
+<li>Linux 版的 XDebug 需要用户手动修改 XDebug 插件，主要添加如下内容。其中 <strong><code>xdebug.remote_host</code> 是 PHPStorm 所在主机的 IP 地址</strong>，PHPStorm 会监听所在主机的 9000 端口（默认配置）等待 XDebug 连接。为了获取准确的 IP 地址，可以在 PHPStorm 所在主机访问 phpinfo 然后查看 <code>_SERVER[&quot;REMOTE_ADDR&quot;]</code> 选项对应的 IP。  <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension=&quot;xdebug.so&quot;</span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.remote_host=172.30.208.1</span><br><span class="line">xdebug.remote_port=9000</span><br><span class="line">xdebug.remote_handler=dbgp</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="配置-PHPStorm"><a href="#配置-PHPStorm" class="headerlink" title="配置 PHPStorm"></a>配置 PHPStorm</h3><p>PHPStorm 的<code>设置 → PHP → 调试</code>可以进行 PHP 远程调试的相关配置，<strong>这里保持默认配置即可。</strong></p>
+<p>之后是<strong>运行&#x2F;调试配置</strong>，主要需要配置的关键内容为：</p>
+<ul>
+<li>创建“PHP 网页”配置。</li>
+<li>配置中选择服务器。<ul>
+<li>主机 IP 和端口为网站对应的 IP 和端口。</li>
+<li><strong>设置文件目录映射</strong>，以便在本地文件能与 XDebug 的调试信息对应起来。</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/5422449c198fe1782b695b497cd9dab7.png"
+                     
+                ></p>
+<h3 id="如何远程调试"><a href="#如何远程调试" class="headerlink" title="如何远程调试"></a>如何远程调试</h3><h4 id="点击调试按钮"><a href="#点击调试按钮" class="headerlink" title="点击调试按钮"></a>点击调试按钮</h4><p>一种方法是直接点击调试按钮，此时会弹出所调试网站的主页，其中 URL 会传一个 <code>XDEBUG_SESSION_START</code> 参数。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/f14631ed229c9a30612a0f90e882cd6e.png"
+                     
+                ><br>我们只要在要调试的页面上传入这个参数就可以调试。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/0a2de363913bdf09a9c5cfd02c31dcf8.png"
+                     
+                ><br>并且之后 <code>XDEBUG_SESSION_START</code> 就变成了网页对应的 cookie，每次访问网页都会自带。因此再次访问网页会直接触发断点，不需要在 URL 传 <code>XDEBUG_SESSION_START</code> 参数。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/504c46404e18a6d2c410d5c907282685.png"
+                     
+                ></p>
+<h4 id="开启监听调试"><a href="#开启监听调试" class="headerlink" title="开启监听调试"></a>开启监听调试</h4><p>另一种比较简单的方式是开启监听调试，插件开启 Debug 模式，然后访问目标网页。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/cf10ff6b8927593b41c17bfb673550b2.png"
+                     
+                ><br>根据这个原理，我们也可以通过在 python 代码中添加相应 cookie 来调试 PHP 。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requests.get(url, cookies=&#123;<span class="string">&#x27;XDEBUG_SESSION&#x27;</span>:<span class="string">&#x27;PHPSTORM&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure></div>
+<h2 id="远程同步开发"><a href="#远程同步开发" class="headerlink" title="远程同步开发"></a>远程同步开发</h2><p>在调试分析代码的过程中不可避免的要对源码进行修改。由于是远程调试，修改源码还有将远程和本地代码一同修改，这样操作比较麻烦。好在 PHPStorm 有基于 FTP 服务的远程同步开发，可以做到本地和远程代码同步修改。</p>
+<h3 id="配置-FTP-服务器"><a href="#配置-FTP-服务器" class="headerlink" title="配置 FTP 服务器"></a>配置 FTP 服务器</h3><p>在 PHPStudy 中创建 FTP 服务器，其中跟目录可以设置项目目录。<strong>注意要在首页启动 FTP 服务器。</strong><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/33f9e13869191800dc1534bcf7a446da.png"
+                     
+                ><br>Linux 版的 PHPStudy 的 FTP 创建过程类似。不过 FTP 不需要手动开启。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/01b4bb7fbd64a6e88b4c2e4950f30e68.png"
+                     
+                ></p>
+<h3 id="配置-PHPStorm-1"><a href="#配置-PHPStorm-1" class="headerlink" title="配置 PHPStorm"></a>配置 PHPStorm</h3><p>在 PHPStorm 的<code>设置 → 构建、执行、部署 → 部署</code> 中添加 FTP 服务器。</p>
+<ul>
+<li>连接：<br>  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/37f6a3dbe71490e3a5c5ed5bcf851169.png"
+                     
+                ><ul>
+<li>主机端口设置为 FTP 服务器的 IP 和端口。</li>
+<li>用户名、密码与创建的 FTP 相同。</li>
+<li><strong>PHPStorm 是在  FTP 的根路径基础上寻找根路径的，因此根路径这里需要设置 <code>\</code> 即可。</strong></li>
+</ul>
+</li>
+<li>映射：<br>  <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/8345140f47e2628bc8926cd0a1a41dd2.png"
+                     
+                ><ul>
+<li><strong>本地路径为本地项目绝对路径。</strong></li>
+<li><strong>部署路径为相对于前面的跟路径的相对路径。</strong></li>
+<li>WEB 路径为相对于 WEB 服务器 URL 的相对路径（貌似不重要）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="如何远程同步开发"><a href="#如何远程同步开发" class="headerlink" title="如何远程同步开发"></a>如何远程同步开发</h3><p>首先在窗口的右下角可以选择与哪个 WEB 服务器进行远程同步开发。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/efe4ecfe461e0963963b26b60e9dc9d9.png"
+                     
+                ></p>
+<p>在<code>工具 → 部署</code> 中有「自动上传」和「浏览远程主机两个设置」两个关键设置。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/50bf10b5041b96cdf33aa43435ba4757.png"
+                     
+                ><br>点击浏览远程主机选项可以查看 FTP 根目录下的文件。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/a8bbf7ab7dac274e70ca4ba260744a91.png"
+                     
+                ></p>
+<p>自动上传功能能够将本地修改的文件自动上传到远程服务器。注意这里虽然是自动上传，但是只有按 <code>Ctrl + s</code> 键的时候才会同步当前文件。我们可以文件传输窗口看到文件是否同步。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/26de57a913a7d976bd8e7ee882269eeb.png"
+                     
+                ><br>另外我们可以在项目根目录右键然后在部署中选择与远程服务器同步。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/7f2179a624d008c66eeea19f27a68658.png"
+                     
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/cdb79871bfec3046568bd3c6e67d600c.png"
+                     
+                ></p>
+<h1 id="漏洞审计基础"><a href="#漏洞审计基础" class="headerlink" title="漏洞审计基础"></a>漏洞审计基础</h1><h2 id="PHP-语言相关"><a href="#PHP-语言相关" class="headerlink" title="PHP 语言相关"></a>PHP 语言相关</h2><h3 id="用户可控输入"><a href="#用户可控输入" class="headerlink" title="用户可控输入"></a>用户可控输入</h3><p>在 PHP 中，用户可控输入是指通过外部请求（如 HTTP 请求）传入的数据，这些数据通常来源于用户提交的表单、URL 查询字符串、请求头、文件上传等。由于这些数据完全由用户控制，因此在处理这些数据时必须非常小心，防止潜在的安全风险，如 <strong>SQL 注入</strong>、<strong>跨站脚本攻击 (XSS)</strong> 等。</p>
+<p>PHP 提供了多种全局数组和流，允许我们获取这些用户可控输入。</p>
+<h4 id="SERVER"><a href="#SERVER" class="headerlink" title="$_SERVER"></a><code>$_SERVER</code></h4><p><code>$_SERVER</code> 是一个关联数组，包含服务器和执行环境的信息。它提供了与请求相关的详细数据，如 HTTP 头、路径、脚本信息等。<code>$_SERVER</code> 还包含一些来自客户端请求的环境变量。</p>
+<p><strong>常见字段：</strong></p>
+<ul>
+<li><code>$_SERVER[&#39;REQUEST_METHOD&#39;]</code>：请求的方法（如 GET、POST、PUT）。</li>
+<li><code>$_SERVER[&#39;QUERY_STRING&#39;]</code>：URL 查询字符串部分。</li>
+<li><code>$_SERVER[&#39;HTTP_USER_AGENT&#39;]</code>：用户的浏览器信息。</li>
+<li><code>$_SERVER[&#39;REMOTE_ADDR&#39;]</code>：客户端的 IP 地址。</li>
+<li><code>$_SERVER[&#39;HTTP_REFERER&#39;]</code>：指向当前页面的来源页面的 URL。</li>
+</ul>
+<h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="PHP-的数据库支持"><a href="#PHP-的数据库支持" class="headerlink" title="PHP 的数据库支持"></a>PHP 的数据库支持</h3><p>HP 通过扩展来支持不同的数据库，每个数据库的扩展都有自己的一套 API。比如：</p>
+<ul>
+<li><strong>MySQL</strong> 使用 <strong>MySQLi</strong> 或 <strong>PDO_MySQL</strong>。</li>
+<li><strong>PostgreSQL</strong> 使用 <strong>pg_connect</strong> 或 <strong>PDO_PGSQL</strong>。</li>
+<li><strong>SQLite</strong> 使用 <strong>SQLite3</strong> 或 <strong>PDO_SQLITE</strong>。</li>
+<li><strong>Oracle</strong> 使用 <strong>OCI8</strong>。</li>
+</ul>
+<blockquote>
+<p>PHP 的设计初期，开发者倾向于为每种数据库写一个独立的扩展，以便简化与每种数据库的交互。种做法虽然简单，但随着时间的推移，不同数据库的访问接口分散且不统一。</p>
+</blockquote>
+<p>尽管 PHP 中有多个数据库扩展，但 <strong>PDO (PHP Data Objects)</strong> 作为一种统一的数据库访问方法，已经成为 PHP 推荐的标准做法。<strong>PDO</strong> 提供了一个统一的接口，可以访问不同类型的数据库，支持多种数据库类型，包括 MySQL、PostgreSQL、SQLite、Oracle 等。</p>
+<h3 id="PDO-PHP-Data-Objects"><a href="#PDO-PHP-Data-Objects" class="headerlink" title="PDO (PHP Data Objects)"></a><strong>PDO (PHP Data Objects)</strong></h3><p><strong>PDO</strong> 是 PHP 的一种数据库抽象层接口，它使得开发者可以使用相同的方式与不同的数据库进行交互。通过 <strong>PDO</strong>，你可以轻松切换不同的数据库而无需修改应用程序的大量代码。</p>
+<h4 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h4><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="variable">$conn</span> = <span class="keyword">new</span> <span class="title function_ invoke__">PDO</span>(<span class="string">&quot;mysql:host=localhost;dbname=test&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;password&quot;</span>);</span><br><span class="line">    <span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">setAttribute</span>(PDO::<span class="variable constant_">ATTR_ERRMODE</span>, PDO::<span class="variable constant_">ERRMODE_EXCEPTION</span>);  <span class="comment">// 设置错误模式为异常</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接成功&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">catch</span>(PDOException <span class="variable">$e</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接失败: &quot;</span> . <span class="variable">$e</span>-&gt;<span class="title function_ invoke__">getMessage</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="执行语句"><a href="#执行语句" class="headerlink" title="执行语句"></a>执行语句</h4><p>PDO 提供了如下方法来实现 SQL 语句执行：</p>
+<ul>
+<li><p><strong><code>PDO::prepare($sql)</code></strong> ：准备 SQL 查询语句。预处理语句可以防止 SQL 注入。</p>
+</li>
+<li><p><strong><code>PDO::bindParam($parameter, $variable, $data_type)</code></strong> ：绑定参数，确保输入的变量符合指定的数据类型。</p>
+</li>
+<li><p><strong><code>PDO::execute()</code></strong> ：执行预处理语句。</p>
+</li>
+<li><p><strong><code>PDO::fetch()</code></strong> ：获取查询结果集中的一行。</p>
+</li>
+<li><p><strong><code>PDO::fetchAll()</code></strong> ：获取查询结果集中的所有行。</p>
+</li>
+</ul>
+<p>例如下面的 PHP 代码实现了根据参数查询数据库并返回结果的操作：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$stmt</span> = <span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">prepare</span>(<span class="string">&quot;SELECT id, name FROM users WHERE email = :email&quot;</span>);</span><br><span class="line"><span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">bindParam</span>(<span class="string">&#x27;:email&#x27;</span>, <span class="variable">$email</span>);</span><br><span class="line"><span class="variable">$email</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;email&#x27;</span>];  <span class="comment">// 假设这是用户提交的邮箱</span></span><br><span class="line"><span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">execute</span>();</span><br><span class="line"><span class="variable">$result</span> = <span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">fetchAll</span>(PDO::<span class="variable constant_">FETCH_ASSOC</span>);  <span class="comment">// 获取所有结果</span></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$result</span> <span class="keyword">as</span> <span class="variable">$row</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;id: &quot;</span> . <span class="variable">$row</span>[<span class="string">&#x27;id&#x27;</span>] . <span class="string">&quot; - Name: &quot;</span> . <span class="variable">$row</span>[<span class="string">&#x27;name&#x27;</span>] . <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>使用 <strong>预处理语句</strong>（<code>prepare</code>）和 <strong>参数绑定</strong>（<code>bindParam</code>）是防止 SQL 注入的最佳实践。这意味着用户的输入不会直接拼接到 SQL 语句中，而是通过绑定参数的方式传递。</p>
+
+    </div>
+  </div>
+
+<h3 id="MySQLi-MySQL-Improved"><a href="#MySQLi-MySQL-Improved" class="headerlink" title="MySQLi (MySQL Improved)"></a>MySQLi (MySQL Improved)</h3><p><strong>MySQLi</strong> 是 PHP 用于与 MySQL 和 MariaDB 数据库交互的扩展，提供了过程式和面向对象两种风格。MySQLi 不仅支持预处理语句，还支持事务处理、存储过程等。</p>
+<h2 id="代码执行相关"><a href="#代码执行相关" class="headerlink" title="代码执行相关"></a>代码执行相关</h2><h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><ul>
+<li><p><strong>定义：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixed</span> <span class="keyword">eval</span>(<span class="keyword">string</span> <span class="variable">$code</span>)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>code</code>：要执行的 PHP 代码字符串。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong></p>
+<ul>
+<li>成功时返回 <code>NULL</code>。</li>
+<li>如果 <code>eval()</code> 中的代码有返回值，则返回该值。</li>
+</ul>
+</li>
+<li><p><strong>注意事项：</strong></p>
+<ul>
+<li>参数 <code>code</code> 必须是合法的 PHP 代码，且必须以分号结尾。</li>
+<li><code>eval</code> 函数可以执行包含多条命令的字符串。</li>
+</ul>
+</li>
+</ul>
+<h3 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h3><ul>
+<li><p><strong>定义：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="title function_ invoke__">assert</span>(<span class="keyword">mixed</span> <span class="variable">$assertion</span> [, <span class="keyword">string</span> <span class="variable">$description</span> ])</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>assertion</code>：要进行的断言，可以是一个表达式或字符串（在 PHP 7.2.0 之前，<strong>字符串会作为代码执行</strong>）。</li>
+<li><code>description</code>：可选，当断言失败时显示的描述信息。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong></p>
+<ul>
+<li>成功时返回 <code>true</code>。</li>
+<li>失败时返回 <code>false</code> 并触发一个警告。</li>
+</ul>
+</li>
+<li><p><strong>注意事项：</strong></p>
+<ul>
+<li>单条命令不需要以分号结尾。</li>
+</ul>
+</li>
+</ul>
+<h3 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace"></a>preg_replace</h3><ul>
+<li><p><strong>定义：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixed</span> <span class="title function_ invoke__">preg_replace</span>(<span class="keyword">mixed</span> <span class="variable">$pattern</span>, <span class="keyword">mixed</span> <span class="variable">$replacement</span>, <span class="keyword">mixed</span> <span class="variable">$subject</span> [, <span class="keyword">int</span> <span class="variable">$limit</span> = -<span class="number">1</span> [, <span class="keyword">int</span> &amp;<span class="variable">$count</span> ]])</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>pattern</code>：要匹配的正则表达式，可以是一个字符串或数组。<ul>
+<li>如果是字符串，则表示一个单独的正则表达式。</li>
+<li>如果是数组，则表示多个正则表达式。</li>
+</ul>
+</li>
+<li><code>replacement</code>：用于替换的字符串或数组。</li>
+<li><code>subject</code>：输入字符串或数组。</li>
+<li><code>limit</code>：可选，替换的最大次数，默认值为 -1（无限制）。</li>
+<li><code>count</code>：可选，引用变量，返回替换的次数。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong></p>
+<ul>
+<li>返回替换后的字符串或数组，如果发生错误则返回 <code>NULL</code>。</li>
+</ul>
+</li>
+<li><p><strong>注意事项：</strong></p>
+<ul>
+<li><strong>使用 <code>e</code> 修饰符会执行替换字符串中的 PHP 代码。</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="system-exec-passthru-shell-exec"><a href="#system-exec-passthru-shell-exec" class="headerlink" title="system, exec, passthru, shell_exec"></a>system, exec, passthru, shell_exec</h3><ul>
+<li><p><strong>定义：</strong></p>
+<ul>
+<li><p><code>system</code>：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">system</span>(<span class="keyword">string</span> <span class="variable">$command</span> [, <span class="keyword">int</span> &amp;<span class="variable">$return_var</span>])</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>exec</code>：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">exec</span>(<span class="keyword">string</span> <span class="variable">$command</span> [, <span class="keyword">array</span> &amp;<span class="variable">$output</span> [, <span class="keyword">int</span> &amp;<span class="variable">$return_var</span>]])</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>passthru</code>：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_ invoke__">passthru</span>(<span class="keyword">string</span> <span class="variable">$command</span> [, <span class="keyword">int</span> &amp;<span class="variable">$return_var</span>])</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>shell_exec</code>：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">shell_exec</span>(<span class="keyword">string</span> <span class="variable">$command</span>)</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>command</code>：要执行的命令字符串。</li>
+<li><code>return_var</code>：可选，用于存储命令的返回状态。</li>
+<li><code>output</code>：可选，用于存储命令的输出（仅 <code>exec()</code>）。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong></p>
+<ul>
+<li><code>system()</code>：返回命令的输出，如果发生错误则返回 <code>NULL</code>。</li>
+<li><code>exec()</code>：返回命令输出的最后一行，如果发生错误则返回 <code>NULL</code>。</li>
+<li><code>passthru()</code>：无返回值，直接输出结果。</li>
+<li><code>shell_exec()</code>：返回命令的完整输出，如果发生错误则返回 <code>NULL</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="文件操作相关"><a href="#文件操作相关" class="headerlink" title="文件操作相关"></a>文件操作相关</h3><h2 id="文件包含相关"><a href="#文件包含相关" class="headerlink" title="文件包含相关"></a>文件包含相关</h2><p>文件包含漏洞（File Inclusion Vulnerability）是一种在Web应用程序中常见的安全漏洞。它允许攻击者通过包含恶意文件的方式在服务器上执行未经授权的代码或读取敏感文件。文件包含漏洞主要分为两类：本地文件包含（Local File Inclusion, LFI）和远程文件包含（Remote File Inclusion, RFI）。</p>
+<ul>
+<li><p><strong>文件包含</strong> ：开发人员将可重复使用的内容写到单个文件中，使用时直接调用此文件，无需再次编写，这种调用文件的过程一般被称为文件包含。这样编写代码能减少代码冗余，降低代码后期维护难度，保证网站整体风格统一，比如：导航栏、底部栏等。</p>
+</li>
+<li><p><strong>文件包含漏洞</strong> ：开发人员希望代码更加灵活，有时会将包含的文件设置为变量，用来动态调用，由于这种灵活性，可能导致攻击者调用恶意文件，造成文件包含漏洞。</p>
+</li>
+</ul>
+<h3 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h3><p>几乎所有脚本语言都会提供文件包含的功能，但文件包含漏洞在 PHP Web 应用中居多，而在 JSP、ASP 程序中却非常少，甚至没有。PHP 中提供了四个文件包含的函数，分别是 <code>include()</code>、<code>include_once()</code>、<code>require()</code> 和 <code>require_once()</code>。它们的特点为：</p>
+<ul>
+<li><strong>include</strong> ：出现错误时，会抛出一个警告，程序继续运行。</li>
+<li><strong>include_once</strong> ：出现错误时，会抛出警告，且仅包含一次。</li>
+<li><strong>require</strong> ：出现错误时，会直接报错并退出程序执行。</li>
+<li><strong>require_once</strong> ：出错时直接退出；且仅包含一次。</li>
+</ul>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>只要被包含文件的文件内容符合 PHP 语法，不管文件类型是什么，该文件都会被 PHP 解释器解析执行；如果文件内容不符合 PHP 语法，就会将该文件内容读取出来。</p>
+
+    </div>
+  </div>
+
+<h3 id="PHP-伪协议"><a href="#PHP-伪协议" class="headerlink" title="PHP 伪协议"></a>PHP 伪协议</h3><p>PHP 带有很多内置 URL 风格的封装协议，用于类似 <code>fopen()</code>、<code>copy()</code>、<code>file_exists()</code> 和 <code>filesize()</code> 文件系统函数具体协议请参照<a class="link"   target="_blank" rel="noopener" href="http://www.php.net/manual/zh/wrappers.php" >官方文档<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<h4 id="file"><a href="#file" class="headerlink" title="file:&#x2F;&#x2F;"></a>file:&#x2F;&#x2F;</h4><ul>
+<li><p><strong>作用</strong> ：用于访问<strong>本地</strong>文件系统，常用于读取本地文件。</p>
+</li>
+<li><p><strong>用法</strong> ：<code>file://</code> 后跟文件的绝对路径或相对路径。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 绝对路径</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;file://c:/windows/win.ini&#x27;</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;file:///etc/passwd&#x27;</span>;</span><br><span class="line"><span class="comment">// 相对路径</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;file://./phpinfo.txt&#x27;</span>;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h4><ul>
+<li><p><strong>作用</strong> ：<code>php://input</code> 允许访问请求的原始数据流，将 POST 请求的数据作为 PHP 代码执行。攻击者可以通过 POST 请求发送恶意 PHP 代码并在服务器上执行，从而控制服务器。</p>
+</li>
+<li><p><strong>使用方法</strong> ：将<code>php://input</code>作为文件名传入，同时在POST请求中传入要执行的代码。</p>
+</li>
+<li><p><strong>前提条件</strong> ：</p>
+<ul>
+<li><code>allow_url_fopen</code>：On</li>
+<li><code>allow_url_include</code>：On</li>
+</ul>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PHP代码</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;php://input&#x27;</span>;</span><br><span class="line"><span class="comment">// POST请求数据：&lt;?php phpinfo(); ?&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>如果要写文件，则可以把 php 代码换成以下（该代码的意思为打开 <code>shell.php</code> 执行写入的操作，写入的内容为一句话木马）：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($_POST[&quot;cmd&quot;])?&gt;&#x27;</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h4><ul>
+<li><p><strong>作用</strong> ：<code>php://filter</code> 是 PHP 中一种特殊的 I&#x2F;O 流，它允许在读取或写入数据时应用各种过滤器。这对于数据预处理、编码转换、加解密等场景非常有用。</p>
+</li>
+<li><p><strong>使用方法</strong> ：<code>php://filter</code>的使用语法如下:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/filter.svg"
+                      alt="filter"
+                ></p>
+<ul>
+<li><code>read</code> 和 <code>write</code> 指定过滤器应用的方向，<code>read</code> 用于读取数据时过滤，<code>write</code> 用于写入数据时过滤。</li>
+<li><code>&lt;filtername&gt;</code> 是要应用的过滤器名称，多个过滤器可以用逗号分隔。</li>
+<li><code>resource=&lt;source&gt;</code>：这个参数是必须的。它指定了要筛选过滤的数据源，可以是文件、字符串等。</li>
+</ul>
+</li>
+<li><p><strong>常用过滤器</strong> ：</p>
+<ul>
+<li><strong>字符串过滤器</strong> ：<ul>
+<li><code>string.rot13</code>：进行 ROT13 转换（简单替换加密）。</li>
+<li><code>string.toupper</code>：将字符串转换为大写。</li>
+<li><code>string.tolower</code>：将字符串转换为小写。</li>
+<li><code>string.strip_tags</code>：去除 HTML 和 PHP 标签。</li>
+</ul>
+</li>
+<li><strong>转换过滤器</strong> ：<ul>
+<li><code>convert.base64-encode</code>：将数据进行 Base64 编码。</li>
+<li><code>convert.base64-decode</code>：将 Base64 编码的数据进行解码。</li>
+<li><code>convert.quoted-printable-encode</code>：进行 Quoted-Printable 编码。</li>
+<li><code>convert.quoted-printable-decode</code>：解码 Quoted-Printable 编码的数据。</li>
+<li><code>convert.iconv.&lt;from_encoding&gt;.&lt;to_encoding&gt;</code>：将数据从一种字符编码转换为另一种。</li>
+</ul>
+</li>
+<li><strong>压缩过滤器</strong> ：<ul>
+<li><code>zlib.deflate</code>：使用zlib算法进行压缩。</li>
+<li><code>zlib.inflate</code>：解压zlib压缩的数据。</li>
+<li><code>bzip2.compress</code>：使用bzip2算法进行压缩。</li>
+<li><code>bzip2.decompress</code>：解压bzip2压缩的数据。</li>
+</ul>
+</li>
+<li><strong>加密过滤器</strong> ：<ul>
+<li><code>mcrypt.*</code>：使用 mcrypt 扩展进行加密。</li>
+<li><code>mdecrypt.*</code>：使用 mcrypt 扩展进行解密。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>示例</strong> ：以 base64 编码的方式进行读取指定路径的文件。</p>
+  <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=about.php</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="phar"><a href="#phar" class="headerlink" title="phar:&#x2F;&#x2F;"></a>phar:&#x2F;&#x2F;</h4><ul>
+<li><p><strong>作用</strong> ：<code>phar://</code> 是 PHP 中的一个伪协议，用于处理 PHP 归档（PHAR）文件。这种方式允许访问PHAR文件内部的子文件，对于访问被压缩的 PHP 文件或代码很有帮助。</p>
+<ul>
+<li>PHAR 文件是一种将多个文件打包成单个文件的归档格式，类似于 ZIP 或 TAR 格式。</li>
+<li>通过 <code>phar://</code> 协议，可以直接访问 PHAR 文件中的内容，就像访问普通目录和文件一样。</li>
+</ul>
+</li>
+<li><p><strong>使用方法</strong> ：<code>phar://</code> 的基本语法如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/phar.svg"
+                      alt="phar"
+                ></p>
+<ul>
+<li><code>path/to/pharfile.phar[ext]</code>：PHAR 文件的路径，可以是<strong>相对路径或绝对路径</strong>。<code>.phar</code> 是常见的扩展名，但也可以使用其他扩展名（如 <code>.zip</code>、<code>.tar</code> <strong>或其他任意扩展名</strong>）。</li>
+<li><code>internal/path/to/file</code>：PHAR 文件内部的文件路径。</li>
+</ul>
+</li>
+</ul>
+<h4 id="zip"><a href="#zip" class="headerlink" title="zip:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;</h4><ul>
+<li><p><strong>作用</strong> ：用于访问 ZIP 压缩文件中的子文件。类似的还有 <code>bzip2://</code>、<code>zlib://</code> 协议。</p>
+<ul>
+<li><code>bzip2://</code>：用于访问 Bzip2 压缩格式的文件和资源。Bzip2 是一种更高效的压缩算法，在某些场景下可以获得更好的压缩率，对应的文件后缀名为 <code>.bz2</code>。</li>
+<li><code>zlib://</code>： 协议用于访问 Gzip 压缩格式的文件和资源。Gzip 是一种较为普及的压缩算法，在大多数场景下都可以使用，对应的文件后缀名为 <code>.gz</code>。</li>
+</ul>
+</li>
+<li><p><strong>使用方法</strong> ：指定压缩文件的路径以及其中的子文件路径。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/zip.svg"
+                      alt="zip"
+                ></p>
+<ul>
+<li><code>path/to/your-archive.zip</code>：ZIP 压缩包的<strong>绝对</strong>路径。</li>
+<li><code>path/within/zip</code>：ZIP 压缩包内部的文件路径。</li>
+</ul>
+</li>
+</ul>
+<h4 id="http-或-https"><a href="#http-或-https" class="headerlink" title="http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;"></a>http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</h4><ul>
+<li><strong>作用</strong> ：用于远程包含，通过 HTTP 或 HTTPS 协议访问远程文件或资源。这种伪协议允许从远程服务器包含文件，是远程文件包含漏洞（RFI）利用的基础。</li>
+<li><strong>前提条件</strong> ：<ul>
+<li><code>allow_url_fopen</code>：On</li>
+<li><code>allow_url_include</code>：On</li>
+</ul>
+</li>
+<li><strong>注意事项</strong> ：通过 HTTP 或 HTTPS 协议访问远程文件或资源通常会经过目标服务器的渲染（例如访问 php 代码实际获取的是 php 代码的执行结果而不是代码本身），如果想实现和 <code>file://</code> 协议类似的远程功能最好目标文件是 <code>.txt</code> 后缀。</li>
+</ul>
+<h4 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h4><ul>
+<li><p><strong>作用</strong> ：自 PHP 5.2.0 起，可以使用 <code>data://</code> 数据流封装器，以直接在 URL 中嵌入传递相应格式的数据，而不需要从外部文件或资源中引用，通常用来执行PHP代码。</p>
+</li>
+<li><p><strong>使用方法</strong> ：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/data.svg"
+                      alt="data"
+                ></p>
+<ul>
+<li><code>&lt;mediatype&gt;</code>：数据的媒体类型，通常是 MIME 类型，例如 <code>text/plain</code> 或 <code>text/html</code>。默认是 <code>text/plain</code>。</li>
+<li><code>;base64</code>：如果数据是 Base64 编码的，需要加上这个标志。</li>
+<li><code>&lt;data&gt;</code>：实际的数据，可以是普通文本或 Base64 编码的数据。</li>
+</ul>
+</li>
+</ul>
+<h3 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h3><p>当包含的文件在服务器本地时，就形成了本地文件包含。</p>
+<ul>
+<li>由于服务器上的文件并不是攻击者所能够控制的，因此该情况下，更多的会包含一些固定的系统配置文件，从而读取系统敏感信息。<ul>
+<li>读取网站源码以及配置文件。</li>
+<li>包含日志文件 GetShell（可以通过与网站交互在日志文件中形成一段 PHP 代码）。</li>
+</ul>
+</li>
+<li>很多时候本地文件包含漏洞会结合网站的文件上传功能，从而形成更大的威力。<ul>
+<li>上传图片马，包含图片马 GetShell。</li>
+</ul>
+</li>
+</ul>
+<p>包含文件的时候可以直接写路径 <code>&#39;/path/to/your/file.php&#39;</code>，也可以使用 file 伪协议 <code>file:///path/to/your/file.php</code>，两种方式是等价的。</p>
+<h3 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h3><p>当包含的文件在远程服务器上时，就形成了远程文件包含。远程文件包含的时候需要写文件的 URL 路径 <code>&#39;http://example.com/shell.txt&#39;</code> 。</p>
+<p>利用前提：</p>
+<ul>
+<li><code>allow_url_fopen=On</code>（默认开启）</li>
+<li><code>allow_url_include=On</code>（默认关闭）</li>
+</ul>
+<p>这里有一点要注意的是远程文件包含一句话木马时，不要做成 <code>.php</code> 文件，一般做成 <code>.txt</code> 文件，因为：</p>
+<ul>
+<li>如果是 <code>.txt</code> 文件，远程文件包含时获取的是文件原本的内容，然后代码会在 Web 服务器中被当做 php 代码执行。</li>
+<li>如果是 <code>.php</code> 文件，远程文件包含时获取的是 <code>.php</code> 文件在远程服务器中执行的结果（并且用户传递的参数不会传递给远程服务器），然后在 Web 服务器会直接把该结果返回给用户。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/file_include.svg"
+                      alt="file_include"
+                ></p>
+<h1 id="PHP-常见框架"><a href="#PHP-常见框架" class="headerlink" title="PHP 常见框架"></a>PHP 常见框架</h1>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> PHP 代码审计基础</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2025-03-17 22:30:29</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-03-18 00:58:11
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2025/03/17/PHP 代码审计基础/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/php-web/">#php web</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/02/07/IVT/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">IVT 研究</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">PHP 代码审计基础</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStudy"><span class="nav-text">PHPStudy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStorm"><span class="nav-text">PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xdebug-helper"><span class="nav-text">xdebug-helper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA"><span class="nav-text">网站搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-PHP-%E4%BB%A3%E7%A0%81"><span class="nav-text">远程调试 PHP 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Xdebug-%E6%8F%92%E4%BB%B6"><span class="nav-text">配置 Xdebug 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Windows 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95"><span class="nav-text">如何远程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="nav-text">点击调试按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E8%B0%83%E8%AF%95"><span class="nav-text">开启监听调试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">远程同步开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-FTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置 FTP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm-1"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">如何远程同步开发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80"><span class="nav-text">漏洞审计基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E8%AF%AD%E8%A8%80%E7%9B%B8%E5%85%B3"><span class="nav-text">PHP 语言相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%8F%AF%E6%8E%A7%E8%BE%93%E5%85%A5"><span class="nav-text">用户可控输入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SERVER"><span class="nav-text">$_SERVER</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3"><span class="nav-text">数据库相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%AF%E6%8C%81"><span class="nav-text">PHP 的数据库支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDO-PHP-Data-Objects"><span class="nav-text">PDO (PHP Data Objects)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-text">执行语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQLi-MySQL-Improved"><span class="nav-text">MySQLi (MySQL Improved)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E7%9B%B8%E5%85%B3"><span class="nav-text">代码执行相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eval"><span class="nav-text">eval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assert"><span class="nav-text">assert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#preg-replace"><span class="nav-text">preg_replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system-exec-passthru-shell-exec"><span class="nav-text">system, exec, passthru, shell_exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%9B%B8%E5%85%B3"><span class="nav-text">文件操作相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9B%B8%E5%85%B3"><span class="nav-text">文件包含相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-text">PHP 伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#file"><span class="nav-text">file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-input"><span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-filter"><span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phar"><span class="nav-text">phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zip"><span class="nav-text">zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-%E6%88%96-https"><span class="nav-text">http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data"><span class="nav-text">data:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">远程文件包含</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6"><span class="nav-text">PHP 常见框架</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        31 posts in total
+                    </span>
+                    
+                        <span>
+                            490.7k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>
