@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-03-18 00:58:11</span>
-            <span class="mobile">2025-03-18 00:58:11</span>
+            <span class="desktop">2025-03-24 02:31:40</span>
+            <span class="mobile">2025-03-24 02:31:40</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -416,12 +416,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>13.8k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>21 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>54 Mins</span>
         </span>
     
     
@@ -501,15 +501,15 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/a9c7bb2f839c7d3752a43ff9c8fb4b60.png"
                      
                 ></li>
-<li>Linux 版的 XDebug 需要用户手动修改 XDebug 插件，主要添加如下内容。其中 <strong><code>xdebug.remote_host</code> 是 PHPStorm 所在主机的 IP 地址</strong>，PHPStorm 会监听所在主机的 9000 端口（默认配置）等待 XDebug 连接。为了获取准确的 IP 地址，可以在 PHPStorm 所在主机访问 phpinfo 然后查看 <code>_SERVER[&quot;REMOTE_ADDR&quot;]</code> 选项对应的 IP。  <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension=&quot;xdebug.so&quot;</span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.remote_host=172.30.208.1</span><br><span class="line">xdebug.remote_port=9000</span><br><span class="line">xdebug.remote_handler=dbgp</span><br></pre></td></tr></table></figure></div></li>
+<li>Linux 版的 XDebug 需要用户手动修改 XDebug 插件，主要添加如下内容。其中 <strong><code>xdebug.remote_host</code> 是 PHPStorm 所在主机的 IP 地址</strong>* ，PHPStorm 会监听所在主机的 9000 端口（默认配置）等待 XDebug 连接。为了获取准确的 IP 地址，可以在 PHPStorm 所在主机访问 phpinfo 然后查看 <code>_SERVER[&quot;REMOTE_ADDR&quot;]</code> 选项对应的 IP。  <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension=&quot;xdebug.so&quot;</span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.remote_host=172.30.208.1</span><br><span class="line">xdebug.remote_port=9000</span><br><span class="line">xdebug.remote_handler=dbgp</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 <h3 id="配置-PHPStorm"><a href="#配置-PHPStorm" class="headerlink" title="配置 PHPStorm"></a>配置 PHPStorm</h3><p>PHPStorm 的<code>设置 → PHP → 调试</code>可以进行 PHP 远程调试的相关配置，<strong>这里保持默认配置即可。</strong></p>
-<p>之后是<strong>运行&#x2F;调试配置</strong>，主要需要配置的关键内容为：</p>
+<p>之后是<strong>运行&#x2F;调试配置</strong>* ，主要需要配置的关键内容为：</p>
 <ul>
 <li>创建“PHP 网页”配置。</li>
 <li>配置中选择服务器。<ul>
 <li>主机 IP 和端口为网站对应的 IP 和端口。</li>
-<li><strong>设置文件目录映射</strong>，以便在本地文件能与 XDebug 的调试信息对应起来。</li>
+<li><strong>设置文件目录映射</strong>* ，以便在本地文件能与 XDebug 的调试信息对应起来。</li>
 </ul>
 </li>
 </ul>
@@ -612,9 +612,180 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/cdb79871bfec3046568bd3c6e67d600c.png"
                      
                 ></p>
-<h1 id="漏洞审计基础"><a href="#漏洞审计基础" class="headerlink" title="漏洞审计基础"></a>漏洞审计基础</h1><h2 id="PHP-语言相关"><a href="#PHP-语言相关" class="headerlink" title="PHP 语言相关"></a>PHP 语言相关</h2><h3 id="用户可控输入"><a href="#用户可控输入" class="headerlink" title="用户可控输入"></a>用户可控输入</h3><p>在 PHP 中，用户可控输入是指通过外部请求（如 HTTP 请求）传入的数据，这些数据通常来源于用户提交的表单、URL 查询字符串、请求头、文件上传等。由于这些数据完全由用户控制，因此在处理这些数据时必须非常小心，防止潜在的安全风险，如 <strong>SQL 注入</strong>、<strong>跨站脚本攻击 (XSS)</strong> 等。</p>
+<h1 id="PHP-基础"><a href="#PHP-基础" class="headerlink" title="PHP 基础"></a>PHP 基础</h1><h2 id="PHP-语言特性"><a href="#PHP-语言特性" class="headerlink" title="PHP 语言特性"></a>PHP 语言特性</h2><h3 id="preg-match-相关"><a href="#preg-match-相关" class="headerlink" title="preg_match 相关"></a>preg_match 相关</h3><p><code>preg_match()</code> 是 PHP 中用于执行正则表达式匹配的函数。该函数的函数原型如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="title function_ invoke__">preg_match</span>(<span class="keyword">string</span> <span class="variable">$pattern</span>, <span class="keyword">string</span> <span class="variable">$subject</span> [, <span class="keyword">array</span> &amp;<span class="variable">$matches</span> [, <span class="keyword">int</span> <span class="variable">$flags</span> = <span class="number">0</span> [, <span class="keyword">int</span> <span class="variable">$offset</span> = <span class="number">0</span> ]]])</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><p><strong><code>$pattern</code></strong> (string)</p>
+<ul>
+<li><p>要匹配的正则表达式模式。它可以是任何有效的正则表达式字符串（可以使用各种正则表达式语法，如字符集、量词、分组等）。</p>
+</li>
+<li><p>正则表达式必须符合 PHP 正则表达式的语法标准，通常以斜杠 <code>/</code> 包裹。例如：<code>/abc/</code>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong><code>$subject</code></strong> (string)</p>
+<ul>
+<li>被匹配的输入字符串。这是要在其中查找匹配的目标字符串。</li>
+</ul>
+</li>
+<li><p><strong><code>$matches</code></strong> (array, optional)</p>
+<ul>
+<li><p>如果提供了该参数，函数会将匹配的结果存储到该数组中。匹配项会按顺序存储在 <code>$matches</code> 数组中：</p>
+<ul>
+<li><code>$matches[0]</code> 保存完整的匹配字符串。</li>
+<li><code>$matches[1]</code>、<code>$matches[2]</code> 等保存正则表达式中分组的匹配结果（如果有分组）。</li>
+</ul>
+</li>
+<li><p>该参数是通过引用传递的，因此函数会直接修改该数组的内容。</p>
+</li>
+</ul>
+</li>
+<li><p><strong><code>$flags</code></strong> (int, optional)</p>
+<ul>
+<li><p>控制匹配行为的标志位，默认为 <code>0</code>，即无特殊控制。</p>
+</li>
+<li><p>常见的标志包括：</p>
+<ul>
+<li><strong><code>PREG_OFFSET_CAPTURE</code></strong> ：如果启用此标志，则在 <code>$matches</code> 数组中每个匹配项将包含匹配的偏移量（即该匹配项在原字符串中的位置）。偏移量是一个由字符串和数字组成的数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong><code>$offset</code></strong> (int, optional)</p>
+<ul>
+<li><p>设置开始匹配的偏移量。默认为 <code>0</code>，即从字符串的开头开始匹配。</p>
+</li>
+<li><p>可以通过此参数跳过字符串的前几个字符进行匹配。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong></p>
+<ul>
+<li><p>如果匹配成功，返回 <strong><code>1</code></strong>* ，否则返回 **<code>0</code>**。</p>
+</li>
+<li><p>如果发生错误，返回 **<code>FALSE</code>**。这通常意味着正则表达式的语法不正确。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="数组绕过"><a href="#数组绕过" class="headerlink" title="数组绕过"></a>数组绕过</h4><p><code>preg_match</code> 第二个参数 <code>subject</code> 要求是字符串，如果传入数组时会返回 <code>false</code>。</p>
+<p>例如下面这段代码，传入 <code>num[]=2</code> 即可绕过。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[0-9]/&quot;</span>, <span class="variable">$num</span>)) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;no no no!&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span>(<span class="title function_ invoke__">intval</span>(<span class="variable">$num</span>)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="换行符绕过"><a href="#换行符绕过" class="headerlink" title="换行符绕过"></a>换行符绕过</h4><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^gxngxngxnxn$/&#x27;</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;gxn&#x27;</span>]) &amp;&amp; <span class="variable">$_GET</span>[<span class="string">&#x27;gxn&#x27;</span>] !== <span class="string">&#x27;gxngxngxn&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Neeeeee! Good Job!&lt;br&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="会话跟踪技术"><a href="#会话跟踪技术" class="headerlink" title="会话跟踪技术"></a>会话跟踪技术</h2><p><strong>会话跟踪（Session Tracking）</strong> 是 Web 开发中非常重要的一部分，特别是在无状态的 HTTP 协议中。因为 HTTP 是无状态的协议，这意味着每次用户发送请求时，服务器无法自动识别这是不是同一个用户。在这样的背景下，<strong>会话跟踪</strong> 技术帮助 Web 应用程序保持和识别用户状态，从而实现个性化功能、购物车、用户认证等功能。</p>
+<p><strong>Session（会话）</strong> 是一种在客户端和服务器之间跟踪用户状态的技术。会话允许 Web 应用在多个请求之间保持用户的状态（如用户登录状态、用户个性化设置等）。每个用户会话都由一个 <strong>唯一的会话 ID</strong> 标识，服务器根据这个 ID 来识别每个用户的会话。</p>
+<h3 id="基本过程"><a href="#基本过程" class="headerlink" title="基本过程"></a>基本过程</h3><p>PHP 通过 <strong>会话（Session）</strong> 机制来追踪用户的请求。会话跟踪的基本过程是：</p>
+<ol>
+<li><p>用户第一次访问网站时，服务器生成一个唯一的 <strong>Session ID</strong>。</p>
+</li>
+<li><p>服务器在用户的浏览器中设置一个 <strong>Session Cookie</strong>。Cookie 的名称通常为 <code>PHPSESSID</code>，保存的是唯一的 Session ID。</p>
+</li>
+<li><p>随后，用户每次请求时，都会通过 <strong>Session ID</strong> 来识别是否是同一个用户，进而获取和存储用户的数据。</p>
+</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="启动会话"><a href="#启动会话" class="headerlink" title="启动会话"></a>启动会话</h4><p>在 PHP 页面中使用 <strong>会话跟踪</strong> 时，必须通过 <code>session_start()</code> 来启动会话。每个页面在使用会话数据之前，都应该调用 <code>session_start()</code>。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p><code>session_start()</code> 必须在任何 HTML 输出之前调用（即 <code>&lt;html&gt;</code> 标签之前），否则会导致“Header already sent”错误。</p>
+
+    </div>
+  </div>
+
+<p><strong><code>session_start()</code></strong> 调用时会开启一个会话，具体有如下过程：</p>
+<ol>
+<li><strong>读取会话 ID（Session ID）</strong> ：PHP 会检查客户端请求中是否携带会话 ID。<ul>
+<li><strong>通过 Cookie</strong> ：默认情况下，会话 ID 存储在客户端的 Cookie 中，名为 <code>PHPSESSID</code>。PHP 会从客户端的 Cookie 中读取该 Session ID。</li>
+<li><strong>通过 URL 重写</strong> ：如果客户端没有 Cookie 或者 Cookie 被禁用，PHP 会检查 URL 中是否包含会话 ID。会话 ID 会作为查询参数附加在 URL 中（例如 <code>index.php?PHPSESSID=123456</code>）。不过，使用 URL 重写的方式比较少见，通常还是依赖 Cookie。</li>
+</ul>
+</li>
+<li><strong>检查会话 ID 是否有效</strong> ：如果会话 ID 存在，PHP 会检查该 ID 是否有效，通常通过在服务器上查找对应的会话文件来确认。PHP 会话数据通常存储在服务器的临时目录（如 <code>/tmp</code>）中，文件名通常为 <code>sess_&lt;session_id&gt;</code>，其中 <code>&lt;session_id&gt;</code> 就是存储在客户端 Cookie 中的 Session ID。</li>
+<li><strong>加载会话数据</strong> ： 如果会话 ID 是有效的，PHP 会从存储该会话数据的文件中读取用户的会话数据，并将其加载到 <code>$_SESSION</code> 超级全局数组中。此时，你可以通过 <code>$_SESSION</code> 数组来访问和修改会话中的数据。</li>
+<li><strong>创建新的会话</strong> ： 如果没有找到有效的会话 ID，PHP 会为用户创建一个新的会话 ID，并生成一个新的会话文件用于存储该会话数据。新会话的 ID 会通过 <strong><code>PHPSESSID</code></strong> 存储到客户端的 Cookie 中，以便后续请求能够继续使用该会话 ID。</li>
+</ol>
+<h4 id="访问会话数据"><a href="#访问会话数据" class="headerlink" title="访问会话数据"></a>访问会话数据</h4><p>PHP 会话数据存储在 <code>$_SESSION</code> 超级全局数组中。你可以通过 <code>$_SESSION</code> 来存储和获取和删除用户数据。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">session_start</span>();  <span class="comment">// 启动会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 存储会话数据</span></span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>] = <span class="number">123</span>;  <span class="comment">// 保存用户 ID</span></span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>] = <span class="string">&#x27;john_doe&#x27;</span>;  <span class="comment">// 保存用户名</span></span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;role&#x27;</span>] = <span class="string">&#x27;admin&#x27;</span>;  <span class="comment">// 保存用户角色</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取会话数据</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>];  <span class="comment">// 获取用户名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除会话数据</span></span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>]);  <span class="comment">// 删除用户名</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>会话数据只会在同一会话内有效，用户关闭浏览器后，通常会话数据会被销毁，除非你指定了会话的生命周期。</p>
+
+    </div>
+  </div>
+
+<h4 id="销毁会话"><a href="#销毁会话" class="headerlink" title="销毁会话"></a>销毁会话</h4><p>当用户注销时，我们通常会销毁会话：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">session_start</span>();  <span class="comment">// 启动会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 清除会话变量</span></span><br><span class="line"><span class="title function_ invoke__">session_unset</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 销毁会话</span></span><br><span class="line"><span class="title function_ invoke__">session_destroy</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重定向到登录页面</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Location: login.php&quot;</span>);</span><br><span class="line"><span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong><code>session_unset()</code></strong> 会 <strong>清除会话中的所有变量</strong>* ，但是 <strong>不会销毁会话本身</strong>* ，也就是说，<code>session_unset()</code> 只是清除会话数据，并不结束会话，也不会销毁会话 ID。</li>
+<li><strong><code>session_destroy()</code></strong> 会销毁 <strong>整个会话</strong>* ，包括 <strong>会话 ID</strong> 和 <strong>会话数据</strong>。调用后，所有与当前会话相关的会话文件都会被标记为无效，并且服务器上的会话数据会被删除。但 <strong>会话文件不会立刻删除</strong>* ，而是直到下次 <code>session_start()</code> 时，由 PHP 会话垃圾回收机制清理过期的会话文件。</li>
+</ul>
+<h3 id="会话相关配置"><a href="#会话相关配置" class="headerlink" title="会话相关配置"></a>会话相关配置</h3><p>PHP 允许你通过修改 <code>php.ini</code> 文件或使用 <code>ini_set()</code> 来配置会话的行为，例如会话过期时间、存储位置等。</p>
+<h4 id="会话过期时间"><a href="#会话过期时间" class="headerlink" title="会话过期时间"></a>会话过期时间</h4><p><strong>会话过期时间</strong> 控制着会话数据的最大有效时间，它决定了在没有活动时，PHP 会话将保留多长时间。会话过期后，相关的会话数据将被清理。</p>
+<ul>
+<li><p><strong><code>session.gc_maxlifetime</code></strong> ：该配置项决定了会话数据的最大有效时间（默认为 1440，即 24 分钟）。如果会话数据在指定的时间内没有活动，PHP 会将其标记为过期，等待垃圾回收机制清理。</p>
+  <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;session.gc_maxlifetime&#x27;</span>, <span class="number">3600</span>);  <span class="comment">// 设置会话最大生命周期为 1 小时</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong><code>session.cookie_lifetime</code></strong> ：该配置项设置会话 Cookie 的有效期（单位：秒）。它控制浏览器中存储的会话 Cookie 的生命周期。默认值为 0，即会话 Cookie 会在浏览器关闭时失效。</p>
+  <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;session.cookie_lifetime&#x27;</span>, <span class="number">3600</span>);  <span class="comment">// 设置会话 Cookie 的有效期为 1 小时</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="会话存储位置"><a href="#会话存储位置" class="headerlink" title="会话存储位置"></a>会话存储位置</h4><p>默认情况下，PHP 会把会话数据存储在服务器的 <code>/tmp</code> 目录或 PHP 配置中的 <code>session.save_path</code> 目录下。你可以自定义存储位置，例如将会话数据存储在数据库中。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;session.save_handler&#x27;</span>, <span class="string">&#x27;files&#x27;</span>);  <span class="comment">// 默认存储方式（文件）</span></span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;session.save_path&#x27;</span>, <span class="string">&#x27;/path/to/sessions&#x27;</span>);  <span class="comment">// 自定义存储路径</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="基于会话的认证与鉴权"><a href="#基于会话的认证与鉴权" class="headerlink" title="基于会话的认证与鉴权"></a>基于会话的认证与鉴权</h3><p>这里以一个实际的示例讲解如何使用 <strong>PHP 会话跟踪（Session Tracking）</strong> 实现典型的<strong>鉴权和登录认证过程</strong>。示例包含三个文件：</p>
+<ul>
+<li><p><strong><code>login.php</code></strong> ：处理登录请求的页面。</p>
+</li>
+<li><p><strong><code>dashboard.php</code></strong> ：用户必须登录后才能访问的页面。</p>
+</li>
+<li><p><strong><code>logout.php</code></strong> ：处理用户注销的页面。</p>
+</li>
+</ul>
+<h4 id="登录页面-login-php"><a href="#登录页面-login-php" class="headerlink" title="登录页面 (login.php)"></a>登录页面 (<code>login.php</code>)</h4><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">session_start</span>();  <span class="comment">// 启动会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果用户已经登录，直接跳转到控制面板页面</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: dashboard.php&#x27;</span>);</span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟的用户数据库</span></span><br><span class="line"><span class="variable">$users</span> = [</span><br><span class="line">    <span class="string">&#x27;admin&#x27;</span> =&gt; <span class="string">&#x27;password123&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;user&#x27;</span> =&gt; <span class="string">&#x27;mypassword&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理登录表单提交</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>] == <span class="string">&#x27;POST&#x27;</span>) &#123;</span><br><span class="line">    <span class="variable">$username</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line">    <span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查用户名和密码是否正确</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$users</span>[<span class="variable">$username</span>]) &amp;&amp; <span class="variable">$users</span>[<span class="variable">$username</span>] === <span class="variable">$password</span>) &#123;</span><br><span class="line">        <span class="comment">// 用户名和密码正确，登录成功，存储会话数据</span></span><br><span class="line">        <span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>] = <span class="variable">$username</span>;  <span class="comment">// 存储用户的用户名作为会话标识</span></span><br><span class="line">        <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: dashboard.php&#x27;</span>);  <span class="comment">// 登录成功，跳转到控制面板</span></span><br><span class="line">        <span class="keyword">exit</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 登录失败，显示错误信息</span></span><br><span class="line">        <span class="variable">$error</span> = <span class="string">&#x27;Invalid username or password&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Login&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;Login&lt;/h1&gt;</span><br><span class="line">    <span class="meta">&lt;?php</span> <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$error</span>)) &#123; <span class="keyword">echo</span> <span class="string">&quot;&lt;p style=&#x27;color:red;&#x27;&gt;<span class="subst">$error</span>&lt;/p&gt;&quot;</span>; &#125; <span class="meta">?&gt;</span></span><br><span class="line">    &lt;form method=<span class="string">&quot;post&quot;</span> action=<span class="string">&quot;login.php&quot;</span>&gt;</span><br><span class="line">        &lt;label <span class="keyword">for</span>=<span class="string">&quot;username&quot;</span>&gt;Username:&lt;/label&gt;&lt;br&gt;</span><br><span class="line">        &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;username&quot;</span> required&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">        &lt;label <span class="keyword">for</span>=<span class="string">&quot;password&quot;</span>&gt;Password:&lt;/label&gt;&lt;br&gt;</span><br><span class="line">        &lt;input type=<span class="string">&quot;password&quot;</span> name=<span class="string">&quot;password&quot;</span> required&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">        &lt;button type=<span class="string">&quot;submit&quot;</span>&gt;Login&lt;/button&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>如果 <strong><code>$_SESSION[&#39;user_id&#39;]</code></strong> 已经存在，说明用户已经登录，那么我们 **直接重定向到 <code>dashboard.php</code>**。</li>
+<li>如果用户未登录，则继续显示登录表单，用户填写用户名和密码后进行验证，验证成功后存储会话数据并重定向到 <code>dashboard.php</code>。</li>
+</ul>
+<h4 id="控制面板页面-dashboard-php"><a href="#控制面板页面-dashboard-php" class="headerlink" title="控制面板页面 (dashboard.php)"></a>控制面板页面 (<code>dashboard.php</code>)</h4><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">session_start</span>();  <span class="comment">// 启动会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查用户是否已登录</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: login.php&#x27;</span>);  <span class="comment">// 如果用户没有登录，重定向到登录页面</span></span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$username</span> = <span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>];  <span class="comment">// 获取会话中的用户名</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Dashboard&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;Welcome, <span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="title function_ invoke__">htmlspecialchars</span>(<span class="variable">$username</span>); <span class="meta">?&gt;</span>!&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;You are logged in.&lt;/p&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;logout.php&quot;</span>&gt;Logout&lt;/a&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>如果会话中不存在 <code>$_SESSION[&#39;user_id&#39;]</code>，说明用户没有登录，页面会将用户重定向到 <code>login.php</code> 页面。</p>
+</li>
+<li><p>如果用户已登录，显示欢迎消息并允许用户退出（注销）。</p>
+</li>
+</ul>
+<h4 id="注销页面-logout-php"><a href="#注销页面-logout-php" class="headerlink" title="注销页面 (logout.php)"></a>注销页面 (<code>logout.php</code>)</h4><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">session_start</span>();  <span class="comment">// 启动会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 销毁会话数据</span></span><br><span class="line"><span class="title function_ invoke__">session_unset</span>();  <span class="comment">// 清空所有会话变量</span></span><br><span class="line"><span class="title function_ invoke__">session_destroy</span>();  <span class="comment">// 销毁会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 重定向到登录页面</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: login.php&#x27;</span>);</span><br><span class="line"><span class="keyword">exit</span>;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>调用 <code>session_unset()</code> 来清除所有会话变量，确保用户的登录信息被清空。</p>
+</li>
+<li><p>调用 <code>session_destroy()</code> 来销毁会话，确保会话 ID 被清除。</p>
+</li>
+<li><p>最后，用户会被重定向到登录页面。</p>
+</li>
+</ul>
+<h1 id="漏洞审计基础"><a href="#漏洞审计基础" class="headerlink" title="漏洞审计基础"></a>漏洞审计基础</h1><h2 id="用户可控输入"><a href="#用户可控输入" class="headerlink" title="用户可控输入"></a>用户可控输入</h2><p>在 PHP 中，用户可控输入是指通过外部请求（如 HTTP 请求）传入的数据，这些数据通常来源于用户提交的表单、URL 查询字符串、请求头、文件上传等。由于这些数据完全由用户控制，因此在处理这些数据时必须非常小心，防止潜在的安全风险，如 <strong>SQL 注入</strong>、<strong>跨站脚本攻击 (XSS)</strong> 等。</p>
 <p>PHP 提供了多种全局数组和流，允许我们获取这些用户可控输入。</p>
-<h4 id="SERVER"><a href="#SERVER" class="headerlink" title="$_SERVER"></a><code>$_SERVER</code></h4><p><code>$_SERVER</code> 是一个关联数组，包含服务器和执行环境的信息。它提供了与请求相关的详细数据，如 HTTP 头、路径、脚本信息等。<code>$_SERVER</code> 还包含一些来自客户端请求的环境变量。</p>
+<h3 id="SERVER"><a href="#SERVER" class="headerlink" title="$_SERVER"></a><code>$_SERVER</code></h3><p><code>$_SERVER</code> 是一个关联数组，包含服务器和执行环境的信息。它提供了与请求相关的详细数据，如 HTTP 头、路径、脚本信息等。<code>$_SERVER</code> 还包含一些来自客户端请求的环境变量。</p>
 <p><strong>常见字段：</strong></p>
 <ul>
 <li><code>$_SERVER[&#39;REQUEST_METHOD&#39;]</code>：请求的方法（如 GET、POST、PUT）。</li>
@@ -623,7 +794,7 @@
 <li><code>$_SERVER[&#39;REMOTE_ADDR&#39;]</code>：客户端的 IP 地址。</li>
 <li><code>$_SERVER[&#39;HTTP_REFERER&#39;]</code>：指向当前页面的来源页面的 URL。</li>
 </ul>
-<h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="PHP-的数据库支持"><a href="#PHP-的数据库支持" class="headerlink" title="PHP 的数据库支持"></a>PHP 的数据库支持</h3><p>HP 通过扩展来支持不同的数据库，每个数据库的扩展都有自己的一套 API。比如：</p>
+<h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="PHP-的数据库支持"><a href="#PHP-的数据库支持" class="headerlink" title="PHP 的数据库支持"></a>PHP 的数据库支持</h3><p>PHP 通过扩展来支持不同的数据库，每个数据库的扩展都有自己的一套 API。比如：</p>
 <ul>
 <li><strong>MySQL</strong> 使用 <strong>MySQLi</strong> 或 <strong>PDO_MySQL</strong>。</li>
 <li><strong>PostgreSQL</strong> 使用 <strong>pg_connect</strong> 或 <strong>PDO_PGSQL</strong>。</li>
@@ -634,10 +805,10 @@
 <p>PHP 的设计初期，开发者倾向于为每种数据库写一个独立的扩展，以便简化与每种数据库的交互。种做法虽然简单，但随着时间的推移，不同数据库的访问接口分散且不统一。</p>
 </blockquote>
 <p>尽管 PHP 中有多个数据库扩展，但 <strong>PDO (PHP Data Objects)</strong> 作为一种统一的数据库访问方法，已经成为 PHP 推荐的标准做法。<strong>PDO</strong> 提供了一个统一的接口，可以访问不同类型的数据库，支持多种数据库类型，包括 MySQL、PostgreSQL、SQLite、Oracle 等。</p>
-<h3 id="PDO-PHP-Data-Objects"><a href="#PDO-PHP-Data-Objects" class="headerlink" title="PDO (PHP Data Objects)"></a><strong>PDO (PHP Data Objects)</strong></h3><p><strong>PDO</strong> 是 PHP 的一种数据库抽象层接口，它使得开发者可以使用相同的方式与不同的数据库进行交互。通过 <strong>PDO</strong>，你可以轻松切换不同的数据库而无需修改应用程序的大量代码。</p>
-<h4 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h4><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="variable">$conn</span> = <span class="keyword">new</span> <span class="title function_ invoke__">PDO</span>(<span class="string">&quot;mysql:host=localhost;dbname=test&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;password&quot;</span>);</span><br><span class="line">    <span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">setAttribute</span>(PDO::<span class="variable constant_">ATTR_ERRMODE</span>, PDO::<span class="variable constant_">ERRMODE_EXCEPTION</span>);  <span class="comment">// 设置错误模式为异常</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接成功&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">catch</span>(PDOException <span class="variable">$e</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接失败: &quot;</span> . <span class="variable">$e</span>-&gt;<span class="title function_ invoke__">getMessage</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="常见数据库扩展"><a href="#常见数据库扩展" class="headerlink" title="常见数据库扩展"></a>常见数据库扩展</h3><h4 id="PDO-PHP-Data-Objects"><a href="#PDO-PHP-Data-Objects" class="headerlink" title="PDO (PHP Data Objects)"></a>PDO (PHP Data Objects)</h4><p><strong>PDO</strong> 是 PHP 的一种数据库抽象层接口，它使得开发者可以使用相同的方式与不同的数据库进行交互。通过 <strong>PDO</strong>* ，你可以轻松切换不同的数据库而无需修改应用程序的大量代码。</p>
+<h5 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h5><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="variable">$conn</span> = <span class="keyword">new</span> <span class="title function_ invoke__">PDO</span>(<span class="string">&quot;mysql:host=localhost;dbname=test&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;password&quot;</span>);</span><br><span class="line">    <span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">setAttribute</span>(PDO::<span class="variable constant_">ATTR_ERRMODE</span>, PDO::<span class="variable constant_">ERRMODE_EXCEPTION</span>);  <span class="comment">// 设置错误模式为异常</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接成功&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">catch</span>(PDOException <span class="variable">$e</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接失败: &quot;</span> . <span class="variable">$e</span>-&gt;<span class="title function_ invoke__">getMessage</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="执行语句"><a href="#执行语句" class="headerlink" title="执行语句"></a>执行语句</h4><p>PDO 提供了如下方法来实现 SQL 语句执行：</p>
+<h5 id="执行语句"><a href="#执行语句" class="headerlink" title="执行语句"></a>执行语句</h5><p>PDO 提供了如下方法来实现 SQL 语句执行：</p>
 <ul>
 <li><p><strong><code>PDO::prepare($sql)</code></strong> ：准备 SQL 查询语句。预处理语句可以防止 SQL 注入。</p>
 </li>
@@ -665,112 +836,598 @@
     </div>
   </div>
 
-<h3 id="MySQLi-MySQL-Improved"><a href="#MySQLi-MySQL-Improved" class="headerlink" title="MySQLi (MySQL Improved)"></a>MySQLi (MySQL Improved)</h3><p><strong>MySQLi</strong> 是 PHP 用于与 MySQL 和 MariaDB 数据库交互的扩展，提供了过程式和面向对象两种风格。MySQLi 不仅支持预处理语句，还支持事务处理、存储过程等。</p>
-<h2 id="代码执行相关"><a href="#代码执行相关" class="headerlink" title="代码执行相关"></a>代码执行相关</h2><h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><ul>
-<li><p><strong>定义：</strong></p>
+<h4 id="MySQLi-MySQL-Improved"><a href="#MySQLi-MySQL-Improved" class="headerlink" title="MySQLi (MySQL Improved)"></a>MySQLi (MySQL Improved)</h4><p><strong>MySQLi</strong> 是 PHP 用于与 MySQL 和 MariaDB 数据库交互的扩展，提供了过程式和面向对象两种风格。MySQLi 不仅支持预处理语句，还支持事务处理、存储过程等。</p>
+<h3 id="SQL-注入的过滤与防护"><a href="#SQL-注入的过滤与防护" class="headerlink" title="SQL 注入的过滤与防护"></a>SQL 注入的过滤与防护</h3><h4 id="常见过滤函数"><a href="#常见过滤函数" class="headerlink" title="常见过滤函数"></a>常见过滤函数</h4><h5 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes"></a>addslashes</h5><p><code>addslashes()</code> 函数用于在特定字符前添加反斜杠，以转义这些字符，避免它们在 SQL 查询中被当作语法字符。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">addslashes</span>(<span class="keyword">string</span> <span class="variable">$str</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>参数：</strong><ul>
+<li><code>string $string</code>：需要转义的原始字符串。</li>
+</ul>
+</li>
+<li><strong>返回值：</strong>返回一个转义后的字符串，对以下字符添加反斜杠：<ul>
+<li>单引号（ <code>&#39;</code> ）</li>
+<li>双引号（ <code>&quot;</code> ）</li>
+<li>反斜杠（ <code>\</code> ）</li>
+<li>NULL 字符（ <code>\0</code> ）</li>
+</ul>
+</li>
+</ul>
+<p><code>addslashes()</code> 并没有完全防止 SQL 注入，特别是对于复杂的注入攻击，它仍然不能阻止攻击者绕过防护（如使用分号 <code>;</code>、注释 <code>--</code> 等），所以它并不是最佳的防护手段。</p>
+<h5 id="MySQLi-和-MySQL-的转义函数"><a href="#MySQLi-和-MySQL-的转义函数" class="headerlink" title="MySQLi 和 MySQL 的转义函数"></a>MySQLi 和 MySQL 的转义函数</h5><p><code>mysqli_real_escape_string()</code> 是 MySQLi 扩展中提供的用于转义 SQL 字符串的函数，它比 <code>addslashes()</code> 更安全。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">string</span> mysqli::<span class="title function_ invoke__">real_escape_string</span>(<span class="keyword">string</span> <span class="variable">$string</span>)</span><br><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">mysqli_real_escape_string</span>(mysqli <span class="variable">$link</span>, <span class="keyword">string</span> <span class="variable">$escapestring</span>)</span><br><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">mysql_real_escape_string</span>(<span class="keyword">string</span> <span class="variable">$unescaped_string</span> [, resource <span class="variable">$link_identifier</span>])</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="PDO-的转义函数"><a href="#PDO-的转义函数" class="headerlink" title="PDO 的转义函数"></a>PDO 的转义函数</h5><h4 id="常见防护方法"><a href="#常见防护方法" class="headerlink" title="常见防护方法"></a>常见防护方法</h4><h5 id="预处理语句"><a href="#预处理语句" class="headerlink" title="预处理语句"></a>预处理语句</h5><h5 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h5><h2 id="代码执行相关"><a href="#代码执行相关" class="headerlink" title="代码执行相关"></a>代码执行相关</h2><h3 id="系统命令执行函数"><a href="#系统命令执行函数" class="headerlink" title="系统命令执行函数"></a>系统命令执行函数</h3><h4 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h4><p><code>exec</code> 函数用于执行外部程序，并返回命令执行的最后一行输出。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">exec</span>(<span class="keyword">string</span> <span class="variable">$command</span>, <span class="keyword">array</span> &amp;<span class="variable">$output</span> = <span class="literal">null</span>, <span class="keyword">int</span> &amp;<span class="variable">$result_code</span> = <span class="literal">null</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>string $command</code>：要执行的命令字符串。</li>
+<li><code>array &amp;$output</code>（可选）：以数组形式返回命令的每一行输出。</li>
+<li><code>int &amp;$result_code</code>（可选）：返回命令执行后的状态码。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>返回命令执行输出的最后一行。如果命令执行失败，则返回 <code>null</code>。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$lastLine</span> = <span class="title function_ invoke__">exec</span>(<span class="string">&#x27;ls -la&#x27;</span>, <span class="variable">$output</span>, <span class="variable">$status</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$output</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Last line: <span class="subst">$lastLine</span>\n&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Exit status: <span class="subst">$status</span>\n&quot;</span>;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="system"><a href="#system" class="headerlink" title="system"></a>system</h4><p><code>system</code> 函数用于执行外部程序，并立即将结果输出到标准输出（通常是网页）。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span>|<span class="literal">false</span> <span class="title function_ invoke__">system</span>(<span class="keyword">string</span> <span class="variable">$command</span>, <span class="keyword">int</span> &amp;<span class="variable">$result_code</span> = <span class="literal">null</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>string $command</code>：要执行的命令。</li>
+<li><code>int &amp;$result_code</code>（可选）：返回命令的状态码。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>返回命令输出的最后一行字符串。如果失败，返回 <code>false</code>。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$lastLine</span> = <span class="title function_ invoke__">system</span>(<span class="string">&quot;date&quot;</span>, <span class="variable">$status</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Exit status: <span class="subst">$status</span>\n&quot;</span>;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="shell-exec"><a href="#shell-exec" class="headerlink" title="shell_exec"></a>shell_exec</h4><p><code>shell_exec</code> 函数用于执行命令并返回完整输出，不直接输出内容。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span>|<span class="literal">false</span> <span class="title function_ invoke__">shell_exec</span>(<span class="keyword">string</span> <span class="variable">$command</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>string $command</code>：要执行的命令。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>返回整个命令的输出（包括换行符）作为字符串。如果执行失败，返回 <code>false</code>。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$output</span> = <span class="title function_ invoke__">shell_exec</span>(<span class="string">&quot;uptime&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;pre&gt;<span class="subst">$output</span>&lt;/pre&gt;&quot;</span>;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="passthru"><a href="#passthru" class="headerlink" title="passthru"></a>passthru</h4><p><code>passthru</code> 函数执行命令，并将原始、未格式化的输出直接发送到浏览器。适合处理二进制内容。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_ invoke__">passthru</span>(<span class="keyword">string</span> <span class="variable">$command</span>, <span class="keyword">int</span> &amp;<span class="variable">$result_code</span> = <span class="literal">null</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>string $command</code>：要执行的命令。</li>
+<li><code>int &amp;$result_code</code>（可选）：返回命令状态码。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>无返回值，但可通过 <code>$result_code</code> 获取命令的执行状态。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-Type: image/png&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">passthru</span>(<span class="string">&quot;generate_image_binary_command&quot;</span>, <span class="variable">$status</span>);</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="popen"><a href="#popen" class="headerlink" title="popen"></a>popen</h4><p><code>popen</code> 函数用于打开一个进程的管道，可以读取或写入进程的输入输出。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resource|<span class="literal">false</span> <span class="title function_ invoke__">popen</span>(<span class="keyword">string</span> <span class="variable">$command</span>, <span class="keyword">string</span> <span class="variable">$mode</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>string $command</code>：要执行的命令。</li>
+<li><code>string $mode</code>：模式，如 <code>&quot;r&quot;</code> 表示读取，<code>&quot;w&quot;</code> 表示写入。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>返回一个文件指针资源，失败时返回 <code>false</code>。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$handle</span> = <span class="title function_ invoke__">popen</span>(<span class="string">&quot;ls -la&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line"><span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$handle</span>)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">fgets</span>(<span class="variable">$handle</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">pclose</span>(<span class="variable">$handle</span>);</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="proc-open"><a href="#proc-open" class="headerlink" title="proc_open"></a>proc_open</h4><p><code>proc_open</code> 是一个功能强大的函数，可以完全控制子进程的输入、输出、错误流，适合高级命令执行场景。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">resource|<span class="literal">false</span> <span class="title function_ invoke__">proc_open</span>(</span><br><span class="line">  <span class="keyword">string</span> <span class="variable">$command</span>,</span><br><span class="line">  <span class="keyword">array</span> <span class="variable">$descriptorspec</span>,</span><br><span class="line">  <span class="keyword">array</span> &amp;<span class="variable">$pipes</span>,</span><br><span class="line">  ?<span class="keyword">string</span> <span class="variable">$cwd</span> = <span class="literal">null</span>,</span><br><span class="line">  ?<span class="keyword">array</span> <span class="variable">$env_vars</span> = <span class="literal">null</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>string $command</code>：要执行的命令。</li>
+<li><code>array $descriptorspec</code>：定义子进程的 I&#x2F;O 管道（stdin、stdout、stderr）。</li>
+<li><code>array &amp;$pipes</code>：用于接收管道资源的数组。</li>
+<li><code>string $cwd</code>（可选）：更改子进程的当前工作目录。</li>
+<li><code>array $env_vars</code>（可选）：设置子进程的环境变量。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>返回进程资源句柄，失败时返回 <code>false</code>。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$desc</span> = [</span><br><span class="line">  <span class="number">0</span> =&gt; [<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;r&quot;</span>],</span><br><span class="line">  <span class="number">1</span> =&gt; [<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;w&quot;</span>],</span><br><span class="line">  <span class="number">2</span> =&gt; [<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;w&quot;</span>],</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="variable">$process</span> = <span class="title function_ invoke__">proc_open</span>(<span class="string">&#x27;php -r &quot;echo strtoupper(fgets(STDIN));&quot;&#x27;</span>, <span class="variable">$desc</span>, <span class="variable">$pipes</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">is_resource</span>(<span class="variable">$process</span>)) &#123;</span><br><span class="line">    <span class="title function_ invoke__">fwrite</span>(<span class="variable">$pipes</span>[<span class="number">0</span>], <span class="string">&quot;hello\n&quot;</span>);</span><br><span class="line">    <span class="title function_ invoke__">fclose</span>(<span class="variable">$pipes</span>[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">stream_get_contents</span>(<span class="variable">$pipes</span>[<span class="number">1</span>]);</span><br><span class="line">    <span class="title function_ invoke__">fclose</span>(<span class="variable">$pipes</span>[<span class="number">1</span>]);</span><br><span class="line">    <span class="title function_ invoke__">fclose</span>(<span class="variable">$pipes</span>[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">proc_close</span>(<span class="variable">$process</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="反引号（Backticks）"><a href="#反引号（Backticks）" class="headerlink" title="反引号（Backticks）"></a>反引号（Backticks）</h4><p>反引号是 PHP 的语法糖，用于执行命令并返回输出，等价于 <code>shell_exec()</code>。使用形式如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$output</span> = `command`;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li>命令字符串，写在反引号内。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>命令执行的完整输出字符串。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$output</span> = `whoami`;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$output</span>;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="PHP-代码执行函数"><a href="#PHP-代码执行函数" class="headerlink" title="PHP 代码执行函数"></a>PHP 代码执行函数</h3><h4 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h4><p><code>eval</code> 函数用于将字符串作为 PHP 代码执行。</p>
 <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixed</span> <span class="keyword">eval</span>(<span class="keyword">string</span> <span class="variable">$code</span>)</span><br></pre></td></tr></table></figure></div>
-</li>
+
+<ul>
 <li><p><strong>参数：</strong></p>
 <ul>
-<li><code>code</code>：要执行的 PHP 代码字符串。</li>
+<li><code>string $code</code>：要执行的 PHP 代码字符串（必须是完整的语句）。</li>
 </ul>
 </li>
-<li><p><strong>返回值：</strong></p>
+<li><p><strong>返回值：</strong>成功时返回 <code>null</code>（除非代码中有 <code>return</code> 语句），失败时抛出错误。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$code</span> = <span class="string">&#x27;echo &quot;Hello from eval!&quot;;&#x27;</span>;</span><br><span class="line"><span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h4><p><code>assert</code> 函数用于判断一个表达式是否为真。在 PHP 7.2.0 之前，传入字符串会被当作 PHP 代码执行。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="title function_ invoke__">assert</span>(<span class="keyword">mixed</span> <span class="variable">$expression</span>)</span><br></pre></td></tr></table></figure></div>
+
 <ul>
-<li>成功时返回 <code>NULL</code>。</li>
-<li>如果 <code>eval()</code> 中的代码有返回值，则返回该值。</li>
-</ul>
-</li>
-<li><p><strong>注意事项：</strong></p>
-<ul>
-<li>参数 <code>code</code> 必须是合法的 PHP 代码，且必须以分号结尾。</li>
-<li><code>eval</code> 函数可以执行包含多条命令的字符串。</li>
-</ul>
-</li>
-</ul>
-<h3 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h3><ul>
-<li><p><strong>定义：</strong></p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="title function_ invoke__">assert</span>(<span class="keyword">mixed</span> <span class="variable">$assertion</span> [, <span class="keyword">string</span> <span class="variable">$description</span> ])</span><br></pre></td></tr></table></figure></div>
-</li>
 <li><p><strong>参数：</strong></p>
 <ul>
-<li><code>assertion</code>：要进行的断言，可以是一个表达式或字符串（在 PHP 7.2.0 之前，<strong>字符串会作为代码执行</strong>）。</li>
-<li><code>description</code>：可选，当断言失败时显示的描述信息。</li>
+<li><code>mixed $expression</code>：布尔值或字符串。字符串可能被执行为代码（PHP &lt; 7.2.0）。</li>
 </ul>
 </li>
-<li><p><strong>返回值：</strong></p>
+<li><p><strong>返回值：</strong>表达式为 <code>true</code> 返回 <code>true</code>，否则抛出警告或异常。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">assert</span>(<span class="string">&#x27;phpinfo();&#x27;</span>); <span class="comment">// PHP &lt; 7.2.0 中等同于 eval</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="preg-replace（带-e-修饰符，已废弃）"><a href="#preg-replace（带-e-修饰符，已废弃）" class="headerlink" title="preg_replace（带 /e 修饰符，已废弃）"></a>preg_replace（带 <code>/e</code> 修饰符，已废弃）</h4><p>早期 PHP 版本允许在正则表达式中使用 <code>/e</code> 修饰符将替换字符串作为 PHP 代码执行。PHP 7.0 移除该特性。</p>
+<p><code>preg_replace</code> 函数的定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixed</span> <span class="title function_ invoke__">preg_replace</span>(<span class="keyword">mixed</span> <span class="variable">$pattern</span>, <span class="keyword">mixed</span> <span class="variable">$replacement</span>, <span class="keyword">mixed</span> <span class="variable">$subject</span> [, <span class="keyword">int</span> <span class="variable">$limit</span> = -<span class="number">1</span> [, <span class="keyword">int</span> &amp;<span class="variable">$count</span> = <span class="literal">null</span>]])</span><br></pre></td></tr></table></figure></div>
+
 <ul>
-<li>成功时返回 <code>true</code>。</li>
-<li>失败时返回 <code>false</code> 并触发一个警告。</li>
+<li><strong>参数：</strong><ul>
+<li><code>string $pattern</code>：要搜索的正则表达式。</li>
+<li><code>string $replacement</code>：用于替换匹配内容的字符串，可以使用 <code>$1</code>, <code>$2</code> 等捕获组。</li>
+<li><code>string $subject</code>：要搜索和替换的目标文本。</li>
 </ul>
 </li>
-<li><p><strong>注意事项：</strong></p>
+<li><strong>返回值：</strong>替换后的字符串。</li>
+</ul>
+<p>简单来说 <code>preg_replace</code> 的意思就是通过正则表达式 <code>$pattern</code> 在 <code>$subject</code> 中匹配字符串。将匹配到的字符串替换到 <code>$replacement</code> 中的要被替换的位置上。最后把完成替换的 <code>$replacement</code> 返回。</p>
+<p>而对于 <code>/e</code> 模式，以下面这段代码为例：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$str</span> = <span class="string">&#x27;ls&#x27;</span>;</span><br><span class="line"><span class="title function_ invoke__">preg_replace</span>(<span class="string">&#x27;/.*/e&#x27;</span>, <span class="string">&#x27;system(&quot;$0&quot;)&#x27;</span>, <span class="variable">$str</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p>在 <code>/e</code> 模式中，<code>preg_replace()</code> 的处理过程为：</p>
+<ol>
+<li>先执行正则匹配（<code>/.*/</code> 会匹配整行，比如 <code>&#39;ls&#39;</code>）。</li>
+<li>匹配成功后，把 <code>$replacement</code>（也就是 <code>&#39;system(&quot;$0&quot;)&#39;</code>）做变量替换。<code>$0</code> 表示正则匹配到的完整字符串（即整个 <code>$str</code>，值是 <code>&#39;ls&#39;</code>）。</li>
+<li>替换后，<code>$replacement</code> 实际变成了 <code>system(&quot;ls&quot;);</code>。</li>
+<li>因为使用了 <code>/e</code> 修饰符，最终这段字符串会被 <code>eval()</code> 执行！</li>
+</ol>
+<h4 id="create-function（已废弃）"><a href="#create-function（已废弃）" class="headerlink" title="create_function（已废弃）"></a>create_function（已废弃）</h4><p><code>create_function</code> 用于动态创建匿名函数，底层基于 <code>eval</code>。PHP 7.2 开始废弃，PHP 8.0 移除。定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">create_function</span>(<span class="keyword">string</span> <span class="variable">$args</span>, <span class="keyword">string</span> <span class="variable">$code</span>)</span><br></pre></td></tr></table></figure></div>
+
 <ul>
-<li>单条命令不需要以分号结尾。</li>
-</ul>
-</li>
-</ul>
-<h3 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace"></a>preg_replace</h3><ul>
-<li><p><strong>定义：</strong></p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixed</span> <span class="title function_ invoke__">preg_replace</span>(<span class="keyword">mixed</span> <span class="variable">$pattern</span>, <span class="keyword">mixed</span> <span class="variable">$replacement</span>, <span class="keyword">mixed</span> <span class="variable">$subject</span> [, <span class="keyword">int</span> <span class="variable">$limit</span> = -<span class="number">1</span> [, <span class="keyword">int</span> &amp;<span class="variable">$count</span> ]])</span><br></pre></td></tr></table></figure></div>
-</li>
 <li><p><strong>参数：</strong></p>
 <ul>
-<li><code>pattern</code>：要匹配的正则表达式，可以是一个字符串或数组。<ul>
-<li>如果是字符串，则表示一个单独的正则表达式。</li>
-<li>如果是数组，则表示多个正则表达式。</li>
+<li><code>string $args</code>：参数列表。</li>
+<li><code>string $code</code>：函数体。</li>
 </ul>
 </li>
-<li><code>replacement</code>：用于替换的字符串或数组。</li>
-<li><code>subject</code>：输入字符串或数组。</li>
-<li><code>limit</code>：可选，替换的最大次数，默认值为 -1（无限制）。</li>
-<li><code>count</code>：可选，引用变量，返回替换的次数。</li>
-</ul>
+<li><p><strong>返回值：</strong>返回匿名函数。</p>
 </li>
-<li><p><strong>返回值：</strong></p>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sum</span> = <span class="title function_ invoke__">create_function</span>(<span class="string">&#x27;$a, $b&#x27;</span>, <span class="string">&#x27;return $a + $b;&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$sum</span>(<span class="number">3</span>, <span class="number">4</span>); <span class="comment">// 输出 7</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><h4 id="call-user-func"><a href="#call-user-func" class="headerlink" title="call_user_func"></a>call_user_func</h4><p><code>call_user_func</code> 函数用于调用用户自定义函数或内部函数，并可以传递任意数量的参数。函数名可以是字符串或数组（类名+方法名）。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixed</span> <span class="title function_ invoke__">call_user_func</span>(<span class="keyword">callable</span> <span class="variable">$callback</span>, <span class="keyword">mixed</span> ...<span class="variable">$args</span>)</span><br></pre></td></tr></table></figure></div>
+
 <ul>
-<li>返回替换后的字符串或数组，如果发生错误则返回 <code>NULL</code>。</li>
-</ul>
-</li>
-<li><p><strong>注意事项：</strong></p>
-<ul>
-<li><strong>使用 <code>e</code> 修饰符会执行替换字符串中的 PHP 代码。</strong></li>
-</ul>
-</li>
-</ul>
-<h3 id="system-exec-passthru-shell-exec"><a href="#system-exec-passthru-shell-exec" class="headerlink" title="system, exec, passthru, shell_exec"></a>system, exec, passthru, shell_exec</h3><ul>
-<li><p><strong>定义：</strong></p>
-<ul>
-<li><p><code>system</code>：</p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">system</span>(<span class="keyword">string</span> <span class="variable">$command</span> [, <span class="keyword">int</span> &amp;<span class="variable">$return_var</span>])</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><code>exec</code>：</p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">exec</span>(<span class="keyword">string</span> <span class="variable">$command</span> [, <span class="keyword">array</span> &amp;<span class="variable">$output</span> [, <span class="keyword">int</span> &amp;<span class="variable">$return_var</span>]])</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><code>passthru</code>：</p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_ invoke__">passthru</span>(<span class="keyword">string</span> <span class="variable">$command</span> [, <span class="keyword">int</span> &amp;<span class="variable">$return_var</span>])</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><code>shell_exec</code>：</p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> <span class="title function_ invoke__">shell_exec</span>(<span class="keyword">string</span> <span class="variable">$command</span>)</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
 <li><p><strong>参数：</strong></p>
 <ul>
-<li><code>command</code>：要执行的命令字符串。</li>
-<li><code>return_var</code>：可选，用于存储命令的返回状态。</li>
-<li><code>output</code>：可选，用于存储命令的输出（仅 <code>exec()</code>）。</li>
+<li><code>callable $callback</code>：要调用的函数名，可以是字符串（如 <code>&quot;strlen&quot;</code>），或 <code>[$object, &#39;method&#39;]</code>、<code>[&#39;ClassName&#39;, &#39;staticMethod&#39;]</code> 等形式。</li>
+<li><code>mixed ...$args</code>：要传递给被调用函数的参数，可变参数数量。</li>
 </ul>
 </li>
-<li><p><strong>返回值：</strong></p>
+<li><p><strong>返回值：</strong>返回被调用函数的返回值。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, <span class="subst">$name</span>!&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">call_user_func</span>(<span class="string">&#x27;sayHello&#x27;</span>, <span class="string">&#x27;Alice&#x27;</span>); <span class="comment">// 输出：Hello, Alice!</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="call-user-func-array"><a href="#call-user-func-array" class="headerlink" title="call_user_func_array"></a>call_user_func_array</h4><p><code>call_user_func_array</code> 与 <code>call_user_func</code> 类似，但所有参数需要放在一个数组中，适合参数个数不确定或动态构建的场景。该函数定义如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mixed</span> <span class="title function_ invoke__">call_user_func_array</span>(<span class="keyword">callable</span> <span class="variable">$callback</span>, <span class="keyword">array</span> <span class="variable">$args</span>)</span><br></pre></td></tr></table></figure></div>
+
 <ul>
-<li><code>system()</code>：返回命令的输出，如果发生错误则返回 <code>NULL</code>。</li>
-<li><code>exec()</code>：返回命令输出的最后一行，如果发生错误则返回 <code>NULL</code>。</li>
-<li><code>passthru()</code>：无返回值，直接输出结果。</li>
-<li><code>shell_exec()</code>：返回命令的完整输出，如果发生错误则返回 <code>NULL</code>。</li>
+<li><p><strong>参数：</strong></p>
+<ul>
+<li><code>callable $callback</code>：要调用的函数名或方法名。</li>
+<li><code>array $args</code>：一个数组，包含传递给回调函数的参数。</li>
+</ul>
+</li>
+<li><p><strong>返回值：</strong>返回被调用函数的返回值。</p>
+</li>
+<li><p><strong>示例：</strong></p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"><span class="variable">$a</span>, <span class="variable">$b</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$a</span> + <span class="variable">$b</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$args</span> = [<span class="number">3</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">call_user_func_array</span>(<span class="string">&#x27;add&#x27;</span>, <span class="variable">$args</span>); <span class="comment">// 输出：8</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h2 id="文件上传相关"><a href="#文件上传相关" class="headerlink" title="文件上传相关"></a>文件上传相关</h2><p>PHP 的文件上传依赖于 HTML 表单和 <code>$_FILES</code> 变量，并遵循 <code>multipart/form-data</code> 方式传输。</p>
+<h3 id="PHP-文件操作函数"><a href="#PHP-文件操作函数" class="headerlink" title="PHP 文件操作函数"></a>PHP 文件操作函数</h3><h4 id="文件打开与关闭"><a href="#文件打开与关闭" class="headerlink" title="文件打开与关闭"></a>文件打开与关闭</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fopen($file, $mode)</code></td>
+<td>以指定模式打开文件</td>
+</tr>
+<tr>
+<td><code>fclose($handle)</code></td>
+<td>关闭文件句柄</td>
+</tr>
+</tbody></table>
+<p>常见的 <code>fopen()</code> 模式：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&quot;r&quot;</code></td>
+<td>只读，文件指针在开头</td>
+</tr>
+<tr>
+<td><code>&quot;w&quot;</code></td>
+<td>只写，清空文件，若不存在则创建</td>
+</tr>
+<tr>
+<td><code>&quot;a&quot;</code></td>
+<td>追加模式，只写，指针在末尾</td>
+</tr>
+<tr>
+<td><code>&quot;r+&quot;</code></td>
+<td>读写，不清空文件，指针在开头</td>
+</tr>
+<tr>
+<td><code>&quot;w+&quot;</code></td>
+<td>读写，清空文件</td>
+</tr>
+<tr>
+<td><code>&quot;a+&quot;</code></td>
+<td>读写，指针在末尾</td>
+</tr>
+</tbody></table>
+<h4 id="文件读写操作"><a href="#文件读写操作" class="headerlink" title="文件读写操作"></a>文件读写操作</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fread($handle, $length)</code></td>
+<td>读取指定字节数据</td>
+</tr>
+<tr>
+<td><code>fgets($handle)</code></td>
+<td>读取一行</td>
+</tr>
+<tr>
+<td><code>file_get_contents($file)</code></td>
+<td>读取整个文件</td>
+</tr>
+<tr>
+<td><code>fwrite($handle, $data)</code></td>
+<td>写入数据</td>
+</tr>
+<tr>
+<td><code>file_put_contents($file, $data, FILE_APPEND)</code></td>
+<td>直接写入文件，可追加</td>
+</tr>
+</tbody></table>
+<h4 id="删除、移动和检查文件"><a href="#删除、移动和检查文件" class="headerlink" title="删除、移动和检查文件"></a>删除、移动和检查文件</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>unlink($file)</code></td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td><code>rename($old, $new)</code></td>
+<td>重命名或移动文件</td>
+</tr>
+<tr>
+<td><code>file_exists($file)</code></td>
+<td>检查文件是否存在</td>
+</tr>
+<tr>
+<td><code>filesize($file)</code></td>
+<td>获取文件大小</td>
+</tr>
+<tr>
+<td><code>pathinfo($file)</code></td>
+<td>获取文件路径信息</td>
+</tr>
+</tbody></table>
+<h4 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mkdir($dir, $mode, true)</code></td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td><code>rmdir($dir)</code></td>
+<td>删除空目录</td>
+</tr>
+<tr>
+<td><code>scandir($dir)</code></td>
+<td>获取目录文件列表</td>
+</tr>
+</tbody></table>
+<h3 id="PHP-文件上传过程"><a href="#PHP-文件上传过程" class="headerlink" title="PHP 文件上传过程"></a>PHP 文件上传过程</h3><p>PHP 的文件上传过程涉及到多个环节，包括客户端浏览器的行为、服务器的临时存储和最终的文件处理。通常来说 PHP 服务端的文件上传处理逻辑如下：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$uploadDir</span> = <span class="string">&quot;uploads/&quot;</span>; <span class="comment">// 目标存储目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否有文件上传</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>]) &amp;&amp; <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;error&quot;</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="variable">$fileTmpPath</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>]; <span class="comment">// 临时文件路径</span></span><br><span class="line">    <span class="variable">$fileName</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;name&quot;</span>]; <span class="comment">// 原始文件名</span></span><br><span class="line">    <span class="variable">$fileSize</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;size&quot;</span>]; <span class="comment">// 文件大小</span></span><br><span class="line">    <span class="variable">$fileType</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;type&quot;</span>]; <span class="comment">// 文件 MIME 类型</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 允许的文件类型</span></span><br><span class="line">    <span class="variable">$allowedFileTypes</span> = [<span class="string">&quot;image/jpeg&quot;</span>, <span class="string">&quot;image/png&quot;</span>, <span class="string">&quot;application/pdf&quot;</span>];</span><br><span class="line">    <span class="variable">$maxFileSize</span> = <span class="number">5</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 5MB 限制</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取文件扩展名</span></span><br><span class="line">    <span class="variable">$fileExtension</span> = <span class="title function_ invoke__">pathinfo</span>(<span class="variable">$fileName</span>, PATHINFO_EXTENSION);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 生成新的唯一文件名，防止覆盖</span></span><br><span class="line">    <span class="variable">$newFileName</span> = <span class="title function_ invoke__">uniqid</span>() . <span class="string">&quot;.&quot;</span> . <span class="variable">$fileExtension</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 验证文件类型和大小</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">in_array</span>(<span class="variable">$fileType</span>, <span class="variable">$allowedFileTypes</span>) &amp;&amp; <span class="variable">$fileSize</span> &lt;= <span class="variable">$maxFileSize</span>) &#123;</span><br><span class="line">        <span class="comment">// 确保上传目录存在</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="title function_ invoke__">is_dir</span>(<span class="variable">$uploadDir</span>)) &#123;</span><br><span class="line">            <span class="title function_ invoke__">mkdir</span>(<span class="variable">$uploadDir</span>, <span class="number">0777</span>, <span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 目标文件路径</span></span><br><span class="line">        <span class="variable">$destPath</span> = <span class="variable">$uploadDir</span> . <span class="variable">$newFileName</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关键步骤：从临时目录移动到目标目录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$fileTmpPath</span>, <span class="variable">$destPath</span>)) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;文件上传成功！存储路径：&quot;</span> . <span class="variable">$destPath</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;文件上传失败！&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;文件类型不允许或文件过大！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;文件上传失败，错误码：&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;error&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="客户端发送文件上传请求"><a href="#客户端发送文件上传请求" class="headerlink" title="客户端发送文件上传请求"></a>客户端发送文件上传请求</h4><p>客户段上传文件需要发送文件上传请求。在客户端浏览器中，文件上传请求通常由如下表单构造：</p>
+<div class="code-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;upload.php&quot;</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;multipart/form-data&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;uploadedFile&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;上传文件&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>enctype=&quot;multipart/form-data&quot;</code>：确保表单可以上传文件。<strong>如果不加 <code>enctype</code>，表单默认以 <code>application/x-www-form-urlencoded</code> 方式提交</strong>* ，无法上传文件。<code>multipart/form-data</code> 的作用就是告诉浏览器：<ul>
+<li><strong>分块传输</strong>（每个 <code>input</code> 都是一个分块）</li>
+<li>文件数据以二进制形式传输</li>
+<li>边界分隔符 (<code>boundary</code>) 用于区分字段和文件</li>
+</ul>
+</li>
+<li><code>method=&quot;POST&quot;</code>：文件上传必须使用 <code>POST</code> 方法。</li>
+<li><code>input type=&quot;file&quot;</code>：用户选择文件的输入框。</li>
+</ul>
+<p>当浏览器提交文件时，它会使用 <code>multipart/form-data</code> 方式编码请求体。以下是一个完整的 HTTP 上传请求示例：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">POST /upload.php HTTP/1.1</span><br><span class="line">Host: example.com</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryABC123</span><br><span class="line">Content-Length: 123456</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryABC123</span><br><span class="line">Content-Disposition: form-data; name=&quot;uploadedFile&quot;; filename=&quot;example.jpg&quot;</span><br><span class="line">Content-Type: image/jpeg</span><br><span class="line"></span><br><span class="line">(binary data: JPG 文件的二进制内容)</span><br><span class="line">------WebKitFormBoundaryABC123--</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><strong><code>Content-Type: multipart/form-data</code></strong> ：必定义了请求体的编码方式，浏览器须设置该字段为 <code>multipart/form-data</code>，否则 PHP <strong>不会解析</strong>这个请求为文件上传。</p>
+<p><code>multipart/form-data</code> 是 <strong>HTTP 协议中用于表单数据提交的编码格式</strong>* ，专门用于 <strong>包含文件的表单</strong>。它的作用是 <strong>支持文件二进制数据的上传</strong>* ，并让服务器正确解析它。</p>
+<blockquote>
+<p>在 HTML 表单提交时，常见的 <code>enctype</code> 编码方式有：</p>
+<ul>
+<li><code>application/x-www-form-urlencoded</code>（默认）</li>
+<li><code>multipart/form-data</code>（用于文件上传）</li>
+<li><code>text/plain</code>（极少使用）</li>
+</ul>
+<p>其中：</p>
+<ul>
+<li><strong><code>application/x-www-form-urlencoded</code></strong> 适用于 <strong>普通表单（仅文本数据）</strong>* ，会将数据编码为 <code>key=value&amp;key2=value2</code> 形式。</li>
+<li><strong><code>multipart/form-data</code></strong> <strong>适用于包含文件的表单</strong>* ，可以处理<strong>二进制数据</strong>* ，并使用 <code>boundary</code> 分隔不同字段。</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong><code>boundary=----WebKitFormBoundaryABC123</code></strong> ：当 HTML 表单以 <code>multipart/form-data</code> 方式提交时，HTTP 请求体的内容是多个部分组成的。<code>boundary</code>（边界标识符）是 <code>multipart/form-data</code> 格式中的<strong>分隔符</strong>* ，用于区分表单中的不同字段或文件。它的作用是<strong>让服务器知道每个字段的起始和结束位置</strong>。</p>
+</li>
+<li><p><strong><code>Content-Disposition: form-data; name=&quot;uploadedFile&quot;; filename=&quot;example.jpg&quot;</code></strong> 和 <strong><code>Content-Type: image/jpeg</code></strong> ：这部分是 <strong><code>multipart/form-data</code> 请求体中的头部信息</strong>* ，用于告诉服务器<strong>这个数据块的属性</strong>。</p>
+<ul>
+<li><strong><code>Content-Disposition: form-data; name=&quot;uploadedFile&quot;; filename=&quot;example.jpg&quot;</code></strong> ：说明这个数据块是 <strong>表单字段</strong>* ，字段名是 <code>uploadedFile</code>。<code>name=&quot;uploadedFile&quot;</code> 必须与 HTML 表单 <code>input</code> 的 <code>name</code> 值匹配。<code>filename=&quot;example.jpg&quot;</code> 表示<strong>用户上传的文件名</strong>。</li>
+<li><strong><code>Content-Type: image/jpeg</code></strong> ：指定这个文件的 <strong>MIME 类型</strong>（<code>image/jpeg</code> 代表 JPG 图片）。</li>
 </ul>
 </li>
 </ul>
-<h3 id="文件操作相关"><a href="#文件操作相关" class="headerlink" title="文件操作相关"></a>文件操作相关</h3><h2 id="文件包含相关"><a href="#文件包含相关" class="headerlink" title="文件包含相关"></a>文件包含相关</h2><p>文件包含漏洞（File Inclusion Vulnerability）是一种在Web应用程序中常见的安全漏洞。它允许攻击者通过包含恶意文件的方式在服务器上执行未经授权的代码或读取敏感文件。文件包含漏洞主要分为两类：本地文件包含（Local File Inclusion, LFI）和远程文件包含（Remote File Inclusion, RFI）。</p>
+<h4 id="服务器接收文件并存储到临时目录"><a href="#服务器接收文件并存储到临时目录" class="headerlink" title="服务器接收文件并存储到临时目录"></a>服务器接收文件并存储到临时目录</h4><p>PHP 服务器端会自动解析这个 <code>multipart/form-data</code> 请求并<strong>填充 <code>$_FILES</code> 变量</strong> ：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_FILES</span> = [</span><br><span class="line">    <span class="string">&quot;uploadedFile&quot;</span> =&gt; [</span><br><span class="line">        <span class="string">&quot;name&quot;</span> =&gt; <span class="string">&quot;example.jpg&quot;</span>,          <span class="comment">// 客户端文件名</span></span><br><span class="line">        <span class="string">&quot;type&quot;</span> =&gt; <span class="string">&quot;image/jpeg&quot;</span>,           <span class="comment">// 文件 MIME 类型</span></span><br><span class="line">        <span class="string">&quot;tmp_name&quot;</span> =&gt; <span class="string">&quot;/tmp/php123.tmp&quot;</span>,  <span class="comment">// 临时存储路径</span></span><br><span class="line">        <span class="string">&quot;error&quot;</span> =&gt; <span class="number">0</span>,                     <span class="comment">// 错误代码（0 表示无错误）</span></span><br><span class="line">        <span class="string">&quot;size&quot;</span> =&gt; <span class="number">123456</span>                   <span class="comment">// 文件大小（字节）</span></span><br><span class="line">    ]</span><br><span class="line">];</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><code>multipart/form-data</code> 请求与 <code>$_FILES</code> 变量之间的对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th><code>multipart/form-data</code> 请求</th>
+<th><code>$_FILES[&quot;uploadedFile&quot;]</code> 变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name=&quot;uploadedFile&quot;</code></td>
+<td><code>$_FILES[&quot;uploadedFile&quot;]</code></td>
+</tr>
+<tr>
+<td><code>filename=&quot;example.jpg&quot;</code></td>
+<td><code>$_FILES[&quot;uploadedFile&quot;][&quot;name&quot;]</code></td>
+</tr>
+<tr>
+<td><code>Content-Type: image/jpeg</code></td>
+<td><code>$_FILES[&quot;uploadedFile&quot;][&quot;type&quot;]</code></td>
+</tr>
+<tr>
+<td><code>文件二进制数据</code></td>
+<td><code>$_FILES[&quot;uploadedFile&quot;][&quot;tmp_name&quot;]</code> (服务器上的临时文件路径)</td>
+</tr>
+<tr>
+<td><code>文件大小</code></td>
+<td><code>$_FILES[&quot;uploadedFile&quot;][&quot;size&quot;]</code></td>
+</tr>
+</tbody></table>
+<p>另外 <code>$_FILES[&quot;uploadedFile&quot;][&quot;error&quot;]</code> 可能的值：</p>
+<table>
+<thead>
+<tr>
+<th>错误代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>UPLOAD_ERR_OK (0)</code></td>
+<td>无错误，上传成功</td>
+</tr>
+<tr>
+<td><code>UPLOAD_ERR_INI_SIZE (1)</code></td>
+<td>超出 <code>upload_max_filesize</code> 限制</td>
+</tr>
+<tr>
+<td><code>UPLOAD_ERR_FORM_SIZE (2)</code></td>
+<td>超出 HTML <code>MAX_FILE_SIZE</code> 限制</td>
+</tr>
+<tr>
+<td><code>UPLOAD_ERR_PARTIAL (3)</code></td>
+<td>文件部分上传</td>
+</tr>
+<tr>
+<td><code>UPLOAD_ERR_NO_FILE (4)</code></td>
+<td>没有文件被上传</td>
+</tr>
+<tr>
+<td><code>UPLOAD_ERR_NO_TMP_DIR (6)</code></td>
+<td>找不到临时目录</td>
+</tr>
+<tr>
+<td><code>UPLOAD_ERR_CANT_WRITE (7)</code></td>
+<td>文件写入失败</td>
+</tr>
+</tbody></table>
+<p>在填充 <code>$_FILES</code> 变量的同时，PHP 还会把接收的文件临时保存在指定的临时目录中，文件名为 <code>$_FILES[&quot;uploadedFile&quot;][&quot;tmp_name&quot;]</code> 的值。PHP 进程结束后，临时目录中保存的文件会自动删除。</p>
+<p>在 <code>php.ini</code> 中，有文件上传的相关配置：</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">file_uploads</span> = <span class="literal">On</span>           <span class="comment">; 允许上传文件</span></span><br><span class="line"><span class="attr">upload_max_filesize</span> = <span class="number">10</span>M   <span class="comment">; 限制单个文件最大大小</span></span><br><span class="line"><span class="attr">post_max_size</span> = <span class="number">20</span>M         <span class="comment">; 限制整个 POST 请求的最大大小</span></span><br><span class="line"><span class="attr">upload_tmp_dir</span> = <span class="string">&quot;/tmp&quot;</span>     <span class="comment">; 临时存储目录</span></span><br><span class="line"><span class="attr">max_file_uploads</span> = <span class="number">10</span>       <span class="comment">; 允许一次性上传的最大文件数</span></span><br></pre></td></tr></table></figure></div>
+
+<p>其中 <code>upload_tmp_dir</code> 指定了临时文件保存的目录，如果 <code>upload_tmp_dir</code> 未设置，PHP 会使用操作系统默认的临时目录：</p>
+<ul>
+<li><strong>Linux&#x2F;macOS</strong> ： <code>/tmp/</code></li>
+<li><strong>Windows</strong> ： <code>C:\Windows\Temp\</code></li>
+</ul>
+<h4 id="PHP-代码处理上传的临时文件"><a href="#PHP-代码处理上传的临时文件" class="headerlink" title="PHP 代码处理上传的临时文件"></a>PHP 代码处理上传的临时文件</h4><p>前面的过程是 PHP 程序自动完成的，而这一步是通过用户代码实现。</p>
+<p>当用户处理上传文件的代码被执行的时候说明用户向上传文件的路由发起了一次请求。因此用户代码首先会先判断该请求是否问文件上传请求，并且该文件上传请求是否成功。如果满足条件才会执行文件上传相关的处理逻辑。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查是否有文件上传</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>]) &amp;&amp; <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;error&quot;</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">	<span class="comment">// 处理文件上传的逻辑</span></span><br><span class="line">    <span class="comment">// [...]</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;文件上传失败，错误码：&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;error&quot;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>之后就是根据 <code>$_FILES</code> 变量中文件的相关信息做一系列的安全检查。通常包括<strong>文件类型</strong>、文件扩展名、<strong>文件大小</strong>等。只有通过了这些安全检查才会将临时文件保存至文件上传的目录。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$fileTmpPath</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>]; <span class="comment">// 临时文件路径</span></span><br><span class="line"><span class="variable">$fileName</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;name&quot;</span>]; <span class="comment">// 原始文件名</span></span><br><span class="line"><span class="variable">$fileSize</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;size&quot;</span>]; <span class="comment">// 文件大小</span></span><br><span class="line"><span class="variable">$fileType</span> = <span class="variable">$_FILES</span>[<span class="string">&quot;uploadedFile&quot;</span>][<span class="string">&quot;type&quot;</span>]; <span class="comment">// 文件 MIME 类型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 允许的文件类型</span></span><br><span class="line"><span class="variable">$allowedFileTypes</span> = [<span class="string">&quot;image/jpeg&quot;</span>, <span class="string">&quot;image/png&quot;</span>, <span class="string">&quot;application/pdf&quot;</span>];</span><br><span class="line"><span class="variable">$maxFileSize</span> = <span class="number">5</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 5MB 限制</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取文件扩展名</span></span><br><span class="line"><span class="variable">$fileExtension</span> = <span class="title function_ invoke__">pathinfo</span>(<span class="variable">$fileName</span>, PATHINFO_EXTENSION);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成新的唯一文件名，防止覆盖</span></span><br><span class="line"><span class="variable">$newFileName</span> = <span class="title function_ invoke__">uniqid</span>() . <span class="string">&quot;.&quot;</span> . <span class="variable">$fileExtension</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 验证文件类型和大小</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">in_array</span>(<span class="variable">$fileType</span>, <span class="variable">$allowedFileTypes</span>) &amp;&amp; <span class="variable">$fileSize</span> &lt;= <span class="variable">$maxFileSize</span>) &#123;</span><br><span class="line">    <span class="comment">// 确保上传目录存在</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="title function_ invoke__">is_dir</span>(<span class="variable">$uploadDir</span>)) &#123;</span><br><span class="line">        <span class="title function_ invoke__">mkdir</span>(<span class="variable">$uploadDir</span>, <span class="number">0777</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 目标文件路径</span></span><br><span class="line">    <span class="variable">$destPath</span> = <span class="variable">$uploadDir</span> . <span class="variable">$newFileName</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 满足条件，保存临时文件。</span></span><br><span class="line">    <span class="comment">// [...]</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;文件类型不允许或文件过大！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>当安全检查通过时，PHP 可以通过 <code>move_uploaded_file</code> 函数将临时文件移动在上传目录中保存。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关键步骤：从临时目录移动到目标目录</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$fileTmpPath</span>, <span class="variable">$destPath</span>)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;文件上传成功！存储路径：&quot;</span> . <span class="variable">$destPath</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;文件上传失败！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在 PHP 处理文件上传时，**<code>move_uploaded_file()</code> 是唯一推荐用于移动上传文件的函数** 。</p>
+<ul>
+<li><code>move_uploaded_file()</code> <strong>会检查 <code>$tmp_name</code> 是否真的来自 <code>$_FILES</code></strong> ，防止伪造路径。</li>
+<li><code>move_uploaded_file()</code> <strong>移动后，<code>tmp_name</code> 会消失</strong>* ，防止临时文件被二次利用。</li>
+<li><code>move_uploaded_file()</code> <strong>不会创建额外的文件副本</strong>* ，节省服务器存储空间。</li>
+</ul>
+<p>而 <code>rename</code> 和 <code>copy</code> 虽然也能实现同样的功能，但是二者不是专门用于处理文件上传的函数，缺少相关的安全检查（如检移动查文件是否是上传的临时文件）。</p>
+<h3 id="PHP-文件上传漏洞"><a href="#PHP-文件上传漏洞" class="headerlink" title="PHP 文件上传漏洞"></a>PHP 文件上传漏洞</h3><h4 id="判断文件上传检查方式"><a href="#判断文件上传检查方式" class="headerlink" title="判断文件上传检查方式"></a>判断文件上传检查方式</h4><p>我们可以通过观察文件上传的几个关键特征来快速定位文件上传的检查方式。</p>
+<pre class="mermaid">graph TD;
+    A[上传点] --> B{上传非法文件，返回结果是否很快？}
+    B -- 是 --> C[客户端检查]
+    B -- 否 --> D[服务端检查]
+    
+    D --> E{是否可以上传非图片内容，但使用图片后缀？}
+    E -- 是 --> F[检查后缀]
+    E -- 否 --> G[检查内容]
+    
+    F --> H{是否可以上传任意后缀？如 .asdxxx}
+    H -- 是 --> I[黑名单]
+    H -- 否 --> J[白名单]
+
+    G --> K{上传后图片大小、颜色、MD5 是否变化？}
+    K -- 是 --> L[只读取内容]
+    K -- 否 --> M[重新渲染]
+
+    E -- 其他情况 --> N[逻辑]</pre>
+
+<h4 id="文件上传绕过"><a href="#文件上传绕过" class="headerlink" title="文件上传绕过"></a>文件上传绕过</h4><p>针对不同的文件上传检测方式选择合适的绕过方法。</p>
+<h5 id="客户端检测"><a href="#客户端检测" class="headerlink" title="客户端检测"></a>客户端检测</h5><ul>
+<li><strong>在本地浏览器客户端禁用 JS</strong>（火狐：<code>about:config → javascript.enabled</code>）</li>
+<li><strong>手动修改前端代码</strong></li>
+<li><strong>Burp Suite 修改请求数据</strong></li>
+</ul>
+<h5 id="黑名单检测"><a href="#黑名单检测" class="headerlink" title="黑名单检测"></a>黑名单检测</h5><ul>
+<li><p><strong>其它可解析后缀绕过</strong>，例如 <code>php2</code>、<code>php3</code>、<code>php5</code>、<code>phtml</code>、<code>pht</code> 等。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content">
+      <p>能否解析取决于服务器配置文件，例如 Apache 服务器：<code>AddType application/x-httpd-php .php .phtml .php5 .php3</code></p>
+
+    </div>
+  </div>
+</li>
+<li><p><strong>NTFS 数据流绕过</strong></p>
+<blockquote>
+<p>NTFS 数据流（Alternate Data Streams，简称 ADS）是 Windows 文件系统的特性。这种特性允许在一个文件中存储多个数据流，而不仅仅是文件内容本身。</p>
+<p>在 NTFS 文件系统中，文件不仅可以包含主数据流，还可以包含一个或多个附加的数据流。这些附加的数据流可以用来存储额外的信息，而不影响主数据流的内容。这些数据流通过特殊的语法 <code>filename:streamname:$DATA</code> 进行访问。其中 <code>$DATA</code> 是默认类型标识，可以省略为 <code>filename:streamname</code>。</p>
+</blockquote>
+<p>如果我们上传一个文件 <code>shell.php::$DATA</code>（附加数据流虽然没有指定名称，但仍然是一个数据流），那么：</p>
+<ul>
+<li>后端验证时认为后缀是 <code>.php::$DATA</code>，不在黑名单中，因此通过验证。</li>
+<li>文件被存储为 <code>shell.php::$DATA</code>，但实际上存储在 NTFS 文件系统中时，系统只识别 <code>shell.php</code> 作为文件名</li>
+</ul>
+</li>
+<li><p><strong>配置文件绕过</strong>，例如对于 Apache 服务器，通过编写 <code>.htaccess</code> 文件，我们可以调用 PHP 的解析器去解析包含特定字符串的文件。这种方法可以绕过许多上传验证机制。</p>
+<blockquote>
+<p><code>.htaccess</code> 文件，全称是 Hypertext Access（超文本入口），提供了针对目录改变配置的方法。它可以存放 Apache 服务器配置相关的指令，用于修改目录的配置设置。</p>
+</blockquote>
+<ul>
+<li><p><strong>方法一：指定特定字符串</strong></p>
+<p>在 <code>.htaccess</code> 文件中添加如下内容。这个配置指令表示：只要文件名中<strong>包含</strong> <code>as.png</code> 这个字符串，无论文件名具体是什么，都可以被当作 PHP 文件解析。</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">FilesMatch</span> &quot;<span class="attr">as.png</span>&quot;&gt;</span></span><br><span class="line">	SetHandler application/x-httpd-php</span><br><span class="line"><span class="tag">&lt;/<span class="name">FilesMatch</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>方法二：设置默认解析器</strong><br>通过上传一个 <code>.htaccess</code> 文件，将整个目录下的<strong>所有文件</strong>设置为 PHP 解析，这样，该目录下的所有文件都会被当作 PHP 文件解析。</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SetHandler application/x-httpd-php</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>方法三：指定文件类型</strong><br>另一种方式是将<strong>特定类型的文件</strong>设置为 PHP 解析。可以在 <code>.htaccess</code> 文件中添加以下内容，这样所有 <code>.jpg</code> 文件都会被当作 PHP 文件解析。</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php jpg</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>后缀大小写绕过</strong>，Windows 系统对大小写不敏感，我们可以上传大小写混合的后缀绕过后缀的黑名单过滤，例如 <code>shell.Php</code> 。</p>
+</li>
+</ul>
+<h5 id="白名单检测"><a href="#白名单检测" class="headerlink" title="白名单检测"></a>白名单检测</h5><ul>
+<li><p><strong>截断绕过</strong>：在满足下面 <code>php &lt; 5.3.29</code> 且 <code>magic_quotes_gpc=off</code> 的基础上，后端代码会把 <code>\x00</code> 作为字符串结束标志，因此我们可以在文件保存路径上构造一个 0 截断来绕过白名单检测。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/0x00-bypass.svg"
+                      alt="0x00-bypass"
+                ></p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <ul>
+<li>如果是 GET 传参可以通过 <code>%00</code> 来表示 <code>\x00</code>，WEB 服务器会自动解码成 <code>\x00</code> 传给后端代码。</li>
+<li>如果是 POST 传参则传递数据的格式取决于 <code>Content-Type</code> 头的值，对于 <code>application/x-www-form-urlencoded</code>，数据会进行 URL 编码，可以使用 <code>%00</code> 来表示 <code>\x00</code>，否则需要在数据包中用真正的 <code>\x00</code> 来截断。</li>
+<li>高版本 PHP 不再把 <code>\x00</code> 作为字符串结束标志，会自动把字符串中的 <code>\x00</code> 去掉。</li>
+</ul>
+
+    </div>
+  </div></li>
+</ul>
+<h5 id="文件魔数检测"><a href="#文件魔数检测" class="headerlink" title="文件魔数检测"></a>文件魔数检测</h5><p>这种检测方式是通过检测文件内容开头的魔数来判断文件类型。</p>
+<p>绕过方式是在合法文件后面拼接 webshell 然后利用文件包含漏洞执行。</p>
+<h5 id="二次渲染"><a href="#二次渲染" class="headerlink" title="二次渲染"></a>二次渲染</h5><p>二次渲染是根据用户上传的图片，新生成一个图片保存，并将原始图片删除。比如一些网站根据用户上传的头像生成大中小不同尺寸的图像。</p>
+<p>绕过方式是先上传一张图片，再重新将图片下载下来做比较，然后在没有变化的地方插入 webshell（通常文件分多个区段，不同区段为了对齐中间会用 0 填充，这部分可能在上传后不会被修改）。</p>
+<h2 id="文件包含相关"><a href="#文件包含相关" class="headerlink" title="文件包含相关"></a>文件包含相关</h2><p>文件包含漏洞（File Inclusion Vulnerability）是一种在Web应用程序中常见的安全漏洞。它允许攻击者通过包含恶意文件的方式在服务器上执行未经授权的代码或读取敏感文件。文件包含漏洞主要分为两类：本地文件包含（Local File Inclusion, LFI）和远程文件包含（Remote File Inclusion, RFI）。</p>
 <ul>
 <li><p><strong>文件包含</strong> ：开发人员将可重复使用的内容写到单个文件中，使用时直接调用此文件，无需再次编写，这种调用文件的过程一般被称为文件包含。这样编写代码能减少代码冗余，降低代码后期维护难度，保证网站整体风格统一，比如：导航栏、底部栏等。</p>
 </li>
@@ -937,7 +1594,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h3><p>当包含的文件在服务器本地时，就形成了本地文件包含。</p>
+<h3 id="PHP-文件包含漏洞"><a href="#PHP-文件包含漏洞" class="headerlink" title="PHP 文件包含漏洞"></a>PHP 文件包含漏洞</h3><h4 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h4><p>当包含的文件在服务器本地时，就形成了本地文件包含。</p>
 <ul>
 <li>由于服务器上的文件并不是攻击者所能够控制的，因此该情况下，更多的会包含一些固定的系统配置文件，从而读取系统敏感信息。<ul>
 <li>读取网站源码以及配置文件。</li>
@@ -950,7 +1607,7 @@
 </li>
 </ul>
 <p>包含文件的时候可以直接写路径 <code>&#39;/path/to/your/file.php&#39;</code>，也可以使用 file 伪协议 <code>file:///path/to/your/file.php</code>，两种方式是等价的。</p>
-<h3 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h3><p>当包含的文件在远程服务器上时，就形成了远程文件包含。远程文件包含的时候需要写文件的 URL 路径 <code>&#39;http://example.com/shell.txt&#39;</code> 。</p>
+<h4 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h4><p>当包含的文件在远程服务器上时，就形成了远程文件包含。远程文件包含的时候需要写文件的 URL 路径 <code>&#39;http://example.com/shell.txt&#39;</code> 。</p>
 <p>利用前提：</p>
 <ul>
 <li><code>allow_url_fopen=On</code>（默认开启）</li>
@@ -967,7 +1624,7 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/file_include.svg"
                       alt="file_include"
                 ></p>
-<h1 id="PHP-常见框架"><a href="#PHP-常见框架" class="headerlink" title="PHP 常见框架"></a>PHP 常见框架</h1>
+<h2 id="模板解析相关"><a href="#模板解析相关" class="headerlink" title="模板解析相关"></a>模板解析相关</h2><h3 id="Twig"><a href="#Twig" class="headerlink" title="Twig"></a>Twig</h3><h3 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h3><h3 id="Blade"><a href="#Blade" class="headerlink" title="Blade"></a>Blade</h3><h3 id="patTemplate"><a href="#patTemplate" class="headerlink" title="patTemplate"></a>patTemplate</h3><h1 id="PHP-常见框架"><a href="#PHP-常见框架" class="headerlink" title="PHP 常见框架"></a>PHP 常见框架</h1><h2 id="ThinkPHP"><a href="#ThinkPHP" class="headerlink" title="ThinkPHP"></a>ThinkPHP</h2><h2 id="Laravel"><a href="#Laravel" class="headerlink" title="Laravel"></a>Laravel</h2><h2 id="Codeigniter"><a href="#Codeigniter" class="headerlink" title="Codeigniter"></a>Codeigniter</h2><h2 id="Yii"><a href="#Yii" class="headerlink" title="Yii"></a>Yii</h2><h2 id="Cakephp"><a href="#Cakephp" class="headerlink" title="Cakephp"></a>Cakephp</h2><h1 id="PHP-代码混淆对抗"><a href="#PHP-代码混淆对抗" class="headerlink" title="PHP 代码混淆对抗"></a>PHP 代码混淆对抗</h1><h2 id="无扩展方案"><a href="#无扩展方案" class="headerlink" title="无扩展方案"></a>无扩展方案</h2><h2 id="PHP-扩展方案"><a href="#PHP-扩展方案" class="headerlink" title="PHP 扩展方案"></a>PHP 扩展方案</h2>
 		</div>
 
 		
@@ -981,7 +1638,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-03-18 00:58:11
+                    :</strong> 2025-03-24 02:31:40
             </li>
         
         <li>
@@ -1098,7 +1755,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">PHP 代码审计基础</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStudy"><span class="nav-text">PHPStudy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStorm"><span class="nav-text">PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xdebug-helper"><span class="nav-text">xdebug-helper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA"><span class="nav-text">网站搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-PHP-%E4%BB%A3%E7%A0%81"><span class="nav-text">远程调试 PHP 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Xdebug-%E6%8F%92%E4%BB%B6"><span class="nav-text">配置 Xdebug 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Windows 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95"><span class="nav-text">如何远程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="nav-text">点击调试按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E8%B0%83%E8%AF%95"><span class="nav-text">开启监听调试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">远程同步开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-FTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置 FTP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm-1"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">如何远程同步开发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80"><span class="nav-text">漏洞审计基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E8%AF%AD%E8%A8%80%E7%9B%B8%E5%85%B3"><span class="nav-text">PHP 语言相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%8F%AF%E6%8E%A7%E8%BE%93%E5%85%A5"><span class="nav-text">用户可控输入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SERVER"><span class="nav-text">$_SERVER</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3"><span class="nav-text">数据库相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%AF%E6%8C%81"><span class="nav-text">PHP 的数据库支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDO-PHP-Data-Objects"><span class="nav-text">PDO (PHP Data Objects)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-text">执行语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQLi-MySQL-Improved"><span class="nav-text">MySQLi (MySQL Improved)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E7%9B%B8%E5%85%B3"><span class="nav-text">代码执行相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eval"><span class="nav-text">eval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assert"><span class="nav-text">assert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#preg-replace"><span class="nav-text">preg_replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system-exec-passthru-shell-exec"><span class="nav-text">system, exec, passthru, shell_exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%9B%B8%E5%85%B3"><span class="nav-text">文件操作相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9B%B8%E5%85%B3"><span class="nav-text">文件包含相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-text">PHP 伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#file"><span class="nav-text">file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-input"><span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-filter"><span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phar"><span class="nav-text">phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zip"><span class="nav-text">zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-%E6%88%96-https"><span class="nav-text">http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data"><span class="nav-text">data:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">远程文件包含</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6"><span class="nav-text">PHP 常见框架</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStudy"><span class="nav-text">PHPStudy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStorm"><span class="nav-text">PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xdebug-helper"><span class="nav-text">xdebug-helper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA"><span class="nav-text">网站搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-PHP-%E4%BB%A3%E7%A0%81"><span class="nav-text">远程调试 PHP 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Xdebug-%E6%8F%92%E4%BB%B6"><span class="nav-text">配置 Xdebug 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Windows 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95"><span class="nav-text">如何远程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="nav-text">点击调试按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E8%B0%83%E8%AF%95"><span class="nav-text">开启监听调试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">远程同步开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-FTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置 FTP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm-1"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">如何远程同步开发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%9F%BA%E7%A1%80"><span class="nav-text">PHP 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="nav-text">PHP 语言特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preg-match-%E7%9B%B8%E5%85%B3"><span class="nav-text">preg_match 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="nav-text">数组绕过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%BB%95%E8%BF%87"><span class="nav-text">换行符绕过</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF"><span class="nav-text">会话跟踪技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B"><span class="nav-text">基本过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%9A%E8%AF%9D"><span class="nav-text">启动会话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E4%BC%9A%E8%AF%9D%E6%95%B0%E6%8D%AE"><span class="nav-text">访问会话数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%80%E6%AF%81%E4%BC%9A%E8%AF%9D"><span class="nav-text">销毁会话</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-text">会话相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-text">会话过期时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-text">会话存储位置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BC%9A%E8%AF%9D%E7%9A%84%E8%AE%A4%E8%AF%81%E4%B8%8E%E9%89%B4%E6%9D%83"><span class="nav-text">基于会话的认证与鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2-login-php"><span class="nav-text">登录页面 (login.php)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E9%A1%B5%E9%9D%A2-dashboard-php"><span class="nav-text">控制面板页面 (dashboard.php)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%94%80%E9%A1%B5%E9%9D%A2-logout-php"><span class="nav-text">注销页面 (logout.php)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80"><span class="nav-text">漏洞审计基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%8F%AF%E6%8E%A7%E8%BE%93%E5%85%A5"><span class="nav-text">用户可控输入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SERVER"><span class="nav-text">$_SERVER</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3"><span class="nav-text">数据库相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%AF%E6%8C%81"><span class="nav-text">PHP 的数据库支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95"><span class="nav-text">常见数据库扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PDO-PHP-Data-Objects"><span class="nav-text">PDO (PHP Data Objects)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-text">执行语句</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQLi-MySQL-Improved"><span class="nav-text">MySQLi (MySQL Improved)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5%E7%9A%84%E8%BF%87%E6%BB%A4%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="nav-text">SQL 注入的过滤与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0"><span class="nav-text">常见过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#addslashes"><span class="nav-text">addslashes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQLi-%E5%92%8C-MySQL-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">MySQLi 和 MySQL 的转义函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PDO-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">PDO 的转义函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%98%B2%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="nav-text">常见防护方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E8%AF%AD%E5%8F%A5"><span class="nav-text">预处理语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">强制类型转换</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E7%9B%B8%E5%85%B3"><span class="nav-text">代码执行相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">系统命令执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-text">exec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#system"><span class="nav-text">system</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell-exec"><span class="nav-text">shell_exec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#passthru"><span class="nav-text">passthru</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#popen"><span class="nav-text">popen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#proc-open"><span class="nav-text">proc_open</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%BC%95%E5%8F%B7%EF%BC%88Backticks%EF%BC%89"><span class="nav-text">反引号（Backticks）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 代码执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#eval"><span class="nav-text">eval</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assert"><span class="nav-text">assert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preg-replace%EF%BC%88%E5%B8%A6-e-%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%8C%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">preg_replace（带 &#x2F;e 修饰符，已废弃）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-function%EF%BC%88%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">create_function（已废弃）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-text">回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func"><span class="nav-text">call_user_func</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func-array"><span class="nav-text">call_user_func_array</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%9B%B8%E5%85%B3"><span class="nav-text">文件上传相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 文件操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-text">文件打开与关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C"><span class="nav-text">文件读写操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E7%A7%BB%E5%8A%A8%E5%92%8C%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6"><span class="nav-text">删除、移动和检查文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="nav-text">目录操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%BF%87%E7%A8%8B"><span class="nav-text">PHP 文件上传过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%AF%B7%E6%B1%82"><span class="nav-text">客户端发送文件上传请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6%E6%96%87%E4%BB%B6%E5%B9%B6%E5%AD%98%E5%82%A8%E5%88%B0%E4%B8%B4%E6%97%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">服务器接收文件并存储到临时目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E5%A4%84%E7%90%86%E4%B8%8A%E4%BC%A0%E7%9A%84%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="nav-text">PHP 代码处理上传的临时文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">判断文件上传检查方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87"><span class="nav-text">文件上传绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">客户端检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BB%91%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">黑名单检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%99%BD%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">白名单检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%AD%94%E6%95%B0%E6%A3%80%E6%B5%8B"><span class="nav-text">文件魔数检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93"><span class="nav-text">二次渲染</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9B%B8%E5%85%B3"><span class="nav-text">文件包含相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-text">PHP 伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#file"><span class="nav-text">file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-input"><span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-filter"><span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phar"><span class="nav-text">phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zip"><span class="nav-text">zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-%E6%88%96-https"><span class="nav-text">http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data"><span class="nav-text">data:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">远程文件包含</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E8%A7%A3%E6%9E%90%E7%9B%B8%E5%85%B3"><span class="nav-text">模板解析相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Twig"><span class="nav-text">Twig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smarty"><span class="nav-text">Smarty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blade"><span class="nav-text">Blade</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#patTemplate"><span class="nav-text">patTemplate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6"><span class="nav-text">PHP 常见框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ThinkPHP"><span class="nav-text">ThinkPHP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel"><span class="nav-text">Laravel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Codeigniter"><span class="nav-text">Codeigniter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yii"><span class="nav-text">Yii</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cakephp"><span class="nav-text">Cakephp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E5%AF%B9%E6%8A%97"><span class="nav-text">PHP 代码混淆对抗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">无扩展方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">PHP 扩展方案</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -1129,7 +1786,7 @@
                     </span>
                     
                         <span>
-                            490.7k words in total
+                            499k words in total
                         </span>
                     
                 </p>
