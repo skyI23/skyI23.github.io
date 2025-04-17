@@ -353,7 +353,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">30</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -391,7 +391,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">30</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">31</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -406,6 +406,87 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-kernel-pwn-exploit-technique/">
+                            linux kernel pwn 内核利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            NULL Pointer Dereference上古利用方法，仅做记录。
+如果内核模块中存在可以被调用的空函数指针，那么调用该空指针函数会执行 0 地址对应的代码。如果此时在内存 0 地址处实现写入 payload 就会执行payload。
+首先内核驱动代码如下，其中 my_funptr 是一个空函数指针，且在调用 write 函数时会执行到。
+12345678910111213141516...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 20:28:24 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-kernel-pwn/">linux kernel pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-kernel-pwn/">linux kernel pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-kernel-pwn-exploit-technique/">Read more<span class="seo-reader-text">linux kernel pwn 内核利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1178,93 +1259,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/07/linux-user-pwn-basic-knowlege/">
-                            linux user pwn 基础知识
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            环境搭建虚拟机安装
-镜像下载网站
-为了避免环境问题建议 22.04 ，20.04，18.04，16.04 等常见版本 ubuntu 虚拟机环境各准备一份。注意定期更新快照以防意外。
-虚拟机建议硬盘 256 G 以上，内存也尽量大一些。硬盘大小只是上界，256 G 不是真就占了 256 G，而后期如果硬盘空间不足会很麻烦。
-更换 ubuntu 镜像源 ，建议先在 系统设置 → Software...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Nov 07 2024 18:56:56 GMT+0800">
-                
-                    2024-11-07
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/pwn/">pwn</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/pwn/linux-user-pwn/">linux user pwn</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/11/07/linux-user-pwn-basic-knowlege/">Read more<span class="seo-reader-text">linux user pwn 基础知识</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/page/2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+	<a class="extend prev" rel="prev" href="/page/2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1290,7 +1289,7 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        30 posts in total
+                        31 posts in total
                     </span>
                     
                         <span>
