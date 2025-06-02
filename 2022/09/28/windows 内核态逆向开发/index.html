@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2022/09/28/windows 内核态逆向开发/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            windows 内核态逆向开发 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">windows 内核态逆向开发</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2022-09-28 11:45:14</span>
+        <span class="mobile">2022-09-28 11:45:14</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-06-02 23:37:30</span>
+            <span class="mobile">2025-06-02 23:37:30</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.8k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>18 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h1><p>参考 <a href="attachments/325462-sdm-vol-1-2abcd-3abcd.pdf">英特尔开发手册</a></p>
+<h2 id="CPU-的模式"><a href="#CPU-的模式" class="headerlink" title="CPU 的模式"></a>CPU 的模式</h2><p>x86 CPU 的三个主要模式分别是实模式（Real Mode）、保护模式（Protected Mode）和虚拟8086模式（Virtual 8086 Mode）。它们各自的功能和特点如下：</p>
+<h3 id="实模式（Real-Mode）"><a href="#实模式（Real-Mode）" class="headerlink" title="实模式（Real Mode）"></a>实模式（Real Mode）</h3><ul>
+<li><strong>简介</strong> ：实模式是x86架构最早的工作模式，与8086 CPU的工作方式相同。</li>
+<li><strong>内存管理</strong> ：在实模式下，CPU可以访问1MB的内存。内存地址是通过段寄存器和偏移地址组合来形成的，总地址空间为20位。</li>
+<li><strong>特点</strong> ：<ul>
+<li>没有内存保护机制，即程序可以访问所有内存区域，包括操作系统内核和其他程序的数据。</li>
+<li>没有多任务支持，所有程序运行在同一个地址空间中。</li>
+<li>简单的地址计算：物理地址 &#x3D; 段寄存器 * 16 + 偏移地址。</li>
+</ul>
+</li>
+<li><strong>用途</strong> ：实模式主要用于早期的DOS操作系统和初始系统引导过程。</li>
+</ul>
+<h3 id="保护模式（Protected-Mode）"><a href="#保护模式（Protected-Mode）" class="headerlink" title="保护模式（Protected Mode）"></a>保护模式（Protected Mode）</h3><ul>
+<li><strong>简介</strong> ：保护模式是为了提供更高级的内存管理和多任务处理而设计的，是现代操作系统（如Windows、Linux）运行的基础模式。</li>
+<li><strong>内存管理</strong> ：保护模式下，CPU可以访问4GB的内存地址空间，使用32位地址。引入了分页（Paging）和分段（Segmentation）机制。</li>
+<li><strong>特点</strong> ：<ul>
+<li>支持内存保护，防止一个程序访问另一个程序的内存区域。</li>
+<li>支持硬件级别的多任务处理，通过任务状态段（TSS）进行任务切换。</li>
+<li>支持虚拟内存，通过分页机制，可以使用物理内存之外的存储空间。</li>
+<li>提供特权级别（Privilege Levels），通常有四个环（Ring 0到Ring 3），用于控制访问权限和隔离内核与用户程序。</li>
+</ul>
+</li>
+<li><strong>用途</strong> ：保护模式用于运行复杂的多任务操作系统，如Windows、Linux等。</li>
+</ul>
+<h3 id="虚拟8086模式（Virtual-8086-Mode）"><a href="#虚拟8086模式（Virtual-8086-Mode）" class="headerlink" title="虚拟8086模式（Virtual 8086 Mode）"></a>虚拟8086模式（Virtual 8086 Mode）</h3><ul>
+<li><strong>简介</strong> ：虚拟8086模式是保护模式的一部分，允许在保护模式下运行实模式应用程序。它引入了一种机制，使得保护模式操作系统可以运行多个8086虚拟机。</li>
+<li><strong>内存管理</strong> ：每个虚拟8086模式下的任务都有自己独立的1MB地址空间，模拟实模式的内存管理。</li>
+<li><strong>特点</strong> ：<ul>
+<li>兼容性：允许在现代操作系统上运行旧的实模式程序。</li>
+<li>隔离：每个虚拟8086任务被隔离在自己的内存空间内，受保护模式的内存保护机制保护。</li>
+<li>性能：在保护模式下，通过硬件支持的虚拟化技术，可以高效地执行实模式代码。</li>
+</ul>
+</li>
+<li><strong>用途</strong> ：虚拟8086模式用于在保护模式操作系统（如Windows NT系列）中运行DOS程序。</li>
+</ul>
+<h2 id="保护模式下的地址"><a href="#保护模式下的地址" class="headerlink" title="保护模式下的地址"></a>保护模式下的地址</h2><p>在保护模式下，x86 CPU通过<strong>段式内存管理</strong>和<strong>分页机制</strong>来转换和管理<strong>逻辑地址</strong>、<strong>虚拟地址</strong>和<strong>物理地址</strong>。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/df792f4a88f2cc9705abc70c9ffd90bd.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p>三种地址的转换具体如下图所示：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250602014852488.png"
+                      alt="image-20250602014852488"
+                ></p>
+<h3 id="逻辑地址（Logical-Address）"><a href="#逻辑地址（Logical-Address）" class="headerlink" title="逻辑地址（Logical Address）"></a>逻辑地址（Logical Address）</h3><ul>
+<li><strong>组成</strong> ：<strong>逻辑地址</strong>由<strong>段选择子</strong>（Segment Selector）和<strong>段内偏移</strong>（Offset）组成。</li>
+<li><strong>格式</strong> ：<code>Logical Address = Segment Selector:Offset</code></li>
+<li><strong>作用</strong> ：逻辑地址是程序员在代码中使用的地址形式。<ul>
+<li><strong>段选择子</strong>决定了使用哪个段描述符</li>
+<li><strong>偏移量</strong>则指示在该段内的具体位置。</li>
+</ul>
+</li>
+</ul>
+<h3 id="虚拟地址（Virtual-Address）"><a href="#虚拟地址（Virtual-Address）" class="headerlink" title="虚拟地址（Virtual Address）"></a>虚拟地址（Virtual Address）</h3><ul>
+<li><strong>生成</strong> ：通过<strong>段选择子</strong>从<strong>段描述符表</strong>（GDT或LDT）中找到对应的<strong>段描述符</strong>，利用<strong>段描述符中的基址</strong>（Base Address）加上<strong>偏移量</strong>（即逻辑地址中的段内偏移）得到虚拟地址。</li>
+<li><strong>格式</strong> ：<code>Virtual Address = Base Address (from Segment Descriptor) + Offset</code></li>
+<li><strong>作用</strong> ：虚拟地址是CPU在段内的线性地址，它可以直接被分页单元使用以进一步转换为物理地址。</li>
+</ul>
+<h3 id="物理地址（Physical-Address）"><a href="#物理地址（Physical-Address）" class="headerlink" title="物理地址（Physical Address）"></a>物理地址（Physical Address）</h3><ul>
+<li><strong>生成</strong> ：<strong>虚拟地址</strong>通过<strong>分页机制</strong>（如果启用）被转换成<strong>物理地址</strong>。分页机制使用页目录（Page Directory）和页表（Page Table）来完成这个转换。</li>
+<li><strong>作用</strong> ：物理地址是内存芯片上的实际地址，是最终用于存储器访问的地址。</li>
+</ul>
+<h2 id="段式内存管理"><a href="#段式内存管理" class="headerlink" title="段式内存管理"></a>段式内存管理</h2><p>段式内存管理（Segmentation）是x86架构保护模式下的内存管理机制之一。它通过将内存划分为多个段，每个段都有独立的基址、大小和访问权限，以便对内存进行更加灵活和安全的管理。</p>
+<p>不过在 32 位下由于访问范围为 4GB，因此通常设置基址为 0 。</p>
+<h3 id="段寄存器（Segment-Registers）"><a href="#段寄存器（Segment-Registers）" class="headerlink" title="段寄存器（Segment Registers）"></a>段寄存器（Segment Registers）</h3><p>段寄存器用于保存段选择子，指示当前正在使用的段。x86 CPU中有多个段寄存器，每个寄存器对应不同类型的内存段。</p>
+<h4 id="主要段寄存器"><a href="#主要段寄存器" class="headerlink" title="主要段寄存器"></a>主要段寄存器</h4><p>32 位 Windows（x86）段寄存器：</p>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>Ring 3 (用户态)</th>
+<th>Ring 0 (内核态)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CS</td>
+<td>0x1B</td>
+<td>0x08</td>
+<td>代码段</td>
+</tr>
+<tr>
+<td>DS</td>
+<td>0x23</td>
+<td>0x10</td>
+<td>数据段</td>
+</tr>
+<tr>
+<td>SS</td>
+<td>0x23</td>
+<td>0x10</td>
+<td>栈段</td>
+</tr>
+<tr>
+<td>ES</td>
+<td>0x23</td>
+<td>0x10</td>
+<td>额外数据段(一般等于 DS)</td>
+</tr>
+<tr>
+<td>FS</td>
+<td>0x3B</td>
+<td>0x30</td>
+<td>用户态: <code>TEB</code>，内核态: <code>KPCR</code></td>
+</tr>
+<tr>
+<td>GS</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>通常未使用</td>
+</tr>
+</tbody></table>
+<p> 64 位 Windows（x64）段寄存器：</p>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>Ring 3 (用户态)</th>
+<th>Ring 0 (内核态)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CS</td>
+<td>0x33</td>
+<td>0x10</td>
+<td>代码段</td>
+</tr>
+<tr>
+<td>DS</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>被忽略，平坦段</td>
+</tr>
+<tr>
+<td>SS</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>被忽略，平坦段</td>
+</tr>
+<tr>
+<td>ES</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>被忽略，平坦段</td>
+</tr>
+<tr>
+<td>FS</td>
+<td>0x00 (或用于 WOW64)</td>
+<td>0x00</td>
+<td>兼容层用，64 位下一般不用</td>
+</tr>
+<tr>
+<td>GS</td>
+<td>0x53 (或配置值)</td>
+<td>0x10</td>
+<td>用户态: <code>TEB</code>，内核态: <code>KPCR</code></td>
+</tr>
+</tbody></table>
+<h4 id="段寄存器结构"><a href="#段寄存器结构" class="headerlink" title="段寄存器结构"></a>段寄存器结构</h4><p>在x86保护模式下，每个段寄存器有一个16位的可见部分（段选择子）和一个80位的隐含部分（包含段基址、界限和属性）。所以，段寄存器的总长度是96位，其中只有16位是可见的。当然不可见的部分其实对我们来说是透明的，因为这一部分在段寄存器中的属性是从段描述符中加载出来，以提高内存访问速度。</p>
+<p>为了更准确地描述段寄存器，可以使用如下的结构体：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SegmentRegister</span> &#123;</span></span><br><span class="line">    WORD Selector;     <span class="comment">// 段选择子 16位 可见</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">        WORD Attributes; <span class="comment">// 段属性 16位 不可见</span></span><br><span class="line">        DWORD Limit;   <span class="comment">// 段大小 20位（界限）+ 12位标志，不可见</span></span><br><span class="line">        DWORD Base;    <span class="comment">// 段基址 32位 不可见</span></span><br><span class="line">    &#125; Hidden;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/4f2684f1ab4ad202e7f03c900f782bdb.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<ul>
+<li><p><strong>Selector（段选择子）</strong> ：段寄存器中唯一可见的部分，它包含段选择子的索引、TI（表指示位）和RPL（请求特权级别）。Selector用于在GDT或LDT中查找段描述符。</p>
+<ul>
+<li><strong>索引（Index）</strong> ：段描述符在描述符表（GDT 或 LDT）中的索引。</li>
+<li><strong>TI（Table Indicator）</strong> ：指示使用全局描述符表（GDT）还是局部描述符表（LDT）。<ul>
+<li>0：使用 GDT。</li>
+<li>1：使用 LDT。</li>
+</ul>
+</li>
+<li><strong>RPL（Requested Privilege Level）</strong> ：请求的特权级别，用于权限检查。</li>
+</ul>
+</li>
+<li><p><strong>Base（段基址）</strong> ：段的起始地址，由段描述符中的 Base 字段组成。Base 字段在段描述符中分为三部分（低、中、高），合并后形成完整的 32 位基址。</p>
+</li>
+<li><p><strong>Limit（段大小）</strong> ：段的界限，由段描述符中的 Limit 字段组成。Limit 字段也分为低 16 位和高 4 位，高 4 位包含在段描述符的高字节中。Limit 通常表示段的大小。</p>
+</li>
+<li><p><strong>Attributes（段属性）</strong> ：段的属性和类型信息，包括段的类型（代码段、数据段）、DPL（描述符特权级别）、存在位（P）、扩展向下位（D&#x2F;B）、可访问位（A）等。</p>
+</li>
+</ul>
+<h4 id="段寄存器读写"><a href="#段寄存器读写" class="headerlink" title="段寄存器读写"></a>段寄存器读写</h4><h5 id="数据段寄存器"><a href="#数据段寄存器" class="headerlink" title="数据段寄存器"></a>数据段寄存器</h5><p>数据段寄存器读写通常是通过寄存器完成的，例如 <code>mov ds, ax</code>，<code>mov ax, es</code> 等。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p><code>ss</code> 寄存器也能通过 <code>mov</code> 指令修改，但是 <code>ss</code> 的 RPL 要保持不变。因为 <code>ss</code> 的 RPL 和 <code>cs</code> 的 RPL 同为 CPL，段权限管理要求 <code>cs</code> 和 <code>ss</code> 的 RPL 要始终保持相同，而仅通过 <code>mov</code> 指令修改 <code>ss</code> 的 RPL 显然不符合这一规定。</p>
+
+    </div>
+  </div>
+
+<h5 id="代码段寄存器"><a href="#代码段寄存器" class="headerlink" title="代码段寄存器"></a>代码段寄存器</h5><p><code>cs</code> 寄存器不能通过 <code>mov</code> 指令修改，因此我们必须通过跨段跳转指令来修改 <code>cs</code> 寄存器。 例如 <code>jmp fword</code> 和 <code>call fword</code> 指令：</p>
+<div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">jmp</span> <span class="built_in">far</span> <span class="meta">segment</span>:offset</span><br><span class="line"><span class="keyword">call</span> <span class="built_in">far</span> <span class="meta">segment</span>:offset</span><br></pre></td></tr></table></figure></div>
+
+<p>在 MSVC（尤其是 32 位 x86 平台）中，这种远跳指令不能像在裸汇编（nasm &#x2F; gas）里那样直接立即数跳转：</p>
+<div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">jmp</span> <span class="built_in">far</span> <span class="number">0x1234</span>:<span class="number">0x5678</span></span><br><span class="line"><span class="keyword">call</span> <span class="built_in">far</span> <span class="number">0x1234</span>:<span class="number">0x5678</span></span><br></pre></td></tr></table></figure></div>
+
+<p>因此我们需要使用 <code>call fword ptr [mem]</code> 指令来代替：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FarPointer</span> &#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> offset;    <span class="comment">// 32 位</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> selector; <span class="comment">// 16 位</span></span><br><span class="line">&#125; fp = &#123;<span class="number">0x5678</span>, <span class="number">0x1234</span>&#125;;</span><br><span class="line"></span><br><span class="line">__asm &#123;</span><br><span class="line">    jmp fword ptr ds:[fp]</span><br><span class="line">    call fword ptr ds:[fp]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>另外对于 <code>call fword ptr</code> 和 <code>call far</code> 指令，如果 CPL 不变则会在向栈中依次压入<strong>调用者的 cs</strong> 和<strong>返回地址</strong>（CPL 变化的情况比较复杂，具体见调用门部分）。</p>
+<p>因此我们返回时需要通过 <code>retf</code> 指令返回。为了避免编译器在函数代码中生成堆栈帧（<code>push ebp</code>&#x2F;<code>mov ebp, esp</code>…），我们需要借助<strong>裸函数（naked function）</strong>精确控制函数的入口和返回指令。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__declspec(naked) <span class="type">void</span> <span class="title function_">func</span><span class="params">()</span> &#123;</span><br><span class="line">    __asm &#123;</span><br><span class="line">        <span class="comment">// 这里写汇编指令</span></span><br><span class="line">        retf</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>除此之外中断指令以及对应的返回指令 <code>iret</code> 同样会修改 <code>cs</code> 寄存器。</p>
+<h3 id="段描述符表（Descriptor-Table）"><a href="#段描述符表（Descriptor-Table）" class="headerlink" title="段描述符表（Descriptor Table）"></a>段描述符表（Descriptor Table）</h3><h4 id="段描述符表种类"><a href="#段描述符表种类" class="headerlink" title="段描述符表种类"></a>段描述符表种类</h4><p>段描述符表是存储段描述符的结构，定义了各个段的属性。x86架构中有两种主要的段描述符表：</p>
+<h5 id="全局描述符表（GDT-Global-Descriptor-Table）"><a href="#全局描述符表（GDT-Global-Descriptor-Table）" class="headerlink" title="全局描述符表（GDT, Global Descriptor Table）"></a>全局描述符表（GDT, Global Descriptor Table）</h5><ul>
+<li><strong>作用</strong> ：全局描述符表用于定义系统范围内的段，包括代码段、数据段和系统段（如任务状态段TSS）。</li>
+<li><strong>存储位置</strong> ：GDT存储在内存中的一个固定位置，其基址和界限由 GDTR（GDT Register）寄存器保存。</li>
+<li><strong>访问方式</strong> ：通过段选择子中的 TI 位（Table Indicator）为 0 来选择 GDT 。</li>
+<li><strong>相关汇编指令</strong>：<ul>
+<li><code>lgdt [mem]</code> → 加载 GDT</li>
+<li><code>sgdt [mem]</code> → 存储 GDT（SGDT 可以在 Ring 3 执行，常用于探测系统）</li>
+</ul>
+</li>
+<li><strong>WinDbg 命令</strong>：<ul>
+<li><code>dg</code> → 显示当前 GDT 各段描述符</li>
+<li><code>r gdtr</code> → 查看 GDT 寄存器 GDTR</li>
+</ul>
+</li>
+</ul>
+<h5 id="局部描述符表（LDT-Local-Descriptor-Table）"><a href="#局部描述符表（LDT-Local-Descriptor-Table）" class="headerlink" title="局部描述符表（LDT, Local Descriptor Table）"></a>局部描述符表（LDT, Local Descriptor Table）</h5><ul>
+<li><p><strong>作用</strong> ：局部描述符表用于定义特定任务或进程的段，通常用于多任务环境中。</p>
+</li>
+<li><p><strong>存储位置</strong> ：LDT 也存储在内存中的一个固定位置，其基址和界限由 LDTR（LDT Register）寄存器保存。</p>
+</li>
+<li><p><strong>访问方式</strong> ：通过段选择子中的 TI 位为 1 来选择 LDT 。</p>
+</li>
+<li><p><strong>相关汇编指令</strong>：</p>
+<ul>
+<li><code>lldt reg/mem</code> → 加载 LDTR</li>
+<li><code>sldt reg/mem</code> → 存储 LDTR（Ring 3 可执行）</li>
+<li><code>str reg/mem</code> → 存储任务寄存器（可用于 TSS 调试）</li>
+</ul>
+</li>
+<li><p><strong>WinDbg 命令</strong>：</p>
+</li>
+<li><p><code>!ldt</code> → 查看当前进程的 LDT（如果存在）</p>
+</li>
+<li><p><code>r ldtr</code> → 查看 LDTR 内容</p>
+</li>
+</ul>
+<h4 id="段描述符（Segment-Descriptor）"><a href="#段描述符（Segment-Descriptor）" class="headerlink" title="段描述符（Segment Descriptor）"></a>段描述符（Segment Descriptor）</h4><p>段描述符是描述段属性的结构体，存储在GDT或LDT中。每个段描述符占用8个字节，包含段的基址、界限和属性等信息。</p>
+<p>一个段描述符的结构如下：</p>
+<p>![Figure 3-8. Segment Descriptor](images&#x2F;Figure 3-8. Segment Descriptor.svg)</p>
+<ul>
+<li><p><strong>基址（Base Address）</strong> ：段的起始地址，由 8 位高位基址（<code>Base 31:24</code>）、8 位中位基址（<code>Base 23:16</code>）和 16 位低位基址（<code>Base Address 15:00</code>）组成，共32位。</p>
+</li>
+<li><p><strong>界限（Limit）</strong> ：段的大小，由 16 位低位界限（<code>Limit 15:0</code>）和 4 位高位界限（<code>Limit 19:16</code>）组成，共 20 位。</p>
+</li>
+<li><p><strong>访问权限（Access Byte）</strong> ：描述段的类型、特权级别和访问权限。</p>
+<ul>
+<li><p><strong>P（Present）</strong> ：段存在位，1 表示段存在。段描述符加载时，首先看 P 位是否为 1 。</p>
+<ul>
+<li><p><strong>DPL（Descriptor Privilege Level）</strong> ：描述符的特权级别，共 2 位。</p>
+</li>
+<li><p><strong>S（Descriptor Type）</strong>，<strong>Type</strong> ：<code>S</code> 描述符类型，<code>Type</code> 根据 <code>S</code> 的不同含义不同。</p>
+<ul>
+<li><code>S</code> 为 0 表示系统段，此时 <code>Type</code> 描述系统段的类型（如调用门，中断门，陷阱门等），含义如下表所示。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250602003006973.png"
+                      alt="image-20250602003006973"
+                ></p>
+</li>
+<li><p><code>S</code> 为 1 表示代码段或数据段，此时 <code>Type</code> 描述段的具体类型（如代码段、数据段）和访问权限，含义如下表所示。</p>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250601231301425.png"
+                      alt="image-20250601231301425"
+                ></p>
+<p>另外 <code>Type</code> 对应代码段和数据段时分别引入了一个新概念：</p>
+<ul>
+<li>一致代码段（Conforming Code Segment）：<ul>
+<li>当 <code>Type</code> 的 11 位为 1 时段描述符表示的是代码段，此时如果 <code>C</code> 位（10 位）为 1 则表示为一致代码段。</li>
+<li>一致代码段是指当 CPU 执行跨特权级的代码段切换（比如调用更高权限的代码段）时，<strong>不需要特权级检查</strong>，允许直接进入。</li>
+<li>CPU 不会在段切换时更改 CPL（因为一致代码段特权级不敏感）。</li>
+</ul>
+</li>
+<li>向下拓展数据段（Expand-Down Data Segment）<ul>
+<li>当 <code>Type</code> 的 11 位为 0 时段描述符表示的是数据段，此时如果 <code>E</code> 位（10 位）为 1 则表示为向下拓展。</li>
+<li>正常情况下的我们见到的数据段都是向上拓展的，即有效偏移范围是从 <code>0</code> 到 <code>Limit</code> 。</li>
+<li>对于向下拓展的数据段，有效偏移范围是从 <code>Limit + 1</code> 到最大偏移值（例如，<code>0xFFFF</code> 或 <code>0xFFFFFFFF</code>，取决于段的大小）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>标志位（Flags）</strong> ：包括 <code>G</code> 位（Granularity），<code>D/B</code> 位（Default&#x2F;Big），<code>L</code> 位（64-bit code segment）和 <code>AVL</code> 位（Available for use by system software）。</p>
+<ul>
+<li><p><strong>G位（Granularity）</strong> ：决定界限单位。</p>
+<ul>
+<li>0 表示段寄存器的 <code>Limit</code> 元素单位为字节，即最大范围为 0x000FFFFF（1MB）。</li>
+<li>1 表示段寄存器的 <code>Limit</code> 元素单位为 4KB ，即最大范围为 0xFFFFFFFF（4GB）。</li>
+</ul>
+</li>
+<li><p><strong>D&#x2F;B 位（Default Operand Size &#x2F; Big）</strong> ：决定了默认的操作数和地址的大小，以及堆栈指针的大小。</p>
+  
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p>这里需要与 <code>Type</code> 位配合才能生效。<code>Type</code> 位决定了段描述符是<strong>代码段</strong>还是<strong>数据段</strong>，另外还决定了一些特性如<strong>向下拓展</strong>是否生效。</p>
+
+    </div>
+  </div>
+<ul>
+<li>对于代码段：<ul>
+<li><strong>0</strong> ：默认操作数和地址大小为 16 位。例如 <code>push</code> 指令只能压 2 字节。</li>
+<li><strong>1</strong> ：默认操作数和地址大小为 32 位。</li>
+</ul>
+</li>
+<li>对于堆栈段：<ul>
+<li><strong>0</strong> ：使用 16 位堆栈指针。</li>
+<li><strong>1</strong> ：使用 32 位堆栈指针。</li>
+</ul>
+</li>
+<li>对于数据段：<ul>
+<li><strong>0</strong> ：向下拓展。<ul>
+<li><strong>1</strong> ：向上拓展。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>L 位（64-bit code segment）</strong> ：仅适用于IA-32e模式（64位模式），当L位为1时，段描述符表示64位代码段。</p>
+<ul>
+<li><strong>0</strong> ：表示这是一个 16 位或 32 位代码段。</li>
+<li><strong>1</strong> ：表示这是一个 64 位代码段。</li>
+</ul>
+</li>
+<li><p><strong>AVL 位（Available for use by system software）</strong> ：供操作系统或其他系统软件使用，用于特定用途，例如标记段的状态，未被硬件使用。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="段权限检测"><a href="#段权限检测" class="headerlink" title="段权限检测"></a>段权限检测</h3><h4 id="权限类型"><a href="#权限类型" class="headerlink" title="权限类型"></a>权限类型</h4><p>Ring Model 是一种 <strong>CPU 权限级别（Privilege Level）</strong> 的分层架构，主要用于操作系统中处理权限隔离和保护。它通过硬件机制，限制不同权限级别的代码对系统资源的访问，从而提高系统的安全性和稳定性。</p>
+<p>Ring Model 的分层通常分为 4 个等级，编号从 0 到 3：<code>Ring 0</code>，<code> Ring 1</code>， <code>Ring 2</code>， <code>Ring 3</code>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250602015322945.png"
+                      alt="image-20250602015322945"
+                ></p>
+<p>CPU 的权限等级主要有段机制来维护，具体来说段机制中有下面几个权限类型：</p>
+<ul>
+<li><strong>CPL（Current Privilege Level）</strong>：<ul>
+<li>表示当前程序的运行权限级别。</li>
+<li>由 CS 和 SS 的 RPL（低两位）决定，并且 CS 和 SS 的低两位一定相等（因为权限变化要求 CS 和 SS 同时修改，并且 CS 和 SS 必须变成相同是值）。</li>
+</ul>
+</li>
+<li><strong>RPL（Requested Privilege Level）</strong>：<ul>
+<li>请求访问段时指定的权限级别。通常由访存时使用的段寄存器的段选择子决定</li>
+</ul>
+</li>
+<li><strong>DPL（Descriptor Privilege Level）</strong>：<ul>
+<li>描述符中定义的段权限级别。</li>
+</ul>
+</li>
+</ul>
+<h4 id="权限规则"><a href="#权限规则" class="headerlink" title="权限规则"></a>权限规则</h4><h5 id="权限检测规则"><a href="#权限检测规则" class="headerlink" title="权限检测规则"></a>权限检测规则</h5><ul>
+<li>对于数据段：仅检测 DPL 与 CPL 之间的大小关系，当且仅当 DPL 在数值上大于等于 CPL 时允许。例如当 CPL &#x3D;  DPL &#x3D; 3 时，即使 RPL &#x3D; 0 也允许访问。</li>
+<li>对于堆栈段和代码段：当且仅当 CPL &#x3D; RPL &#x3D; DPL 时允许访问。因为堆栈段在数据段的基础上本身 RPL 就是 CPL。</li>
+<li>对于系统段：CPL &#x3D; RPL ≤ 门描述符的 DPL</li>
+</ul>
+<h5 id="权限修改规则"><a href="#权限修改规则" class="headerlink" title="权限修改规则"></a>权限修改规则</h5><ul>
+<li><p><code>cs</code> 的权限一旦改变，<code>ss</code> 的权限也要随着改变，<code>cs</code> 与 <code>ss</code> 的等级必须一样。</p>
+</li>
+<li><p><code>int</code>，<code>call far</code> 这一类的指令可以通过系统段提权（TSS 段除外）。</p>
+</li>
+<li><p><code>retf</code>，<code>iretd</code> 这一类指令只能同级跳转或者降权。</p>
+</li>
+</ul>
+<h3 id="调用门"><a href="#调用门" class="headerlink" title="调用门"></a>调用门</h3><p>在 x86 保护模式下，调用门（Call Gate）是一种特殊的系统段描述符。它的作用是：<strong>允许安全地从一个代码段转移到另一个代码段，通常伴随特权级切换</strong>。</p>
+<h4 id="门描述符"><a href="#门描述符" class="headerlink" title="门描述符"></a>门描述符</h4><p>![Figure 5-8. Call-Gate Descriptor](images&#x2F;Figure 5-8. Call-Gate Descriptor.svg)</p>
+<ul>
+<li><strong>偏移地址（Offset）</strong> ：目标代码段中被调用过程的入口的<strong>逻辑地址</strong>，分为 16 位的低位偏移（<code>Offset 15:00</code>）和 16 位的高位偏移（<code>Offset 31:16</code>），需要与段选择子指向的段描述符结合才能得到入口的<strong>线性地址</strong>。</li>
+<li><strong>段选择子（Segment Selector）</strong> ：调用门要跳转到的目标代码段的选择子，用于在 GDT 或 LDT 中查找目标代码段的描述符。</li>
+<li><strong>参数计数（Param Count）</strong> ：堆栈切换时需要从旧特权级堆栈复制到新特权级堆栈的参数个数，5 位（<code>Param Count</code>），单位为字（16 位）或双字（32 位），具体取决于调用门的大小。</li>
+<li><strong>类型（Type）</strong> ：4 位，表示调用门的类型。对于 32 位调用门，值为 <code>1100</code>（0xC）；对于 16 位调用门，值为 <code>0100</code>（0x4）。</li>
+<li><strong>系统段标志（S）</strong> ：1 位，固定为 0，表示调用门是系统段，而不是普通的代码段或数据段。</li>
+<li><strong>描述符特权级（DPL）</strong> ：2 位，表示访问调用门时所需的最低特权级，用于特权检查。</li>
+<li><strong>段存在标志（P）</strong> ：1 位，表示调用门描述符是否存在。若为 0，访问该调用门会触发 #NP（Not Present）异常。</li>
+</ul>
+<h4 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h4><p>当我们通过 <code>call/jmp far</code> 或者 <code>call/jmp fword ptr</code> 指令调用调用门：</p>
+<ol>
+<li><p>根据指令中的段选择子找到调用门。（指令中的地址没有用到，最终跳转到的地址由调用门的门描述符中的 <code>Offset</code> 字段决定）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250602051346485.png"
+                      alt="image-20250602051346485"
+                ></p>
+</li>
+<li><p>进行权限检查：</p>
+<ul>
+<li>RPL（CPL） 在数值上小于等于 DPL。</li>
+<li>如果是 <code>jmp</code> 则调用门的段选择子对应的代码段的 DPL 等于 CPL。（跳转后权限不变）</li>
+<li>如果是 <code>call</code> 则调用门的段选择子对应的代码段的 DPL 在数值上小于等于 CPL。（跳转后提权）</li>
+</ul>
+</li>
+<li><p>判断调用门是否提权：</p>
+<ul>
+<li><p>如果没有权限变化则等价于普通的跨段跳转，只不过这里跳转的地址不是直接从操作数获取的。</p>
+</li>
+<li><p>如果权限发生变化则需要进行栈切换：</p>
+<ul>
+<li><p>从 TSS 中获取新的 <code>ss</code> 和 <code>esp</code> 更新对应的寄存器。</p>
+</li>
+<li><p>将原有的 <code>ss</code>，<code>esp</code>，参数（从原本的栈中拷贝），<code>cs</code>，返回地址依次压入新的堆栈。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250602053230511.png"
+                      alt="image-20250602053230511"
+                ></p>
+</li>
+<li><p>更新 <code>cs</code>，<code>eip</code> 为</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p><code>int 3</code> 中断处理函数 <code>_KiTrap03</code> 会将 <code>fs</code> 寄存器修改为 0x30，而由于我们通过调用门提权后处于 0 环权限，<code>_KiTrap03</code> 并不会恢复 <code>fs</code> 寄存器，因此我们在返回 3 环时需要手动还原 <code>fs</code> 寄存器。</p>
+
+    </div>
+  </div>
+
+
+
+<h3 id="中断门"><a href="#中断门" class="headerlink" title="中断门"></a>中断门</h3><h3 id="陷阱门"><a href="#陷阱门" class="headerlink" title="陷阱门"></a>陷阱门</h3><h3 id="任务段"><a href="#任务段" class="headerlink" title="任务段"></a>任务段</h3><h2 id="页式内存管理"><a href="#页式内存管理" class="headerlink" title="页式内存管理"></a>页式内存管理</h2><h1 id="驱动开发"><a href="#驱动开发" class="headerlink" title="驱动开发"></a>驱动开发</h1><h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h1 id="句柄表"><a href="#句柄表" class="headerlink" title="句柄表"></a>句柄表</h1>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> windows 内核态逆向开发</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2022-09-28 11:45:14</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-06-02 23:37:30
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2022/09/28/windows 内核态逆向开发/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/windows-kernel-reverse/">#windows kernel reverse</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2022/09/28/linux%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">linux 用户态逆向开发</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">windows 用户态逆向开发</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">windows 内核态逆向开发</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="nav-text">保护模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="nav-text">CPU 的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%EF%BC%88Real-Mode%EF%BC%89"><span class="nav-text">实模式（Real Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%EF%BC%88Protected-Mode%EF%BC%89"><span class="nav-text">保护模式（Protected Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F8086%E6%A8%A1%E5%BC%8F%EF%BC%88Virtual-8086-Mode%EF%BC%89"><span class="nav-text">虚拟8086模式（Virtual 8086 Mode）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-text">保护模式下的地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%EF%BC%88Logical-Address%EF%BC%89"><span class="nav-text">逻辑地址（Logical Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%EF%BC%88Virtual-Address%EF%BC%89"><span class="nav-text">虚拟地址（Virtual Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%EF%BC%88Physical-Address%EF%BC%89"><span class="nav-text">物理地址（Physical Address）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">段式内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88Segment-Registers%EF%BC%89"><span class="nav-text">段寄存器（Segment Registers）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">主要段寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%93%E6%9E%84"><span class="nav-text">段寄存器结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E8%AF%BB%E5%86%99"><span class="nav-text">段寄存器读写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">数据段寄存器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">代码段寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88Descriptor-Table%EF%BC%89"><span class="nav-text">段描述符表（Descriptor Table）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%E7%A7%8D%E7%B1%BB"><span class="nav-text">段描述符表种类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88GDT-Global-Descriptor-Table%EF%BC%89"><span class="nav-text">全局描述符表（GDT, Global Descriptor Table）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88LDT-Local-Descriptor-Table%EF%BC%89"><span class="nav-text">局部描述符表（LDT, Local Descriptor Table）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%88Segment-Descriptor%EF%BC%89"><span class="nav-text">段描述符（Segment Descriptor）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B"><span class="nav-text">段权限检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B1%BB%E5%9E%8B"><span class="nav-text">权限类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E8%A7%84%E5%88%99"><span class="nav-text">权限规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99"><span class="nav-text">权限检测规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E6%94%B9%E8%A7%84%E5%88%99"><span class="nav-text">权限修改规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%97%A8"><span class="nav-text">调用门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">门描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">调用过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E9%97%A8"><span class="nav-text">中断门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1%E9%97%A8"><span class="nav-text">陷阱门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E6%AE%B5"><span class="nav-text">任务段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">页式内存管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91"><span class="nav-text">驱动开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E8%A1%A8"><span class="nav-text">句柄表</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        35 posts in total
+                    </span>
+                    
+                        <span>
+                            540k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>

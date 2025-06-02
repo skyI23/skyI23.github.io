@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2022/09/28/windows 用户态逆向开发/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            windows 用户态逆向开发 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">windows 用户态逆向开发</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2022-09-28 11:45:14</span>
+        <span class="mobile">2022-09-28 11:45:14</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-06-01 23:25:42</span>
+            <span class="mobile">2025-06-01 23:25:42</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>18 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="VS-导入第三方-lib-库"><a href="#VS-导入第三方-lib-库" class="headerlink" title="VS 导入第三方 lib 库"></a>VS 导入第三方 lib 库</h2><p>待更新</p>
+<h2 id="获取进程句柄"><a href="#获取进程句柄" class="headerlink" title="获取进程句柄"></a>获取进程句柄</h2><p>这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。</p>
+<p><code>CreateToolhelp32Snapshot</code> 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cppCopy codeHANDLE <span class="title function_">CreateToolhelp32Snapshot</span><span class="params">(</span></span><br><span class="line"><span class="params">  DWORD dwFlags,       <span class="comment">// 想要获取的快照类型，这里我们使用TH32CS_SNAPPROCESS表示进程快照</span></span></span><br><span class="line"><span class="params">  DWORD th32ProcessID  <span class="comment">// 进程ID，如果设置为0，则获取所有进程的快照</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><strong>dwFlags</strong>：指定快照的内容。对于进程快照，使用 <code>TH32CS_SNAPPROCESS</code> 。常用值含义如下：<ul>
+<li><code>TH32CS_SNAPPROCESS</code>：表示进程快照。</li>
+<li><code>TH32CS_SNAPTHREAD</code>：表示线程快照。</li>
+<li><code>TH32CS_SNAPMODULE</code>：表示模块快照。</li>
+<li><code>TH32CS_SNAPHEAPLIST</code>：表示堆快照。</li>
+</ul>
+</li>
+<li><strong>th32ProcessID</strong>：指定要快照的进程的 ID 。0 表示获取所有进程的快照。</li>
+<li><strong>返回值</strong>：如果成功，返回快照的句柄；如果失败，返回 <code>INVALID_HANDLE_VALUE</code> 。</li>
+</ul>
+<p><code>Process32First</code> 函数用于获取进程快照中的第一个进程的信息。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cppCopy codeBOOL <span class="title function_">Process32First</span><span class="params">(</span></span><br><span class="line"><span class="params">  HANDLE hSnapshot,    <span class="comment">// 由CreateToolhelp32Snapshot返回的快照句柄</span></span></span><br><span class="line"><span class="params">  LPPROCESSENTRY32 lppe  <span class="comment">// 指向PROCESSENTRY32结构的指针，用于接收进程信息</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><strong>hSnapshot</strong>：由 <code>CreateToolhelp32Snapshot</code> 返回的快照句柄。</li>
+<li><strong>lppe</strong>：指向 <code>PROCESSENTRY32</code> 结构的指针，用于接收第一个进程的信息。</li>
+<li><strong>返回值</strong>：如果成功，返回非零值；如果失败或没有更多进程，返回零。</li>
+</ul>
+<p><code>Process32Next</code> 函数用于获取快照中的下一个进程的信息。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cppCopy codeBOOL <span class="title function_">Process32Next</span><span class="params">(</span></span><br><span class="line"><span class="params">  HANDLE hSnapshot,    <span class="comment">// 由CreateToolhelp32Snapshot返回的快照句柄</span></span></span><br><span class="line"><span class="params">  LPPROCESSENTRY32 lppe  <span class="comment">// 指向PROCESSENTRY32结构的指针，用于接收进程信息</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><strong>hSnapshot</strong>：由 <code>CreateToolhelp32Snapshot</code> 返回的快照句柄。</li>
+<li><strong>lppe</strong>：指向 <code>PROCESSENTRY32</code> 结构的指针，用于接收下一个进程的信息。</li>
+<li><strong>返回值</strong>：如果成功，返回非零值；如果失败或没有更多进程，返回零。</li>
+</ul>
+<p>利用上述 API 可以枚举系统中的所有进程，以找到目标进程的进程 ID（PID）。<strong>注意，同一个程序可能会创建多个进程。</strong></p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tlhelp32.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取目标进程的PID</span></span><br><span class="line"><span class="function">DWORD <span class="title">GetTargetProcessId</span><span class="params">(<span class="type">const</span> TCHAR *processName)</span> </span>&#123;</span><br><span class="line">    DWORD processId = <span class="number">-1</span>;</span><br><span class="line">    HANDLE hSnapshot = <span class="built_in">CreateToolhelp32Snapshot</span>(TH32CS_SNAPPROCESS, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (hSnapshot != INVALID_HANDLE_VALUE) &#123;</span><br><span class="line">        PROCESSENTRY32 pe;</span><br><span class="line">        pe.dwSize = <span class="built_in">sizeof</span>(pe);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Process32First</span>(hSnapshot, &amp;pe)) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (_tcsicmp(pe.szExeFile, processName) == <span class="number">0</span>) &#123;</span><br><span class="line">                    processId = pe.th32ProcessID;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">while</span> (<span class="built_in">Process32Next</span>(hSnapshot, &amp;pe));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hSnapshot);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> processId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> _tmain() &#123;</span><br><span class="line">    <span class="type">const</span> TCHAR *targetProcessName = _T(<span class="string">&quot;target.exe&quot;</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">GetTargetProcessId</span>(targetProcessName) &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h1 id="注入技术"><a href="#注入技术" class="headerlink" title="注入技术"></a>注入技术</h1><h2 id="远程线程注入"><a href="#远程线程注入" class="headerlink" title="远程线程注入"></a>远程线程注入</h2><p>远程线程注入是一种将代码注入到目标进程的方法。它通过在目标进程中创建一个新的线程来执行我们指定的代码。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>获取目标进程的句柄。</li>
+<li>在目标进程的地址空间中分配内存。</li>
+<li>将要执行的代码（如DLL路径）写入目标进程的内存中。</li>
+<li>使用 <code>CreateRemoteThread</code> 函数在目标进程中创建一个新线程，使其执行我们指定的代码（如 <code>LoadLibrary</code> 函数）。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/5fae4b098d146f074e495f07b8b1d7b3.png"
+                      alt="img"
+                ></li>
+</ol>
+<h3 id="API-介绍"><a href="#API-介绍" class="headerlink" title="API 介绍"></a>API 介绍</h3><p><code>OpenProcess</code> 函数用于打开一个已存在的进程，并返回进程的句柄。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">OpenProcess</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD dwDesiredAccess,  <span class="comment">// 想要获取的访问权限，这里我们使用PROCESS_ALL_ACCESS表示所有权限</span></span></span></span><br><span class="line"><span class="params"><span class="function">  BOOL bInheritHandle,    <span class="comment">// 如果为TRUE，句柄将被子进程继承</span></span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD dwProcessId       <span class="comment">// 要打开的进程的ID</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>dwDesiredAccess</strong>：指定所需的访问权限。常用值：<ul>
+<li><code>PROCESS_ALL_ACCESS</code>：表示所有可能的权限。</li>
+<li><code>PROCESS_CREATE_THREAD</code>：允许创建线程。</li>
+<li><code>PROCESS_VM_OPERATION</code>：允许虚拟内存操作。</li>
+<li><code>PROCESS_VM_READ</code>：允许读取进程的内存。</li>
+<li><code>PROCESS_VM_WRITE</code>：允许写入进程的内存。</li>
+</ul>
+</li>
+<li><strong>bInheritHandle</strong>：指定新句柄是否可以被当前进程创建的子进程继承。如果为 TRUE ，则可以继承；否则不能。</li>
+<li><strong>dwProcessId</strong>：指定要打开的进程的 ID 。</li>
+<li><strong>返回值</strong>：如果成功，返回进程的句柄；如果失败，返回 <code>NULL</code> 。</li>
+</ul>
+<p><code>VirtualAllocEx</code> 函数用于在目标进程的地址空间中分配内存。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cppCopy codeLPVOID <span class="title function_">VirtualAllocEx</span><span class="params">(</span></span><br><span class="line"><span class="params">  HANDLE hProcess,        <span class="comment">// 目标进程的句柄</span></span></span><br><span class="line"><span class="params">  LPVOID lpAddress,       <span class="comment">// 指定内存地址，可以为NULL</span></span></span><br><span class="line"><span class="params">  SIZE_T dwSize,          <span class="comment">// 要分配的内存大小</span></span></span><br><span class="line"><span class="params">  DWORD flAllocationType, <span class="comment">// 内存分配类型，这里使用MEM_COMMIT</span></span></span><br><span class="line"><span class="params">  DWORD flProtect         <span class="comment">// 内存保护属性，这里使用PAGE_READWRITE</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><strong>hProcess</strong>：目标进程的句柄。</li>
+<li><strong>lpAddress</strong>：指定内存地址，可以为 <code>NULL</code> ，表示由系统决定分配位置。</li>
+<li><strong>dwSize</strong>：要分配的内存大小。</li>
+<li><strong>flAllocationType</strong>：内存分配类型。常用值：<ul>
+<li><code>MEM_COMMIT</code>：分配物理内存并将其初始化为零。</li>
+<li><code>MEM_RESERVE</code>：保留一块虚拟地址空间，但不分配物理内存。</li>
+</ul>
+</li>
+<li><strong>flProtect</strong>：内存保护属性。常用值：<ul>
+<li><code>PAGE_READWRITE</code>：可读写的内存。</li>
+<li><code>PAGE_READONLY</code>：只读内存。</li>
+<li><code>PAGE_EXECUTE</code>：可执行内存。</li>
+</ul>
+</li>
+<li><strong>返回值</strong>：如果成功，返回分配的内存地址；如果失败，返回<code>NULL</code>。</li>
+</ul>
+<p><code>WriteProcessMemory</code> 函数用于将数据写入目标进程的内存中。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">WriteProcessMemory</span><span class="params">(</span></span><br><span class="line"><span class="params">  HANDLE hProcess,       <span class="comment">// 目标进程的句柄</span></span></span><br><span class="line"><span class="params">  LPVOID lpBaseAddress,  <span class="comment">// 目标进程的内存地址</span></span></span><br><span class="line"><span class="params">  LPCVOID lpBuffer,      <span class="comment">// 要写入的数据缓冲区</span></span></span><br><span class="line"><span class="params">  SIZE_T nSize,          <span class="comment">// 要写入的数据大小</span></span></span><br><span class="line"><span class="params">  SIZE_T *lpNumberOfBytesWritten <span class="comment">// 实际写入的数据大小，可以为NULL</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><strong>hProcess</strong>：目标进程的句柄。</li>
+<li><strong>lpBaseAddress</strong>：目标进程的内存地址。</li>
+<li><strong>lpBuffer</strong>：要写入的数据缓冲区。</li>
+<li><strong>nSize</strong>：要写入的数据大小。</li>
+<li><strong>lpNumberOfBytesWritten</strong>：实际写入的数据大小，可以为 <code>NULL</code> 。</li>
+<li><strong>返回值</strong>：如果成功，返回非零值；如果失败，返回零。</li>
+</ul>
+<p><code>CreateRemoteThread</code> 函数用于在目标进程中创建一个新线程。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">CreateRemoteThread</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  HANDLE hProcess,                         <span class="comment">// 目标进程的句柄</span></span></span></span><br><span class="line"><span class="params"><span class="function">  LPSECURITY_ATTRIBUTES lpThreadAttributes, <span class="comment">// 线程安全属性，可以为NULL</span></span></span></span><br><span class="line"><span class="params"><span class="function">  SIZE_T dwStackSize,                      <span class="comment">// 线程的堆栈大小，可以为0</span></span></span></span><br><span class="line"><span class="params"><span class="function">  LPTHREAD_START_ROUTINE lpStartAddress,   <span class="comment">// 新线程的起始地址</span></span></span></span><br><span class="line"><span class="params"><span class="function">  LPVOID lpParameter,                      <span class="comment">// 传递给新线程的参数</span></span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD dwCreationFlags,                   <span class="comment">// 线程创建标志，这里使用0</span></span></span></span><br><span class="line"><span class="params"><span class="function">  LPDWORD lpThreadId                       <span class="comment">// 返回新线程的ID，可以为NULL</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><strong>hProcess</strong>：目标进程的句柄。</li>
+<li><strong>lpThreadAttributes</strong>：线程安全属性，可以为 <code>NULL</code> 。</li>
+<li><strong>dwStackSize</strong>：线程的堆栈大小，可以为 0 。</li>
+<li><strong>lpStartAddress</strong>：新线程的起始地址。</li>
+<li><strong>lpParameter</strong>：传递给新线程的参数。</li>
+<li><strong>dwCreationFlags</strong>：线程创建标志，常用的是 0 。</li>
+<li><strong>lpThreadId</strong>：返回新线程的 ID ，可以为 <code>NULL</code> 。</li>
+<li><strong>返回值</strong>：如果成功，返回新线程的句柄；如果失败，返回 <code>NULL</code> 。</li>
+</ul>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tlhelp32.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取目标进程的PID</span></span><br><span class="line"><span class="function">DWORD <span class="title">GetTargetProcessId</span><span class="params">(<span class="type">const</span> TCHAR* processName)</span> </span>&#123;</span><br><span class="line">    DWORD processId = <span class="number">0</span>;</span><br><span class="line">    HANDLE hSnapshot = <span class="built_in">CreateToolhelp32Snapshot</span>(TH32CS_SNAPPROCESS, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (hSnapshot != INVALID_HANDLE_VALUE) &#123;</span><br><span class="line">        PROCESSENTRY32 pe;</span><br><span class="line">        pe.dwSize = <span class="built_in">sizeof</span>(pe);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Process32First</span>(hSnapshot, &amp;pe)) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (_tcsicmp(pe.szExeFile, processName) == <span class="number">0</span>) &#123;</span><br><span class="line">                    processId = pe.th32ProcessID;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">while</span> (<span class="built_in">Process32Next</span>(hSnapshot, &amp;pe));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hSnapshot);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> processId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注入DLL到目标进程</span></span><br><span class="line"><span class="function">BOOL <span class="title">InjectDLL</span><span class="params">(DWORD processId, <span class="type">const</span> TCHAR *dllPath)</span> </span>&#123;</span><br><span class="line">    HANDLE hProcess = <span class="built_in">OpenProcess</span>(PROCESS_ALL_ACCESS, FALSE, processId);</span><br><span class="line">    <span class="keyword">if</span> (hProcess == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to open target process.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将相对路径转换为完整路径</span></span><br><span class="line">    TCHAR fullDllPath[MAX_PATH];</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">GetFullPathName</span>(dllPath, MAX_PATH, fullDllPath, <span class="literal">NULL</span>)) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to get full path of DLL.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分配内存</span></span><br><span class="line">    LPVOID pRemoteBuf = <span class="built_in">VirtualAllocEx</span>(hProcess, <span class="literal">NULL</span>, (_tcslen(fullDllPath) + <span class="number">1</span>) * <span class="built_in">sizeof</span>(TCHAR), MEM_COMMIT, PAGE_READWRITE);</span><br><span class="line">    <span class="keyword">if</span> (pRemoteBuf == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to allocate memory in target process.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 写入DLL路径</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">WriteProcessMemory</span>(hProcess, pRemoteBuf, (LPVOID) fullDllPath, (_tcslen(fullDllPath) + <span class="number">1</span>) * <span class="built_in">sizeof</span>(TCHAR), <span class="literal">NULL</span>)) &#123;</span><br><span class="line">        <span class="built_in">VirtualFreeEx</span>(hProcess, pRemoteBuf, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to write DLL path to target process memory.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取LoadLibrary的地址</span></span><br><span class="line">    HMODULE hKernel32 = <span class="built_in">GetModuleHandle</span>(_T(<span class="string">&quot;Kernel32.dll&quot;</span>));</span><br><span class="line">    LPVOID pLoadLibrary = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> UNICODE</span></span><br><span class="line">    pLoadLibrary = (LPVOID) <span class="built_in">GetProcAddress</span>(hKernel32, <span class="string">&quot;LoadLibraryW&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    pLoadLibrary = (LPVOID) <span class="built_in">GetProcAddress</span>(hKernel32, <span class="string">&quot;LoadLibraryA&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pLoadLibrary == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">VirtualFreeEx</span>(hProcess, pRemoteBuf, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to get address of LoadLibrary.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建远程线程加载DLL</span></span><br><span class="line">    HANDLE hThread = <span class="built_in">CreateRemoteThread</span>(hProcess, <span class="literal">NULL</span>, <span class="number">0</span>, (LPTHREAD_START_ROUTINE) pLoadLibrary, pRemoteBuf, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (hThread == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">VirtualFreeEx</span>(hProcess, pRemoteBuf, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to create remote thread in target process.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待远程线程结束</span></span><br><span class="line">    <span class="built_in">WaitForSingleObject</span>(hThread, INFINITE);</span><br><span class="line">    <span class="built_in">VirtualFreeEx</span>(hProcess, pRemoteBuf, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line">    <span class="built_in">CloseHandle</span>(hThread);</span><br><span class="line">    <span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line">    _tprintf(_T(<span class="string">&quot;[+] DLL injected successfully.\n&quot;</span>));</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> _tmain() &#123;</span><br><span class="line">    <span class="type">const</span> TCHAR* targetProcessName = _T(<span class="string">&quot;target_process.exe&quot;</span>);</span><br><span class="line">    <span class="type">const</span> TCHAR* dllPath = _T(<span class="string">&quot;inject_dll.dll&quot;</span>);</span><br><span class="line"></span><br><span class="line">    DWORD processId = <span class="built_in">GetTargetProcessId</span>(targetProcessName);</span><br><span class="line">    <span class="keyword">if</span> (processId == <span class="number">0</span>) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Target process not found.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">InjectDLL</span>(processId, dllPath)) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[+] DLL injected successfully.\n&quot;</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to inject DLL.\n&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h1 id="Hook-技术"><a href="#Hook-技术" class="headerlink" title="Hook 技术"></a>Hook 技术</h1><h2 id="Inline-Hook"><a href="#Inline-Hook" class="headerlink" title="Inline Hook"></a>Inline Hook</h2><h3 id="Inline-Hook-的演变"><a href="#Inline-Hook-的演变" class="headerlink" title="Inline Hook 的演变"></a>Inline Hook 的演变</h3><p>首先最原始的 Inline Hook 是直接暴力的在 <code>targetFunc</code> 的开头 patch 一条跳转到 <code>hookFunc</code> 的汇编指令。这样程序在调用函数的时候会调用到我们的自己实现的 Hook 函数上。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/e0c480ed41d4979aee34121ef3b1dbbc.png"
+                     
+                ><br>然而这样存在 Hook 重入问题，即如果我们想在 <code>hookFunc</code> 中调用 <code>targetFunc</code> 会出现无限递归的情况，因此在 <code>hookFunc</code> 调用 <code>targetFunc</code> 前需要恢复 <code>targetFunc</code> 前面被 patch 的部分。而调用 <code>targetFunc</code> 后需要重新恢复 Hook 。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/bf5e738dd324f9131ee9df21e65275da.png"
+                     
+                ><br>然而这种方法每次调用 <code>targetFunc</code> 前后都要修改 <code>targetFunc</code> 开头，因此如果多个线程同时调用 <code>targetFunc</code> 会出现多线程竞争问题。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/e083dda255e9bef4dd1974c1e9b3d0a3.png"
+                     
+                ><br>因此可以借助跳板函数 <code>originalFunc</code> 来解决重入问题，这样就不需要多次修改 <code>targetFunc</code>，也就没有线程竞争问题。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/67674a01afd1879d54be242a9343d711.png"
+                     
+                ><br>在 <code>originalFunc</code> 中我们会执行 <code>targetFunc</code> 中被 Hook 点覆盖的指令，从而确保 <code>targetFunc</code> 的完整性，然而 <code>targetFunc</code> 前面对应跳转指令长度的指令不一定是完整的指令。然而由于 Hook 是 Windows 中常用的手段，因此微软在开发 Windows API 时会确保函数开头处的指令长度对应跳转指令长度。</p>
+<p>例如在 32 位下，<code>LoadLibraryW</code> 函数开头通过添加 <code>mov edi, edi</code> 指令恰好凑出了总长度为 5 字节的指令，这也正是 32 位下跳转指令的长度。</p>
+<div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KERNEL32!LoadLibraryWStub:</span><br><span class="line">76f3d8a0 8bff            <span class="keyword">mov</span>     <span class="built_in">edi</span>,<span class="built_in">edi</span></span><br><span class="line">76f3d8a2 <span class="number">55</span>              <span class="keyword">push</span>    <span class="built_in">ebp</span></span><br><span class="line">76f3d8a3 8bec            <span class="keyword">mov</span>     <span class="built_in">ebp</span>,<span class="built_in">esp</span></span><br></pre></td></tr></table></figure></div>
+<p>在 64 位下，<code>LoadLibraryW</code> 函数开头是一个跳转指令并且后面用 <code>INT3</code> 指令填充，因此我们可以使用 <code>FF 25</code> 的跳转指令来实现任意地址跳转。</p>
+<div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">KERNEL32!LoadLibraryWStub:</span><br><span class="line">00007ff8<span class="string">`db4b8be0 48ff2539be0600  jmp     qword ptr [KERNEL32!_imp_LoadLibraryW (00007ff8`</span>db524a20)]</span><br><span class="line">00007ff8<span class="string">`db4b8be7 cc              int     3</span></span><br><span class="line"><span class="string">00007ff8`</span>db4b8be8 cc              <span class="keyword">int</span>     <span class="number">3</span></span><br><span class="line">00007ff8<span class="string">`db4b8be9 cc              int     3</span></span><br><span class="line"><span class="string">00007ff8`</span>db4b8bea cc              <span class="keyword">int</span>     <span class="number">3</span></span><br><span class="line">00007ff8<span class="string">`db4b8beb cc              int     3</span></span><br><span class="line"><span class="string">00007ff8`</span>db4b8bec cc              <span class="keyword">int</span>     <span class="number">3</span></span><br><span class="line">00007ff8<span class="string">`db4b8bed cc              int     3</span></span><br></pre></td></tr></table></figure></div>
+<p><code>FF 25 00 00 00 00</code> 的跳转指令翻译过来是 <code>jmp qword prt ds:[下一条指令地址]</code>，因此只要紧跟着 8 字节的要跳转到的地址就可以实现任意地址跳转，总指令长度为 14 字节。</p>
+<p>这里简单实现了一下对 <code>MessageBox</code> 函数的 Hook 。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pch.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(WINAPI *MessageBox_t)</span><span class="params">(HWND, LPCTSTR, LPCTSTR, UINT)</span></span>;</span><br><span class="line">MessageBox_t OriginalMessageBox = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN64</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">size_t</span> byteCount = <span class="number">14</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">size_t</span> byteCount = <span class="number">5</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> WINAPI <span class="title">HookedMessageBox</span><span class="params">(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType)</span> </span>&#123;</span><br><span class="line">    _tprintf(_T(<span class="string">&quot;[+] Hooked MessageBox called with text: %s\n&quot;</span>), lpText);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">OriginalMessageBox</span>(hWnd, _T(<span class="string">&quot;Hooked!&quot;</span>), lpCaption, uType);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InlineHook</span><span class="params">(<span class="type">void</span> *targetFunc, <span class="type">void</span> *hookFunc, <span class="type">void</span> **originalFunc)</span> </span>&#123;</span><br><span class="line">    DWORD oldProtect;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分配内存用于跳板函数</span></span><br><span class="line">    *originalFunc = <span class="built_in">VirtualAlloc</span>(<span class="literal">NULL</span>, byteCount * <span class="number">2</span>, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);</span><br><span class="line">    <span class="keyword">if</span> (*originalFunc == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] Failed to allocate memory for trampoline.\n&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改目标函数的保护属性以允许写入</span></span><br><span class="line">    <span class="built_in">VirtualProtect</span>(targetFunc, byteCount, PAGE_EXECUTE_READWRITE, &amp;oldProtect);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 复制原始字节到跳板函数</span></span><br><span class="line">    <span class="built_in">memcpy</span>(*originalFunc, targetFunc, byteCount);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN64</span></span><br><span class="line">    <span class="comment">// 64位跳转</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置跳板函数末尾的跳转指令，从跳板函数跳回目标函数未被覆盖的部分</span></span><br><span class="line">    *(BYTE *) ((DWORD64) *originalFunc + byteCount) = (BYTE) <span class="number">0xFF</span>;<span class="comment">// JMP指令的前两个字节</span></span><br><span class="line">    *(BYTE *) ((DWORD64) *originalFunc + byteCount + <span class="number">1</span>) = <span class="number">0x25</span>;</span><br><span class="line">    *(DWORD *) ((DWORD64) *originalFunc + byteCount + <span class="number">2</span>) = <span class="number">0x00000000</span>;  <span class="comment">// 跳转地址为后续8字节</span></span><br><span class="line">    *(DWORD64 *) ((DWORD64) *originalFunc + byteCount + <span class="number">6</span>) = (DWORD64) targetFunc + byteCount;<span class="comment">// 跳转地址</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 设置目标函数的跳转指令，从目标函数跳到钩子函数</span></span><br><span class="line">    *(BYTE *) targetFunc = (BYTE)<span class="number">0xFF</span>;<span class="comment">// JMP指令的前两个字节</span></span><br><span class="line">    *(BYTE *) ((DWORD64) targetFunc + <span class="number">1</span>) = <span class="number">0x25</span>;</span><br><span class="line">    *(DWORD *) ((DWORD64) targetFunc + <span class="number">2</span>) = <span class="number">0x00000000</span>;          <span class="comment">// 跳转地址为后续8字节</span></span><br><span class="line">    *(DWORD64 *) ((DWORD64) targetFunc + <span class="number">6</span>) = (DWORD64) hookFunc;<span class="comment">// 跳转地址</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="comment">// 32位跳转</span></span><br><span class="line">    DWORD targetAddr = (DWORD) targetFunc + byteCount;       <span class="comment">// 计算目标函数下一指令的地址</span></span><br><span class="line">    DWORD trampolineAddr = (DWORD) *originalFunc + byteCount;<span class="comment">// 计算跳板函数下一指令的地址</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置跳板函数末尾的跳转指令，从跳板函数跳回目标函数未被覆盖的部分</span></span><br><span class="line">    *(BYTE *) ((DWORD) *originalFunc + byteCount) = <span class="number">0xE9</span>;                                <span class="comment">// JMP指令</span></span><br><span class="line">    *(DWORD *) ((DWORD) *originalFunc + byteCount + <span class="number">1</span>) = targetAddr - (trampolineAddr + byteCount);<span class="comment">// 计算相对跳转地址</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置目标函数的跳转指令，从目标函数跳到钩子函数</span></span><br><span class="line">    *(BYTE *) targetFunc = <span class="number">0xE9</span>;                                                    <span class="comment">// JMP指令</span></span><br><span class="line">    *(DWORD *) ((DWORD) targetFunc + <span class="number">1</span>) = (DWORD) hookFunc - ((DWORD) targetFunc + byteCount);<span class="comment">// 计算相对跳转地址</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">VirtualProtect</span>(targetFunc, byteCount, oldProtect, &amp;oldProtect);</span><br><span class="line"></span><br><span class="line">    _tprintf(_T(<span class="string">&quot;[+] Inline hook installed successfully.\n&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Unhook</span><span class="params">(<span class="type">void</span> *targetFunc, <span class="type">void</span> *originalFunc)</span> </span>&#123;</span><br><span class="line">    DWORD oldProtect;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">VirtualProtect</span>(targetFunc, byteCount, PAGE_EXECUTE_READWRITE, &amp;oldProtect);</span><br><span class="line">    <span class="built_in">memcpy</span>(targetFunc, originalFunc, byteCount);</span><br><span class="line">    <span class="built_in">VirtualProtect</span>(targetFunc, byteCount, oldProtect, &amp;oldProtect);</span><br><span class="line">    <span class="built_in">VirtualFree</span>(originalFunc, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line"></span><br><span class="line">    _tprintf(_T(<span class="string">&quot;[+] Inline hook removed successfully.\n&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InstallHook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">InlineHook</span>((<span class="type">void</span> *) MessageBoxW, (<span class="type">void</span> *) HookedMessageBox, (<span class="type">void</span> **) &amp;OriginalMessageBox);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">UninstallHook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (OriginalMessageBox) &#123;</span><br><span class="line">        <span class="built_in">Unhook</span>((<span class="type">void</span> *) MessageBoxW, (<span class="type">void</span> *) OriginalMessageBox);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL APIENTRY <span class="title">DllMain</span><span class="params">(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (ul_reason_for_call) &#123;</span><br><span class="line">        <span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">            _tprintf(_T(<span class="string">&quot;[+] DLL loaded.\n&quot;</span>));</span><br><span class="line">            <span class="built_in">InstallHook</span>();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">            _tprintf(_T(<span class="string">&quot;[+] DLL unloaded.\n&quot;</span>));</span><br><span class="line">            <span class="built_in">UninstallHook</span>();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>然而在 64 位运行时会发现出错了，这是因为 64 位下的 <code>MessageBox</code> 的开头是如下代码，这里第三条指令如果只是复制到 <code>originalFunc</code> 没有重定位会导致访存错误。因此这种方法也是不完善的（需要假定微软预留了 Hook 的位置）。</p>
+<div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">USER32!MessageBoxW:</span><br><span class="line">00007ff8<span class="string">`dae2b240 4883ec38        sub     rsp,38h</span></span><br><span class="line"><span class="string">00007ff8`</span>dae2b244 4533<span class="built_in">db</span>          <span class="keyword">xor</span>     <span class="built_in">r11d</span>,<span class="built_in">r11d</span></span><br><span class="line">00007ff8<span class="string">`dae2b247 44391d4af00300  cmp     dword ptr [USER32!gfEMIEnable (00007ff8`</span>dae6a298)],<span class="built_in">r11d</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="Detours-库"><a href="#Detours-库" class="headerlink" title="Detours 库"></a>Detours 库</h3><p><strong>Detours</strong>是由微软开发的一种用于拦截函数调用和重定向代码执行的动态链接库。它被广泛用于性能监控、调试、日志记录和安全检查等场景。Detours通过修改目标函数的入口点，实现对函数调用的拦截，并将调用重定向到用户定义的钩子函数。</p>
+<p>Detours 库通过如下 API 完成 inline Hook 操作：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LONG <span class="title function_">DetourTransactionBegin</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure></div>
+<p><code>DetourTransactionBegin</code> 函数用于开始一个 Detours 事务。在事务中进行的所有操作都是原子的，也就是说，所有操作要么全部成功，要么全部失败，这样可以保证钩子操作的完整性和一致性。</p>
+<ul>
+<li>初始化一个全局变量来保存事务的状态。</li>
+<li>事务开始后，可以进行多个钩子操作（附加、分离等），直到事务提交或中止。</li>
+</ul>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LONG <span class="title function_">DetourUpdateThread</span><span class="params">(HANDLE hThread)</span>;</span><br></pre></td></tr></table></figure></div>
+<p><code>DetourUpdateThread</code> 函数将当前线程包含在 Detours 事务中，确保事务中的所有操作在同一个线程上下文中进行，防止多线程竞争问题。</p>
+<ul>
+<li>将当前线程的上下文信息保存到事务中。</li>
+<li>确保所有的钩子操作在同一个线程内执行，以避免多线程环境下的竞争和不一致。</li>
+</ul>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVOID <span class="title function_">DetourFindFunction</span><span class="params">(LPCSTR lpModule, LPCSTR lpFunction)</span>;</span><br></pre></td></tr></table></figure></div>
+<p><code>DetourFindFunction</code> 函数用于查找指定模块中的函数地址。它帮助我们找到需要钩子的目标函数地址。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LONG <span class="title function_">DetourAttach</span><span class="params">(PVOID *ppPointer, PVOID pDetour)</span>;</span><br></pre></td></tr></table></figure></div>
+<p><code>DetourAttach</code> 函数用于附加一个钩子函数，将目标函数重定向到钩子函数。</p>
+<ul>
+<li><code>ppPointer</code>：指向目标函数指针的指针。</li>
+<li><code>pDetour</code>：指向钩子函数的指针。</li>
+</ul>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LONG <span class="title function_">DetourDetach</span><span class="params">(PVOID *ppPointer, PVOID pDetour)</span>;</span><br></pre></td></tr></table></figure></div>
+<p><code>DetourDetach</code> 函数用于分离一个钩子函数，恢复目标函数的原始行为。</p>
+<ul>
+<li><code>ppPointer</code>：指向目标函数指针的指针。</li>
+<li><code>pDetour</code>：指向钩子函数的指针。</li>
+</ul>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LONG <span class="title function_">DetourTransactionCommit</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure></div>
+<p><code>DetourTransactionCommit</code> 函数用于中止一个 Detours 事务，放弃所有未提交的钩子操作。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LONG <span class="title function_">DetourTransactionAbort</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure></div>
+<p><code>DetourTransactionAbort</code> 函数用于中止一个Detours事务，放弃所有未提交的钩子操作。</p>
+<p>这里利用 Detours 库同样实现了对 <code>MessageBox</code> 的 Hook 。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pch.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;detours.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;detours.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义原始MessageBoxW函数的类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">int</span><span class="params">(WINAPI *MessageBox_t)</span><span class="params">(HWND, LPCTSTR, LPCTSTR, UINT)</span>;</span><br><span class="line">MessageBox_t OriginalMessageBox = nullptr;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 钩子函数</span></span><br><span class="line"><span class="type">int</span> WINAPI <span class="title function_">HookedMessageBox</span><span class="params">(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType)</span> &#123;</span><br><span class="line">    _tprintf(_T(<span class="string">&quot;[+] Hooked MessageBox called with text: %s\n&quot;</span>), lpText);</span><br><span class="line">    <span class="keyword">return</span> OriginalMessageBox(hWnd, _T(<span class="string">&quot;Hooked!&quot;</span>), lpCaption, uType);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安装钩子</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">InstallHook</span><span class="params">()</span> &#123;</span><br><span class="line">    LONG error = DetourTransactionBegin();</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourTransactionBegin failed: %d\n&quot;</span>), error);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error = DetourUpdateThread(GetCurrentThread());</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourUpdateThread failed: %d\n&quot;</span>), error);</span><br><span class="line">        DetourTransactionAbort();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    OriginalMessageBox = (MessageBox_t) DetourFindFunction(<span class="string">&quot;user32.dll&quot;</span>, <span class="string">&quot;MessageBoxW&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (OriginalMessageBox == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourFindFunction failed.\n&quot;</span>));</span><br><span class="line">        DetourTransactionAbort();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error = DetourAttach(&amp;(PVOID &amp;) OriginalMessageBox, HookedMessageBox);</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourAttach failed: %d\n&quot;</span>), error);</span><br><span class="line">        DetourTransactionAbort();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error = DetourTransactionCommit();</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourTransactionCommit failed: %d\n&quot;</span>), error);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _tprintf(_T(<span class="string">&quot;[+] Hook installed successfully.\n&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 卸载钩子</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">UninstallHook</span><span class="params">()</span> &#123;</span><br><span class="line">    LONG error = DetourTransactionBegin();</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourTransactionBegin failed: %d\n&quot;</span>), error);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error = DetourUpdateThread(GetCurrentThread());</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourUpdateThread failed: %d\n&quot;</span>), error);</span><br><span class="line">        DetourTransactionAbort();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error = DetourDetach(&amp;(PVOID &amp;) OriginalMessageBox, HookedMessageBox);</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourDetach failed: %d\n&quot;</span>), error);</span><br><span class="line">        DetourTransactionAbort();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error = DetourTransactionCommit();</span><br><span class="line">    <span class="keyword">if</span> (error != NO_ERROR) &#123;</span><br><span class="line">        _tprintf(_T(<span class="string">&quot;[-] DetourTransactionCommit failed: %d\n&quot;</span>), error);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _tprintf(_T(<span class="string">&quot;[+] Hook removed successfully.\n&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DLL入口点</span></span><br><span class="line">BOOL APIENTRY <span class="title function_">DllMain</span><span class="params">(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (ul_reason_for_call) &#123;</span><br><span class="line">        <span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">            DetourRestoreAfterWith();</span><br><span class="line">            InstallHook();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">            UninstallHook();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>以 64 位 Hook 为例，观察发现 Detour 库的实现基本原理和我们自己实现的 Inline Hook 基本相同，不过 Detour 库实现的 Hook 点长度更短。另外由于 Detour 是微软官方使用的，兼容性更强，同时还加入了大量的锁操作确保线程安全，因此推荐使用 Detour 来实现 Inline Hook 。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/4865b84e57ef7a9c7feef89c1f63834c.png"
+                     
+                ></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> windows 用户态逆向开发</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2022-09-28 11:45:14</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-06-01 23:25:42
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2022/09/28/windows 用户态逆向开发/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/windows-user-reverse/">#windows user reverse</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">windows 内核态逆向开发</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">异架构相关</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">windows 用户态逆向开发</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80"><span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VS-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9-lib-%E5%BA%93"><span class="nav-text">VS 导入第三方 lib 库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8B%E5%8F%A5%E6%9F%84"><span class="nav-text">获取进程句柄</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF"><span class="nav-text">注入技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B%E6%B3%A8%E5%85%A5"><span class="nav-text">远程线程注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API-%E4%BB%8B%E7%BB%8D"><span class="nav-text">API 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-text">代码示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hook-%E6%8A%80%E6%9C%AF"><span class="nav-text">Hook 技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inline-Hook"><span class="nav-text">Inline Hook</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inline-Hook-%E7%9A%84%E6%BC%94%E5%8F%98"><span class="nav-text">Inline Hook 的演变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Detours-%E5%BA%93"><span class="nav-text">Detours 库</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        35 posts in total
+                    </span>
+                    
+                        <span>
+                            540k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>
