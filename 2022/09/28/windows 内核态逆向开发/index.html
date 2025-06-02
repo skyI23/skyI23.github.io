@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-06-02 23:37:30</span>
-            <span class="mobile">2025-06-02 23:37:30</span>
+            <span class="desktop">2025-06-03 04:15</span>
+            <span class="mobile">2025-06-03 04:15</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -416,12 +416,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.8k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.6k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>18 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>20 Mins</span>
         </span>
     
     
@@ -633,6 +633,7 @@
 </li>
 </ul>
 <h4 id="段寄存器读写"><a href="#段寄存器读写" class="headerlink" title="段寄存器读写"></a>段寄存器读写</h4><h5 id="数据段寄存器"><a href="#数据段寄存器" class="headerlink" title="数据段寄存器"></a>数据段寄存器</h5><p>数据段寄存器读写通常是通过寄存器完成的，例如 <code>mov ds, ax</code>，<code>mov ax, es</code> 等。</p>
+<p>另外 <code>push</code> 和 <code>pop</code> 这种栈操作指令同样可以读写数据段寄存器，例如 <code>push fs</code>，<code>pop fs</code> 等，在开发中我们通常利用这个方法来保存段寄存器环境。</p>
 
   <div class="note-large red">
     <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
@@ -645,21 +646,28 @@
     </div>
   </div>
 
-<h5 id="代码段寄存器"><a href="#代码段寄存器" class="headerlink" title="代码段寄存器"></a>代码段寄存器</h5><p><code>cs</code> 寄存器不能通过 <code>mov</code> 指令修改，因此我们必须通过跨段跳转指令来修改 <code>cs</code> 寄存器。 例如 <code>jmp fword</code> 和 <code>call fword</code> 指令：</p>
+<h5 id="代码段寄存器"><a href="#代码段寄存器" class="headerlink" title="代码段寄存器"></a>代码段寄存器</h5><p><code>cs</code> 寄存器不能通过 <code>mov</code> 和 <code>pop</code> 指令修改（不过可以使用 <code>push cs</code> 和 <code>mov ax, cs</code> 这种指令来读取 <code>cs</code> 寄存器的值），因此我们必须通过<strong>跨段跳转</strong>指令来修改 <code>cs</code> 寄存器。 例如 <code>jmp fword</code> 和 <code>call fword</code> 指令：</p>
 <div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">jmp</span> <span class="built_in">far</span> <span class="meta">segment</span>:offset</span><br><span class="line"><span class="keyword">call</span> <span class="built_in">far</span> <span class="meta">segment</span>:offset</span><br></pre></td></tr></table></figure></div>
 
-<p>在 MSVC（尤其是 32 位 x86 平台）中，这种远跳指令不能像在裸汇编（nasm &#x2F; gas）里那样直接立即数跳转：</p>
+<p>然而在 MSVC（尤其是 32 位 x86 平台）中的内联汇编在语法上不支持这种直接立即数跳转：</p>
 <div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">jmp</span> <span class="built_in">far</span> <span class="number">0x1234</span>:<span class="number">0x5678</span></span><br><span class="line"><span class="keyword">call</span> <span class="built_in">far</span> <span class="number">0x1234</span>:<span class="number">0x5678</span></span><br></pre></td></tr></table></figure></div>
 
 <p>因此我们需要使用 <code>call fword ptr [mem]</code> 指令来代替：</p>
 <div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FarPointer</span> &#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> offset;    <span class="comment">// 32 位</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> selector; <span class="comment">// 16 位</span></span><br><span class="line">&#125; fp = &#123;<span class="number">0x5678</span>, <span class="number">0x1234</span>&#125;;</span><br><span class="line"></span><br><span class="line">__asm &#123;</span><br><span class="line">    jmp fword ptr ds:[fp]</span><br><span class="line">    call fword ptr ds:[fp]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<p>另外对于 <code>call fword ptr</code> 和 <code>call far</code> 指令，如果 CPL 不变则会在向栈中依次压入<strong>调用者的 cs</strong> 和<strong>返回地址</strong>（CPL 变化的情况比较复杂，具体见调用门部分）。</p>
-<p>因此我们返回时需要通过 <code>retf</code> 指令返回。为了避免编译器在函数代码中生成堆栈帧（<code>push ebp</code>&#x2F;<code>mov ebp, esp</code>…），我们需要借助<strong>裸函数（naked function）</strong>精确控制函数的入口和返回指令。</p>
+<p>对于 <code>call fword ptr</code> 和 <code>call far</code> 指令，如果 <strong>CPL 不变</strong>则会在向栈中依次压入<strong>调用者的 cs</strong> 和<strong>返回地址</strong>（CPL 变化的情况比较复杂，具体见调用门部分）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250603005133672.png"
+                      alt="image-20250603005133672"
+                ></p>
+<p>因此我们返回时需要通过 <code>retf</code> 指令返回。如果调用前在栈上压入了参数，那么我们可以通过 <code>retf [参数的字节总数]</code> 来平衡堆栈。</p>
+<p>为了避免编译器在函数代码中生成堆栈帧（<code>push ebp</code>&#x2F;<code>mov ebp, esp</code>…），我们需要借助<strong>裸函数（naked function）</strong>精确控制函数的入口和返回指令。</p>
 <div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__declspec(naked) <span class="type">void</span> <span class="title function_">func</span><span class="params">()</span> &#123;</span><br><span class="line">    __asm &#123;</span><br><span class="line">        <span class="comment">// 这里写汇编指令</span></span><br><span class="line">        retf</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<p>除此之外中断指令以及对应的返回指令 <code>iret</code> 同样会修改 <code>cs</code> 寄存器。</p>
-<h3 id="段描述符表（Descriptor-Table）"><a href="#段描述符表（Descriptor-Table）" class="headerlink" title="段描述符表（Descriptor Table）"></a>段描述符表（Descriptor Table）</h3><h4 id="段描述符表种类"><a href="#段描述符表种类" class="headerlink" title="段描述符表种类"></a>段描述符表种类</h4><p>段描述符表是存储段描述符的结构，定义了各个段的属性。x86架构中有两种主要的段描述符表：</p>
+<p>除此之外中断指令 <code>int</code> 以及对应的返回指令 <code>iret</code> 同样会修改 <code>cs</code> 寄存器，具体同样见后面的分析。</p>
+<h3 id="段描述符表（Descriptor-Table）"><a href="#段描述符表（Descriptor-Table）" class="headerlink" title="段描述符表（Descriptor Table）"></a>段描述符表（Descriptor Table）</h3><h4 id="段描述符表种类"><a href="#段描述符表种类" class="headerlink" title="段描述符表种类"></a>段描述符表种类</h4><p>段描述符表是存储段描述符的结构，定义了各个段的属性。x86 架构中有两种主要的段描述符表：<strong>全局描述符表（GDT）</strong>和<strong>局部描述符表（LDT）</strong>。</p>
 <h5 id="全局描述符表（GDT-Global-Descriptor-Table）"><a href="#全局描述符表（GDT-Global-Descriptor-Table）" class="headerlink" title="全局描述符表（GDT, Global Descriptor Table）"></a>全局描述符表（GDT, Global Descriptor Table）</h5><ul>
 <li><strong>作用</strong> ：全局描述符表用于定义系统范围内的段，包括代码段、数据段和系统段（如任务状态段TSS）。</li>
 <li><strong>存储位置</strong> ：GDT存储在内存中的一个固定位置，其基址和界限由 GDTR（GDT Register）寄存器保存。</li>
@@ -690,30 +698,34 @@
 </ul>
 </li>
 <li><p><strong>WinDbg 命令</strong>：</p>
-</li>
+<ul>
 <li><p><code>!ldt</code> → 查看当前进程的 LDT（如果存在）</p>
 </li>
 <li><p><code>r ldtr</code> → 查看 LDTR 内容</p>
 </li>
 </ul>
+</li>
+</ul>
 <h4 id="段描述符（Segment-Descriptor）"><a href="#段描述符（Segment-Descriptor）" class="headerlink" title="段描述符（Segment Descriptor）"></a>段描述符（Segment Descriptor）</h4><p>段描述符是描述段属性的结构体，存储在GDT或LDT中。每个段描述符占用8个字节，包含段的基址、界限和属性等信息。</p>
 <p>一个段描述符的结构如下：</p>
-<p>![Figure 3-8. Segment Descriptor](images&#x2F;Figure 3-8. Segment Descriptor.svg)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/SegmentDescriptor.svg"
+                      alt="Figure 3-8. Segment Descriptor"
+                ></p>
 <ul>
 <li><p><strong>基址（Base Address）</strong> ：段的起始地址，由 8 位高位基址（<code>Base 31:24</code>）、8 位中位基址（<code>Base 23:16</code>）和 16 位低位基址（<code>Base Address 15:00</code>）组成，共32位。</p>
 </li>
 <li><p><strong>界限（Limit）</strong> ：段的大小，由 16 位低位界限（<code>Limit 15:0</code>）和 4 位高位界限（<code>Limit 19:16</code>）组成，共 20 位。</p>
 </li>
-<li><p><strong>访问权限（Access Byte）</strong> ：描述段的类型、特权级别和访问权限。</p>
-<ul>
 <li><p><strong>P（Present）</strong> ：段存在位，1 表示段存在。段描述符加载时，首先看 P 位是否为 1 。</p>
-<ul>
+</li>
 <li><p><strong>DPL（Descriptor Privilege Level）</strong> ：描述符的特权级别，共 2 位。</p>
 </li>
 <li><p><strong>S（Descriptor Type）</strong>，<strong>Type</strong> ：<code>S</code> 描述符类型，<code>Type</code> 根据 <code>S</code> 的不同含义不同。</p>
 <ul>
-<li><code>S</code> 为 0 表示系统段，此时 <code>Type</code> 描述系统段的类型（如调用门，中断门，陷阱门等），含义如下表所示。</li>
-</ul>
+<li><p><code>S</code> 为 0 表示系统段，此时 <code>Type</code> 描述系统段的类型（如调用门，中断门，陷阱门等），含义如下表所示。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -732,13 +744,13 @@
                 ></p>
 <p>另外 <code>Type</code> 对应代码段和数据段时分别引入了一个新概念：</p>
 <ul>
-<li>一致代码段（Conforming Code Segment）：<ul>
+<li><strong>一致代码段（Conforming Code Segment）</strong><ul>
 <li>当 <code>Type</code> 的 11 位为 1 时段描述符表示的是代码段，此时如果 <code>C</code> 位（10 位）为 1 则表示为一致代码段。</li>
 <li>一致代码段是指当 CPU 执行跨特权级的代码段切换（比如调用更高权限的代码段）时，<strong>不需要特权级检查</strong>，允许直接进入。</li>
 <li>CPU 不会在段切换时更改 CPL（因为一致代码段特权级不敏感）。</li>
 </ul>
 </li>
-<li>向下拓展数据段（Expand-Down Data Segment）<ul>
+<li><strong>向下拓展数据段（Expand-Down Data Segment）</strong><ul>
 <li>当 <code>Type</code> 的 11 位为 0 时段描述符表示的是数据段，此时如果 <code>E</code> 位（10 位）为 1 则表示为向下拓展。</li>
 <li>正常情况下的我们见到的数据段都是向上拓展的，即有效偏移范围是从 <code>0</code> 到 <code>Limit</code> 。</li>
 <li>对于向下拓展的数据段，有效偏移范围是从 <code>Limit + 1</code> 到最大偏移值（例如，<code>0xFFFF</code> 或 <code>0xFFFFFFFF</code>，取决于段的大小）。</li>
@@ -746,10 +758,6 @@
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><strong>标志位（Flags）</strong> ：包括 <code>G</code> 位（Granularity），<code>D/B</code> 位（Default&#x2F;Big），<code>L</code> 位（64-bit code segment）和 <code>AVL</code> 位（Available for use by system software）。</p>
-<ul>
 <li><p><strong>G位（Granularity）</strong> ：决定界限单位。</p>
 <ul>
 <li>0 表示段寄存器的 <code>Limit</code> 元素单位为字节，即最大范围为 0x000FFFFF（1MB）。</li>
@@ -757,7 +765,7 @@
 </ul>
 </li>
 <li><p><strong>D&#x2F;B 位（Default Operand Size &#x2F; Big）</strong> ：决定了默认的操作数和地址的大小，以及堆栈指针的大小。</p>
-  
+
   <div class="note-large red">
     <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
       <p>注意</p>
@@ -768,6 +776,7 @@
 
     </div>
   </div>
+
 <ul>
 <li>对于代码段：<ul>
 <li><strong>0</strong> ：默认操作数和地址大小为 16 位。例如 <code>push</code> 指令只能压 2 字节。</li>
@@ -780,23 +789,19 @@
 </ul>
 </li>
 <li>对于数据段：<ul>
-<li><strong>0</strong> ：向下拓展。<ul>
+<li><strong>0</strong> ：向下拓展。</li>
 <li><strong>1</strong> ：向上拓展。</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><strong>L 位（64-bit code segment）</strong> ：仅适用于IA-32e模式（64位模式），当L位为1时，段描述符表示64位代码段。</p>
+<li><p><strong>L 位（64-bit code segment）</strong> ：仅适用于 IA-32e 模式（64 位模式）的代码段。</p>
 <ul>
-<li><strong>0</strong> ：表示这是一个 16 位或 32 位代码段。</li>
-<li><strong>1</strong> ：表示这是一个 64 位代码段。</li>
+<li><strong>0</strong> ：表示这是一个 16 位或 32 位代码段，具体取决于 <code>D/B</code> 位。</li>
+<li><strong>1</strong> ：表示这是一个 64 位代码段，忽略 <code>D/B</code> 位。</li>
 </ul>
 </li>
 <li><p><strong>AVL 位（Available for use by system software）</strong> ：供操作系统或其他系统软件使用，用于特定用途，例如标记段的状态，未被硬件使用。</p>
-</li>
-</ul>
 </li>
 </ul>
 <h3 id="段权限检测"><a href="#段权限检测" class="headerlink" title="段权限检测"></a>段权限检测</h3><h4 id="权限类型"><a href="#权限类型" class="headerlink" title="权限类型"></a>权限类型</h4><p>Ring Model 是一种 <strong>CPU 权限级别（Privilege Level）</strong> 的分层架构，主要用于操作系统中处理权限隔离和保护。它通过硬件机制，限制不同权限级别的代码对系统资源的访问，从而提高系统的安全性和稳定性。</p>
@@ -809,47 +814,43 @@
                 ></p>
 <p>CPU 的权限等级主要有段机制来维护，具体来说段机制中有下面几个权限类型：</p>
 <ul>
-<li><strong>CPL（Current Privilege Level）</strong>：<ul>
-<li>表示当前程序的运行权限级别。</li>
-<li>由 CS 和 SS 的 RPL（低两位）决定，并且 CS 和 SS 的低两位一定相等（因为权限变化要求 CS 和 SS 同时修改，并且 CS 和 SS 必须变成相同是值）。</li>
+<li><strong>CPL（Current Privilege Level）</strong> ：表示当前程序的运行权限级别，由 CS 和 SS 的 RPL（低两位）决定，并且 CS 和 SS 的低两位一定相等（因为权限变化要求 CS 和 SS 同时修改，并且 CS 和 SS 必须变成相同是值）。</li>
+<li><strong>RPL（Requested Privilege Level）</strong> ：请求访问段时指定的权限级别。通常由访存时使用的段寄存器的段选择子决定。</li>
+<li><strong>DPL（Descriptor Privilege Level）</strong> ：段描述符中定义的段权限级别。</li>
 </ul>
-</li>
-<li><strong>RPL（Requested Privilege Level）</strong>：<ul>
-<li>请求访问段时指定的权限级别。通常由访存时使用的段寄存器的段选择子决定</li>
-</ul>
-</li>
-<li><strong>DPL（Descriptor Privilege Level）</strong>：<ul>
-<li>描述符中定义的段权限级别。</li>
-</ul>
-</li>
-</ul>
-<h4 id="权限规则"><a href="#权限规则" class="headerlink" title="权限规则"></a>权限规则</h4><h5 id="权限检测规则"><a href="#权限检测规则" class="headerlink" title="权限检测规则"></a>权限检测规则</h5><ul>
-<li>对于数据段：仅检测 DPL 与 CPL 之间的大小关系，当且仅当 DPL 在数值上大于等于 CPL 时允许。例如当 CPL &#x3D;  DPL &#x3D; 3 时，即使 RPL &#x3D; 0 也允许访问。</li>
-<li>对于堆栈段和代码段：当且仅当 CPL &#x3D; RPL &#x3D; DPL 时允许访问。因为堆栈段在数据段的基础上本身 RPL 就是 CPL。</li>
+<h4 id="权限规则"><a href="#权限规则" class="headerlink" title="权限规则"></a>权限规则</h4><p>这里仅考虑常见的非一致代码段。</p>
+<h5 id="权限检测规则"><a href="#权限检测规则" class="headerlink" title="权限检测规则"></a>权限检测规则</h5><ul>
+<li>对于数据段：仅检测 DPL 与 CPL 之间的大小关系，当且仅当 DPL 在数值上大于等于 CPL（CPL ≤ DPL）时允许。例如当 CPL &#x3D;  DPL &#x3D; 3 时，即使 RPL &#x3D; 0 也允许访问。</li>
+<li>对于堆栈段和代码段：当且仅当 CPL &#x3D; RPL &#x3D; DPL 时允许访问。因为堆栈段在数据段的基础上本身 RPL 就是 CPL，因此我们只需要知道这里比数据段严格，必须要求 CPL &#x3D; DPL。</li>
 <li>对于系统段：CPL &#x3D; RPL ≤ 门描述符的 DPL</li>
 </ul>
 <h5 id="权限修改规则"><a href="#权限修改规则" class="headerlink" title="权限修改规则"></a>权限修改规则</h5><ul>
 <li><p><code>cs</code> 的权限一旦改变，<code>ss</code> 的权限也要随着改变，<code>cs</code> 与 <code>ss</code> 的等级必须一样。</p>
 </li>
-<li><p><code>int</code>，<code>call far</code> 这一类的指令可以通过系统段提权（TSS 段除外）。</p>
+<li><p><code>int</code>，<code>call far</code>，<code>jmp far</code> 这一类的指令只能通过系统段（TSS 段除外）提权或者不改变权限。</p>
 </li>
 <li><p><code>retf</code>，<code>iretd</code> 这一类指令只能同级跳转或者降权。</p>
 </li>
 </ul>
 <h3 id="调用门"><a href="#调用门" class="headerlink" title="调用门"></a>调用门</h3><p>在 x86 保护模式下，调用门（Call Gate）是一种特殊的系统段描述符。它的作用是：<strong>允许安全地从一个代码段转移到另一个代码段，通常伴随特权级切换</strong>。</p>
-<h4 id="门描述符"><a href="#门描述符" class="headerlink" title="门描述符"></a>门描述符</h4><p>![Figure 5-8. Call-Gate Descriptor](images&#x2F;Figure 5-8. Call-Gate Descriptor.svg)</p>
+<h4 id="门描述符"><a href="#门描述符" class="headerlink" title="门描述符"></a>门描述符</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/Call-GateDescriptor.svg"
+                      alt="Figure 5-8. Call-Gate Descriptor"
+                ></p>
 <ul>
-<li><strong>偏移地址（Offset）</strong> ：目标代码段中被调用过程的入口的<strong>逻辑地址</strong>，分为 16 位的低位偏移（<code>Offset 15:00</code>）和 16 位的高位偏移（<code>Offset 31:16</code>），需要与段选择子指向的段描述符结合才能得到入口的<strong>线性地址</strong>。</li>
+<li><strong>偏移地址（Offset in Segment）</strong> ：目标代码段中被调用过程的入口的<strong>逻辑地址</strong>，分为 16 位的低位偏移（<code>Offset 15:00</code>）和 16 位的高位偏移（<code>Offset 31:16</code>），需要与段选择子指向的段描述符结合才能得到入口的<strong>线性地址</strong>。</li>
 <li><strong>段选择子（Segment Selector）</strong> ：调用门要跳转到的目标代码段的选择子，用于在 GDT 或 LDT 中查找目标代码段的描述符。</li>
-<li><strong>参数计数（Param Count）</strong> ：堆栈切换时需要从旧特权级堆栈复制到新特权级堆栈的参数个数，5 位（<code>Param Count</code>），单位为字（16 位）或双字（32 位），具体取决于调用门的大小。</li>
+<li><strong>参数计数（Param Count）</strong> ：堆栈切换（权限改变）时需要从旧特权级堆栈复制到新特权级堆栈的参数个数，单位为字（16 位）或双字（32 位），具体取决于调用门的类型（位数）。</li>
 <li><strong>类型（Type）</strong> ：4 位，表示调用门的类型。对于 32 位调用门，值为 <code>1100</code>（0xC）；对于 16 位调用门，值为 <code>0100</code>（0x4）。</li>
 <li><strong>系统段标志（S）</strong> ：1 位，固定为 0，表示调用门是系统段，而不是普通的代码段或数据段。</li>
 <li><strong>描述符特权级（DPL）</strong> ：2 位，表示访问调用门时所需的最低特权级，用于特权检查。</li>
 <li><strong>段存在标志（P）</strong> ：1 位，表示调用门描述符是否存在。若为 0，访问该调用门会触发 #NP（Not Present）异常。</li>
 </ul>
-<h4 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h4><p>当我们通过 <code>call/jmp far</code> 或者 <code>call/jmp fword ptr</code> 指令调用调用门：</p>
+<h4 id="过程分析"><a href="#过程分析" class="headerlink" title="过程分析"></a>过程分析</h4><h5 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h5><p>当我们通过 <code>call/jmp far</code> 或者 <code>call/jmp fword ptr</code> 指令调用调用门：</p>
 <ol>
-<li><p>根据指令中的段选择子找到调用门。（指令中的地址没有用到，最终跳转到的地址由调用门的门描述符中的 <code>Offset</code> 字段决定）</p>
+<li><p><strong>根据指令中的段选择子找到调用门。</strong>（指令中的地址没有用到，最终跳转到的地址由调用门的门描述符中的 <code>Offset</code> 字段决定）</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -857,36 +858,24 @@
                       alt="image-20250602051346485"
                 ></p>
 </li>
-<li><p>进行权限检查：</p>
+<li><p><strong>进行权限检查：</strong></p>
 <ul>
-<li>RPL（CPL） 在数值上小于等于 DPL。</li>
-<li>如果是 <code>jmp</code> 则调用门的段选择子对应的代码段的 DPL 等于 CPL。（跳转后权限不变）</li>
-<li>如果是 <code>call</code> 则调用门的段选择子对应的代码段的 DPL 在数值上小于等于 CPL。（跳转后提权）</li>
+<li>指令中的 RPL 不参与整个过程。</li>
+<li>CPL 在数值上小于等于调用门 DPL。</li>
+<li>调用门中代码段选择子的 RPL 在数值上小于等于对应的代码段的的 DPL（貌似不用满足，并且跳过去之后 CPL 还是设置为代码段的 DPL）。</li>
+<li>如果是 <code>jmp</code> 则调用门的段描述符对应的代码段的 DPL 等于 CPL。（<code>jmp</code> 通过调用门提不了权）</li>
+<li>如果是 <code>call</code> 则调用门的段描述符对应的代码段的 DPL 在数值上小于等于 CPL。</li>
 </ul>
 </li>
-<li><p>判断调用门是否提权：</p>
+<li><p><strong>判断调用门是否提权：</strong></p>
 <ul>
 <li><p>如果没有权限变化则等价于普通的跨段跳转，只不过这里跳转的地址不是直接从操作数获取的。</p>
 </li>
 <li><p>如果权限发生变化则需要进行栈切换：</p>
 <ul>
-<li><p>从 TSS 中获取新的 <code>ss</code> 和 <code>esp</code> 更新对应的寄存器。</p>
+<li><p>从 TSS 中获取新的 <code>ss</code> 和 <code>esp</code> 更新对应的寄存器，期间会检测 <code>ss</code> 的权限以及 TSS 是否合法。</p>
 </li>
-<li><p>将原有的 <code>ss</code>，<code>esp</code>，参数（从原本的栈中拷贝），<code>cs</code>，返回地址依次压入新的堆栈。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250602053230511.png"
-                      alt="image-20250602053230511"
-                ></p>
-</li>
-<li><p>更新 <code>cs</code>，<code>eip</code> 为</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
+<li><p>将原有的 <code>ss</code>，<code>esp</code>，参数（从原本的栈中拷贝，拷贝长度参考调用门描述符中的<strong>参数计数（Param Count）</strong>字段），<code>cs</code>，返回地址依次压入<strong>新</strong>的堆栈。</p>
 
   <div class="note-large red">
     <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
@@ -894,14 +883,106 @@
 
     </div>
     <div class="notel-content">
-      <p><code>int 3</code> 中断处理函数 <code>_KiTrap03</code> 会将 <code>fs</code> 寄存器修改为 0x30，而由于我们通过调用门提权后处于 0 环权限，<code>_KiTrap03</code> 并不会恢复 <code>fs</code> 寄存器，因此我们在返回 3 环时需要手动还原 <code>fs</code> 寄存器。</p>
+      <p>原有的堆栈中只有参数，没有压入返回地址之类的东西。
+     </p>
 
     </div>
   </div>
 
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250602053230511.png"
+                      alt="image-20250602053230511"
+                ></p>
+</li>
+<li><p>根据门描述符中表示的代码段还有调用门入口点更新 <code>cs</code>，<code>eip</code>。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>至此我们完成的 <code>cs</code> 和栈的切换，跳转指调用门指定的代码开始执行。</p>
 
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
 
-<h3 id="中断门"><a href="#中断门" class="headerlink" title="中断门"></a>中断门</h3><h3 id="陷阱门"><a href="#陷阱门" class="headerlink" title="陷阱门"></a>陷阱门</h3><h3 id="任务段"><a href="#任务段" class="headerlink" title="任务段"></a>任务段</h3><h2 id="页式内存管理"><a href="#页式内存管理" class="headerlink" title="页式内存管理"></a>页式内存管理</h2><h1 id="驱动开发"><a href="#驱动开发" class="headerlink" title="驱动开发"></a>驱动开发</h1><h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h1 id="句柄表"><a href="#句柄表" class="headerlink" title="句柄表"></a>句柄表</h1>
+    </div>
+    <div class="notel-content">
+      <p>如果我们调试提权后的代码，则返回用户态之后会发生崩溃。</p>
+<p>这是因为 <code>int 3</code> 对应的中断处理函数 <code>_KiTrap03</code> 会将 <code>fs</code> 寄存器修改为 0x30（这也是为什么我们下断点调试时发现 <code>fs</code> 的值发生变化），而由于我们通过调用门提权后处于 0 环权限，<code>_KiTrap03</code> 并不会恢复 <code>fs</code> 寄存器，因此我们在返回 3 环时需要手动还原 <code>fs</code> 寄存器。</p>
+
+    </div>
+  </div>
+
+<h5 id="返回过程"><a href="#返回过程" class="headerlink" title="返回过程"></a>返回过程</h5><p>如果我们通过 <code>call</code> 长调用指令进行调用门跳转则需要通过 <code>retf</code> 指令返回。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p>如果调用门规定了参数格式，则我们必须使用 <code>retf [参数的字节总数]</code> 来返回。</p>
+<p>注意，<code>retf</code> 后面跟的是参数的字节数，而调用门的<strong>参数计数（Param Count）</strong>字段描述的是参数的个数。</p>
+
+    </div>
+  </div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250603020931539.png"
+                      alt="image-20250603020931539"
+                ></p>
+<p>具体过程为：</p>
+<ol>
+<li><p><strong>进行权限检查</strong> ：根据栈中存放的 <code>cs</code> 寄存器判断是否发生权限（CPL）变化：</p>
+<ul>
+<li><p>如果没有发生权限变化则为普通的跨段跳转，不会发生栈切换。</p>
+</li>
+<li><p>如果发生权限变化则：</p>
+<ul>
+<li>只能是降权，即在数值上栈中保存的 <code>cs</code> 的 RPL 要大于 CPL。</li>
+<li>对栈中保存的 <code>ss</code> 进行权限检查，要求返回后 <code>ss</code> 和 <code>cs</code> 的 DPL 要相等。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>恢复寄存器</strong> ：</p>
+<ul>
+<li>根据中保存的 <code>eip</code>，<code>cs</code> 恢复 <code>eip</code> 和 <code>cs</code> 寄存器。</li>
+<li>如果降权则要在普通的跨段跳转返回的基础上根据栈中保存的 <code>esp</code> 和 <code>ss</code> 恢复堆栈。栈中保存的 <code>esp</code> 和 <code>ss</code> 的位置需要根据 <code>retf</code> 后面跟的参数字节数定位。</li>
+</ul>
+</li>
+<li><p><strong>平衡堆栈</strong>：</p>
+<ul>
+<li><p>如果权限不变则根据 <code>retf</code> 后面跟的参数字节数平衡掉压入的参数，另外还要平衡掉跨段跳转时压入的返回地址和 <code>cs</code>。</p>
+</li>
+<li><p>如果是降权则需要在<strong>原本的堆栈</strong>中根据 <code>retf</code> 后面跟的参数字节数平衡掉压入的参数。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <p>内核堆栈每次都是通过 TSS 的 <code>esp</code> 赋值，因此不需要平衡内核堆栈。</p>
+
+    </div>
+  </div></li>
+</ul>
+</li>
+</ol>
+<h3 id="中断门"><a href="#中断门" class="headerlink" title="中断门"></a>中断门</h3><h4 id="门描述符-1"><a href="#门描述符-1" class="headerlink" title="门描述符"></a>门描述符</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/InterruptGateDescriptior.svg"
+                      alt="InterruptGateDescriptior"
+                ></p>
+<h3 id="陷阱门"><a href="#陷阱门" class="headerlink" title="陷阱门"></a>陷阱门</h3><h3 id="任务段"><a href="#任务段" class="headerlink" title="任务段"></a>任务段</h3><h2 id="页式内存管理"><a href="#页式内存管理" class="headerlink" title="页式内存管理"></a>页式内存管理</h2><h1 id="驱动开发"><a href="#驱动开发" class="headerlink" title="驱动开发"></a>驱动开发</h1><h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h1 id="句柄表"><a href="#句柄表" class="headerlink" title="句柄表"></a>句柄表</h1>
 		</div>
 
 		
@@ -915,7 +996,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-06-02 23:37:30
+                    :</strong> 2025-06-03 04:00:15
             </li>
         
         <li>
@@ -1044,7 +1125,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">windows 内核态逆向开发</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="nav-text">保护模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="nav-text">CPU 的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%EF%BC%88Real-Mode%EF%BC%89"><span class="nav-text">实模式（Real Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%EF%BC%88Protected-Mode%EF%BC%89"><span class="nav-text">保护模式（Protected Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F8086%E6%A8%A1%E5%BC%8F%EF%BC%88Virtual-8086-Mode%EF%BC%89"><span class="nav-text">虚拟8086模式（Virtual 8086 Mode）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-text">保护模式下的地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%EF%BC%88Logical-Address%EF%BC%89"><span class="nav-text">逻辑地址（Logical Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%EF%BC%88Virtual-Address%EF%BC%89"><span class="nav-text">虚拟地址（Virtual Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%EF%BC%88Physical-Address%EF%BC%89"><span class="nav-text">物理地址（Physical Address）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">段式内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88Segment-Registers%EF%BC%89"><span class="nav-text">段寄存器（Segment Registers）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">主要段寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%93%E6%9E%84"><span class="nav-text">段寄存器结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E8%AF%BB%E5%86%99"><span class="nav-text">段寄存器读写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">数据段寄存器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">代码段寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88Descriptor-Table%EF%BC%89"><span class="nav-text">段描述符表（Descriptor Table）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%E7%A7%8D%E7%B1%BB"><span class="nav-text">段描述符表种类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88GDT-Global-Descriptor-Table%EF%BC%89"><span class="nav-text">全局描述符表（GDT, Global Descriptor Table）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88LDT-Local-Descriptor-Table%EF%BC%89"><span class="nav-text">局部描述符表（LDT, Local Descriptor Table）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%88Segment-Descriptor%EF%BC%89"><span class="nav-text">段描述符（Segment Descriptor）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B"><span class="nav-text">段权限检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B1%BB%E5%9E%8B"><span class="nav-text">权限类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E8%A7%84%E5%88%99"><span class="nav-text">权限规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99"><span class="nav-text">权限检测规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E6%94%B9%E8%A7%84%E5%88%99"><span class="nav-text">权限修改规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%97%A8"><span class="nav-text">调用门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">门描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">调用过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E9%97%A8"><span class="nav-text">中断门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1%E9%97%A8"><span class="nav-text">陷阱门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E6%AE%B5"><span class="nav-text">任务段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">页式内存管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91"><span class="nav-text">驱动开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E8%A1%A8"><span class="nav-text">句柄表</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="nav-text">保护模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="nav-text">CPU 的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%EF%BC%88Real-Mode%EF%BC%89"><span class="nav-text">实模式（Real Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%EF%BC%88Protected-Mode%EF%BC%89"><span class="nav-text">保护模式（Protected Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F8086%E6%A8%A1%E5%BC%8F%EF%BC%88Virtual-8086-Mode%EF%BC%89"><span class="nav-text">虚拟8086模式（Virtual 8086 Mode）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-text">保护模式下的地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%EF%BC%88Logical-Address%EF%BC%89"><span class="nav-text">逻辑地址（Logical Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%EF%BC%88Virtual-Address%EF%BC%89"><span class="nav-text">虚拟地址（Virtual Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%EF%BC%88Physical-Address%EF%BC%89"><span class="nav-text">物理地址（Physical Address）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">段式内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88Segment-Registers%EF%BC%89"><span class="nav-text">段寄存器（Segment Registers）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">主要段寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%93%E6%9E%84"><span class="nav-text">段寄存器结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E8%AF%BB%E5%86%99"><span class="nav-text">段寄存器读写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">数据段寄存器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">代码段寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88Descriptor-Table%EF%BC%89"><span class="nav-text">段描述符表（Descriptor Table）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%E7%A7%8D%E7%B1%BB"><span class="nav-text">段描述符表种类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88GDT-Global-Descriptor-Table%EF%BC%89"><span class="nav-text">全局描述符表（GDT, Global Descriptor Table）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88LDT-Local-Descriptor-Table%EF%BC%89"><span class="nav-text">局部描述符表（LDT, Local Descriptor Table）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%88Segment-Descriptor%EF%BC%89"><span class="nav-text">段描述符（Segment Descriptor）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B"><span class="nav-text">段权限检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B1%BB%E5%9E%8B"><span class="nav-text">权限类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E8%A7%84%E5%88%99"><span class="nav-text">权限规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99"><span class="nav-text">权限检测规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E6%94%B9%E8%A7%84%E5%88%99"><span class="nav-text">权限修改规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%97%A8"><span class="nav-text">调用门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">门描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="nav-text">过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">调用过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E8%BF%87%E7%A8%8B"><span class="nav-text">返回过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E9%97%A8"><span class="nav-text">中断门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6-1"><span class="nav-text">门描述符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1%E9%97%A8"><span class="nav-text">陷阱门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E6%AE%B5"><span class="nav-text">任务段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">页式内存管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91"><span class="nav-text">驱动开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E8%A1%A8"><span class="nav-text">句柄表</span></a></li></ol>
 
 	</div>
 </div>
@@ -1075,7 +1156,7 @@
                     </span>
                     
                         <span>
-                            540k words in total
+                            540.8k words in total
                         </span>
                     
                 </p>
