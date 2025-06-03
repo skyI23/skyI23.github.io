@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-06-03 04:15</span>
-            <span class="mobile">2025-06-03 04:15</span>
+            <span class="desktop">2025-06-04 01:49:13</span>
+            <span class="mobile">2025-06-04 01:49:13</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -416,12 +416,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.6k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>8.3k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>20 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>30 Mins</span>
         </span>
     
     
@@ -677,12 +677,36 @@
 <li><code>sgdt [mem]</code> → 存储 GDT（SGDT 可以在 Ring 3 执行，常用于探测系统）</li>
 </ul>
 </li>
-<li><strong>WinDbg 命令</strong>：<ul>
-<li><code>dg</code> → 显示当前 GDT 各段描述符</li>
-<li><code>r gdtr</code> → 查看 GDT 寄存器 GDTR</li>
 </ul>
-</li>
-</ul>
+<p>关于 GDT 有如下常用的调试命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>r gdtr</code>&#x2F;<code>r gdtl</code></td>
+<td>查看 GDT 基地址和长度</td>
+</tr>
+<tr>
+<td><code>!gdt</code></td>
+<td>列出当前处理器的 GDT 表项</td>
+</tr>
+<tr>
+<td><code>!gdt &lt;n&gt;</code></td>
+<td>查看某个段选择子的详细描述符</td>
+</tr>
+<tr>
+<td><code>dg &lt;selector&gt; [count]</code></td>
+<td>解析段选择子 <code>selector</code> 开始的 <code>count</code> 个段描述符</td>
+</tr>
+<tr>
+<td><code>~&lt;n&gt;</code></td>
+<td>切换到第 n 个处理器上下文</td>
+</tr>
+</tbody></table>
 <h5 id="局部描述符表（LDT-Local-Descriptor-Table）"><a href="#局部描述符表（LDT-Local-Descriptor-Table）" class="headerlink" title="局部描述符表（LDT, Local Descriptor Table）"></a>局部描述符表（LDT, Local Descriptor Table）</h5><ul>
 <li><p><strong>作用</strong> ：局部描述符表用于定义特定任务或进程的段，通常用于多任务环境中。</p>
 </li>
@@ -697,15 +721,20 @@
 <li><code>str reg/mem</code> → 存储任务寄存器（可用于 TSS 调试）</li>
 </ul>
 </li>
-<li><p><strong>WinDbg 命令</strong>：</p>
-<ul>
-<li><p><code>!ldt</code> → 查看当前进程的 LDT（如果存在）</p>
-</li>
-<li><p><code>r ldtr</code> → 查看 LDTR 内容</p>
-</li>
 </ul>
-</li>
-</ul>
+<p>关于 LDT 有如下常用的调试命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>r ldtr</code>&#x2F;<code>r ldtl</code></td>
+<td>查看 LDT 基地址和长度</td>
+</tr>
+</tbody></table>
 <h4 id="段描述符（Segment-Descriptor）"><a href="#段描述符（Segment-Descriptor）" class="headerlink" title="段描述符（Segment Descriptor）"></a>段描述符（Segment Descriptor）</h4><p>段描述符是描述段属性的结构体，存储在GDT或LDT中。每个段描述符占用8个字节，包含段的基址、界限和属性等信息。</p>
 <p>一个段描述符的结构如下：</p>
 <p><img  
@@ -753,7 +782,7 @@
 <li><strong>向下拓展数据段（Expand-Down Data Segment）</strong><ul>
 <li>当 <code>Type</code> 的 11 位为 0 时段描述符表示的是数据段，此时如果 <code>E</code> 位（10 位）为 1 则表示为向下拓展。</li>
 <li>正常情况下的我们见到的数据段都是向上拓展的，即有效偏移范围是从 <code>0</code> 到 <code>Limit</code> 。</li>
-<li>对于向下拓展的数据段，有效偏移范围是从 <code>Limit + 1</code> 到最大偏移值（例如，<code>0xFFFF</code> 或 <code>0xFFFFFFFF</code>，取决于段的大小）。</li>
+<li>对于向下拓展的数据段，有效偏移范围是从 <code>Limit + 1</code> 到最大偏移值（例如，<code>0xFFFF</code> 或 <code>0xFFFFFFFF</code>，取决于段的大小）。由于 <code>Base + Limit</code> 会溢出，因此实际的有效范围是 <code>[Base, Base + Limit)</code> 之外的范围。</li>
 </ul>
 </li>
 </ul>
@@ -832,7 +861,7 @@
 <li><p><code>retf</code>，<code>iretd</code> 这一类指令只能同级跳转或者降权。</p>
 </li>
 </ul>
-<h3 id="调用门"><a href="#调用门" class="headerlink" title="调用门"></a>调用门</h3><p>在 x86 保护模式下，调用门（Call Gate）是一种特殊的系统段描述符。它的作用是：<strong>允许安全地从一个代码段转移到另一个代码段，通常伴随特权级切换</strong>。</p>
+<h3 id="调用门"><a href="#调用门" class="headerlink" title="调用门"></a>调用门</h3><p>在 x86 保护模式下，调用门（Call Gate）是一种特殊的系统段描述符，存在于 <strong>GDT（全局描述符表）</strong>或 <strong>LDT（局部描述符表）</strong> 中。它的作用是：<strong>允许安全地从一个代码段转移到另一个代码段，通常伴随特权级切换</strong>。</p>
 <h4 id="门描述符"><a href="#门描述符" class="headerlink" title="门描述符"></a>门描述符</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -976,13 +1005,391 @@
 </ul>
 </li>
 </ol>
-<h3 id="中断门"><a href="#中断门" class="headerlink" title="中断门"></a>中断门</h3><h4 id="门描述符-1"><a href="#门描述符-1" class="headerlink" title="门描述符"></a>门描述符</h4><p><img  
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><h3 id="什么是中断"><a href="#什么是中断" class="headerlink" title="什么是中断"></a>什么是中断</h3><p>中断（<strong>Interrupt</strong>）是计算机系统中一种<strong>异步事件通知机制</strong>，用于在处理器正在执行任务时，<strong>打断当前执行流程</strong>，让处理器去响应<strong>更紧急或更重要的事件</strong>。</p>
+<p>中断机制为计算机系统提供了一种对事件的实时响应方式，同时保证处理器资源的高效利用。</p>
+<p>按照<strong>来源</strong>划分，中断可以分为<strong>硬件中断</strong>和<strong>软件中断</strong>：</p>
+<ul>
+<li><p><strong>硬件中断</strong> ：来自外部设备（如键盘、鼠标、定时器、网卡）发出的中断信号。如：键盘按键、鼠标移动、时钟滴答。</p>
+</li>
+<li><p><strong>软件中断</strong> ：由程序通过指令（如 <code>int</code>）显式触发，通常用于系统调用。</p>
+</li>
+</ul>
+<p>按<strong>目的</strong>划分，中断可以分为<strong>可屏蔽中断（IRQ）</strong>，<strong>不可屏蔽中断（NMI）</strong>和<strong>异常（Exception）</strong>：</p>
+<ul>
+<li><p><strong>可屏蔽中断（IRQ）</strong> ：可以被禁止（如设置 <code>IF=0</code>，<code>EFLAGS</code> 寄存器第 10 位）。大多数硬件中断都属于这一类。</p>
+</li>
+<li><p><strong>不可屏蔽中断（NMI）</strong> ：非常紧急，不能被屏蔽，比如内存校验出错。</p>
+</li>
+<li><p><strong>异常（Exception）</strong> ：由 CPU 自身执行错误或特定条件触发，如除 0、段错误、页错误等。属于“内部中断”。</p>
+</li>
+</ul>
+<h3 id="中断描述符表（IDT-Interrupt-Descriptor-Table）"><a href="#中断描述符表（IDT-Interrupt-Descriptor-Table）" class="headerlink" title="中断描述符表（IDT,Interrupt Descriptor Table）"></a>中断描述符表（IDT,Interrupt Descriptor Table）</h3><p>与调用门不同，中断门的门描述符位于存储在 <strong>IDT（中断描述符表）</strong> 中。这是因为中断描述符要以“中断号”为索引，用于快速响应<strong>异步事件</strong>或异常情况，强调处理器控制流程的跳转，因此需要单开一个表存储。</p>
+<p> 中断向量表（IDT）最多有 <strong>256 项</strong>（编号 0–255），每一项都对应一个中断&#x2F;异常，中断号就是中断向量表的下标。其中中断号 0–31（共 32 个）被 CPU 保留，用于异常处理，<strong>操作系统不得更改其语义</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>中断号</th>
+<th>异常简称</th>
+<th>异常名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>#DE</td>
+<td>Divide Error（除 0 错误）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>1</td>
+<td>#DB</td>
+<td>Debug（调试异常）</td>
+<td>Fault&#x2F;Trap</td>
+</tr>
+<tr>
+<td>2</td>
+<td>—</td>
+<td>Non-Maskable Interrupt（NMI）</td>
+<td>Interrupt</td>
+</tr>
+<tr>
+<td>3</td>
+<td>#BP</td>
+<td>Breakpoint（断点）</td>
+<td>Trap</td>
+</tr>
+<tr>
+<td>4</td>
+<td>#OF</td>
+<td>Overflow（溢出）</td>
+<td>Trap</td>
+</tr>
+<tr>
+<td>5</td>
+<td>#BR</td>
+<td>BOUND Range Exceeded（数组越界）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>6</td>
+<td>#UD</td>
+<td>Invalid Opcode（非法&#x2F;未定义指令）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>7</td>
+<td>#NM</td>
+<td>Device Not Available（协处理器不可用）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>8</td>
+<td>#DF</td>
+<td>Double Fault（双重故障）</td>
+<td>Abort</td>
+</tr>
+<tr>
+<td>9</td>
+<td>—</td>
+<td>Coprocessor Segment Overrun（协处理器段溢出）</td>
+<td>Fault（已废弃）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>#TS</td>
+<td>Invalid TSS（任务状态段无效）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>11</td>
+<td>#NP</td>
+<td>Segment Not Present（段不存在）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>12</td>
+<td>#SS</td>
+<td>Stack Segment Fault（栈段错误）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>13</td>
+<td>#GP</td>
+<td>General Protection Fault（一般保护异常）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>14</td>
+<td>#PF</td>
+<td>Page Fault（页错误）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>15</td>
+<td>—</td>
+<td>Reserved（保留）</td>
+<td>—</td>
+</tr>
+<tr>
+<td>16</td>
+<td>#MF</td>
+<td>x87 Floating-Point Error（浮点错误）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>17</td>
+<td>#AC</td>
+<td>Alignment Check（对齐检查）</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>18</td>
+<td>#MC</td>
+<td>Machine Check（机器检查）</td>
+<td>Abort</td>
+</tr>
+<tr>
+<td>19</td>
+<td>#XM&#x2F;#XF</td>
+<td>SIMD Floating-Point Exception</td>
+<td>Fault</td>
+</tr>
+<tr>
+<td>20–31</td>
+<td>—</td>
+<td>Reserved（保留）</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p>中断号 32–255：<strong>可由操作系统自由使用</strong>，每一项都是一个“中断描述符”，可为以下几种类型：</p>
+<table>
+<thead>
+<tr>
+<th>描述符类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中断门（Interrupt Gate）</td>
+<td>常用于处理硬件中断，自动清除 IF 位，防止嵌套</td>
+</tr>
+<tr>
+<td>陷阱门（Trap Gate）</td>
+<td>常用于异常和调试，不清除 IF</td>
+</tr>
+<tr>
+<td>任务门（Task Gate）</td>
+<td>切换到另一个任务（TSS），操作系统不使用该功能</td>
+</tr>
+</tbody></table>
+<p>关于 IDT 有如下常用的调试命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>r idtr</code>&#x2F;<code>r idtl</code></td>
+<td>查看 IDT 基地址和长度</td>
+</tr>
+<tr>
+<td><code>!idt</code></td>
+<td>查看当前处理器 IDT 内容</td>
+</tr>
+<tr>
+<td><code>!idt &lt;n&gt;</code></td>
+<td>查看中断号 <code>&lt;n&gt;</code> 的处理函数</td>
+</tr>
+<tr>
+<td><code>~&lt;n&gt;</code></td>
+<td>切换到第 n 个处理器上下文</td>
+</tr>
+</tbody></table>
+<h3 id="中断门"><a href="#中断门" class="headerlink" title="中断门"></a>中断门</h3><p><strong>中断门（Interrupt Gate）是 x86 架构中用于处理中断（硬件&#x2F;软件中断）和异常的一种特殊机制。</strong>它是一种描述符，存储在 <strong>IDT（中断描述符表）</strong> 中，用于指向中断&#x2F;异常处理程序的入口地址和相关属性。</p>
+<p>中断门的作用是：<strong>当发生中断或异常时，CPU 通过中断门自动跳转到对应的处理函数</strong>，并进行必要的权限切换、堆栈切换等。</p>
+<h4 id="门描述符-1"><a href="#门描述符-1" class="headerlink" title="门描述符"></a>门描述符</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/InterruptGateDescriptior.svg"
                       alt="InterruptGateDescriptior"
                 ></p>
-<h3 id="陷阱门"><a href="#陷阱门" class="headerlink" title="陷阱门"></a>陷阱门</h3><h3 id="任务段"><a href="#任务段" class="headerlink" title="任务段"></a>任务段</h3><h2 id="页式内存管理"><a href="#页式内存管理" class="headerlink" title="页式内存管理"></a>页式内存管理</h2><h1 id="驱动开发"><a href="#驱动开发" class="headerlink" title="驱动开发"></a>驱动开发</h1><h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h1 id="句柄表"><a href="#句柄表" class="headerlink" title="句柄表"></a>句柄表</h1>
+<ul>
+<li><strong>偏移地址（Offset）</strong> ：目标代码段中中断处理程序入口的<strong>逻辑地址</strong>，分为 16 位的低位偏移（<code>Offset 15:00</code>）和 16 位的高位偏移（<code>Offset 31:16</code>），需要与段选择子指向的段描述符结合才能得到入口的<strong>线性地址</strong>。</li>
+<li><strong>段选择子（Segment Selector）</strong> ：中断门要跳转到的目标代码段的选择子，用于在 GDT 或 LDT 中查找中断处理程序所在的段描述符。</li>
+<li><strong>类型（Type）</strong> ：4 位，表示门描述符的类型。对于 32 位中断门，值为 <code>1110</code>（0xE）；表示该门在触发时会自动清除 EFLAGS 中的 IF 位，从而禁止中断嵌套。</li>
+<li><strong>系统段标志（S）</strong> ：1 位，固定为 0，表示中断门是系统段，而不是普通的代码段或数据段。</li>
+<li><strong>描述符特权级（DPL）</strong> ：2 位，表示访问中断门所需的最低特权级。在中断由软件触发（如 INT 指令）时进行特权检查；若 CPL &gt; DPL，则会触发 #GP 异常。</li>
+<li><strong>段存在标志（P）</strong> ：1 位，表示中断门描述符是否存在。若为 0，访问该中断门会触发 #NP（Not Present）异常。</li>
+</ul>
+<h4 id="过程分析-1"><a href="#过程分析-1" class="headerlink" title="过程分析"></a>过程分析</h4><h5 id="调用过程-1"><a href="#调用过程-1" class="headerlink" title="调用过程"></a>调用过程</h5><p>当我们通过 <code>int n</code> 或指令触发中断：</p>
+<ol>
+<li><p><strong>根据中断向量在 IDT 中查找中断门描述符。</strong>（指令中的操作数 <code>n</code> 作为索引，找到对应的门描述符；跳转地址由中断门中的 <code>Offset</code> 和 <code>Segment Selector</code> 字段决定）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250603235057313.png"
+                      alt="image-20250603235057313"
+                ></p>
+</li>
+<li><p><strong>进行权限检查：</strong></p>
+<ul>
+<li>对于<strong>硬件中断</strong>：<strong>不进行权限检查</strong>，中断处理程序直接执行。</li>
+<li>对于<strong>软件中断（如 INT n）</strong>：<ul>
+<li>CPL（当前特权级）必须<strong>小于等于</strong>中断门的 DPL。</li>
+<li>如果 CPL &gt; DPL，则触发 #GP 异常。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>判断是否发生权限变化（提权）</strong>：</p>
+<ul>
+<li><p>如果中断门的目标代码段的 DPL &lt; CPL，则发生提权，需要进行<strong>堆栈切换</strong>。</p>
+<ul>
+<li>从 TSS 中查找对应的 <code>SS</code> 和 <code>ESP</code>，加载为新堆栈。</li>
+<li>将当前栈的 <code>SS</code>、<code>ESP</code>、<code>EFLAGS</code>、<code>CS</code> 和 <code>EIP</code> 依次压入新堆栈中，形成完整的返回上下文。</li>
+<li>若中断号是 <code>INT n</code> 且带有错误码，则错误码也一并压入堆栈（CPU 固定的几项，我们自己注册的没有）。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250603235355733.png"
+                      alt="image-20250603235355733"
+                ></p>
+</li>
+<li><p>如果没有权限变化（例如从 Ring 0 调用 Ring 0 中断门）则不会切换堆栈，仅将 <code>EFLAGS</code>、<code>CS</code>、<code>EIP</code> 压入当前堆栈。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>修改 <code>EFLAGS</code> 寄存器</strong> ：中断门会清空 <code>EFLAGS</code> 寄存器中的下面几个标志位：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250604005350818.png"
+                      alt="image-20250604005350818"
+                ></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>位名</th>
+<th>含义</th>
+<th>EFLAGS 位位置</th>
+<th>修改行为 &#x2F; 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>IF</strong> (Interrupt Flag)</td>
+<td>中断允许标志：控制是否允许 CPU 响应<strong>可屏蔽中断（IRQ）</strong></td>
+<td>位 9</td>
+<td>当通过<strong>中断门进入中断处理程序时</strong>，CPU 会自动将 <code>IF = 0</code>，即<strong>暂时屏蔽其他中断</strong>，防止当前中断被新的中断打断。等中断处理结束后通过 <code>IRET</code> 恢复原 <code>EFLAGS</code>，<code>IF</code> 才可能再次为 1。这个行为只发生在中断门，<strong>陷阱门不会清除 IF</strong>，允许中断嵌套。</td>
+</tr>
+<tr>
+<td><strong>TF</strong> (Trap Flag)</td>
+<td>单步调试标志：控制是否在每条指令后触发调试异常（#DB）</td>
+<td>位 8</td>
+<td>进入中断处理程序前，CPU 会自动将 <code>TF</code> 清 0，<strong>禁止单步调试在中断处理流程中生效</strong>，避免调试器每条指令都触发中断，造成混乱甚至不可预期行为。恢复时，<code>IRET</code> 会将 <code>TF</code> 恢复为中断前的状态。</td>
+</tr>
+<tr>
+<td><strong>NT</strong> (Nested Task)</td>
+<td>嵌套任务标志：用于任务切换机制（与 TSS 和任务门相关）</td>
+<td>位 14</td>
+<td><code>NT = 1</code> 表示当前是嵌套任务。中断门触发时，<strong>即便不是 Task Gate 形式，也会清除 <code>NT</code> 位为 0</strong>，防止任务嵌套链在中断中干扰任务切换控制流。(如果是嵌套任务则 <code>iretd</code> 指令会根据任务段返回)</td>
+</tr>
+<tr>
+<td><strong>VM</strong> (Virtual 8086 Mode)</td>
+<td>虚拟 8086 模式标志：控制是否在 V8086 模拟环境中运行 16 位实模式代码</td>
+<td>位 17</td>
+<td>如果 CPU 当前处于 <code>VM = 1</code>（虚拟 8086 模式），当通过中断门执行 <code>INT n</code> 指令时，CPU 会自动清除 <code>VM</code>，<strong>退出 V86 模式，进入保护模式（Ring 0）</strong>，以便执行保护模式下的中断处理程序。这个过程伴随着堆栈切换、权限检查和返回机制，支持从实模式模拟环境跳转到内核态中断处理逻辑。</td>
+</tr>
+</tbody></table>
+<ol start="5">
+<li><p><strong>跳转到中断处理程序：</strong></p>
+<ul>
+<li>设置新的 <code>CS:EIP</code> 为门描述符中指定的目标。</li>
+<li>开始执行中断处理程序。</li>
+</ul>
+</li>
+</ol>
+<h5 id="返回过程-1"><a href="#返回过程-1" class="headerlink" title="返回过程"></a>返回过程</h5><p>在中断处理程序结束时通过 <code>iret</code>（ 32 位 <code>iretd</code>，64 位 <code>iretq</code>）指令返回，具体过程为：</p>
+<ol>
+<li><strong>进行权限检查：</strong><ul>
+<li>从栈中弹出 <code>EIP</code>、<code>CS</code> 和 <code>EFLAGS</code>。</li>
+<li>如果发生过权限变化（即从高权限跳转到低权限）：<ul>
+<li>同时还需要从栈中恢复 <code>SS</code> 和 <code>ESP</code>。</li>
+<li>返回后会将 CPL 设置为 <code>CS</code> 描述符中的 DPL。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>恢复上下文：</strong><ul>
+<li>设置 <code>CS:EIP</code> 为返回地址。</li>
+<li>恢复原 <code>EFLAGS</code>。</li>
+<li>如果发生过堆栈切换，则也恢复 <code>SS</code> 和 <code>ESP</code>，切回用户堆栈。</li>
+</ul>
+</li>
+<li><strong>完成权限恢复与返回：</strong><ul>
+<li>中断处理完毕，程序继续从中断发生处继续执行。</li>
+</ul>
+</li>
+</ol>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content">
+      <ul>
+<li>若中断期间修改了段寄存器（如 <code>fs</code>），在返回到用户态前应手动还原。</li>
+<li><code>iretd</code> 不能被 <code>retf 4</code> 代替，因为发送权限变化的时候 <code>retf 4</code> 还会平衡掉用户态栈中压入的参数，而 <code>int</code> 指令只在内核态栈中压入 <code>EFLAGS</code>，因此会导致堆栈不平衡。</li>
+</ul>
+
+    </div>
+  </div>
+
+<h3 id="陷阱门"><a href="#陷阱门" class="headerlink" title="陷阱门"></a>陷阱门</h3><p>陷阱门是一种<strong>门描述符</strong>，用于定义某个中断或异常发生时，处理器该跳转到哪段代码继续执行。它和中断门类似，都存在于 <strong>IDT（Interrupt Descriptor Table）</strong> 中，但行为略有不同，<strong>主要用于不会频繁嵌套、需要精细控制响应时机的异常或调试场景</strong>。</p>
+<h4 id="门描述符-2"><a href="#门描述符-2" class="headerlink" title="门描述符"></a>门描述符</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/TrapGateDescriptior.svg"
+                      alt="TrapGateDescriptior"
+                ></p>
+<p>陷阱门描述符与中断门描述符格式基本一致，唯一区别就是 <code>Type</code> 字段不同，由 <code>1110</code>（0xE）变为了 <code>1111</code>（0xF）。</p>
+<h4 id="过程分析-2"><a href="#过程分析-2" class="headerlink" title="过程分析"></a>过程分析</h4><p>与中断门完全一致，唯一的不同点在于陷阱门不会清空 <code>EFLAGS</code> 的 <code>IF</code> 标志位。</p>
+<h3 id="任务门"><a href="#任务门" class="headerlink" title="任务门"></a>任务门</h3><h4 id="任务段"><a href="#任务段" class="headerlink" title="任务段"></a>任务段</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/TSSDescriptior.svg"
+                      alt="TSSDescriptior"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250604014705925.png"
+                      alt="image-20250604014705925"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250604014908047.png"
+                      alt="image-20250604014908047"
+                ></p>
+<h4 id="门描述符-3"><a href="#门描述符-3" class="headerlink" title="门描述符"></a>门描述符</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/TaskGateDescriptior.svg"
+                      alt="TaskGateDescriptior"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/images/image-20250604014810467.png"
+                      alt="image-20250604014810467"
+                ></p>
+<h2 id="页式内存管理"><a href="#页式内存管理" class="headerlink" title="页式内存管理"></a>页式内存管理</h2><h1 id="驱动开发"><a href="#驱动开发" class="headerlink" title="驱动开发"></a>驱动开发</h1><h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h1 id="句柄表"><a href="#句柄表" class="headerlink" title="句柄表"></a>句柄表</h1>
 		</div>
 
 		
@@ -996,7 +1403,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-06-03 04:00:15
+                    :</strong> 2025-06-04 01:49:13
             </li>
         
         <li>
@@ -1125,7 +1532,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">windows 内核态逆向开发</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="nav-text">保护模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="nav-text">CPU 的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%EF%BC%88Real-Mode%EF%BC%89"><span class="nav-text">实模式（Real Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%EF%BC%88Protected-Mode%EF%BC%89"><span class="nav-text">保护模式（Protected Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F8086%E6%A8%A1%E5%BC%8F%EF%BC%88Virtual-8086-Mode%EF%BC%89"><span class="nav-text">虚拟8086模式（Virtual 8086 Mode）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-text">保护模式下的地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%EF%BC%88Logical-Address%EF%BC%89"><span class="nav-text">逻辑地址（Logical Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%EF%BC%88Virtual-Address%EF%BC%89"><span class="nav-text">虚拟地址（Virtual Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%EF%BC%88Physical-Address%EF%BC%89"><span class="nav-text">物理地址（Physical Address）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">段式内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88Segment-Registers%EF%BC%89"><span class="nav-text">段寄存器（Segment Registers）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">主要段寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%93%E6%9E%84"><span class="nav-text">段寄存器结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E8%AF%BB%E5%86%99"><span class="nav-text">段寄存器读写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">数据段寄存器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">代码段寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88Descriptor-Table%EF%BC%89"><span class="nav-text">段描述符表（Descriptor Table）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%E7%A7%8D%E7%B1%BB"><span class="nav-text">段描述符表种类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88GDT-Global-Descriptor-Table%EF%BC%89"><span class="nav-text">全局描述符表（GDT, Global Descriptor Table）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88LDT-Local-Descriptor-Table%EF%BC%89"><span class="nav-text">局部描述符表（LDT, Local Descriptor Table）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%88Segment-Descriptor%EF%BC%89"><span class="nav-text">段描述符（Segment Descriptor）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B"><span class="nav-text">段权限检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B1%BB%E5%9E%8B"><span class="nav-text">权限类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E8%A7%84%E5%88%99"><span class="nav-text">权限规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99"><span class="nav-text">权限检测规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E6%94%B9%E8%A7%84%E5%88%99"><span class="nav-text">权限修改规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%97%A8"><span class="nav-text">调用门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">门描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="nav-text">过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">调用过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E8%BF%87%E7%A8%8B"><span class="nav-text">返回过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E9%97%A8"><span class="nav-text">中断门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6-1"><span class="nav-text">门描述符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1%E9%97%A8"><span class="nav-text">陷阱门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E6%AE%B5"><span class="nav-text">任务段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">页式内存管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91"><span class="nav-text">驱动开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E8%A1%A8"><span class="nav-text">句柄表</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="nav-text">保护模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="nav-text">CPU 的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%EF%BC%88Real-Mode%EF%BC%89"><span class="nav-text">实模式（Real Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%EF%BC%88Protected-Mode%EF%BC%89"><span class="nav-text">保护模式（Protected Mode）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F8086%E6%A8%A1%E5%BC%8F%EF%BC%88Virtual-8086-Mode%EF%BC%89"><span class="nav-text">虚拟8086模式（Virtual 8086 Mode）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-text">保护模式下的地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%EF%BC%88Logical-Address%EF%BC%89"><span class="nav-text">逻辑地址（Logical Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%EF%BC%88Virtual-Address%EF%BC%89"><span class="nav-text">虚拟地址（Virtual Address）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%EF%BC%88Physical-Address%EF%BC%89"><span class="nav-text">物理地址（Physical Address）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">段式内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88Segment-Registers%EF%BC%89"><span class="nav-text">段寄存器（Segment Registers）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">主要段寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%93%E6%9E%84"><span class="nav-text">段寄存器结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8%E8%AF%BB%E5%86%99"><span class="nav-text">段寄存器读写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">数据段寄存器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">代码段寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88Descriptor-Table%EF%BC%89"><span class="nav-text">段描述符表（Descriptor Table）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%E7%A7%8D%E7%B1%BB"><span class="nav-text">段描述符表种类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88GDT-Global-Descriptor-Table%EF%BC%89"><span class="nav-text">全局描述符表（GDT, Global Descriptor Table）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88LDT-Local-Descriptor-Table%EF%BC%89"><span class="nav-text">局部描述符表（LDT, Local Descriptor Table）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6%EF%BC%88Segment-Descriptor%EF%BC%89"><span class="nav-text">段描述符（Segment Descriptor）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B"><span class="nav-text">段权限检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B1%BB%E5%9E%8B"><span class="nav-text">权限类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E8%A7%84%E5%88%99"><span class="nav-text">权限规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99"><span class="nav-text">权限检测规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E6%94%B9%E8%A7%84%E5%88%99"><span class="nav-text">权限修改规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%97%A8"><span class="nav-text">调用门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-text">门描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="nav-text">过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">调用过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E8%BF%87%E7%A8%8B"><span class="nav-text">返回过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD"><span class="nav-text">中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%AD%E6%96%AD"><span class="nav-text">什么是中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8%EF%BC%88IDT-Interrupt-Descriptor-Table%EF%BC%89"><span class="nav-text">中断描述符表（IDT,Interrupt Descriptor Table）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E9%97%A8"><span class="nav-text">中断门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6-1"><span class="nav-text">门描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90-1"><span class="nav-text">过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B-1"><span class="nav-text">调用过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E8%BF%87%E7%A8%8B-1"><span class="nav-text">返回过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%B7%E9%98%B1%E9%97%A8"><span class="nav-text">陷阱门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6-2"><span class="nav-text">门描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90-2"><span class="nav-text">过程分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E9%97%A8"><span class="nav-text">任务门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E6%AE%B5"><span class="nav-text">任务段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6-3"><span class="nav-text">门描述符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">页式内存管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91"><span class="nav-text">驱动开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E8%A1%A8"><span class="nav-text">句柄表</span></a></li></ol>
 
 	</div>
 </div>
@@ -1156,7 +1563,7 @@
                     </span>
                     
                         <span>
-                            540.8k words in total
+                            543.5k words in total
                         </span>
                     
                 </p>
