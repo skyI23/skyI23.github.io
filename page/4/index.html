@@ -353,7 +353,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -391,7 +391,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -658,6 +658,87 @@ CPU 的模式x86 CPU 的三个主要模式分别是实模式（Real Mode）、�
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
+                            windows 用户态逆向开发
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            基础VS 导入第三方 lib 库待更新
+获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
+CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
+1234cppCopy codeHANDLE CreateTo...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">
                             windows 句柄表
                         </a>
@@ -741,18 +822,27 @@ CPU 的模式x86 CPU 的三个主要模式分别是实模式（Real Mode）、�
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
-                            windows 用户态逆向开发
+                        <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">
+                            windows 内核回调
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            基础VS 导入第三方 lib 库待更新
-获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
-CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
-1234cppCopy codeHANDLE CreateTo...
+                            https://www.vergiliusproject.com/
+系统通知型回调（Notify Callbacks）系统通知型回调是 Windows 内核提供的一类机制，允许内核模式驱动程序注册回调函数，以便在系统关键事件（如进程&#x2F;线程创建、模块加载、句柄操作、注册表修改等）发生时收到通知。
+常见的系统通知型回调有下面几种类型：
+
+
+
+事件类型
+注册函数
+回调函数类型
+
+
+
+进程...
                         
                     </div>
 
@@ -784,7 +874,7 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
                         </li>
                     
                     
@@ -799,7 +889,7 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
                     
                         <li>
                             
-                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
+                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -807,7 +897,7 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
         
     </div>
 
-    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">Read more<span class="seo-reader-text">windows 内核回调</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -981,86 +1071,6 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">
-                            windows 驱动基础
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Windows 基础内核对象内核对象（Kernel Object），是 Windows 内核里对各种内核资源进行统一管理、统一命名、统一访问控制、统一生命周期控制的一种抽象机制。
-设计思想在没有内核对象之前，Windows 内核里存在着大量不同类型的资源（如设备，文件，进程线程等），这些资源每种结构体都不一样，但是每种都要支持用户态访问（有名字，有权限控制，有引用计数，有安全策略）。
-因此 ...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">Read more<span class="seo-reader-text">windows 驱动基础</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
                         <a href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">
                             异架构相关
                         </a>
@@ -1134,6 +1144,86 @@ qemu-system：提供完整的系统级仿真。例如有些固件的运行需要
                 </div>
             </li>
         
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">
+                            windows 驱动基础
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Windows 基础内核对象内核对象（Kernel Object），是 Windows 内核里对各种内核资源进行统一管理、统一命名、统一访问控制、统一生命周期控制的一种抽象机制。
+设计思想在没有内核对象之前，Windows 内核里存在着大量不同类型的资源（如设备，文件，进程线程等），这些资源每种结构体都不一样，但是每种都要支持用户态访问（有名字，有权限控制，有引用计数，有安全策略）。
+因此 ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">Read more<span class="seo-reader-text">windows 驱动基础</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1164,11 +1254,11 @@ qemu-system：提供完整的系统级仿真。例如有些固件的运行需要
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        39 posts in total
+                        40 posts in total
                     </span>
                     
                         <span>
-                            631.8k words in total
+                            646.6k words in total
                         </span>
                     
                 </p>

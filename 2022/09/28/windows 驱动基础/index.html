@@ -318,7 +318,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">39</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -367,8 +367,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-03 02:13:36</span>
-            <span class="mobile">2025-07-03 02:13:36</span>
+            <span class="desktop">2025-07-05 01:11:49</span>
+            <span class="mobile">2025-07-05 01:11:49</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -1013,7 +1013,7 @@
 <ul>
 <li><p><strong><code>PDRIVER_OBJECT DriverObject</code></strong> ：内核为每个加载的驱动创建一个 <code>DRIVER_OBJECT</code> 结构，此参数就是它的指针。你需要通过它来注册 IRP 分发表、卸载函数、创建设备等。</p>
 <p><code>DRIVER_OBJECT</code> 是 Windows 内核用来描述一个驱动程序核心信息的数据结构，驱动开发时我们通过它设置入口函数、分发表、卸载逻辑，是驱动生命周期管理的中心。</p>
-<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0xA8 bytes</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">DRIVER_OBJECT</span> &#123;</span></span><br><span class="line">    CSHORT Type;                             <span class="comment">// 内核对象类型 (固定 DRIVER_OBJECT(0x04))</span></span><br><span class="line">    CSHORT Size;                             <span class="comment">// 结构体大小 (0xA8 字节)</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">DEVICE_OBJECT</span>* <span class="title">DeviceObject</span>;</span>     <span class="comment">// 📌设备对象链表头</span></span><br><span class="line">    ULONG Flags;                             <span class="comment">// 驱动状态标志</span></span><br><span class="line">    PVOID DriverStart;                       <span class="comment">// 📌驱动映像起始地址</span></span><br><span class="line">    ULONG DriverSize;                        <span class="comment">// 📌驱动映像总大小</span></span><br><span class="line">    PVOID DriverSection;                     <span class="comment">// 加载模块节点 (挂载到 PsLoadedModuleList)</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">DRIVER_EXTENSION</span>* <span class="title">DriverExtension</span>;</span>  <span class="comment">// 扩展区域 (含 AddDevice)</span></span><br><span class="line">    UNICODE_STRING DriverName;               <span class="comment">// 📌驱动名 (\Driver\XXX)</span></span><br><span class="line">    UNICODE_STRING* HardwareDatabase;        <span class="comment">// 硬件数据库路径 (历史用途)</span></span><br><span class="line">    PFAST_IO_DISPATCH FastIoDispatch;        <span class="comment">// 快速 I/O 分发表 (文件系统驱动用)</span></span><br><span class="line">    PDRIVER_INITIALIZE DriverInit;           <span class="comment">// 📌初始化入口 (内部使用)</span></span><br><span class="line">    PDRIVER_STARTIO DriverStartIo;           <span class="comment">// 串行化 I/O 支持 (极少用)</span></span><br><span class="line">    PDRIVER_UNLOAD DriverUnload;             <span class="comment">// 📌驱动卸载函数指针</span></span><br><span class="line">    PDRIVER_DISPATCH MajorFunction[<span class="number">28</span>];      <span class="comment">// 📌IRP 主功能分发表</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0xA8 bytes</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">DRIVER_OBJECT</span> &#123;</span></span><br><span class="line">    CSHORT Type;                             <span class="comment">// 内核对象类型 (固定 DRIVER_OBJECT(0x04))</span></span><br><span class="line">    CSHORT Size;                             <span class="comment">// 结构体大小 (0xA8 字节)</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">DEVICE_OBJECT</span>* <span class="title">DeviceObject</span>;</span>     <span class="comment">// 📌设备对象链表头</span></span><br><span class="line">    ULONG Flags;                             <span class="comment">// 驱动状态标志</span></span><br><span class="line">    PVOID DriverStart;                       <span class="comment">// 📌驱动映像起始地址</span></span><br><span class="line">    ULONG DriverSize;                        <span class="comment">// 📌驱动映像总大小</span></span><br><span class="line">    PVOID DriverSection;                     <span class="comment">// 📌加载模块节点，KLDR_DATA_TABLE_ENTRY结构 (挂载到 PsLoadedModuleList)</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">DRIVER_EXTENSION</span>* <span class="title">DriverExtension</span>;</span>  <span class="comment">// 扩展区域 (含 AddDevice)</span></span><br><span class="line">    UNICODE_STRING DriverName;               <span class="comment">// 📌驱动名 (\Driver\XXX)</span></span><br><span class="line">    UNICODE_STRING* HardwareDatabase;        <span class="comment">// 硬件数据库路径 (历史用途)</span></span><br><span class="line">    PFAST_IO_DISPATCH FastIoDispatch;        <span class="comment">// 快速 I/O 分发表 (文件系统驱动用)</span></span><br><span class="line">    PDRIVER_INITIALIZE DriverInit;           <span class="comment">// 📌初始化入口 (内部使用)</span></span><br><span class="line">    PDRIVER_STARTIO DriverStartIo;           <span class="comment">// 串行化 I/O 支持 (极少用)</span></span><br><span class="line">    PDRIVER_UNLOAD DriverUnload;             <span class="comment">// 📌驱动卸载函数指针</span></span><br><span class="line">    PDRIVER_DISPATCH MajorFunction[<span class="number">28</span>];      <span class="comment">// 📌IRP 主功能分发表</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p><strong><code>PUNICODE_STRING RegistryPath</code></strong> ：指向一个 Unicode 字符串，表示驱动在注册表中的键路径，如 <code>\Registry\Machine\System\CurrentControlSet\Services\MyDriver</code> 。</p>
 </li>
@@ -2208,7 +2208,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-03 02:13:36
+                    :</strong> 2025-07-05 01:11:49
             </li>
         
         <li>
@@ -2246,29 +2246,17 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">
+				<a class="prev" rel="prev" href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">windows 进程线程</span>
+						<span class="post-nav-title-item">异架构相关</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>
 			</div>
 			
-			
-			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">异架构相关</span>
-						<span class="post-nav-item">Next posts</span>
-					</span>
-					<span class="right arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-right"></i>
-					</span>
-				</a>
-			</div>
 			
 		</div>
 		
@@ -2364,11 +2352,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        39 posts in total
+                        40 posts in total
                     </span>
                     
                         <span>
-                            631.8k words in total
+                            646.6k words in total
                         </span>
                     
                 </p>
