@@ -1026,40 +1026,23 @@ Unlink假设正常情况下，每申请一个 chunk 会保存一个指向该 chu
                             基础知识常见格式化字符串函数
 
 
-函数
+函数名称
 基本介绍
+函数原型
+返回值
+使用场景与说明
 
 
 
 printf
-输出到stdout
+将格式化字符串输出到标准输出 stdout（通常是终端）
+int printf(const char *format, ...);
+返回成功写入的字符数，不包括终止符；失败返回负值
+最常用的输出函数，适用于向屏幕输出调试信息或用户提示
 
 
 fprintf
-输出到指定FILE流
-
-
-vprintf
-根据参数列表格式化输出到stdout
-
-
-vfprintf
-根据参数列表格式化输出到FILE流
-
-
-sprintf
-输出到字符串
-
-
-snprintf
-输出指定字节数到字符串
-
-
-vsprintf
-根据参数列表格式化输出到字符串
-
-
-vsnp...
+将格式化字符串输出到指定的文件...
                         
                     </div>
 
@@ -1403,7 +1386,7 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                     </span>
                     
                         <span>
-                            662.5k words in total
+                            671.1k words in total
                         </span>
                     
                 </p>

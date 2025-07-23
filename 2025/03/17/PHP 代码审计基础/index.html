@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-22 01:03:04</span>
-            <span class="mobile">2025-07-22 01:03:04</span>
+            <span class="desktop">2025-07-24 02:17:03</span>
+            <span class="mobile">2025-07-24 02:17:03</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>18.6k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>26.2k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>75 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>106 Mins</span>
         </span>
     
     
@@ -600,19 +600,250 @@
 <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install composer</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="PHPStorm"><a href="#PHPStorm" class="headerlink" title="PHPStorm"></a>PHPStorm</h3><p><a class="link"   target="_blank" rel="noopener" href="https://www.jetbrains.com/phpstorm/" >PHPStorm<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是一款优秀的 IDE，方便审计调试代码。直接在 Windows 上装一个，调试就远程调试即可。</p>
-<h3 id="xdebug-helper"><a href="#xdebug-helper" class="headerlink" title="xdebug-helper"></a>xdebug-helper</h3><p><a class="link"   target="_blank" rel="noopener" href="https://addons.mozilla.org/zh-CN/firefox/addon/xdebug-helper-for-firefox/" >xdebug-helper<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是一个火狐浏览器插件，用户可以借助其设置 IDE key 从而快速与 IDE 建立调试关系（本质就是在 cookie 中添加 IDE 默认的 IDE key）。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/b2b2c3205743dbfdfe5c5efd638e0dfc.png"
-                     
-                ></p>
-<h2 id="远程调试-PHP-代码"><a href="#远程调试-PHP-代码" class="headerlink" title="远程调试 PHP 代码"></a>远程调试 PHP 代码</h2><h3 id="配置-Xdebug-插件"><a href="#配置-Xdebug-插件" class="headerlink" title="配置 Xdebug 插件"></a>配置 Xdebug 插件</h3><p>在 PHPStudy 设置开启 XDebug 插件。</p>
-<h4 id="Windows-平台-2"><a href="#Windows-平台-2" class="headerlink" title="Windows 平台"></a>Windows 平台</h4><p>Windows 系统开启位置如下：<br><img  
+<h2 id="远程调试-PHP-代码"><a href="#远程调试-PHP-代码" class="headerlink" title="远程调试 PHP 代码"></a>远程调试 PHP 代码</h2><h3 id="Xdebug-基本概念"><a href="#Xdebug-基本概念" class="headerlink" title="Xdebug 基本概念"></a>Xdebug 基本概念</h3><p><strong>Xdebug</strong> 是 PHP 的一个调试器扩展（extension），可用于<strong>断点调试</strong>、<strong>调用栈跟踪</strong>、<strong>性能分析等</strong>。其调试核心机制是：<strong>PHP 脚本运行时通过 Xdebug 主动连接 IDE（如 PHPStorm），并基于 DBGp 协议与 IDE 通信，传递断点、变量等调试信息</strong>。</p>
+<h4 id="Xdebug-版本体系"><a href="#Xdebug-版本体系" class="headerlink" title="Xdebug 版本体系"></a>Xdebug 版本体系</h4><p>Xdebug 的<strong>版本体系</strong>主要围绕两个主版本线：<strong>Xdebug 2.x</strong>（传统稳定线）和 <strong>Xdebug 3.x</strong>（现代重构线）。二者的基本情况如下：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>Xdebug 2.x</th>
+<th>Xdebug 3.x</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发布起始</td>
+<td>2007 年（2.0.0）</td>
+<td>2020 年（3.0.0）</td>
+</tr>
+<tr>
+<td>设计目标</td>
+<td>为 PHP 5&#x2F;7 提供 DBGp 调试协议支持</td>
+<td>重构配置、优化性能、对 PHP 7.2+ 设计</td>
+</tr>
+<tr>
+<td>生命周期</td>
+<td>EOL（仅安全维护，不再新增功能）</td>
+<td>活跃开发中</td>
+</tr>
+<tr>
+<td>当前稳定版本</td>
+<td>2.9.8（最终稳定版）</td>
+<td>3.3.x（支持 PHP 8.3）</td>
+</tr>
+<tr>
+<td>推荐使用场景</td>
+<td>PHP 5.x ~ 7.1 遗留项目</td>
+<td>PHP 7.2+ 全新或主流项目</td>
+</tr>
+</tbody></table>
+<p><strong>虽然 PHP 与 Xdebug 版本不是强绑定，但二者之间存在明确的兼容区间</strong>。必须确保所用的 Xdebug 版本支持当前的 PHP 版本，否则加载会失败。不同版本的 PHP 的 Xdebug 支持范围如下：</p>
+<table>
+<thead>
+<tr>
+<th>PHP 版本</th>
+<th>支持的 Xdebug 版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PHP 5.2 ~ 5.6</td>
+<td>Xdebug 2.0 ~ 2.5</td>
+</tr>
+<tr>
+<td>PHP 7.0 ~ 7.1</td>
+<td>Xdebug 2.4 ~ 2.7</td>
+</tr>
+<tr>
+<td>PHP 7.2 ~ 7.4</td>
+<td>✅ Xdebug 2.6+ &#x2F; 3.x</td>
+</tr>
+<tr>
+<td>PHP 8.0 ~ 8.1</td>
+<td>✅ Xdebug 3.0+</td>
+</tr>
+<tr>
+<td>PHP 8.2 ~ 8.3</td>
+<td>✅ Xdebug 3.2 &#x2F; 3.3</td>
+</tr>
+<tr>
+<td>PHP 8.4+（未来）</td>
+<td>预计支持 Xdebug 4.x</td>
+</tr>
+</tbody></table>
+<p>如果我们已经安装好 Xdebug 插件，那么可以通过如下命令查看当前安装的 Xdebug 插件版本：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -v</span><br></pre></td></tr></table></figure></div>
+
+<p>具体要查看输出中是否有：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with Xdebug v2.x.x   ← 说明你用的是 Xdebug 2</span><br><span class="line">with Xdebug v3.x.x   ← 是 Xdebug 3</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="Xdebug-配置选项"><a href="#Xdebug-配置选项" class="headerlink" title="Xdebug 配置选项"></a>Xdebug 配置选项</h4><p>Xdebug 是一个功能丰富的 PHP 扩展，提供<strong>断点调试、函数追踪、性能分析、代码覆盖率</strong>等多种能力。但在这里我们只启用其调试（debug）功能，用于连接 IDE（如 PHPStorm）进行断点调试。</p>
+<p><strong>Xdebug 2.x 常用调试配置如下：</strong></p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; 启用远程调试功能（连接 IDE）</span></span><br><span class="line"><span class="attr">xdebug.remote_enable</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 控制是否自动连接 IDE：</span></span><br><span class="line"><span class="comment">; - 1：每个请求都连接 IDE</span></span><br><span class="line"><span class="comment">; - 0：仅在请求中带参数 XDEBUG_SESSION 时连接（推荐）</span></span><br><span class="line"><span class="attr">xdebug.remote_autostart</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; IDE 主机 IP 地址</span></span><br><span class="line"><span class="attr">xdebug.remote_host</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; IDE 监听的调试端口</span></span><br><span class="line"><span class="attr">xdebug.remote_port</span> = <span class="number">9000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 指定调试协议，仅支持 dbgp</span></span><br><span class="line"><span class="attr">xdebug.remote_handler</span> = dbgp</span><br><span class="line"></span><br><span class="line"><span class="comment">; idekey，用于匹配 IDE 会话（建议设为 PHPSTORM）</span></span><br><span class="line"><span class="attr">xdebug.idekey</span> = PHPSTORM</span><br><span class="line"></span><br><span class="line"><span class="comment">; 可选：调试日志路径，连接失败时可排查</span></span><br><span class="line"><span class="comment">; xdebug.remote_log = /tmp/xdebug.log</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>Xdebug 3.x 常用调试配置如下：</strong></p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; 启用调试模块（debug 可组合其它功能如 trace、profile）</span></span><br><span class="line"><span class="attr">xdebug.mode</span> = debug</span><br><span class="line"></span><br><span class="line"><span class="comment">; 控制调试启动条件：</span></span><br><span class="line"><span class="comment">; - trigger：请求中有 XDEBUG_TRIGGER 参数时连接 IDE（推荐）</span></span><br><span class="line"><span class="comment">; - yes：每次请求都连接 IDE（适合 CLI）</span></span><br><span class="line"><span class="attr">xdebug.start_with_request</span> = trigger</span><br><span class="line"></span><br><span class="line"><span class="comment">; IDE 主机 IP（本地或宿主机）</span></span><br><span class="line"><span class="attr">xdebug.client_host</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; IDE 监听的调试端口（默认 9003）</span></span><br><span class="line"><span class="attr">xdebug.client_port</span> = <span class="number">9003</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; idekey，会发送给 IDE 用于识别会话</span></span><br><span class="line"><span class="attr">xdebug.idekey</span> = PHPSTORM</span><br><span class="line"></span><br><span class="line"><span class="comment">; 可选：记录调试通信日志</span></span><br><span class="line"><span class="comment">; xdebug.log = /tmp/xdebug.log</span></span><br></pre></td></tr></table></figure></div>
+
+<p>与 2.x 相比，Xdebug 3.x 在配置方式上更加简洁、模块化：</p>
+<ul>
+<li>不再使用 <code>remote_*</code> 开头的配置项，而是统一为 <code>client_*</code> 和 <code>start_with_request</code>。</li>
+<li>调试功能通过 <code>xdebug.mode = debug</code> 控制，不需要额外启用开关。</li>
+<li>默认端口改为 <code>9003</code>，PHPStorm 中也需要同步配置。</li>
+</ul>
+<h4 id="Xdebug-调试原理"><a href="#Xdebug-调试原理" class="headerlink" title="Xdebug 调试原理"></a>Xdebug 调试原理</h4><p>假设你已经具备以下调试环境：</p>
+<ul>
+<li>一个运行在 Web 服务器（如 Apache、Nginx 或 PHP 内置服务器）上的 <strong>PHP 项目</strong>，且已正确安装并配置 <strong>Xdebug 扩展</strong>（如设置 <code>xdebug.mode=debug</code>）。</li>
+<li>使用 <strong>PHPStorm 作为 IDE</strong>，并<strong>启用了调试监听</strong>。</li>
+<li><strong>浏览器</strong>中安装了 <strong>Xdebug Helper 插件</strong>，并启用了 <strong>Debug 模式</strong>。</li>
+</ul>
+<p>当你<strong>在浏览器中访问页面</strong>时，若以上配置无误，<strong>Xdebug 将尝试连接 PHPStorm，IDE 会成功断点调试</strong>。以下是整个调试过程的详细流程：</p>
+<pre class="mermaid">sequenceDiagram
+    participant Browser
+    participant WebServer
+    participant PHP_Xdebug
+    participant PHPStorm
+
+    Note over Browser: 启用 Xdebug Helper 插件（Debug 模式）
+    Note over PHP_Xdebug: PHP 启动并加载 Xdebug 扩展&lt;br/&gt;xdebug.mode=debug 等配置已生效
+    Note over PHPStorm: PHPStorm 启动并开启监听器（监听 9003 端口）
+
+    Browser->>WebServer: 访问页面（附带 Cookie: XDEBUG_TRIGGER=PHPSTORM）
+    WebServer->>PHP_Xdebug: 转发请求（PHP 执行入口文件）
+
+    alt 满足调试触发条件
+        PHP_Xdebug->>PHPStorm: 建立 TCP 连接（端口 9003）
+        PHP_Xdebug->>PHPStorm: 发送 &lt;init&gt; 报文（包含 fileuri、idekey 等）
+        PHPStorm->>PHP_Xdebug: 发送 &lt;breakpoint_set&gt; 报文（设置断点）
+
+        loop 执行用户代码
+            PHP_Xdebug->>PHP_Xdebug: 检查当前行是否命中断点
+        end
+
+        alt 命中断点
+            PHP_Xdebug->>PHPStorm: 发送 &lt;stopped&gt; 报文
+            PHPStorm->>PHP_Xdebug: 请求变量 / 栈帧（context_get, stack_get）
+            PHPStorm->>User: 显示断点位置、变量、调用栈
+        end
+    else 未触发调试
+        PHP_Xdebug->>PHP_Xdebug: 正常执行，跳过调试逻辑
+    end</pre>
+
+<ol>
+<li><p><strong>浏览器发起请求并设置调试触发器</strong></p>
+<p>当你在浏览器中访问 PHP 页面，并通过 <strong>Xdebug Helper 插件启用 Debug 模式</strong>，插件会向请求中注入一个 Cookie：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">XDEBUG_SESSION=PHPSTORM  （Xdebug 2.x 默认）</span><br><span class="line">或</span><br><span class="line">XDEBUG_TRIGGER=PHPSTORM  （Xdebug 3.x 推荐）</span><br></pre></td></tr></table></figure></div>
+
+<p>该 Cookie 或 URL 参数称为“<strong>调试触发器（trigger）</strong>”，用于显式告诉 PHP：“<strong>这次请求需要调试</strong>”。</p>
+</li>
+<li><p><strong>Xdebug 判断是否需要发起调试连接</strong></p>
+<p>PHP 在接收到 Web 请求时会启动解释器并加载扩展，其中包括 Xdebug。Xdebug 启动后会判断是否应进行调试：</p>
+<ul>
+<li>首先检查 <code>xdebug.mode</code> 是否包含 <code>debug</code>（Xdebug 3）或 <code>xdebug.remote_enable</code> 是否为 <code>1</code>（Xdebug 2）。</li>
+<li>然后检查是否满足触发条件：<ul>
+<li>Xdebug 2.x 默认通过 <code>XDEBUG_SESSION</code> Cookie 或 URL 参数触发调试</li>
+<li>Xdebug 3.x 推荐通过设置 <code>xdebug.start_with_request=trigger</code> 并传递 <code>XDEBUG_TRIGGER</code> 实现</li>
+</ul>
+</li>
+</ul>
+<p>满足条件后，Xdebug 会尝试与 IDE 建立连接，目标为：</p>
+<ul>
+<li><p><strong>Xdebug 2.x</strong>：</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xdebug.remote_host</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">xdebug.remote_port</span>=<span class="number">9000</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>Xdebug 3.x</strong>：</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xdebug.client_host</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">xdebug.client_port</span>=<span class="number">9003</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p><strong>Xdebug 发起连接并发送 <code>&lt;init&gt;</code> 初始化包</strong></p>
+<p>一旦触发调试，Xdebug 会主动通过 TCP 向 IDE 建立连接，并发送一个 XML 格式的 <code>&lt;init&gt;</code> 包：</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">init</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns</span>=<span class="string">&quot;urn:debugger_protocol_v1&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">fileuri</span>=<span class="string">&quot;file:///var/www/html/index.php&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">language</span>=<span class="string">&quot;PHP&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">idekey</span>=<span class="string">&quot;PHPSTORM&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">appid</span>=<span class="string">&quot;12345&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>该报文表明调试连接已建立，Xdebug 说明了当前文件、语言、IDE key、请求 ID 等信息。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li><strong>Xdebug 2</strong> 连接 IDE 时使用的 <code>idekey</code>，<strong>优先取自请求中带的 <code>XDEBUG_SESSION=xxx</code>，如果没有，则使用 <code>php.ini</code> 中的 <code>xdebug.idekey</code></strong> 。</li>
+<li>在 <strong>Xdebug 3</strong> 中，<code>XDEBUG_SESSION=xxx</code> 已被废弃，触发调试只用 <code>XDEBUG_TRIGGER</code>，而 <code>XDEBUG_TRIGGER</code> 并不携带 <code>idekey</code>。因此 <code>idekey</code> 的值<strong>始终取自 <code>php.ini</code> 中的配置项 <code>xdebug.idekey</code></strong> 。</li>
+</ul>
+
+    </div>
+  </div>
+</li>
+<li><p><strong>PHPStorm 接收连接并做路径映射</strong></p>
+<p>PHPStorm 一旦点击了<strong>监听按钮</strong>，就会在本地监听相应端口（9000 或 9003）。</p>
+<p>收到 Xdebug 的 <code>&lt;init&gt;</code> 报文后，PHPStorm会：</p>
+<ul>
+<li>检查 <code>idekey</code> 是否匹配（如 PHPSTORM）</li>
+<li>匹配本地路径与远程路径（根据设置的路径映射 Path Mapping）</li>
+<li>判断该文件是否属于某个项目</li>
+<li>准备回应调试请求</li>
+</ul>
+<p>如果路径映射配置错误，则 PHPStorm 无法定位源代码，也不会命中断点。</p>
+</li>
+<li><p><strong>PHPStorm 向 Xdebug 发送断点配置</strong></p>
+<p>PHPStorm 会根据你在 IDE 中设置的断点，向 Xdebug 发送 <code>breakpoint_set</code> 命令，例如：</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">breakpoint_set</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;line&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">file</span>=<span class="string">&quot;file:///var/www/html/index.php&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">lineno</span>=<span class="string">&quot;15&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">state</span>=<span class="string">&quot;enabled&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>Xdebug 收到后会：</p>
+<ul>
+<li>检查路径和行号合法性</li>
+<li>存储断点到内部结构中</li>
+</ul>
+<p>此时 Xdebug 已知需要在第 15 行断下。</p>
+</li>
+<li><p><strong>断点命中与调试交互</strong></p>
+<p>PHP 继续执行用户代码，Xdebug 会在每次执行 opcode 时检查当前执行位置是否命中已设置断点。如果命中，PHP 会暂停执行，Xdebug 向 IDE 返回如下消息：</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">stopped</span> <span class="attr">reason</span>=<span class="string">&quot;break&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">frame</span> <span class="attr">level</span>=<span class="string">&quot;0&quot;</span> <span class="attr">fileuri</span>=<span class="string">&quot;...&quot;</span> <span class="attr">lineno</span>=<span class="string">&quot;15&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">stopped</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>PHPStorm 收到后：</p>
+<ul>
+<li>高亮当前断点位置</li>
+<li>自动请求变量列表（<code>context_get</code>）、调用栈（<code>stack_get</code>）等信息</li>
+<li>支持用户逐步执行、查看对象属性（<code>property_get</code>）、执行表达式求值（<code>eval</code>）</li>
+</ul>
+</li>
+</ol>
+<h3 id="PHP-配置-Xdebug-插件"><a href="#PHP-配置-Xdebug-插件" class="headerlink" title="PHP 配置 Xdebug 插件"></a>PHP 配置 Xdebug 插件</h3><h4 id="Windows-平台安装"><a href="#Windows-平台安装" class="headerlink" title="Windows 平台安装"></a>Windows 平台安装</h4><p>如果想要手动安装 Xdebug 插件则需要以下步骤：</p>
+<ol>
+<li><p>访问 Xdebug 官网<a class="link"   target="_blank" rel="noopener" href="https://xdebug.org/wizard" >下载页面<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+</li>
+<li><p>把 <code>phpinfo()</code> 页面粘贴进去，网站会生成最适合你的 Xdebug 下载链接与配置方法。</p>
+</li>
+<li><p>下载 <code>.dll</code> 后，放入 <code>ext</code> 目录（与其他 PHP 扩展一致）。</p>
+</li>
+<li><p>修改 <code>php.ini</code>，添加：</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">zend_extension</span> = xdebug.dll</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p><code>zend_extension = xdebug.dll</code> 中的路径是否要写全，<strong>取决于 <code>extension_dir</code> 的设置</strong>。</p>
+<p>PHP 在解析 <code>zend_extension</code> 后面的路径时：</p>
+<ul>
+<li>如果是 <strong>绝对路径</strong>（如 <code>C:/php/ext/xdebug.dll</code>）则会直接加载该文件。</li>
+<li>如果是 <strong>相对路径或仅文件名</strong>（如 <code>xdebug.dll</code>）则PHP 会从 <code>extension_dir</code> 指定的目录中查找。</li>
+</ul>
+<p>其中 <code>extension_dir</code> 是 PHP 配置中专门用于扩展查找的路径设置，位于 <code>php.ini</code> 中。常见设置方式：</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">extension_dir</span> = <span class="string">&quot;ext&quot;</span>               <span class="comment">; 相对于 php.exe 所在目录</span></span><br><span class="line"><span class="attr">extension_dir</span> = <span class="string">&quot;C:/php/ext&quot;</span>        <span class="comment">; 推荐写法，绝对路径</span></span><br></pre></td></tr></table></figure></div>
+
+<p>如果省略了 <code>extension_dir</code> 或配置错误，会导致 <code>zend_extension = xdebug.dll</code> 无法找到目标文件。</p>
+
+    </div>
+  </div></li>
+</ol>
+<p>如果是使用 PhpStudy 搭建的环境，则 PhpStudy 自带 Xdebug 插件，我们只需要启用即可。<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/74753d96144d1921493ea68d0fa5d6c0.png"
                      
-                ></p>
+                > </p>
 
   <div class="note-large red">
     <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
@@ -625,29 +856,115 @@
     </div>
   </div>
 
-<p>Linux 平台</p>
-<p>Linux 系统开启位置如下：<br><img  
+<h4 id="Linux-平台安装"><a href="#Linux-平台安装" class="headerlink" title="Linux 平台安装"></a>Linux 平台安装</h4><p>如果使用的是系统安装的 PHP 则需要 <code>apt</code> 安装 Xdebug 插件。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install php-xdebug</span><br><span class="line"><span class="built_in">sudo</span> phpenmod xdebug <span class="comment"># 如果未自动生效需要手动启用</span></span><br></pre></td></tr></table></figure></div>
+
+<p>如果使用的是 PhpStudy 则 Xdebug 插件同样自带，开启位置如下：<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/685336a22cbf53fe63b95ce2ec986637.png"
                      
                 ><br><strong>坑点：</strong></p>
 <ul>
-<li>这里 PHPStudy 可能有一些 BUG，比如 5.3.29 版本的 PHP 没有这个选项，但可能 PHP 已经自带 XDebug 了。<br><img  
+<li>这里 PHPStudy 可能有一些 BUG，比如 5.3.29 版本的 PHP 没有这个选项，但可能 PHP 已经自带 Xdebug 了。<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/a9c7bb2f839c7d3752a43ff9c8fb4b60.png"
                      
                 ></li>
-<li>Linux 版的 XDebug 需要用户手动修改 XDebug 插件，主要添加如下内容。其中 <strong><code>xdebug.remote_host</code> 是 PHPStorm 所在主机的 IP 地址</strong>* ，PHPStorm 会监听所在主机的 9000 端口（默认配置）等待 XDebug 连接。为了获取准确的 IP 地址，可以在 PHPStorm 所在主机访问 phpinfo 然后查看 <code>_SERVER[&quot;REMOTE_ADDR&quot;]</code> 选项对应的 IP。<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension=&quot;xdebug.so&quot;</span><br><span class="line">xdebug.remote_enable=1</span><br><span class="line">xdebug.remote_host=172.30.208.1</span><br><span class="line">xdebug.remote_port=9000</span><br><span class="line">xdebug.remote_handler=dbgp</span><br></pre></td></tr></table></figure></div></li>
+<li>Linux 版的 Xdebug 需要用户手动修改 Xdebug 插件，主要添加如下内容：<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[xdebug]</span></span><br><span class="line"><span class="attr">zend_extension</span>=<span class="string">&quot;xdebug.so&quot;</span></span><br><span class="line"><span class="attr">xdebug.remote_enable</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">xdebug.remote_host</span>=<span class="number">172.30</span>.<span class="number">208.1</span></span><br><span class="line"><span class="attr">xdebug.remote_port</span>=<span class="number">9000</span></span><br><span class="line"><span class="attr">xdebug.remote_handler</span>=dbgp</span><br></pre></td></tr></table></figure></div>
+
+其中**<code>xdebug.remote_host</code> 是 PHPStorm 所在主机的 IP 地址** 。为了获取准确的 IP 地址，可以在 PHPStorm 所在主机访问 <code>phpinfo()</code> 然后查看 <code>_SERVER[&quot;REMOTE_ADDR&quot;]</code> 选项对应的 IP。</li>
 </ul>
-<h3 id="配置-PHPStorm"><a href="#配置-PHPStorm" class="headerlink" title="配置 PHPStorm"></a>配置 PHPStorm</h3><p>PHPStorm 的<code>设置 → PHP → 调试</code>可以进行 PHP 远程调试的相关配置，<strong>这里保持默认配置即可。</strong></p>
-<p>之后是<strong>运行&#x2F;调试配置</strong>* ，主要需要配置的关键内容为：</p>
+<h3 id="配置-Xdebug-Helper-插件"><a href="#配置-Xdebug-Helper-插件" class="headerlink" title="配置 Xdebug Helper 插件"></a>配置 Xdebug Helper 插件</h3><p><a class="link"   target="_blank" rel="noopener" href="https://addons.mozilla.org/zh-CN/firefox/addon/xdebug-helper-for-firefox/" >xdebug-helper<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是一个火狐浏览器插件，用户可以借助其设置 IDE key 从而快速与 IDE 建立调试关系（本质就是在 cookie 中添加 IDE 默认的 IDE key）。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/b2b2c3205743dbfdfe5c5efd638e0dfc.png"
+                     
+                ></p>
+<p>Jetbrain 官方也推出了 Chrome 调试插件 <a class="link"   target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/xdebug-helper-by-jetbrain/aoelhdemabeimdhedkidlnbkfhnhgnhm" >Xdebug Helper by JetBrains<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。我们只需要在插件的配置页面上设置 <code>Debug Trigger or Xdebug Cloud Key</code> 为 <code>PHPSTORM</code> 即可开启调试。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/image-20250723090629532.png"
+                      alt="image-20250723090629532"
+                ></p>
+<h3 id="配置-PHPStorm"><a href="#配置-PHPStorm" class="headerlink" title="配置 PHPStorm"></a>配置 PHPStorm</h3><h4 id="调试设置"><a href="#调试设置" class="headerlink" title="调试设置"></a>调试设置</h4><p>PHPStorm 的<strong>设置 → PHP → 调试</strong>可以进行 PHP 远程调试的相关配置，<strong>这里保持默认配置即可。</strong>其中常用的几个配置选项为：</p>
 <ul>
-<li>创建“PHP 网页”配置。</li>
+<li><p>外部连接，在 PHP 脚本中的第一行中断：如果勾选则 PHP 脚本会强制在入口文件第一行停下来。</p>
+</li>
+<li><p>Xdebug 调试端口：</p>
+<ul>
+<li>端口号默认设置为 <code>9003,9000</code>。这两个端口表示 PHPStorm 同时监听两个端口，分别用于：<ul>
+<li><code>9003</code>：Xdebug 3.x 默认端口</li>
+<li><code>9000</code>：Xdebug 2.x 默认端口</li>
+</ul>
+</li>
+<li>勾选 “可以接受外部连接”：必须打勾，允许 Xdebug 主动连接进来。</li>
+</ul>
+</li>
+</ul>
+<h4 id="服务器路径映射"><a href="#服务器路径映射" class="headerlink" title="服务器路径映射"></a>服务器路径映射</h4><p><strong>服务器路径映射</strong>是在<strong>文件→设置→PHP→服务器</strong>配置的。这一步主要是告诉 PHPStorm：远程路径 <code>/var/www/html</code> 对应本地 <code>D:/phpstudy_pro/WWW/project</code>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/image-20250723110446389.png"
+                      alt="image-20250723110446389"
+                ></p>
+<h4 id="运行-调试配置"><a href="#运行-调试配置" class="headerlink" title="运行&#x2F;调试配置"></a>运行&#x2F;调试配置</h4><p>之后是<strong>运行&#x2F;调试配置</strong>，这一步主要是配置启动调试时，选定<strong>运行&#x2F;调试配置类型</strong>还有<strong>使用哪个服务器</strong>（就是上面配置的名字）。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>这一步<strong>不是必选项</strong>，一般配置完<strong>服务器路径映射</strong>之后开启监听就能调试了。PHPStorm 会自动选择合适的<strong>运行&#x2F;调试配置类型</strong>。</p>
+
+    </div>
+  </div>
+
+<p>其中常见的运行&#x2F;调试配置类型有下面几种：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>作用</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>PHP HTTP 请求</strong></td>
+<td>发送 HTTP 请求，调试接口，支持设置方法、Headers、Body 等</td>
+<td>用来调试 API 接口（类似 Postman）</td>
+</tr>
+<tr>
+<td><strong>PHP 内置 Web 服务器</strong></td>
+<td>使用 PHP 自带的内置服务器（<code>php -S</code>）启动项目</td>
+<td>本地测试快速运行小项目，不依赖 Apache 或 Nginx</td>
+</tr>
+<tr>
+<td><strong>PHP 网页</strong></td>
+<td><strong>用于通过浏览器访问 PHP 页面，并挂载调试器</strong></td>
+<td>✅ ThinkPHP、Laravel 等框架调试时常用（你当前应选这个）</td>
+</tr>
+<tr>
+<td><strong>PHP 脚本</strong></td>
+<td>运行一个单独的 <code>.php</code> 文件（比如 CLI 脚本）</td>
+<td>执行 Artisan、命令行脚本、定时任务等</td>
+</tr>
+<tr>
+<td><strong>PHP 远程调试</strong></td>
+<td>监听远程服务器上 Xdebug 发来的调试请求</td>
+<td>用于远程服务器调试，或容器里的 PHP</td>
+</tr>
+</tbody></table>
+<p>我们通常需要配置的关键内容为：</p>
+<ul>
+<li>创建“<strong>PHP 网页</strong>”配置。</li>
 <li>配置中选择服务器。<ul>
 <li>主机 IP 和端口为网站对应的 IP 和端口。</li>
-<li><strong>设置文件目录映射</strong>* ，以便在本地文件能与 XDebug 的调试信息对应起来。</li>
+<li><strong>设置文件目录映射</strong>* ，以便在本地文件能与 Xdebug 的调试信息对应起来。</li>
 </ul>
 </li>
 </ul>
@@ -657,7 +974,7 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/5422449c198fe1782b695b497cd9dab7.png"
                      
                 ></p>
-<h3 id="如何远程调试"><a href="#如何远程调试" class="headerlink" title="如何远程调试"></a>如何远程调试</h3><h4 id="点击调试按钮"><a href="#点击调试按钮" class="headerlink" title="点击调试按钮"></a>点击调试按钮</h4><p>一种方法是直接点击调试按钮，此时会弹出所调试网站的主页，其中 URL 会传一个 <code>XDEBUG_SESSION_START</code> 参数。<br><img  
+<h4 id="点击调试按钮"><a href="#点击调试按钮" class="headerlink" title="点击调试按钮"></a>点击调试按钮</h4><p>调试 Web 项目的常见方法之一是直接点击 PHPStorm 上方的 <strong>绿色调试按钮（带浏览器图标）</strong>。点击后，PHPStorm 会自动在默认浏览器中打开目标页面，并在 URL 中添加参数 <code>?XDEBUG_SESSION_START=16846</code>。<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/f14631ed229c9a30612a0f90e882cd6e.png"
@@ -673,15 +990,69 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/504c46404e18a6d2c410d5c907282685.png"
                      
                 ></p>
-<h4 id="开启监听调试"><a href="#开启监听调试" class="headerlink" title="开启监听调试"></a>开启监听调试</h4><p>另一种比较简单的方式是开启监听调试，插件开启 Debug 模式，然后访问目标网页。<br><img  
+<h4 id="开启监听调试（推荐方式）"><a href="#开启监听调试（推荐方式）" class="headerlink" title="开启监听调试（推荐方式）"></a>开启监听调试（推荐方式）</h4><p>另一种比较简单的方式是<strong>开启监听调试</strong>，插件开启 Debug 模式，然后访问目标网页。如果浏览器中已设置了 <code>XDEBUG_SESSION</code> Cookie（比如之前访问过带参数的链接），PHPStorm 会自动接收到 Xdebug 的调试请求，断点会正常触发。<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/cf10ff6b8927593b41c17bfb673550b2.png"
                      
                 ><br>根据这个原理，我们也可以通过在 python 代码中添加相应 cookie 来调试 PHP 。</p>
 <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requests.get(url, cookies=&#123;<span class="string">&#x27;XDEBUG_SESSION&#x27;</span>:<span class="string">&#x27;PHPSTORM&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure></div>
-<h2 id="远程同步开发"><a href="#远程同步开发" class="headerlink" title="远程同步开发"></a>远程同步开发</h2><p>在调试分析代码的过程中不可避免的要对源码进行修改。由于是远程调试，修改源码还有将远程和本地代码一同修改，这样操作比较麻烦。好在 PHPStorm 有基于 FTP 服务的远程同步开发，可以做到本地和远程代码同步修改。</p>
-<h3 id="配置-FTP-服务器"><a href="#配置-FTP-服务器" class="headerlink" title="配置 FTP 服务器"></a>配置 FTP 服务器</h3><p>在 PHPStudy 中创建 FTP 服务器，其中跟目录可以设置项目目录。<strong>注意要在首页启动 FTP 服务器。</strong><br><img  
+<h4 id="PhpStudy-的超时问题"><a href="#PhpStudy-的超时问题" class="headerlink" title="PhpStudy 的超时问题"></a>PhpStudy 的超时问题</h4><p>在使用 <strong>PhpStorm + Xdebug + PhpStudy（Apache + PHP-CGI）</strong> 调试时页面断点卡住一段时间后，浏览器返回：<code>500 Internal Server Error</code>。</p>
+<blockquote>
+<p>PHP-CGI 是一个独立运行的 PHP 解释器程序，遵循 CGI 协议，用于让 Apache、Nginx 等 Web 服务器以 CGI 方式执行 PHP 脚本。</p>
+<p>CGI（Common Gateway Interface）是一种<strong>早期用于 Web 服务器与外部程序通信的协议</strong>。<br> 最早的网页动态效果就是 Web 服务器通过 CGI 调用 Perl、Python、PHP 等外部脚本实现的。</p>
+<ul>
+<li>Web 服务器接收到请求后，将参数（如 GET&#x2F;POST）通过环境变量或标准输入传递给 CGI 程序；</li>
+<li>CGI 程序执行后将输出通过标准输出（stdout）返回给服务器；</li>
+<li>服务器再将结果发回给浏览器。</li>
+</ul>
+</blockquote>
+<p>这是因为 PhpStudy 默认使用 Apache + mod_fcgid 方式运行 PHP（CGI 模式），而：</p>
+<ul>
+<li><code>mod_fcgid</code> 默认 I&#x2F;O 超时只有 <strong>40 秒</strong></li>
+<li>PHP 默认执行超时只有 <strong>30 秒</strong></li>
+<li>你在调试时挂断点、未及时继续执行，请求长时间未响应 → 被 Apache 判为超时 → 返回 500</li>
+</ul>
+<blockquote>
+<p><code>mod_fcgid</code> 是 Apache HTTP Server 的一个模块，名字全称是：<strong>FastCGI Process Manager for Apache</strong></p>
+<p>它的作用是：<strong>在 Apache 中以 FastCGI 方式运行 CGI 程序（比如 PHP-CGI）</strong>，从而提升性能、实现更高效的 PHP 执行方式。</p>
+<p><code>mod_fcgid</code> 不直接运行 PHP，而是负责<strong>管理 PHP-CGI 子进程池</strong>，Apache 接收到 HTTP 请求后，通过这个模块把请求转发给对应的 <code>php-cgi.exe</code> 进程来执行，使得 PHP 与 Apache 解耦、更稳定，并支持调试与多版本并存。</p>
+<p>当在 <code>httpd.conf</code> 中发现下面这行配置时，说明 Apache 会加载 <code>mod_fcgid</code> 模块。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule fcgid_module modules/mod_fcgid.so</span><br></pre></td></tr></table></figure></div>
+</blockquote>
+<p>解决方法是：</p>
+<ol>
+<li><p>设置 PHP 超时时间（防止 PHP 自己超时）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/image-20250723091223498.png"
+                      alt="image-20250723091223498"
+                ></p>
+<p>这一步实际上是修改 <code>php.ini</code> 中的 <code>max_execution_time</code> 和 <code>max_input_time</code>。</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;;;;;;;;;;;;;;;;;;;</span></span><br><span class="line"><span class="comment">; 资源限制 ;</span></span><br><span class="line"><span class="comment">;;;;;;;;;;;;;;;;;;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 每个脚本的最大执行时间（单位：秒）</span></span><br><span class="line"><span class="comment">; http://php.net/max-execution-time</span></span><br><span class="line"><span class="comment">; 注意：对于 CLI SAPI（命令行接口）此指令被硬编码为 0（表示不限）</span></span><br><span class="line"><span class="attr">max_execution_time</span>=<span class="number">999999999</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 每个脚本解析请求数据所允许的最大时间（单位：秒）。在生产服务器上限制这个时间是个好主意，以防止脚本意外运行太久。</span></span><br><span class="line"><span class="comment">; 注意：对于 CLI SAPI 此指令被硬编码为 -1（表示不限）</span></span><br><span class="line"><span class="comment">; 默认值：-1（无限制）</span></span><br><span class="line"><span class="comment">; 开发环境建议值：60（60 秒）</span></span><br><span class="line"><span class="comment">; 生产环境建议值：60（60 秒）</span></span><br><span class="line"><span class="comment">; http://php.net/max-input-time</span></span><br><span class="line"><span class="attr">max_input_time</span>=<span class="number">999999999</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>设置 Apache 的 mod_fcgid 超时时间</p>
+<p>在 <code>C:\phpstudy_pro\Extensions\Apache*\conf\httpd.conf</code> 中的任意位置添加：</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 如果启用了 mod_fcgid 模块，则应用以下配置</span><br><span class="line"><span class="tag">&lt;<span class="name">IfModule</span> <span class="attr">mod_fcgid.c</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    # 设置每个 php-cgi 子进程的最大生命周期（单位：秒）</span><br><span class="line">    # 即使该进程空闲，过了这个时间也会被杀掉。设置为很大避免被过早销毁。</span><br><span class="line">    FcgidProcessLifeTime 9999999</span><br><span class="line"></span><br><span class="line">    # 设置与 php-cgi 进程进行 I/O（输入输出）通信时的超时时间（单位：秒）</span><br><span class="line">    # 主要影响的是：请求过程中挂断点、等待调试器时的连接超时。</span><br><span class="line">    # 如果时间太短，调试中断点挂久了就会 500 错误。</span><br><span class="line">    FcgidIOTimeout 9999999</span><br><span class="line"></span><br><span class="line">    # 设置与 php-cgi 子进程建立连接的超时时间（单位：秒）</span><br><span class="line">    # 如果连接建立超时（例如进程创建太慢），就会失败，返回 500。</span><br><span class="line">    FcgidConnectTimeout 9999999</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">IfModule</span>&gt;</span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="远程同步开发"><a href="#远程同步开发" class="headerlink" title="远程同步开发"></a>远程同步开发</h2><p>在进行远程 PHP 开发或调试时，我们通常会在远程服务器上运行代码，而在本地进行开发。但在调试过程中，频繁地手动上传修改后的代码到远程服务器会非常繁琐。<strong>PHPStorm 提供了基于 FTP&#x2F;SFTP 的远程部署功能，可以实现本地修改后自动同步到远程服务器，极大地提升了开发效率。</strong></p>
+<h3 id="配置-FTP-服务器"><a href="#配置-FTP-服务器" class="headerlink" title="配置 FTP 服务器"></a>配置 FTP 服务器</h3><p>如果你使用的是本地 Windows 环境中的 PHPStudy，可通过其集成的 FTP 功能快速启用服务器。具体步骤为：</p>
+<ol>
+<li><p>打开 PHPStudy 主界面。</p>
+</li>
+<li><p>点击“FTP”标签页，创建一个新的用户。</p>
+<ul>
+<li><p>设置用户名、密码。</p>
+</li>
+<li><p>设置“根目录”为 PHP 项目所在目录（如：<code>D:\phpstudy_pro\WWW\my_project</code>）。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>回到首页，点击“启动 FTP 服务”按钮，确保 FTP 处于监听状态。</strong></p>
+</li>
+</ol>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/33f9e13869191800dc1534bcf7a446da.png"
@@ -692,9 +1063,9 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/01b4bb7fbd64a6e88b4c2e4950f30e68.png"
                      
                 ></p>
-<h3 id="配置-PHPStorm-1"><a href="#配置-PHPStorm-1" class="headerlink" title="配置 PHPStorm"></a>配置 PHPStorm</h3><p>在 PHPStorm 的<code>设置 → 构建、执行、部署 → 部署</code> 中添加 FTP 服务器。</p>
+<h3 id="配置-PHPStorm-1"><a href="#配置-PHPStorm-1" class="headerlink" title="配置 PHPStorm"></a>配置 PHPStorm</h3><p>在 PHPStorm 的<strong>设置 → 构建、执行、部署 → 部署</strong>中添加 FTP 服务器。</p>
 <ul>
-<li>连接：<br><img  
+<li><strong>配置 FTP 连接参数：</strong><br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/37f6a3dbe71490e3a5c5ed5bcf851169.png"
@@ -705,7 +1076,7 @@
 <li><strong>PHPStorm 是在  FTP 的根路径基础上寻找根路径的，因此根路径这里需要设置 <code>\</code> 即可。</strong></li>
 </ul>
 </li>
-<li>映射：<br><img  
+<li><strong>配置路径映射：</strong><br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/8345140f47e2628bc8926cd0a1a41dd2.png"
@@ -723,12 +1094,12 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/efe4ecfe461e0963963b26b60e9dc9d9.png"
                      
                 ></p>
-<p>在<code>工具 → 部署</code> 中有「自动上传」和「浏览远程主机两个设置」两个关键设置。<br><img  
+<p>在<strong>工具 → 部署</strong>中有「自动上传」和「浏览远程主机两个设置」两个关键设置。<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/50bf10b5041b96cdf33aa43435ba4757.png"
                      
-                ><br>点击浏览远程主机选项可以查看 FTP 根目录下的文件。<br><img  
+                ><br>点击<strong>浏览远程主机</strong>选项可以查看 FTP 根目录下的文件。<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/a8bbf7ab7dac274e70ca4ba260744a91.png"
@@ -1889,7 +2260,7 @@
 <p>在分析时我们先把项目源码下载下来，然后通过 <code>git</code> 切换到对应的版本上。</p>
 <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆仓库</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/top-think/framework.git thinkphp</span><br><span class="line"><span class="built_in">cd</span> thinkphp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看有哪些版本标签</span></span><br><span class="line">git tag</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到某个版本（例如 ThinkPHP 5.0.24）</span></span><br><span class="line">git checkout 5.0.24</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="项目开发"><a href="#项目开发" class="headerlink" title="项目开发"></a>项目开发</h3><h4 id="项目创建"><a href="#项目创建" class="headerlink" title="项目创建"></a>项目创建</h4><p><strong>ThinkPHP 自 5.1 起就全面 Composer 化</strong>，框架本体被拆分为多个组件，如 <code>topthink/framework</code>、<code>topthink/think-orm</code> 等；版本号发布统一在 <a class="link"   target="_blank" rel="noopener" href="https://packagist.org/packages/topthink/framework" >Packagist<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 上维护。</p>
+<h3 id="环境基础"><a href="#环境基础" class="headerlink" title="环境基础"></a>环境基础</h3><h4 id="项目创建"><a href="#项目创建" class="headerlink" title="项目创建"></a>项目创建</h4><p><strong>ThinkPHP 自 5.1 起就全面 Composer 化</strong>，框架本体被拆分为多个组件，如 <code>topthink/framework</code>、<code>topthink/think-orm</code> 等；版本号发布统一在 <a class="link"   target="_blank" rel="noopener" href="https://packagist.org/packages/topthink/framework" >Packagist<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 上维护。</p>
 <blockquote>
 <p>Packagist 是 Composer 的官方包仓库，所有 PHP 包（类库、框架、插件等）默认都从这里下载安装。</p>
 </blockquote>
@@ -1916,10 +2287,10 @@
   </div>
 
 <p>另外对于已经搭建好的 ThinkPHP 项目，我们可以通过查看 <code>composer.json</code> 确定当前项目所依赖的 ThinkPHP 版本。但是需要注意的是我们最好不要直接改 <code>composer.json</code> 的 <code>require</code> 来切换 ThinkPHP 版本，因为这个过程涉及<strong>依赖图的变动与冲突处理</strong>，很容易失败。</p>
-<h4 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h4><p>一个基于 ThinkPHP5 的典型 Web 项目如下:</p>
+<h4 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h4><h5 id="ThinkPHP5"><a href="#ThinkPHP5" class="headerlink" title="ThinkPHP5"></a>ThinkPHP5</h5><p>一个基于 ThinkPHP5 的典型 Web 项目如下:</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">tp5-test/                 ← ★ 整个项目根目录</span><br><span class="line">├── application/          ← ★ 业务代码根目录（MVC 与配置）</span><br><span class="line">│   ├── index/                ← 默认模块（module）</span><br><span class="line">│   │   └── controller/</span><br><span class="line">│   │       └── Index.php     ← 示例控制器（默认首页）</span><br><span class="line">│   ├── common.php            ← 公共函数（系统自动加载）</span><br><span class="line">│   ├── command.php           ← CLI 自定义命令注册</span><br><span class="line">│   ├── config.php            ← 应用级配置（可覆盖框架默认配置）</span><br><span class="line">│   ├── database.php          ← 数据库连接配置</span><br><span class="line">│   ├── route.php             ← 路由规则（闭包或静态路由）</span><br><span class="line">│   └── tags.php              ← 事件 / 标签扩展</span><br><span class="line">│</span><br><span class="line">├── public/               ← ★ Web 服务器根目录（部署时仅暴露此层）</span><br><span class="line">│   ├── index.php             ← 项目入口文件（所有 HTTP 请求从这里进入）</span><br><span class="line">│   ├── router.php            ← PHP 内置服务器路由脚本（开发用）</span><br><span class="line">│   ├── favicon.ico</span><br><span class="line">│   ├── robots.txt</span><br><span class="line">│   └── static/               ← 前端静态资源（JS / CSS / 图片）</span><br><span class="line">│</span><br><span class="line">├── thinkphp/             ← ★ 框架核心源码（不要修改）</span><br><span class="line">│   ├── start.php             ← 框架启动器，入口文件最终 require 这里</span><br><span class="line">│   ├── base.php / helper.php ← 常量 &amp; 全局助手函数（如 dump()）</span><br><span class="line">│   └── library/think/…       ← App、Route、Model 等所有核心类</span><br><span class="line">│</span><br><span class="line">├── vendor/               ← ★ Composer 依赖目录</span><br><span class="line">│   ├── autoload.php          ← Composer 自动加载入口</span><br><span class="line">│   ├── composer/             ← Composer 运行期文件</span><br><span class="line">│   └── topthink/think-installer/  ← ThinkPHP 专用安装插件（生成默认结构）</span><br><span class="line">│       └── …                  ← 插件源码，不需手动修改</span><br><span class="line">│</span><br><span class="line">├── extend/               ← 第三方或自定义扩展库（可选，自定义加载）</span><br><span class="line">│</span><br><span class="line">├── runtime/              ← 运行时生成：日志、缓存、模板编译等</span><br><span class="line">│</span><br><span class="line">├── composer.json         ← ★ 依赖声明与自动加载规则</span><br><span class="line">├── composer.lock         ← 锁定实际安装版本（保证环境一致）</span><br><span class="line">├── think                 ← 命令行入口脚本（如 `php think run`）</span><br><span class="line">├── build.php             ← 可选：快速生成模块目录的脚本</span><br><span class="line">├── CHANGELOG.md          ← 框架更新日志</span><br><span class="line">├── LICENSE.txt           ← 开源许可证</span><br><span class="line">└── README.md             ← 项目/框架使用说明</span><br></pre></td></tr></table></figure></div>
 
-<p>ThinkPHP 6 相比 ThinkPHP 5 项目结构做了不少 <strong>精简与现代化</strong> 的调整。一个基于 ThinkPHP6 的典型 Web 项目如下:</p>
+<h5 id="ThinkPHP6"><a href="#ThinkPHP6" class="headerlink" title="ThinkPHP6"></a>ThinkPHP6</h5><p>ThinkPHP 6 相比 ThinkPHP 5 项目结构做了不少 <strong>精简与现代化</strong> 的调整。一个基于 ThinkPHP6 的典型 Web 项目如下:</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">tp6-test/                 ← ★ 整个项目根目录</span><br><span class="line">├── app/                  ← ★ 应用代码目录（你写的业务逻辑）</span><br><span class="line">│   ├── controller/           ←   控制器目录 (C)，URL 路由默认指向这里</span><br><span class="line">│   │   └── Index.php         ←     示例控制器，默认访问 `/` 会走这里</span><br><span class="line">│   ├── AppService.php        ←   应用服务类，可注册服务绑定</span><br><span class="line">│   ├── BaseController.php    ←   控制器基类（定义通用逻辑）</span><br><span class="line">│   ├── ExceptionHandle.php   ←   全局异常处理类</span><br><span class="line">│   ├── Request.php           ←   自定义请求类（可扩展）</span><br><span class="line">│   ├── common.php            ←   应用公共函数，系统会自动加载</span><br><span class="line">│   ├── event.php             ←   应用事件定义（事件/监听器绑定）</span><br><span class="line">│   ├── middleware.php        ←   中间件注册表</span><br><span class="line">│   ├── provider.php          ←   服务提供者注册</span><br><span class="line">│   └── service.php           ←   容器服务绑定</span><br><span class="line">│</span><br><span class="line">├── public/               ← ★ Web 服务器根目录（部署时只暴露这一层）</span><br><span class="line">│   ├── index.php             ←   应用入口文件，所有 HTTP 请求从这里进来</span><br><span class="line">│   ├── favicon.ico           ←   网页小图标</span><br><span class="line">│   ├── robots.txt            ←   搜索引擎爬虫控制文件</span><br><span class="line">│   ├── router.php            ←   内置服务器时用于模拟路由（开发用）</span><br><span class="line">│   └── static/               ←   静态资源目录（JS/CSS/图片等）</span><br><span class="line">│</span><br><span class="line">├── config/               ← ★ 应用配置目录（集中管理）</span><br><span class="line">│   ├── app.php               ←   应用基本设置</span><br><span class="line">│   ├── cache.php             ←   缓存设置</span><br><span class="line">│   ├── console.php           ←   CLI 命令设置</span><br><span class="line">│   ├── cookie.php            ←   Cookie 配置</span><br><span class="line">│   ├── database.php          ←   数据库连接设置</span><br><span class="line">│   ├── filesystem.php        ←   本地/云存储设置</span><br><span class="line">│   ├── lang.php              ←   多语言配置</span><br><span class="line">│   ├── log.php               ←   日志通道设置</span><br><span class="line">│   ├── middleware.php        ←   全局中间件配置</span><br><span class="line">│   ├── route.php             ←   路由配置</span><br><span class="line">│   ├── session.php           ←   会话 Session 设置</span><br><span class="line">│   ├── trace.php             ←   Trace 调试配置</span><br><span class="line">│   └── view.php              ←   模板渲染设置</span><br><span class="line">│</span><br><span class="line">├── route/                ← 路由定义（推荐写在这里而非代码里）</span><br><span class="line">│   └── app.php               ←   默认路由定义文件（支持闭包/控制器映射等）</span><br><span class="line">│</span><br><span class="line">├── runtime/              ← 运行期文件（缓存、日志、编译模板等自动生成）</span><br><span class="line">│</span><br><span class="line">├── extend/               ← 自定义扩展类目录（可类比 “lib/”）</span><br><span class="line">│</span><br><span class="line">├── vendor/               ← ★ Composer 安装的依赖目录（含 thinkphp 框架本体）</span><br><span class="line">│   ├── topthink/             ←   ThinkPHP 框架核心源码（think-orm、framework 等）</span><br><span class="line">│   ├── symfony/              ←   Symfony 的组件（如 var-dumper）</span><br><span class="line">│   ├── psr/                  ←   PSR 规范接口（Logger, Container 等）</span><br><span class="line">│   ├── autoload.php          ←   自动加载入口</span><br><span class="line">│   └── ...                   ←   其他库（由 composer 安装生成）</span><br><span class="line">│</span><br><span class="line">├── think                 ← ThinkPHP 命令行工具（用于 `php think`）</span><br><span class="line">│</span><br><span class="line">├── composer.json         ← ★ 项目依赖声明文件，执行 `composer install` 使用</span><br><span class="line">├── composer.lock         ←   锁定依赖的具体版本（保证环境一致）</span><br><span class="line">├── LICENSE.txt           ← 项目开源许可证</span><br><span class="line">└── README.md             ← 项目说明文档</span><br></pre></td></tr></table></figure></div>
 
 <p>主要的变化有：</p>
@@ -1940,13 +2311,225 @@
 </ul>
 </li>
 </ul>
-<h4 id="框架使用"><a href="#框架使用" class="headerlink" title="框架使用"></a>框架使用</h4><p>ThinkPHP（特别是 TP5）采用了 <strong>典型的 MVC（Model-View-Controller）架构模式</strong>。为契合它的多模块 + MVC 架构的理念和机制，我们需要在 <code>application</code> 目录下按照下面这种形式创建：</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">application/</span><br><span class="line">├── index/           // 前台模块</span><br><span class="line">│   ├── controller/</span><br><span class="line">│   ├── view/</span><br><span class="line">│   └── model/</span><br><span class="line">├── admin/           // 后台模块</span><br><span class="line">│   ├── controller/</span><br><span class="line">│   ├── view/</span><br><span class="line">│   └── model/</span><br></pre></td></tr></table></figure></div>
+<h3 id="框架使用"><a href="#框架使用" class="headerlink" title="框架使用"></a>框架使用</h3><p>ThinkPHP 是一个基于<strong>多模块 + MVC 架构</strong>模式的 PHP 框架，强调结构分离、路由映射和快速开发。</p>
+<p>官方文档：</p>
+<ul>
+<li><p><strong>ThinkPHP 5.0 文档</strong><br> 👉 <a class="link"   target="_blank" rel="noopener" href="https://www.kancloud.cn/manual/thinkphp5/118003" >https://www.kancloud.cn/manual/thinkphp5/118003<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+<li><p><strong>ThinkPHP 5.1 文档</strong><br> 👉 <a class="link"   target="_blank" rel="noopener" href="https://www.kancloud.cn/manual/thinkphp5_1/353946" >https://www.kancloud.cn/manual/thinkphp5_1/353946<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+<li><p><strong>ThinkPHP 6.0 文档</strong><br> 👉 <a class="link"   target="_blank" rel="noopener" href="https://www.kancloud.cn/manual/thinkphp6_0/1037479" >https://www.kancloud.cn/manual/thinkphp6_0/1037479<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+</ul>
+<h4 id="MVC-架构"><a href="#MVC-架构" class="headerlink" title="MVC 架构"></a>MVC 架构</h4><p><strong>MVC 架构</strong>是 ThinkPHP 的基础架构设计，强调<strong>职责分离、解耦合、协同开发</strong>。具体体现在 <code>application</code> 目录下。通常，<code>application</code> 目录下的同一个模块会分为 <code>model</code>、<code>view</code>、<code>controller</code> 三个目录，分别对应 MVC 架构的三个组成部分。在这一架构中，控制器不仅仅是“中介者”，它还负责接收用户请求、验证数据、调度业务逻辑、决定展示视图。</p>
+<table>
+<thead>
+<tr>
+<th>组成</th>
+<th>位置（默认）</th>
+<th>作用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Model</td>
+<td><code>application/[模块]/model/</code></td>
+<td>数据操作层（数据库 CURD、逻辑封装）</td>
+</tr>
+<tr>
+<td>View</td>
+<td><code>application/[模块]/view/</code></td>
+<td>页面展示层（HTML模板、标签）</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td><code>application/[模块]/controller/</code></td>
+<td>业务控制层（请求处理、业务调度）</td>
+</tr>
+</tbody></table>
+<p>例如对于 <code>index</code> 模块，目录结构如下。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">application/</span><br><span class="line">├── index/           ← 默认模块</span><br><span class="line">│   ├── controller/  ← 控制器</span><br><span class="line">│   ├── model/       ← 模型（可选）</span><br><span class="line">│   ├── view/        ← 视图</span><br><span class="line">├── common.php       ← 公共函数文件</span><br><span class="line">├── route.php        ← 路由定义（可选）</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="Controller：控制器层（业务流程控制）"><a href="#Controller：控制器层（业务流程控制）" class="headerlink" title="Controller：控制器层（业务流程控制）"></a>Controller：控制器层（业务流程控制）</h5><p><strong>控制器层</strong>负责接收请求（参数），验证参数，调用业务逻辑（模型）并最终决定渲染哪一个视图，或返回 JSON 响应。</p>
+<p>例如 <code>application/index/controller/User.php</code>：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 设置当前类的命名空间，对应目录结构：application/index/controller/</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">application</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入 ThinkPHP 的控制器基类，提供模板渲染、跳转提示等功能</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入模型类 User，位于 application/index/model/User.php</span></span><br><span class="line"><span class="comment">// 注意此处的 User 是模型类，不是当前控制器本身</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">application</span>\<span class="title">index</span>\<span class="title">model</span>\<span class="title">User</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// ===================== 用户列表 =====================</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// User::all() 是模型 User 继承自 think\Model 的静态方法</span></span><br><span class="line">        <span class="comment">// 用于查询 user 表的所有数据，返回一个模型集合（Collection）</span></span><br><span class="line">        <span class="comment">// 注意：这里的 User 是模型类，而不是当前控制器类，因为上面 use 语句导入了模型</span></span><br><span class="line">        <span class="variable">$users</span> = <span class="title class_">User</span>::<span class="title function_ invoke__">all</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 渲染模板：application/index/view/user/index.html</span></span><br><span class="line">        <span class="comment">// 并传入变量 $users 到模板中（可用 &#123;$users&#125; 访问）</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">fetch</span>(<span class="string">&#x27;index&#x27;</span>, [<span class="string">&#x27;users&#x27;</span> =&gt; <span class="variable">$users</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ===================== 添加用户表单页面 =====================</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 渲染模板 create.html（路径同上）</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">fetch</span>(<span class="string">&#x27;create&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ===================== 提交表单并保存用户 =====================</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">save</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 获取所有 POST 提交的字段（默认返回数组）</span></span><br><span class="line">        <span class="comment">// input(&#x27;post.&#x27;) 是 TP5 的全局助手函数，获取 POST 参数</span></span><br><span class="line">        <span class="variable">$data</span> = <span class="title function_ invoke__">input</span>(<span class="string">&#x27;post.&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用自动验证（ThinkPHP5 推荐方式）</span></span><br><span class="line">        <span class="comment">// validate(&#x27;index/User&#x27;) 会自动加载 application/index/validate/User.php</span></span><br><span class="line">        <span class="variable">$validate</span> = <span class="title function_ invoke__">validate</span>(<span class="string">&#x27;index/User&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable">$validate</span>-&gt;<span class="title function_ invoke__">check</span>(<span class="variable">$data</span>)) &#123;</span><br><span class="line">            <span class="comment">// 如果验证失败，返回错误提示并跳转回前页</span></span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">error</span>(<span class="variable">$validate</span>-&gt;<span class="title function_ invoke__">getError</span>());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实例化模型并写入数据库（等价于 INSERT）</span></span><br><span class="line">        <span class="comment">// 注意：可以用 User::create($data)，这里只是写法不同，含义一致</span></span><br><span class="line">        <span class="variable">$user</span> = <span class="keyword">new</span> <span class="title class_">User</span>(<span class="variable">$data</span>);</span><br><span class="line">        <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">save</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写入成功后跳转到用户列表页，并显示成功提示</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">success</span>(<span class="string">&#x27;添加成功&#x27;</span>, <span class="title function_ invoke__">url</span>(<span class="string">&#x27;user/index&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ===================== 删除用户 =====================</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delete</span>(<span class="params"><span class="variable">$id</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 先判断 id 合法性（防止非法注入）</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="title function_ invoke__">is_numeric</span>(<span class="variable">$id</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">error</span>(<span class="string">&#x27;参数非法&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// User::destroy($id) 是框架提供的快捷删除方法，主键删除</span></span><br><span class="line">        <span class="title class_">User</span>::<span class="title function_ invoke__">destroy</span>(<span class="variable">$id</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除后跳转回用户列表</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">success</span>(<span class="string">&#x27;删除成功&#x27;</span>, <span class="title function_ invoke__">url</span>(<span class="string">&#x27;user/index&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="Model：模型层（数据访问与封装）"><a href="#Model：模型层（数据访问与封装）" class="headerlink" title="Model：模型层（数据访问与封装）"></a>Model：模型层（数据访问与封装）</h5><p>在 ThinkPHP 中，<strong>模型（Model）是数据库的面向对象封装</strong>，每一个模型类通常对应一张数据库表，它提供了数据表结构的映射，字段的类型转换，数据验证、访问、修改等。模型层本质上是对增删改查等操作的封装，因此你可以像操作对象一样去操作数据库。</p>
+<p>在 ThinkPHP 中，模型层的对象需要继承于 <code>think\Model</code>。<code>think\Model</code> 是 ThinkPHP 的核心模型基类，内置了很多模型层常用的功能，如：</p>
+<ul>
+<li>数据库 CURD 方法（<code>get</code>、<code>all</code>、<code>save</code>、<code>destroy</code> 等）</li>
+<li>类型转换（<code>$type</code> 属性）</li>
+<li>自动时间戳写入（<code>$autoWriteTimestamp</code>）</li>
+<li>访问器与修改器（<code>getXxxAttr()</code> &#x2F; <code>setXxxAttr()</code>）</li>
+<li>事件（beforeInsert、afterDelete 等）</li>
+</ul>
+<p>而我们在编写模型层代码的时候实际上就是根据业务需求继承填 <code>think\Model</code> 类并充的字段以及重写方法。</p>
+<p>例如下面的 <code>application/index/model/User.php</code> 针对的是数据库中的 user 表。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 设置该类的命名空间，必须与目录结构对应：application/index/model</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">application</span>\<span class="title class_">index</span>\<span class="title class_">model</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入 ThinkPHP 框架的模型基类（ORM 操作的核心）</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 User 模型类，用于操作数据库中的 user 表</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自动写入时间戳字段</span></span><br><span class="line"><span class="comment">     * - 设置为 &#x27;datetime&#x27;，表示写入为 Y-m-d H:i:s 格式</span></span><br><span class="line"><span class="comment">     * - 该功能会自动维护 create_time 和 update_time 两个字段（如果你表中有）</span></span><br><span class="line"><span class="comment">     * - 实际插入数据时不需要你手动设置这两个字段</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$autoWriteTimestamp</span> = <span class="string">&#x27;datetime&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类型转换设置</span></span><br><span class="line"><span class="comment">     * - 当从数据库中查询数据后，框架会自动将这些字段转换为指定的类型</span></span><br><span class="line"><span class="comment">     * - 避免类型错误，例如数据库返回字符串而你期望使用整数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$type</span> = [</span><br><span class="line">        <span class="string">&#x27;id&#x27;</span>   =&gt; <span class="string">&#x27;integer&#x27;</span>, <span class="comment">// 自动转换 id 字段为整数</span></span><br><span class="line">        <span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;string&#x27;</span>,  <span class="comment">// 明确 name 字段为字符串</span></span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 字段访问器（getNameAttr）</span></span><br><span class="line"><span class="comment">     * - 每次通过 $user-&gt;name 获取 name 字段时，都会自动调用这个方法</span></span><br><span class="line"><span class="comment">     * - 用于“格式化显示”的场景，比如这里将用户名统一变成大写</span></span><br><span class="line"><span class="comment">     * - 注意命名规则：get + 字段名首字母大写 + Attr</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getNameAttr</span>(<span class="params"><span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">strtoupper</span>(<span class="variable">$value</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 字段修改器（setNameAttr）</span></span><br><span class="line"><span class="comment">     * - 每次给 $user-&gt;name 赋值或通过 create/save 写入数据时，都会调用这个方法</span></span><br><span class="line"><span class="comment">     * - 用于“格式化存储”的场景，比如这里自动去除前后空格</span></span><br><span class="line"><span class="comment">     * - 命名规则：set + 字段名首字母大写 + Attr</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setNameAttr</span>(<span class="params"><span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">trim</span>(<span class="variable">$value</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在 ThinkPHP 5 中，<strong>模型类默认会自动映射到数据库中的某张表</strong>，这个映射是<strong>基于约定</strong>进行的。默认映射规则如为：</p>
+<ul>
+<li><strong>类名去掉命名空间部分</strong></li>
+<li><strong>将驼峰命名转换为下划线风格</strong></li>
+<li><strong>转为小写</strong></li>
+<li><strong>添加数据库配置中的前缀（如 tp_）</strong></li>
+</ul>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>模型类名</th>
+<th>默认对应表名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>User</code></td>
+<td><code>tp_user</code></td>
+</tr>
+<tr>
+<td><code>UserInfo</code></td>
+<td><code>tp_user_info</code></td>
+</tr>
+<tr>
+<td><code>OrderDetailItem</code></td>
+<td><code>tp_order_detail_item</code></td>
+</tr>
+</tbody></table>
+<p>其中假设你的数据库配置中定义了前缀 <code>tp_</code>：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/database.php</span></span><br><span class="line"><span class="string">&#x27;prefix&#x27;</span> =&gt; <span class="string">&#x27;tp_&#x27;</span>,</span><br></pre></td></tr></table></figure></div>
+
+<p>当然如果你想<strong>手动指定模型对应的表名</strong>，可以用以下方式：</p>
+<ul>
+<li><p>使用 <code>$name</code> 属性（逻辑表名，依然会加前缀）</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$name</span> = <span class="string">&#x27;member&#x27;</span>; <span class="comment">// 最终映射到 tp_member 表（受 prefix 影响）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>使用 <code>$table</code> 属性（绝对表名，不加前缀）</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$table</span> = <span class="string">&#x27;custom_user_table&#x27;</span>; <span class="comment">// 直接使用完整表名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h5 id="View：视图层（页面展示）"><a href="#View：视图层（页面展示）" class="headerlink" title="View：视图层（页面展示）"></a>View：视图层（页面展示）</h5><p>在 ThinkPHP 中，视图层负责将数据以 HTML 形式展现给用户。当你在控制器中调用：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">fetch</span>(); <span class="comment">// 或者 $this-&gt;fetch(&#x27;index&#x27;)</span></span><br></pre></td></tr></table></figure></div>
+
+<p>框架会根据以下<strong>默认约定路径规则</strong>去查找视图文件：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">application/</span><br><span class="line">└── [模块名]/</span><br><span class="line">    └── view/</span><br><span class="line">        └── [控制器名（小写）]/</span><br><span class="line">            └── [操作方法名].html</span><br></pre></td></tr></table></figure></div>
+
+<p>例如：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">application/</span><br><span class="line">└── index/</span><br><span class="line">    └── view/</span><br><span class="line">        └── user/</span><br><span class="line">            ├── index.html    ← 对应 User 控制器的 index() 方法</span><br><span class="line">            ├── create.html   ← 对应 User 控制器的 create() 方法</span><br></pre></td></tr></table></figure></div>
+
+<p>框架根据控制器名 + 方法名来自动匹配视图文件。</p>
+<ul>
+<li><code>User::index()</code> → 渲染 <code>view/user/index.html</code></li>
+<li><code>User::create()</code> → 渲染 <code>view/user/create.html</code></li>
+</ul>
+<p>ThinkPHP 使用的是 <strong>ThinkTemplate 模板引擎</strong>，支持变量输出、条件语句、循环语句、URL 生成等，语法清晰易读，适合快速开发。</p>
+<p>视图渲染由控制器完成，使用 <code>$this-&gt;fetch()</code> 方法：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">fetch</span>(<span class="string">&#x27;index&#x27;</span>, [<span class="string">&#x27;users&#x27;</span> =&gt; <span class="variable">$users</span>]);</span><br></pre></td></tr></table></figure></div>
 
 <ul>
-<li><strong>前台访问：</strong> <code>http://xxx.com/index/index/index</code></li>
-<li><strong>后台访问：</strong> <code>http://xxx.com/admin/user/list</code></li>
+<li>第一个参数是模板文件名（省略 <code>.html</code>）</li>
+<li>第二个参数是传递给模板的变量数组</li>
 </ul>
+<p>你可以在模板中使用 <code>&#123;$users&#125;</code> 来访问传入的数据。常见语法有：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>语法示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>变量输出</td>
+<td><code>&#123;$user.name&#125;</code></td>
+</tr>
+<tr>
+<td>条件判断</td>
+<td><code>&#123;if $user.name == &#39;admin&#39;&#125;...&#123;/if&#125;</code></td>
+</tr>
+<tr>
+<td>循环输出</td>
+<td><code>&#123;volist name=&quot;users&quot; id=&quot;user&quot;&#125;...&#123;/volist&#125;</code></td>
+</tr>
+<tr>
+<td>URL 生成</td>
+<td><code>&#123;:url(&#39;user/delete&#39;, [&#39;id&#39; =&gt; $user.id])&#125;</code></td>
+</tr>
+<tr>
+<td>模板继承</td>
+<td><code>&#123;extend name=&quot;layout&quot;&#125;</code></td>
+</tr>
+<tr>
+<td>模板块定义</td>
+<td><code>&#123;block name=&quot;title&quot;&#125;标题&#123;/block&#125;</code></td>
+</tr>
+</tbody></table>
+<h4 id="多模块模式"><a href="#多模块模式" class="headerlink" title="多模块模式"></a>多模块模式</h4><p><strong>多模块模式</strong>是指 ThinkPHP 将应用划分为多个“模块”，每个模块具备完整的 MVC 结构，独立开发和部署。这样可以<strong>支持项目复杂性拆分、职责隔离、团队协作</strong>，以及每个子系统的独立性。多个模块之间完全解耦，可以在开发过程中减少冲突，提升代码的可重用性。每个模块可以有独立的配置，例如数据库连接、缓存设置等。</p>
+<p>例如下面这个目录结构中定义了三个模块：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">application/              ← 前台展示（用户访问的网站页面）</span><br><span class="line">├── index/</span><br><span class="line">│   ├── controller/       ← 控制器类，如 Index.php</span><br><span class="line">│   ├── model/            ← 模型类，如 User.php</span><br><span class="line">│   └── view/             ← 模板视图文件</span><br><span class="line">├── admin/                ← 后台管理（管理员操作系统）</span><br><span class="line">│   ├── controller/       ← 后台控制器，如 Dashboard.php</span><br><span class="line">│   ├── model/</span><br><span class="line">│   └── view/</span><br><span class="line">├── api/                  ← 对外提供的接口服务（如 APP 接口）</span><br><span class="line">│   ├── controller/       ← API 控制器，如 User.php</span><br><span class="line">│   └── model/</span><br><span class="line">├── common.php            ← 公共函数</span><br><span class="line">├── config.php            ← 全局配置</span><br><span class="line">└── route.php             ← 路由定义</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="路由访问形式"><a href="#路由访问形式" class="headerlink" title="路由访问形式"></a>路由访问形式</h4><p>在 <strong>多模块 + MVC 模式</strong>下，ThinkPHP 默认的 URL 路由格式如下，这个 URL 路由格式实际上是 ThinkPHP 遵循的<strong>“约定优于配置”</strong>设计思想的体现。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://域名/模块/控制器/操作</span><br></pre></td></tr></table></figure></div>
+
+<p>默认情况下，框架根据 URL 解析出模块名、控制器名和方法名，自动映射到 <code>application/</code> 目录下对应的位置：</p>
+<ul>
+<li><code>/模块</code>：框架会根据 URL 中的模块名去 <code>application/模块名/</code> 目录查找。</li>
+<li><code>/控制器</code>：框架会根据控制器名去 <code>controller/控制器名.php</code> 查找类文件，类名首字母大写。</li>
+<li><code>/操作（方法）</code>：框架会调用控制器（对应类文件）中的方法，方法名需要与 URL 中的操作名一致。</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li><code>http://localhost/index/index/index</code> → <code>application/index/controller/Index.php::index()</code></li>
+<li><code>http://localhost/admin/user/login</code> → <code>application/admin/controller/User.php::login()</code></li>
+<li><code>http://localhost/api/user/info</code> → <code>application/api/controller/User.php::info()</code></li>
+</ul>
+<p>默认路由规则由框架自动解析，但你可以在 <code>route.php</code> 中定义自定义路由规则，将 URL 映射到不同的控制器和方法，实现路由美化、RESTful 路由等。这样可以对默认的路由行为进行精细控制。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>在 PhpStudy 中将网站的根目录修改为 ThinkPHP 的 <code>public</code> 目录是部署的标准做法，但如果<strong>没有手动配置伪静态</strong>，PhpStudy 默认会<strong>覆盖 <code>public/.htaccess</code> 文件为空文件</strong>。这将导致 Apache 无法进行 URL 重写，进而使 ThinkPHP 的默认路由失效（如 <code>/index/index/index</code> 会直接返回 404）。</p>
+<p>即使你恢复了 ThinkPHP 默认的 <code>.htaccess</code> 文件，其内容如下：</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">IfModule</span> <span class="attr">mod_rewrite.c</span>&gt;</span></span><br><span class="line">  Options +FollowSymlinks -Multiviews</span><br><span class="line">  RewriteEngine On</span><br><span class="line"></span><br><span class="line">  RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</span><br><span class="line">  RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</span><br><span class="line">  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]</span><br><span class="line"><span class="tag">&lt;/<span class="name">IfModule</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这个配置采用的是 <strong>PATH_INFO 模式</strong>，即希望 Apache 将 <code>index.php/模块/控制器/操作</code> 中 <code>/模块/控制器/操作</code> 自动作为 PATH_INFO 传递给 PHP。但这依赖于服务器环境（Apache + PHP-FPM 或 CGI）是否启用了对 PATH_INFO 的支持。</p>
+<p>在 PhpStudy 的默认环境中，<strong>往往并未启用 <code>AcceptPathInfo</code> 或 PHP 的 <code>cgi.fix_pathinfo</code> 配置不兼容</strong>，因此该写法虽然是 ThinkPHP 默认提供的，却会导致 URL 无法正确解析（框架无法获取到 PATH_INFO）。</p>
+<p>为了解决这个问题，我们建议改用 <strong>兼容模式</strong> 的 <code>.htaccess</code> 重写规则：</p>
+<div class="code-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">IfModule</span> <span class="attr">mod_rewrite.c</span>&gt;</span></span><br><span class="line">    RewriteEngine On</span><br><span class="line">    RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</span><br><span class="line">    RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</span><br><span class="line">    RewriteRule ^(.*)$ index.php?s=$1 [QSA,PT,L]</span><br><span class="line"><span class="tag">&lt;/<span class="name">IfModule</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>该规则通过 GET 参数 <code>s</code> 传递 URL 信息，例如访问 <code>/index/index/index</code> 会被重写为：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?s=index/index/index</span><br></pre></td></tr></table></figure></div>
+
+<p>ThinkPHP 内部会自动读取 <code>$_GET[&#39;s&#39;]</code> 并将其作为 pathinfo 进行解析。这种方式属于 ThinkPHP 支持的 <strong>URL 兼容模式</strong>，从 TP3 到 TP5.2 都有内置兼容逻辑，对服务器环境几乎没有要求，<strong>是最通用、最稳定的解决方案</strong>。</p>
+
+    </div>
+  </div>
+
+<p><code>route.php</code> 是 ThinkPHP 中定义路由规则的文件，位于 <code>application/</code> 目录下，主要用于进行 URL 的映射、重写和自定义。默认情况下，ThinkPHP 自动加载该文件，并根据文件中的配置来解析路由规则。</p>
+<p><code>route.php</code> 中的规则用于将 <strong>URL</strong> 映射到具体的 <strong>控制器方法</strong>。例如，你可以将 <code>http://localhost/login</code> 映射到 <code>application/admin/controller/User.php</code> 中的 <code>login()</code> 方法。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 映射 /login 到 Admin 控制器的 login 方法</span></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;login&#x27;</span>, <span class="string">&#x27;admin/user/login&#x27;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p>另外 <code>route.php</code> 还支持其他多种路由配置模式：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简单的路由映射</span></span><br><span class="line"><span class="comment">// 映射 /login 到 admin/user/login 方法</span></span><br><span class="line"><span class="comment">// 访问 http://localhost/login 将会调用 application/admin/controller/User.php 的 login() 方法。</span></span><br><span class="line"><span class="comment">// 这里使用了 GET 请求方式，如果需要其他请求类型，可以使用 `Route::post()` 或 `Route::put()` 等方法。</span></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;login&#x27;</span>, <span class="string">&#x27;admin/user/login&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态路由（带参数）</span></span><br><span class="line"><span class="comment">// 访问 http://localhost/user/42 会将 42 作为参数传递给 show() 方法。</span></span><br><span class="line"><span class="comment">// 映射的规则是 /user/:id 到 api/user/show 方法，id 将传递到 show($id) 方法中。</span></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;user/:id&#x27;</span>, <span class="string">&#x27;api/user/show&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// RESTful 路由（适用于 CRUD）</span></span><br><span class="line"><span class="comment">// 自动生成常见的 CRUD 路由：</span></span><br><span class="line"><span class="comment">// GET /user        → 显示用户列表（index()）</span></span><br><span class="line"><span class="comment">// POST /user       → 创建新用户（create()）</span></span><br><span class="line"><span class="comment">// GET /user/:id    → 获取指定用户（read($id)）</span></span><br><span class="line"><span class="comment">// PUT /user/:id    → 更新指定用户（update($id)）</span></span><br><span class="line"><span class="comment">// DELETE /user/:id → 删除指定用户（delete($id)）</span></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">resource</span>(<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;api/user&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由分组</span></span><br><span class="line"><span class="comment">// 路由分组允许你为一组路由定义统一的前缀或中间件。</span></span><br><span class="line"><span class="comment">// 例如，所有的路由都以 /admin 开头。访问 /admin/dashboard 会映射到 application/admin/controller/Dashboard.php 的 index() 方法。</span></span><br><span class="line"><span class="comment">// 访问 /admin/login 会映射到 application/admin/controller/User.php 的 login() 方法。</span></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">group</span>(<span class="string">&#x27;admin&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;dashboard&#x27;</span>, <span class="string">&#x27;admin/dashboard/index&#x27;</span>); <span class="comment">// 后台首页</span></span><br><span class="line">    <span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;login&#x27;</span>, <span class="string">&#x27;admin/user/login&#x27;</span>);         <span class="comment">// 后台登录</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由参数匹配规则</span></span><br><span class="line"><span class="comment">// 这条路由规则将限制 id 参数为数字。访问 /user/42 将会调用 api/user/show 方法并传递 42 作为参数。</span></span><br><span class="line"><span class="comment">// 访问 /user/abc 将会匹配失败，因为 abc 不是数字。</span></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;user/:id&#x27;</span>, <span class="string">&#x27;api/user/show&#x27;</span>)-&gt;<span class="title function_ invoke__">pattern</span>([<span class="string">&#x27;id&#x27;</span> =&gt; <span class="string">&#x27;\d+&#x27;</span>]);</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>ThinkPHP 的中路径参数是 URL 路径中的一部分，通过路由规则中的 <code>:变量名</code> 来定义。例如下面这个例子：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;user/:id/:name&#x27;</span>, <span class="string">&#x27;index/user/profile&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">profile</span>(<span class="params"><span class="variable">$id</span>, <span class="variable">$name</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$id</span>, <span class="subst">$name</span>&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>路由定义中的 <code>:id</code>、<code>:name</code> 会 <strong>自动匹配并注入到函数参数中</strong>（<strong>路径参数独有的特性</strong>），因此我们不需要通过 <code>input</code> 来获取参数。</p>
+<p>另外路径参数<strong>默认是字符串类型</strong>，不会自动进行强制类型转换。如果需要<strong>限制传递的参数类型</strong>则需要使用 <code>pattern()</code> 限制。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;user/:id&#x27;</span>, <span class="string">&#x27;index/user/show&#x27;</span>)-&gt;<span class="title function_ invoke__">pattern</span>([<span class="string">&#x27;id&#x27;</span> =&gt; <span class="string">&#x27;\d+&#x27;</span>]);</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>但这只是“限制格式”，不等于类型转换</strong>，控制器中仍需 <code>(int)$id</code> 或用 <code>/d</code> 过滤。</p>
+
+    </div>
+  </div>
+
 <h3 id="框架分析"><a href="#框架分析" class="headerlink" title="框架分析"></a>框架分析</h3><h4 id="框架结构"><a href="#框架结构" class="headerlink" title="框架结构"></a>框架结构</h4><p>源码的目录结构大致如下：</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">thinkphp/</span><br><span class="line">├── base.php                ★ 极简启动器：常量、自动加载、助手函数</span><br><span class="line">├── start.php               ★ 正式启动器：实例化 App 并执行 run()</span><br><span class="line">├── helper.php              通用助手函数（url(), dump() 等）</span><br><span class="line">├── convention.php          框架默认配置</span><br><span class="line">├── lang/zh-cn.php          框架内置中文语言包</span><br><span class="line">└── library/</span><br><span class="line">    └── think/              ★ 所有核心类都在这里</span><br><span class="line">        ├── App.php</span><br><span class="line">        ├── Request.php</span><br><span class="line">        ├── Response.php</span><br><span class="line">        ├── Route.php</span><br><span class="line">        ├── Controller.php</span><br><span class="line">        ├── Model.php</span><br><span class="line">        ├── Db.php</span><br><span class="line">        ├── Validate.php</span><br><span class="line">        ├── ...</span><br><span class="line">        ├── cache/          缓存子系统</span><br><span class="line">        ├── config/         配置文件解析</span><br><span class="line">        ├── console/        CLI 命令框架</span><br><span class="line">        ├── db/             ORM / 查询构建器</span><br><span class="line">        ├── debug/          调试/Trace 面板</span><br><span class="line">        ├── exception/      框架级异常类型</span><br><span class="line">        ├── facade/         门面类（静态代理）</span><br><span class="line">        ├── model/          ORM 关联、Pivot、Trait 等</span><br><span class="line">        ├── process/        进程&amp;子进程封装（pipes/Windows.php*）</span><br><span class="line">        ├── route/          路由调度实现</span><br><span class="line">        ├── session/        Session 驱动</span><br><span class="line">        ├── template/       模板引擎</span><br><span class="line">        ├── validate/       验证规则</span><br><span class="line">        └── view/           视图库</span><br></pre></td></tr></table></figure></div>
 
@@ -1964,7 +2547,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-22 01:03:04
+                    :</strong> 2025-07-24 02:17:03
             </li>
         
         <li>
@@ -2093,7 +2676,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">PHP 代码审计基础</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStudy"><span class="nav-text">PHPStudy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Composer"><span class="nav-text">Composer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStorm"><span class="nav-text">PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xdebug-helper"><span class="nav-text">xdebug-helper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-PHP-%E4%BB%A3%E7%A0%81"><span class="nav-text">远程调试 PHP 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Xdebug-%E6%8F%92%E4%BB%B6"><span class="nav-text">配置 Xdebug 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-2"><span class="nav-text">Windows 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95"><span class="nav-text">如何远程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="nav-text">点击调试按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E8%B0%83%E8%AF%95"><span class="nav-text">开启监听调试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">远程同步开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-FTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置 FTP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm-1"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">如何远程同步开发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%9F%BA%E7%A1%80"><span class="nav-text">PHP 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="nav-text">PHP 语言特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preg-match-%E7%9B%B8%E5%85%B3"><span class="nav-text">preg_match 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="nav-text">数组绕过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%BB%95%E8%BF%87"><span class="nav-text">换行符绕过</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF"><span class="nav-text">会话跟踪技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B"><span class="nav-text">基本过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%9A%E8%AF%9D"><span class="nav-text">启动会话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E4%BC%9A%E8%AF%9D%E6%95%B0%E6%8D%AE"><span class="nav-text">访问会话数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%80%E6%AF%81%E4%BC%9A%E8%AF%9D"><span class="nav-text">销毁会话</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-text">会话相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-text">会话过期时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-text">会话存储位置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BC%9A%E8%AF%9D%E7%9A%84%E8%AE%A4%E8%AF%81%E4%B8%8E%E9%89%B4%E6%9D%83"><span class="nav-text">基于会话的认证与鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2-login-php"><span class="nav-text">登录页面 (login.php)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E9%A1%B5%E9%9D%A2-dashboard-php"><span class="nav-text">控制面板页面 (dashboard.php)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%94%80%E9%A1%B5%E9%9D%A2-logout-php"><span class="nav-text">注销页面 (logout.php)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80"><span class="nav-text">漏洞审计基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%8F%AF%E6%8E%A7%E8%BE%93%E5%85%A5"><span class="nav-text">用户可控输入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SERVER"><span class="nav-text">$_SERVER</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%AF%E6%8C%81"><span class="nav-text">PHP 的数据库支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95"><span class="nav-text">常见数据库扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PDO-PHP-Data-Objects"><span class="nav-text">PDO (PHP Data Objects)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-text">执行语句</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQLi-MySQL-Improved"><span class="nav-text">MySQLi (MySQL Improved)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5%E7%9A%84%E8%BF%87%E6%BB%A4%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="nav-text">SQL 注入的过滤与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0"><span class="nav-text">常见过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#addslashes"><span class="nav-text">addslashes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQLi-%E5%92%8C-MySQL-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">MySQLi 和 MySQL 的转义函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PDO-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">PDO 的转义函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%98%B2%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="nav-text">常见防护方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E8%AF%AD%E5%8F%A5"><span class="nav-text">预处理语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">强制类型转换</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="nav-text">代码执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">系统命令执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-text">exec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#system"><span class="nav-text">system</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell-exec"><span class="nav-text">shell_exec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#passthru"><span class="nav-text">passthru</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#popen"><span class="nav-text">popen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#proc-open"><span class="nav-text">proc_open</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%BC%95%E5%8F%B7%EF%BC%88Backticks%EF%BC%89"><span class="nav-text">反引号（Backticks）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 代码执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#eval"><span class="nav-text">eval</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assert"><span class="nav-text">assert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preg-replace%EF%BC%88%E5%B8%A6-e-%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%8C%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">preg_replace（带 &#x2F;e 修饰符，已废弃）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-function%EF%BC%88%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">create_function（已废弃）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-text">回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func"><span class="nav-text">call_user_func</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func-array"><span class="nav-text">call_user_func_array</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 文件操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-text">文件打开与关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C"><span class="nav-text">文件读写操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E7%A7%BB%E5%8A%A8%E5%92%8C%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6"><span class="nav-text">删除、移动和检查文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="nav-text">目录操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%BF%87%E7%A8%8B"><span class="nav-text">PHP 文件上传过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%AF%B7%E6%B1%82"><span class="nav-text">客户端发送文件上传请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6%E6%96%87%E4%BB%B6%E5%B9%B6%E5%AD%98%E5%82%A8%E5%88%B0%E4%B8%B4%E6%97%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">服务器接收文件并存储到临时目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E5%A4%84%E7%90%86%E4%B8%8A%E4%BC%A0%E7%9A%84%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="nav-text">PHP 代码处理上传的临时文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">判断文件上传检查方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87"><span class="nav-text">文件上传绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">客户端检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BB%91%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">黑名单检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%99%BD%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">白名单检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%AD%94%E6%95%B0%E6%A3%80%E6%B5%8B"><span class="nav-text">文件魔数检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93"><span class="nav-text">二次渲染</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">文件包含</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-text">PHP 伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#file"><span class="nav-text">file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-input"><span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-filter"><span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phar"><span class="nav-text">phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zip"><span class="nav-text">zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-%E6%88%96-https"><span class="nav-text">http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data"><span class="nav-text">data:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">远程文件包含</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-text">模板注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Twig"><span class="nav-text">Twig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smarty"><span class="nav-text">Smarty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blade"><span class="nav-text">Blade</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#patTemplate"><span class="nav-text">patTemplate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8"><span class="nav-text">PHP 原生类利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Error-Exception-%E5%86%85%E7%BD%AE%E7%B1%BB%E8%BF%9B%E8%A1%8C-XSS"><span class="nav-text">使用 Error&#x2F;Exception 内置类进行 XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-SoapClient-%E7%B1%BB%E8%BF%9B%E8%A1%8C-SSRF"><span class="nav-text">利用 SoapClient 类进行 SSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-ZipArchive-%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">利用 ZipArchive 进行文件操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6"><span class="nav-text">PHP 常见框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ThinkPHP"><span class="nav-text">ThinkPHP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91"><span class="nav-text">项目开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA"><span class="nav-text">项目创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8"><span class="nav-text">框架使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90"><span class="nav-text">框架分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84"><span class="nav-text">框架结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E5%90%AF%E5%8A%A8"><span class="nav-text">框架启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%88%86%E5%8F%91"><span class="nav-text">路由分发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel"><span class="nav-text">Laravel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Codeigniter"><span class="nav-text">Codeigniter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yii"><span class="nav-text">Yii</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cakephp"><span class="nav-text">Cakephp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E5%AF%B9%E6%8A%97"><span class="nav-text">PHP 代码混淆对抗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">无扩展方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">PHP 扩展方案</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStudy"><span class="nav-text">PHPStudy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Composer"><span class="nav-text">Composer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPStorm"><span class="nav-text">PHPStorm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95-PHP-%E4%BB%A3%E7%A0%81"><span class="nav-text">远程调试 PHP 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xdebug-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">Xdebug 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Xdebug-%E7%89%88%E6%9C%AC%E4%BD%93%E7%B3%BB"><span class="nav-text">Xdebug 版本体系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xdebug-%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9"><span class="nav-text">Xdebug 配置选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xdebug-%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86"><span class="nav-text">Xdebug 调试原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E9%85%8D%E7%BD%AE-Xdebug-%E6%8F%92%E4%BB%B6"><span class="nav-text">PHP 配置 Xdebug 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85"><span class="nav-text">Windows 平台安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85"><span class="nav-text">Linux 平台安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Xdebug-Helper-%E6%8F%92%E4%BB%B6"><span class="nav-text">配置 Xdebug Helper 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm"><span class="nav-text">配置 PHPStorm</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE"><span class="nav-text">调试设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="nav-text">服务器路径映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="nav-text">运行&#x2F;调试配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="nav-text">点击调试按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E8%B0%83%E8%AF%95%EF%BC%88%E6%8E%A8%E8%8D%90%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-text">开启监听调试（推荐方式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PhpStudy-%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98"><span class="nav-text">PhpStudy 的超时问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">远程同步开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-FTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置 FTP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm-1"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">如何远程同步开发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%9F%BA%E7%A1%80"><span class="nav-text">PHP 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="nav-text">PHP 语言特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preg-match-%E7%9B%B8%E5%85%B3"><span class="nav-text">preg_match 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="nav-text">数组绕过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%BB%95%E8%BF%87"><span class="nav-text">换行符绕过</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF"><span class="nav-text">会话跟踪技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B"><span class="nav-text">基本过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%9A%E8%AF%9D"><span class="nav-text">启动会话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E4%BC%9A%E8%AF%9D%E6%95%B0%E6%8D%AE"><span class="nav-text">访问会话数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%80%E6%AF%81%E4%BC%9A%E8%AF%9D"><span class="nav-text">销毁会话</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-text">会话相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-text">会话过期时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-text">会话存储位置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BC%9A%E8%AF%9D%E7%9A%84%E8%AE%A4%E8%AF%81%E4%B8%8E%E9%89%B4%E6%9D%83"><span class="nav-text">基于会话的认证与鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2-login-php"><span class="nav-text">登录页面 (login.php)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E9%A1%B5%E9%9D%A2-dashboard-php"><span class="nav-text">控制面板页面 (dashboard.php)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%94%80%E9%A1%B5%E9%9D%A2-logout-php"><span class="nav-text">注销页面 (logout.php)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80"><span class="nav-text">漏洞审计基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%8F%AF%E6%8E%A7%E8%BE%93%E5%85%A5"><span class="nav-text">用户可控输入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SERVER"><span class="nav-text">$_SERVER</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%AF%E6%8C%81"><span class="nav-text">PHP 的数据库支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95"><span class="nav-text">常见数据库扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PDO-PHP-Data-Objects"><span class="nav-text">PDO (PHP Data Objects)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-text">执行语句</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQLi-MySQL-Improved"><span class="nav-text">MySQLi (MySQL Improved)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5%E7%9A%84%E8%BF%87%E6%BB%A4%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="nav-text">SQL 注入的过滤与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0"><span class="nav-text">常见过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#addslashes"><span class="nav-text">addslashes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MySQLi-%E5%92%8C-MySQL-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">MySQLi 和 MySQL 的转义函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PDO-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">PDO 的转义函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%98%B2%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="nav-text">常见防护方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E8%AF%AD%E5%8F%A5"><span class="nav-text">预处理语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">强制类型转换</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="nav-text">代码执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">系统命令执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-text">exec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#system"><span class="nav-text">system</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell-exec"><span class="nav-text">shell_exec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#passthru"><span class="nav-text">passthru</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#popen"><span class="nav-text">popen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#proc-open"><span class="nav-text">proc_open</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%BC%95%E5%8F%B7%EF%BC%88Backticks%EF%BC%89"><span class="nav-text">反引号（Backticks）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 代码执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#eval"><span class="nav-text">eval</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assert"><span class="nav-text">assert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preg-replace%EF%BC%88%E5%B8%A6-e-%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%8C%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">preg_replace（带 &#x2F;e 修饰符，已废弃）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-function%EF%BC%88%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">create_function（已废弃）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-text">回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func"><span class="nav-text">call_user_func</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func-array"><span class="nav-text">call_user_func_array</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 文件操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-text">文件打开与关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C"><span class="nav-text">文件读写操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E7%A7%BB%E5%8A%A8%E5%92%8C%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6"><span class="nav-text">删除、移动和检查文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="nav-text">目录操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%BF%87%E7%A8%8B"><span class="nav-text">PHP 文件上传过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%AF%B7%E6%B1%82"><span class="nav-text">客户端发送文件上传请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6%E6%96%87%E4%BB%B6%E5%B9%B6%E5%AD%98%E5%82%A8%E5%88%B0%E4%B8%B4%E6%97%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">服务器接收文件并存储到临时目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E5%A4%84%E7%90%86%E4%B8%8A%E4%BC%A0%E7%9A%84%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="nav-text">PHP 代码处理上传的临时文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">判断文件上传检查方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87"><span class="nav-text">文件上传绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">客户端检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BB%91%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">黑名单检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%99%BD%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">白名单检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%AD%94%E6%95%B0%E6%A3%80%E6%B5%8B"><span class="nav-text">文件魔数检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93"><span class="nav-text">二次渲染</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">文件包含</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-text">PHP 伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#file"><span class="nav-text">file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-input"><span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php-filter"><span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phar"><span class="nav-text">phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zip"><span class="nav-text">zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-%E6%88%96-https"><span class="nav-text">http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data"><span class="nav-text">data:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">远程文件包含</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-text">模板注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Twig"><span class="nav-text">Twig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smarty"><span class="nav-text">Smarty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blade"><span class="nav-text">Blade</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#patTemplate"><span class="nav-text">patTemplate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8"><span class="nav-text">PHP 原生类利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Error-Exception-%E5%86%85%E7%BD%AE%E7%B1%BB%E8%BF%9B%E8%A1%8C-XSS"><span class="nav-text">使用 Error&#x2F;Exception 内置类进行 XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-SoapClient-%E7%B1%BB%E8%BF%9B%E8%A1%8C-SSRF"><span class="nav-text">利用 SoapClient 类进行 SSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-ZipArchive-%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">利用 ZipArchive 进行文件操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6"><span class="nav-text">PHP 常见框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ThinkPHP"><span class="nav-text">ThinkPHP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%9F%BA%E7%A1%80"><span class="nav-text">环境基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA"><span class="nav-text">项目创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-text">项目结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ThinkPHP5"><span class="nav-text">ThinkPHP5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ThinkPHP6"><span class="nav-text">ThinkPHP6</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8"><span class="nav-text">框架使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MVC-%E6%9E%B6%E6%9E%84"><span class="nav-text">MVC 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Controller%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%99%A8%E5%B1%82%EF%BC%88%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%EF%BC%89"><span class="nav-text">Controller：控制器层（业务流程控制）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Model%EF%BC%9A%E6%A8%A1%E5%9E%8B%E5%B1%82%EF%BC%88%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%8E%E5%B0%81%E8%A3%85%EF%BC%89"><span class="nav-text">Model：模型层（数据访问与封装）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#View%EF%BC%9A%E8%A7%86%E5%9B%BE%E5%B1%82%EF%BC%88%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%EF%BC%89"><span class="nav-text">View：视图层（页面展示）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%9D%97%E6%A8%A1%E5%BC%8F"><span class="nav-text">多模块模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%AE%BF%E9%97%AE%E5%BD%A2%E5%BC%8F"><span class="nav-text">路由访问形式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90"><span class="nav-text">框架分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84"><span class="nav-text">框架结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E5%90%AF%E5%8A%A8"><span class="nav-text">框架启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%88%86%E5%8F%91"><span class="nav-text">路由分发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel"><span class="nav-text">Laravel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Codeigniter"><span class="nav-text">Codeigniter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yii"><span class="nav-text">Yii</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cakephp"><span class="nav-text">Cakephp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E5%AF%B9%E6%8A%97"><span class="nav-text">PHP 代码混淆对抗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">无扩展方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">PHP 扩展方案</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -2124,7 +2707,7 @@
                     </span>
                     
                         <span>
-                            662.5k words in total
+                            671.1k words in total
                         </span>
                     
                 </p>

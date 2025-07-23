@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-21 23:33:33</span>
-            <span class="mobile">2025-07-21 23:33:33</span>
+            <span class="desktop">2025-07-23 23:52:56</span>
+            <span class="mobile">2025-07-23 23:52:56</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>19.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>19.6k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>82 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>83 Mins</span>
         </span>
     
     
@@ -616,10 +616,29 @@
 <ul>
 <li><code>O</code> 是对象的标识符。</li>
 <li><code>&lt;class_name_length&gt;</code> 是类名的长度。</li>
-<li><code>&lt;class_name&gt;</code> 是类名。</li>
+<li><code>&lt;class_name&gt;</code> 是类名，<strong>带命名空间</strong>。</li>
 <li><code>&lt;property_count&gt;</code> 是属性的个数。</li>
 <li><code>&#123;&lt;property_name&gt;&lt;property_value&gt;...&#125;</code> 是属性名和属性值的键值对。</li>
 </ul>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>PHP 的 <code>serialize()</code> <strong>只会序列化对象的实例属性</strong>，不会包含以下内容：</p>
+<ul>
+<li>❌ 类常量（<code>const</code>）：不会出现在序列化字符串中，因为它们属于类本身，而不是对象。</li>
+<li>❌ 静态属性（<code>static</code>）：也不会出现在序列化结果中，原因同上。</li>
+<li>❌ 方法（包括魔术方法）：不会序列化函数体，只有数据被保存。</li>
+<li>✅ 只有实例属性（<code>public</code>、<code>protected</code>、<code>private</code>）会参与序列化。</li>
+</ul>
+<p>⚠️ 因此，在构造 gadget payload 或调试 <code>serialize()</code> 输出时，请务必确认你期望的字段是实例属性。</p>
+
+    </div>
+  </div>
+
 <h4 id="公有属性（Public-Properties）"><a href="#公有属性（Public-Properties）" class="headerlink" title="公有属性（Public Properties）"></a><strong>公有属性（Public Properties）</strong></h4><p>公有属性直接使用属性名，与关联数组类似，键就是属性名字符串的序列化结果。</p>
 <p><strong>格式</strong> ： <code>s:&lt;length&gt;:&quot;&lt;property_name&gt;&quot;;&lt;property_value&gt;</code></p>
 <ul>
@@ -667,7 +686,7 @@
 
     </div>
     <div class="notel-content markdown-body">
-      <p>PHP 的<strong>对象引用仅适用于对象</strong>；对于标量类型，如字符串、数字等，默认是值拷贝，只有在使用 <code>&amp;</code> 创建变量引用时，才会使用 <code>R:n</code> 表示指针引用。</p>
+      <p>PHP 的<strong>对象引用仅适用于对象</strong>；对于标量类型，如字符串、数字、<strong>数组</strong>等，默认是值拷贝，只有在使用 <code>&amp;</code> 创建变量引用时，才会使用 <code>R:n</code> 表示指针引用。</p>
 
     </div>
   </div>
@@ -1758,7 +1777,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-21 23:33:33
+                    :</strong> 2025-07-23 23:52:56
             </li>
         
         <li>
@@ -1918,7 +1937,7 @@
                     </span>
                     
                         <span>
-                            662.5k words in total
+                            671.1k words in total
                         </span>
                     
                 </p>
