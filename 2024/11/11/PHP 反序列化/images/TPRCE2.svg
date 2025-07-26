@@ -122,22 +122,18 @@
 <!-- object5 -->
 <g id="node5" class="node">
 <title>object5</title>
-<path fill="white" stroke="black" d="M1546,-198.25C1546,-198.25 1811.75,-198.25 1811.75,-198.25 1817.75,-198.25 1823.75,-204.25 1823.75,-210.25 1823.75,-210.25 1823.75,-269.75 1823.75,-269.75 1823.75,-275.75 1817.75,-281.75 1811.75,-281.75 1811.75,-281.75 1546,-281.75 1546,-281.75 1540,-281.75 1534,-275.75 1534,-269.75 1534,-269.75 1534,-210.25 1534,-210.25 1534,-204.25 1540,-198.25 1546,-198.25"/>
-<polygon fill="white" stroke="none" points="1542,-202.25 1542,-277.75 1815.75,-277.75 1815.75,-202.25 1542,-202.25"/>
-<polygon fill="black" stroke="none" points="1544,-253.25 1544,-275.75 1640.75,-275.75 1640.75,-253.25 1544,-253.25"/>
-<text xml:space="preserve" text-anchor="start" x="1547" y="-259.45" font-family="Courier New" font-size="14.00" fill="white">#5</text>
-<polygon fill="black" stroke="none" points="1642.75,-253.25 1642.75,-275.75 1813.75,-275.75 1813.75,-253.25 1642.75,-253.25"/>
-<text xml:space="preserve" text-anchor="start" x="1645.75" y="-259.45" font-family="Courier New" font-size="14.00" fill="white">think\console\Output</text>
-<text xml:space="preserve" text-anchor="start" x="1547" y="-234.95" font-family="Courier New" font-size="14.00">&#39;handle&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="1645.75" y="-234.95" font-family="Courier New" font-size="14.00">NULL</text>
-<text xml:space="preserve" text-anchor="start" x="1547" y="-210.45" font-family="Courier New" font-size="14.00">&#39;*::styles&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="1645.75" y="-210.45" font-family="Courier New" font-size="14.00">NULL</text>
+<path fill="white" stroke="black" d="M1583.12,-222C1583.12,-222 1774.62,-222 1774.62,-222 1780.62,-222 1786.62,-228 1786.62,-234 1786.62,-234 1786.62,-246 1786.62,-246 1786.62,-252 1780.62,-258 1774.62,-258 1774.62,-258 1583.12,-258 1583.12,-258 1577.12,-258 1571.12,-252 1571.12,-246 1571.12,-246 1571.12,-234 1571.12,-234 1571.12,-228 1577.12,-222 1583.12,-222"/>
+<polygon fill="white" stroke="none" points="1579.12,-227 1579.12,-253.5 1778.62,-253.5 1778.62,-227 1579.12,-227"/>
+<polygon fill="black" stroke="none" points="1581.12,-229 1581.12,-251.5 1603.62,-251.5 1603.62,-229 1581.12,-229"/>
+<text xml:space="preserve" text-anchor="start" x="1584.12" y="-235.2" font-family="Courier New" font-size="14.00" fill="white">#5</text>
+<polygon fill="black" stroke="none" points="1605.62,-229 1605.62,-251.5 1776.62,-251.5 1776.62,-229 1605.62,-229"/>
+<text xml:space="preserve" text-anchor="start" x="1608.62" y="-235.2" font-family="Courier New" font-size="14.00" fill="white">think\console\Output</text>
 </g>
 <!-- object4&#45;&gt;object5 -->
 <g id="edge5" class="edge">
 <title>object4&#45;&gt;object5</title>
-<path fill="none" stroke="black" d="M1390.98,-240C1431.87,-240 1478.58,-240 1522.27,-240"/>
-<polygon fill="black" stroke="black" points="1522.1,-243.5 1532.1,-240 1522.1,-236.5 1522.1,-243.5"/>
+<path fill="none" stroke="black" d="M1390.98,-240C1443.85,-240 1506.47,-240 1559.69,-240"/>
+<polygon fill="black" stroke="black" points="1559.38,-243.5 1569.38,-240 1559.38,-236.5 1559.38,-243.5"/>
 </g>
 <!-- object7 -->
 <g id="node7" class="node">
