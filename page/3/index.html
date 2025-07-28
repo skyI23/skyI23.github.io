@@ -463,7 +463,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -501,7 +501,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">40</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -516,6 +516,86 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-kernel-pwn-useful-structs/">
+                            linux kernel pwn 常用结构体
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            tty 设备结构体tty 设备在 /dev 下的一个伪终端设备 ptmx 。
+tty_struct（kmalloc-1k | GFP_KERNEL_ACCOUNT）tty_struct 定义如下 。 
+123456789/* tty magic number */#define TTY_MAGIC        0x5401struct tty_struct &#123;    int   ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 20:33:04 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-kernel/">linux kernel</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-kernel-pwn/">linux kernel pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-kernel-pwn-useful-structs/">Read more<span class="seo-reader-text">linux kernel pwn 常用结构体</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1271,92 +1351,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/08/java-serialization/">
-                            Java 反序列化
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            反序列化基础Java 的序列化（Serialization）和反序列化（Deserialization）是将对象的状态转换为字节流并恢复的过程。这个过程使对象可以保存到文件、通过网络传输或保存到数据库中，并在稍后恢复成对象。
-
-序列化（Serialization）：将 Java 对象的状态转换为字节流的过程。这使得对象可以保存到文件、发送到其他 JVM 甚至通过网络传输。
-反序列化（Dese...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Nov 08 2024 02:47:16 GMT+0800">
-                
-                    2024-11-08
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/web/">web</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/web/java-web/">java web</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/java-web/">java web</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/11/08/java-serialization/">Read more<span class="seo-reader-text">Java 反序列化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/page/2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="/page/2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1382,11 +1381,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        40 posts in total
+                        41 posts in total
                     </span>
                     
                         <span>
-                            683.4k words in total
+                            691.8k words in total
                         </span>
                     
                 </p>

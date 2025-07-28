@@ -30,22 +30,20 @@
 <!-- object2 -->
 <g id="node2" class="node">
 <title>object2</title>
-<path fill="white" stroke="black" d="M401.25,-8.5C401.25,-8.5 766,-8.5 766,-8.5 772,-8.5 778,-14.5 778,-20.5 778,-20.5 778,-153.5 778,-153.5 778,-159.5 772,-165.5 766,-165.5 766,-165.5 401.25,-165.5 401.25,-165.5 395.25,-165.5 389.25,-159.5 389.25,-153.5 389.25,-153.5 389.25,-20.5 389.25,-20.5 389.25,-14.5 395.25,-8.5 401.25,-8.5"/>
-<polygon fill="white" stroke="none" points="397.25,-12.5 397.25,-161.5 770,-161.5 770,-12.5 397.25,-12.5"/>
-<polygon fill="black" stroke="none" points="399.25,-137 399.25,-159.5 529,-159.5 529,-137 399.25,-137"/>
-<text xml:space="preserve" text-anchor="start" x="402.25" y="-143.2" font-family="Courier New" font-size="14.00" fill="white">#2</text>
-<polygon fill="black" stroke="none" points="531,-137 531,-159.5 768,-159.5 768,-137 531,-137"/>
-<text xml:space="preserve" text-anchor="start" x="534" y="-143.2" font-family="Courier New" font-size="14.00" fill="white">think\model\relation\HasMany</text>
-<text xml:space="preserve" text-anchor="start" x="402.25" y="-118.7" font-family="Courier New" font-size="14.00">&#39;*::query&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="534" y="-118.7" font-family="Courier New" font-size="14.00">#3</text>
-<text xml:space="preserve" text-anchor="start" x="402.25" y="-94.2" font-family="Courier New" font-size="14.00">&#39;*::parent&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="534" y="-94.2" font-family="Courier New" font-size="14.00">#7</text>
-<text xml:space="preserve" text-anchor="start" x="402.25" y="-69.7" font-family="Courier New" font-size="14.00">&#39;*::localKey&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="534" y="-69.7" font-family="Courier New" font-size="14.00">&#39;k&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="402.25" y="-45.2" font-family="Courier New" font-size="14.00">&#39;*::pivot&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="534" y="-45.2" font-family="Courier New" font-size="14.00">NULL</text>
-<text xml:space="preserve" text-anchor="start" x="402.25" y="-20.7" font-family="Courier New" font-size="14.00">&#39;*::foreignKey&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="534" y="-20.7" font-family="Courier New" font-size="14.00">&#39;file_content&#39;</text>
+<path fill="white" stroke="black" d="M401.25,-20.75C401.25,-20.75 766,-20.75 766,-20.75 772,-20.75 778,-26.75 778,-32.75 778,-32.75 778,-141.25 778,-141.25 778,-147.25 772,-153.25 766,-153.25 766,-153.25 401.25,-153.25 401.25,-153.25 395.25,-153.25 389.25,-147.25 389.25,-141.25 389.25,-141.25 389.25,-32.75 389.25,-32.75 389.25,-26.75 395.25,-20.75 401.25,-20.75"/>
+<polygon fill="white" stroke="none" points="397.25,-24.75 397.25,-149.25 770,-149.25 770,-24.75 397.25,-24.75"/>
+<polygon fill="black" stroke="none" points="399.25,-124.75 399.25,-147.25 529,-147.25 529,-124.75 399.25,-124.75"/>
+<text xml:space="preserve" text-anchor="start" x="402.25" y="-130.95" font-family="Courier New" font-size="14.00" fill="white">#2</text>
+<polygon fill="black" stroke="none" points="531,-124.75 531,-147.25 768,-147.25 768,-124.75 531,-124.75"/>
+<text xml:space="preserve" text-anchor="start" x="534" y="-130.95" font-family="Courier New" font-size="14.00" fill="white">think\model\relation\HasMany</text>
+<text xml:space="preserve" text-anchor="start" x="402.25" y="-106.45" font-family="Courier New" font-size="14.00">&#39;*::query&#39;</text>
+<text xml:space="preserve" text-anchor="start" x="534" y="-106.45" font-family="Courier New" font-size="14.00">#3</text>
+<text xml:space="preserve" text-anchor="start" x="402.25" y="-81.95" font-family="Courier New" font-size="14.00">&#39;*::parent&#39;</text>
+<text xml:space="preserve" text-anchor="start" x="534" y="-81.95" font-family="Courier New" font-size="14.00">#7</text>
+<text xml:space="preserve" text-anchor="start" x="402.25" y="-57.45" font-family="Courier New" font-size="14.00">&#39;*::localKey&#39;</text>
+<text xml:space="preserve" text-anchor="start" x="534" y="-57.45" font-family="Courier New" font-size="14.00">&#39;k&#39;</text>
+<text xml:space="preserve" text-anchor="start" x="402.25" y="-32.95" font-family="Courier New" font-size="14.00">&#39;*::foreignKey&#39;</text>
+<text xml:space="preserve" text-anchor="start" x="534" y="-32.95" font-family="Courier New" font-size="14.00">&#39;file_content&#39;</text>
 </g>
 <!-- object1&#45;&gt;object2 -->
 <g id="edge1" class="edge">
@@ -151,7 +149,7 @@
 <polygon fill="black" stroke="none" points="2065,-221.75 2065,-244.25 2415,-244.25 2415,-221.75 2065,-221.75"/>
 <text xml:space="preserve" text-anchor="start" x="2222.25" y="-227.95" font-family="Courier New" font-size="14.00" fill="white">think\cache\driver\File</text>
 <text xml:space="preserve" text-anchor="start" x="1961" y="-203.45" font-family="Courier New" font-size="14.00">&#39;*::tag&#39;</text>
-<text xml:space="preserve" text-anchor="start" x="2068" y="-203.45" font-family="Courier New" font-size="14.00">false</text>
+<text xml:space="preserve" text-anchor="start" x="2068" y="-203.45" font-family="Courier New" font-size="14.00">true</text>
 <text xml:space="preserve" text-anchor="start" x="1961" y="-178.95" font-family="Courier New" font-size="14.00">&#39;*::options&#39;</text>
 <polygon fill="white" stroke="none" points="2068,-46.75 2068,-192.25 2412,-192.25 2412,-46.75 2068,-46.75"/>
 <text xml:space="preserve" text-anchor="start" x="2071" y="-175.95" font-family="Courier New" font-size="14.00">[</text>
