@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-19 02:52:02</span>
-            <span class="mobile">2025-07-19 02:52:02</span>
+            <span class="desktop">2025-07-29 02:14:06</span>
+            <span class="mobile">2025-07-29 02:14:06</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -531,7 +531,7 @@
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>135 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>136 Mins</span>
         </span>
     
     
@@ -622,7 +622,11 @@
 <li><p><strong>WSL2</strong> ：通过在 Windows 上虚拟化完整的 Linux 内核，提供更强大的功能和更高的兼容性，特别适合需要容器、Docker 或更复杂的 Linux 功能的开发工作。</p>
 </li>
 </ul>
-<p>由于 WSL2 和虚拟机的部分设置冲突，因此这里建议安装 WSL1。具体安装过程如下：</p>
+<p>由于 WSL2 和虚拟机的部分设置冲突，因此这里建议安装 WSL1。</p>
+<blockquote>
+<p>这里冲突是<strong>因为 Hyper-V 本身就是一个 Type 1（裸机级）虚拟化平台，一旦启用，它会接管 VT-x&#x2F;AMD-V 等硬件虚拟化能力</strong>，导致 VMware、VirtualBox 这类依赖裸机虚拟化的工具无法直接使用 CPU 的虚拟化指令。</p>
+</blockquote>
+<p>具体安装过程如下：</p>
 <ol>
 <li><p><strong>安装 WSL 1 或 WSL 2</strong> ： 你可以通过 PowerShell 运行以下命令来安装 WSL：</p>
 <div class="code-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--install</span></span><br></pre></td></tr></table></figure></div>
@@ -643,7 +647,9 @@
 <p>  之后还要打开 <strong>任务管理器</strong>，切换到“<strong>性能</strong>”选项卡，选择“<strong>CPU</strong>”，查看右下角“<strong>虚拟化</strong>”是否显示为 <strong>已启用</strong>。如果未启用还要在重启的时候进 BIOS 开启 CPU 的虚拟化选项。</p>
 </li>
 <li><p>如果是安装 WSL1 则只需要将 WSL 的版本设置为 1 即可。</p>
-  <div class="code-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></div></li>
+  <div class="code-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+<p>  另外为了防止与 Vmware 冲突，需要禁用 Hyper-V：</p>
+  <div class="code-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /<span class="built_in">set</span> hypervisorlaunchtype off</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 </ul>
@@ -2155,7 +2161,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-19 02:52:02
+                    :</strong> 2025-07-29 02:14:06
             </li>
         
         <li>
@@ -2315,7 +2321,7 @@
                     </span>
                     
                         <span>
-                            691.8k words in total
+                            696.5k words in total
                         </span>
                     
                 </p>
