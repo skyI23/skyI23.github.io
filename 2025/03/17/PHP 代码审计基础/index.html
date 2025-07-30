@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-07-30 00:57:23</span>
-            <span class="mobile">2025-07-30 00:57:23</span>
+            <span class="desktop">2025-07-31 03:30:12</span>
+            <span class="mobile">2025-07-31 03:30:12</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>27.9k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>33.1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>112 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>134 Mins</span>
         </span>
     
     
@@ -1160,7 +1160,601 @@
                      data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/cdb79871bfec3046568bd3c6e67d600c.png"
                      
                 ></p>
-<h1 id="PHP-常见概念"><a href="#PHP-常见概念" class="headerlink" title="PHP 常见概念"></a>PHP 常见概念</h1><h2 id="超全局数组"><a href="#超全局数组" class="headerlink" title="超全局数组"></a>超全局数组</h2><p>在 PHP 中，<strong>超全局数组（Superglobals）</strong> 是一组内置的、始终可用的特殊变量，它们<strong>在所有作用域中自动可见</strong>，<strong>不需要通过 <code>global</code> 或 <code>global $xxx</code> 声明</strong>，你可以直接访问它们，无论是在函数内、类内、还是全局代码中。</p>
+<h1 id="PHP-常见概念"><a href="#PHP-常见概念" class="headerlink" title="PHP 常见概念"></a>PHP 常见概念</h1><h2 id="PHP-弱类型"><a href="#PHP-弱类型" class="headerlink" title="PHP 弱类型"></a>PHP 弱类型</h2><p>PHP 是一种<strong>动态弱类型语言</strong>，这意味着：</p>
+<ul>
+<li>变量不需要事先声明类型，可以在运行时自动改变类型。</li>
+<li>不同类型的数据在比较、运算时会被<strong>自动转换</strong>为合适的类型（即“类型模糊”）。</li>
+</ul>
+<h3 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h3><p>常用的类型判断方式主要有下面几种：</p>
+<ul>
+<li><p><code>empty($x)</code>：判断变量是否为“空”值，如 <code>&quot;&quot;</code>、<code>&quot;0&quot;</code>、<code>0</code>、<code>false</code>、<code>null</code>、空数组等都返回 <code>true</code></p>
+</li>
+<li><p><code>is_null($x)</code>：判断是否为 <code>null</code>，<strong>未定义变量和赋值为 null 都是 true</strong></p>
+</li>
+<li><p><code>isset($x)</code>：判断变量是否存在并不为 null</p>
+</li>
+<li><p><code>if ($x)</code>：将 <code>$x</code> <strong>转换为布尔值</strong>后判断真假（弱类型逻辑）</p>
+</li>
+</ul>
+<p>对于不同类型的数据，在上述判断方式下的结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th><code>gettype($x)</code></th>
+<th><code>empty($x)</code></th>
+<th><code>is_null($x)</code></th>
+<th><code>isset($x)</code></th>
+<th><code>if ($x)</code> 布尔值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$x = &quot;&quot;</code></td>
+<td>string</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>$x = null</code></td>
+<td>NULL</td>
+<td>✅ true</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>var $x;</code></td>
+<td>NULL</td>
+<td>✅ true</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>$x</code> 未定义</td>
+<td>NULL (逻辑上)</td>
+<td>✅ true</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>$x = []</code></td>
+<td>array</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>$x = [&#39;a&#39;,&#39;b&#39;]</code></td>
+<td>array</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = false</code></td>
+<td>boolean</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>$x = true</code></td>
+<td>boolean</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = 1</code></td>
+<td>integer</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = 42</code></td>
+<td>integer</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = 0</code></td>
+<td>integer</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>$x = -1</code></td>
+<td>integer</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = &quot;1&quot;</code></td>
+<td>string</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = &quot;0&quot;</code></td>
+<td>string</td>
+<td>✅ true</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>❌ false</td>
+</tr>
+<tr>
+<td><code>$x = &quot;-1&quot;</code></td>
+<td>string</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = &quot;php&quot;</code></td>
+<td>string</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = &quot;true&quot;</code></td>
+<td>string</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+<tr>
+<td><code>$x = &quot;false&quot;</code></td>
+<td>string</td>
+<td>❌ false</td>
+<td>❌ false</td>
+<td>✅ true</td>
+<td>✅ true</td>
+</tr>
+</tbody></table>
+<h3 id="类型比较"><a href="#类型比较" class="headerlink" title="类型比较"></a>类型比较</h3><p>PHP 主要有 <code>==</code> 和 <code>===</code> 两种比较：</p>
+<ul>
+<li><code>==</code>：宽松比较（loose comparison），其判断方式是如果两个变量的类型不同，PHP 会<strong>自动进行类型转换</strong>，再进行值的比较。</li>
+<li><code>===</code>：严格比较（ strict comparison），它的判断逻辑是<strong>只有当两个值的</strong>类型<strong>和</strong>值<strong>都完全一致时，<code>===</code> 才返回 true。</strong></li>
+</ul>
+<p>下面是几种常见类型的弱比较（<code>==</code>）结果，其中 🟡 代表在 PHP 8.0.0 之前为 ✅。</p>
+<table>
+<thead>
+<tr>
+<th>左 \ 右</th>
+<th><code>true</code></th>
+<th><code>false</code></th>
+<th><code>1</code></th>
+<th><code>0</code></th>
+<th><code>-1</code></th>
+<th><code>&quot;1&quot;</code></th>
+<th><code>&quot;0&quot;</code></th>
+<th><code>&quot;-1&quot;</code></th>
+<th><code>null</code></th>
+<th><code>[]</code></th>
+<th><code>&quot;php&quot;</code></th>
+<th><code>&quot;&quot;</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>true</code></strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>false</code></strong></td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong><code>1</code></strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>0</code></strong></td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>🟡</td>
+<td>🟡</td>
+</tr>
+<tr>
+<td><strong><code>-1</code></strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>&quot;1&quot;</code></strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>&quot;0&quot;</code></strong></td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>&quot;-1&quot;</code></strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>null</code></strong></td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong><code>[]</code></strong></td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>&quot;php&quot;</code></strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>🟡</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong><code>&quot;&quot;</code></strong></td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>🟡</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>其中字符串与数字比较过程中会将字符串转换为数字。字符串转数字时的规则为（注意 PHP 8 版本比较变严格了，仅纯数字才行）：</p>
+<ul>
+<li><p>首先<strong>去除字符串的前导空格</strong>，然后如果字符串<strong>前缀</strong>是<strong>科学计数法形式</strong>，则<strong>提取字符串最长科学计数法前缀</strong>，然后<strong>按照科学计数法转换为数字</strong>比较。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="number">1</span> == <span class="string">&quot;1e234&quot;</span>);   <span class="comment">// false</span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="number">1</span> == <span class="string">&quot;   1e0&quot;</span>);  <span class="comment">// true</span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="number">1</span> == <span class="string">&quot;   1e0a&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="number">1</span> == <span class="string">&quot;   1e1a&quot;</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>如果字符串以数字开头，则会将字符串前面最长的数字前缀，作为转换的数字进行比较。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="number">1</span> == <span class="string">&quot;1aaa&quot;</span>);    <span class="comment">// true</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>否则统一将字符串转换为 0 进行比较。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="number">0</span> == <span class="string">&quot;aaaa&quot;</span>);    <span class="comment">// true</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>另外弱类型比较在<strong>两边类型相同</strong>的时候也可能会<strong>触发类型转换</strong>而不是直接对比值。</p>
+<p>例如在 PHP 的弱类型比较 (<code>==</code>) 中，如果两边字符串都是<strong>科学计数法形式</strong>，那么 <strong>PHP 会将两边都转为数字再比较</strong>；否则才按字符串逐字符比较。</p>
+<p>特别地，对于形如 <code>&quot;0e&quot;</code> + 数字的字符串，PHP 会将其按科学计数法解释为 <code>0 × 10^... = 0</code>，因此哪怕两个字符串本身不相等，也会被判定为相等。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="string">&quot;0e12345&quot;</span> == <span class="string">&quot;0e54321&quot;</span>);      <span class="comment">// true：都被解释为 0</span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="string">&quot;0e12345&quot;</span> == <span class="string">&quot;00e54321&quot;</span>);     <span class="comment">// true：多余前导 0 不影响解析</span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="string">&quot;0e12345&quot;</span> == <span class="string">&quot; 00e54321&quot;</span>);    <span class="comment">// true：前导空格被忽略，仍然是数字</span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="string">&quot;0e12345&quot;</span> == <span class="string">&quot; 00e54321 &quot;</span>);   <span class="comment">// false：尾部空格导致不是合法数字，触发字符串比较</span></span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<p>对于对象类型的比较，<code>==</code> 和 <code>===</code> 两种方式的比较规则为：</p>
+<ul>
+<li><code>==</code>：<strong>类名一致</strong>且<strong>属性键值一致</strong>，不要求是同一个实例。</li>
+<li><code>===</code>：必须是<strong>同一个对象实例</strong>（引用），即变量指向的内存地址相同。</li>
+</ul>
+<p>除了上述两种相等比较外，PHP 还由此引申其他几种类型比较的方式：</p>
+<ul>
+<li>不相等比较：主要有 <code>!=</code>，<code>!==</code> 两种，分别是 <code>==</code> 和 <code>===</code> 结果取反。</li>
+<li>大小比较：主要有 <code>&gt;=</code>，<code>&lt;=</code>，<code>&lt;</code>，<code>&gt;</code>，<code>&lt;=&gt;</code> 这几种。<ul>
+<li>其中等于部分的判断是弱比较。</li>
+<li>在大小比较中，如果两个操作数类型不同，PHP 会<strong>将它们转换为可以比较的统一类型</strong>：主要是<strong>数值</strong>或<strong>字符串</strong>。</li>
+</ul>
+</li>
+<li>专用比较函数：主要是字符串比较函数，如 <code>strcmp</code>，<code>strcasecmp</code> 等。由于参数的类型确定因此不存在弱类型问题。</li>
+</ul>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><h4 id="类型转换类别"><a href="#类型转换类别" class="headerlink" title="类型转换类别"></a>类型转换类别</h4><p>在 PHP 中，类型转换可分为 <strong>显式（手动转换）</strong> 和 <strong>隐式（自动发生）</strong> 两种。</p>
+<h5 id="显式类型转"><a href="#显式类型转" class="headerlink" title="显式类型转"></a>显式类型转</h5><ul>
+<li><p>在 PHP 中，我们可以像 C 语言一样<strong>强制类型转换</strong>。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$val</span> = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$intVal</span>    = (<span class="keyword">int</span>)<span class="variable">$val</span>;     <span class="comment">// 强制转 int</span></span><br><span class="line"><span class="variable">$floatVal</span>  = (<span class="keyword">float</span>)<span class="variable">$val</span>;   <span class="comment">// 强制转 float（或 (double)）</span></span><br><span class="line"><span class="variable">$boolVal</span>   = (<span class="keyword">bool</span>)<span class="variable">$val</span>;    <span class="comment">// 强制转布尔</span></span><br><span class="line"><span class="variable">$stringVal</span> = (<span class="keyword">string</span>)<span class="variable">$val</span>;  <span class="comment">// 强制转字符串</span></span><br><span class="line"><span class="variable">$arrayVal</span>  = (<span class="keyword">array</span>)<span class="variable">$val</span>;   <span class="comment">// 强制转数组</span></span><br><span class="line"><span class="variable">$objectVal</span> = (<span class="keyword">object</span>)<span class="variable">$val</span>;  <span class="comment">// 强制转对象</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>另外 PHP 还提供了一些专用的类型转换函数：</p>
+  <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$val</span> = <span class="string">&quot;456&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">intval</span>(<span class="variable">$val</span>);     <span class="comment">// 转为整数</span></span><br><span class="line"><span class="title function_ invoke__">floatval</span>(<span class="variable">$val</span>);   <span class="comment">// 转为浮点数</span></span><br><span class="line"><span class="title function_ invoke__">boolval</span>(<span class="variable">$val</span>);    <span class="comment">// 转为布尔值（PHP 5.5+）</span></span><br><span class="line"><span class="title function_ invoke__">strval</span>(<span class="variable">$val</span>);     <span class="comment">// 转为字符串</span></span><br><span class="line"><span class="title function_ invoke__">settype</span>(<span class="variable">$val</span>, <span class="string">&quot;int&quot;</span>); <span class="comment">// 原地修改变量类型</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h5 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h5><p>PHP 是弱类型语言，在运算、比较、赋值等上下文中，会<strong>自动将变量转换为适当的类型</strong>。</p>
+<ul>
+<li><p><strong>运算符（<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code> 等）</strong> ：字符串在数值上下文中会被<strong>强制转换为数字</strong>。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$result</span> = <span class="string">&quot;10&quot;</span> + <span class="number">5</span>;   <span class="comment">// &quot;10&quot; → 10 → 10 + 5 = 15</span></span><br><span class="line"><span class="variable">$result</span> = <span class="string">&quot;abc&quot;</span> + <span class="number">2</span>;  <span class="comment">// &quot;abc&quot; → 0 → 0 + 2 = 2</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>字符串拼接</strong> ：其他类型都会尝试<strong>转换为字符串</strong>。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$name</span> = <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line"><span class="variable">$age</span>  = <span class="number">18</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Name: &quot;</span> . <span class="variable">$name</span>;      <span class="comment">// 正常拼接</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Age: &quot;</span> . <span class="variable">$age</span>;        <span class="comment">// int → string → 拼接</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>数组键的隐式转换</strong> ：数组的键会经历如下强制转换：</p>
+<ul>
+<li><p>布尔 → 整数（true → 1）</p>
+</li>
+<li><p>浮点 → 整数（小数点部分会被截掉）</p>
+</li>
+<li><p>字符串只要是整数形式 → 转整数（”123” → 123）</p>
+</li>
+<li><p>null → 空字符串（””）</p>
+</li>
+</ul>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$array</span> = [</span><br><span class="line">    <span class="literal">true</span>   =&gt; <span class="string">&#x27;a&#x27;</span>,   <span class="comment">// true → 1</span></span><br><span class="line">    <span class="number">1</span>      =&gt; <span class="string">&#x27;b&#x27;</span>,   <span class="comment">// 覆盖上面</span></span><br><span class="line">    <span class="string">&quot;1&quot;</span>    =&gt; <span class="string">&#x27;c&#x27;</span>,   <span class="comment">// string &quot;1&quot; → int 1，再次覆盖</span></span><br><span class="line">    <span class="number">1.8</span>    =&gt; <span class="string">&#x27;d&#x27;</span>,   <span class="comment">// float → int(1)，继续覆盖</span></span><br><span class="line">    <span class="literal">null</span>   =&gt; <span class="string">&#x27;e&#x27;</span>,   <span class="comment">// null → &quot;&quot;</span></span><br><span class="line">    <span class="string">&quot;&quot;</span>     =&gt; <span class="string">&#x27;f&#x27;</span>,   <span class="comment">// &quot;&quot; → string，键有效</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="variable">$array</span>);</span><br><span class="line"><span class="comment">// 输出：array(2) &#123; [1]=&gt; string(1) &quot;d&quot;, [&quot;&quot;]=&gt; string(1) &quot;f&quot; &#125;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="类型转换规则"><a href="#类型转换规则" class="headerlink" title="类型转换规则"></a>类型转换规则</h4><h5 id="转换为数字"><a href="#转换为数字" class="headerlink" title="转换为数字"></a>转换为数字</h5><p>如果转换成的数字类型为整数（<code>integer</code>）：</p>
+<ul>
+<li><p><strong>布尔</strong>：<code>true → 1</code>, <code>false → 0</code></p>
+</li>
+<li><p><strong>浮点</strong>：小数部分被截断（不是四舍五入）</p>
+</li>
+<li><p><strong>字符串</strong>：</p>
+<ul>
+<li>如果以数字开头，提取数字部分（包括正负号、小数点、科学计数法）：<ul>
+<li><code>intval(&quot;123abc&quot;) → 123</code></li>
+<li><code>intval(&quot; -42.5xyz&quot;) → -42</code></li>
+<li><code>intval(&quot;0x10&quot;) → 0</code>（不会识别为十六进制）</li>
+<li><code>intval(&quot;0755&quot;) → 755</code>（不识别为八进制）</li>
+</ul>
+</li>
+<li>如果非数字开头（含空格前缀也算非数字）：<ul>
+<li><code>intval(&quot;php&quot;) → 0</code></li>
+<li><code>intval(&quot;&quot;) → 0</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>null</strong> → <code>0</code></p>
+</li>
+<li><p><strong>数组&#x2F;对象</strong> → <code>Notice</code> 或 <code>TypeError</code>（依上下文及 PHP 版本）</p>
+</li>
+</ul>
+<p>如果转换成的数字类型为浮点数（<code>float</code> &#x2F; <code>double</code>）：</p>
+<ul>
+<li><strong>布尔</strong>：<ul>
+<li><code>true → 1.0</code></li>
+<li><code>false → 0.0</code></li>
+</ul>
+</li>
+<li><strong>整数</strong>：保持值，仅类型改变<ul>
+<li><code>5 → 5.0</code></li>
+</ul>
+</li>
+<li><strong>字符串</strong>：<ul>
+<li>可解析为浮点数（支持科学计数法）：<ul>
+<li><code>&quot;1.5abc&quot;</code> → <code>1.5</code></li>
+<li><code>&quot;3.14e2&quot;</code> → <code>314.0</code></li>
+<li><code>&quot; -2.5 &quot;</code> → <code>-2.5</code></li>
+</ul>
+</li>
+<li>无法解析数字前缀的 → <code>0.0</code></li>
+</ul>
+</li>
+<li><strong>null</strong> → <code>0.0</code></li>
+<li><strong>数组&#x2F;对象</strong> → 会导致警告或 <code>TypeError</code>（不推荐）</li>
+</ul>
+<h5 id="转换为字符串"><a href="#转换为字符串" class="headerlink" title="转换为字符串"></a>转换为字符串</h5><ul>
+<li><strong>布尔</strong>：<ul>
+<li><code>true → &quot;1&quot;</code></li>
+<li><code>false → &quot;&quot;</code></li>
+</ul>
+</li>
+<li><strong>整数&#x2F;浮点</strong>：<ul>
+<li><code>123 → &quot;123&quot;</code>，<code>3.14 → &quot;3.14&quot;</code></li>
+</ul>
+</li>
+<li><strong>null</strong> → <code>&quot;&quot;</code>（空字符串）</li>
+<li><strong>数组</strong> → <code>&quot;Array&quot;</code> + <code>E_NOTICE</code></li>
+<li><strong>对象</strong>：<ul>
+<li>如果类实现 <code>__toString()</code> → 调用返回结果</li>
+<li>否则报 <code>Fatal error</code>（不可隐式转换</li>
+</ul>
+</li>
+</ul>
+<h5 id="转换为布尔"><a href="#转换为布尔" class="headerlink" title="转换为布尔"></a>转换为布尔</h5><p>前面的<strong>类型判断</strong>中的 <code>if ($x)</code> 类型本质上就是将 <code>$x</code> 转换为布尔值后判断真假。这里转换为布尔后的结果与前面判断的结果相同。总结下来就是：</p>
+<ul>
+<li><p>为 <code>false</code> 的情况（只有这几种）：</p>
+<ul>
+<li><p><code>false</code></p>
+</li>
+<li><p><code>0</code>（int、float、string 形式）</p>
+</li>
+<li><p><code>&quot;&quot;</code>（空字符串）</p>
+</li>
+<li><p><code>&quot;0&quot;</code>（字符串形式）</p>
+</li>
+<li><p><code>[]</code>（空数组）</p>
+</li>
+<li><p><code>null</code></p>
+</li>
+</ul>
+</li>
+<li><p>其余任何值都为 <code>true</code>，包括非空字符串 <code>&quot;false&quot;</code>、<code>-1</code>、<code>&quot;abc&quot;</code> 等。</p>
+</li>
+</ul>
+<h5 id="转换为数组"><a href="#转换为数组" class="headerlink" title="转换为数组"></a>转换为数组</h5><ul>
+<li>标量（int, string, bool, null） → 单元素数组，键为 <code>0</code>。例如：<code>(array) 42 → [0 =&gt; 42]</code>，<code>(array) &quot;abc&quot; → [0 =&gt; &quot;abc&quot;]</code></li>
+<li><code>null</code> → 空数组 <code>[]</code></li>
+<li>对象 → 属性变成键值对数组（包括可见的属性）</li>
+<li>字符串不会被拆分字符数组（不像 JS），会被当标量处理。</li>
+</ul>
+<h5 id="转换为对象"><a href="#转换为对象" class="headerlink" title="转换为对象"></a>转换为对象</h5><ul>
+<li><strong>标量（int、float、string、bool）</strong> →<ul>
+<li>变成具有一个 <code>scalar</code> 属性的 <code>stdClass</code> 对象<br>示例：<code>(object) &quot;abc&quot; → object(stdClass)#1 (1) &#123; [&quot;scalar&quot;]=&gt; string(3) &quot;abc&quot; &#125;</code></li>
+</ul>
+</li>
+<li><strong>数组</strong> →<ul>
+<li>键值对变成对象属性<br>示例：<code>(object) [&#39;x&#39; =&gt; 1] → object(stdClass)#1 (1) &#123; [&quot;x&quot;]=&gt; int(1) &#125;</code></li>
+</ul>
+</li>
+<li><strong>null</strong> → 空对象 <code>object(stdClass)</code></li>
+</ul>
+<h2 id="超全局数组"><a href="#超全局数组" class="headerlink" title="超全局数组"></a>超全局数组</h2><p>在 PHP 中，<strong>超全局数组（Superglobals）</strong> 是一组内置的、始终可用的特殊变量，它们<strong>在所有作用域中自动可见</strong>，<strong>不需要通过 <code>global</code> 或 <code>global $xxx</code> 声明</strong>，你可以直接访问它们，无论是在函数内、类内、还是全局代码中。</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>超全局数组</th>
+<th>特点&#x2F;注意事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请求数据</td>
+<td><code>$_GET</code>, <code>$_POST</code>, <code>$_REQUEST</code></td>
+<td>注意来源和优先级顺序</td>
+</tr>
+<tr>
+<td>文件上传</td>
+<td><code>$_FILES</code></td>
+<td>包含上传临时路径与错误码</td>
+</tr>
+<tr>
+<td>会话管理</td>
+<td><code>$_COOKIE</code>, <code>$_SESSION</code></td>
+<td><code>$_SESSION</code> 依赖 <code>session_start()</code></td>
+</tr>
+<tr>
+<td>系统环境</td>
+<td><code>$_SERVER</code>, <code>$_ENV</code></td>
+<td><code>$_SERVER</code> 非常常用，<code>$_ENV</code> 需配置</td>
+</tr>
+<tr>
+<td>全局变量</td>
+<td><code>$_GLOBALS</code></td>
+<td>可访问所有全局变量</td>
+</tr>
+<tr>
+<td>其他</td>
+<td><code>http_response_header</code></td>
+<td>用于响应头调试</td>
+</tr>
+</tbody></table>
 <h2 id="PHP-伪协议"><a href="#PHP-伪协议" class="headerlink" title="PHP 伪协议"></a>PHP 伪协议</h2><p><strong><a class="link"   target="_blank" rel="noopener" href="https://www.php.net/manual/zh/wrappers.php" >PHP 伪协议<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></strong> ，也叫 <strong>Stream Wrapper（流封装器）</strong>，是 PHP 提供的一套 <strong>统一的资源访问接口</strong>，允许开发者通过类 URL 的路径（如 <code>php://input</code>、<code>phar://archive.phar/file.txt</code>）访问 <strong>文件、内存、网络、压缩包、加密流等各种数据源</strong>，就像操作普通文件一样。</p>
 <p>之所以叫<strong>伪协议（pseudo-protocols &#x2F; 虚拟协议）</strong>，是因为在 <strong>PHP 内部，它们并不是操作系统或底层网络协议层的真正协议实现，而是通过 PHP 的 Stream Wrapper 抽象出来的模拟协议接口。</strong>它的本质是：<strong>在 fopen、file_get_contents 等文件相关函数内部自动识别 URI 前缀 <code>scheme://</code>，并将其映射到特定的 handler。</strong></p>
 
@@ -1172,6 +1766,8 @@
     <div class="notel-content markdown-body">
       <p>凡是<strong>通过 PHP Streams 层工作</strong>的函数，几乎都能同时接受<strong>传统文件路径</strong>和<strong>任何已注册的「伪协议 &#x2F; Stream Wrapper」URI</strong>。</p>
 <p>只有极少数函数<strong>直接和本地文件系统 API 交互</strong>（如 <code>realpath</code>、<code>chdir</code>）或<strong>只做字符串处理</strong>（如 <code>basename</code>、<code>dirname</code>），它们<strong>不经过</strong> Streams 层，因此只认「真文件路径」。</p>
+<p>而 PHP 环境支持的伪协议种类与 PHP 版本还有 PHP 扩展安装情况有关，我们可以通过 <code>stream_get_wrappers</code> 函数查看 PHP 伪协议的支持情况。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">stream_get_wrappers</span>());</span><br></pre></td></tr></table></figure></div>
 
     </div>
   </div>
@@ -1283,14 +1879,8 @@
 <p>例如以 base64 编码的方式进行读取指定路径的文件使用的路径如下。</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php://filter/write=convert.base64-encode/resource=file:///etc/passwd</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="phar"><a href="#phar" class="headerlink" title="phar:&#x2F;&#x2F;"></a>phar:&#x2F;&#x2F;</h3><ul>
-<li><p><strong>作用</strong> ：<code>phar://</code> 是 PHP 中的一个伪协议，用于处理 PHP 归档（PHAR）文件。这种方式允许访问PHAR文件内部的子文件，对于访问被压缩的 PHP 文件或代码很有帮助。</p>
-<ul>
-<li>PHAR 文件是一种将多个文件打包成单个文件的归档格式，类似于 ZIP 或 TAR 格式。</li>
-<li>通过 <code>phar://</code> 协议，可以直接访问 PHAR 文件中的内容，就像访问普通目录和文件一样。</li>
-</ul>
-</li>
-<li><p><strong>使用方法</strong> ：<code>phar://</code> 的基本语法如下：</p>
+<h3 id="phar"><a href="#phar" class="headerlink" title="phar:&#x2F;&#x2F;"></a>phar:&#x2F;&#x2F;</h3><p><code>phar://</code> 是 PHP 的一个伪协议，用于<strong>访问本地的 PHAR（PHP Archive）归档文件内容</strong>。这些归档可以包含 PHP 脚本和其他任意资源文件，支持 <code>tar</code>、<code>zip</code> 或自定义封装格式。通过 <code>phar://</code>，你可以像访问目录结构一样直接读取归档内部的文件内容。</p>
+<p><code>phar://</code> 的基本语法如下：</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1298,19 +1888,17 @@
                       alt="phar"
                 ></p>
 <ul>
-<li><code>path/to/pharfile.phar[ext]</code>：PHAR 文件的路径，可以是<strong>相对路径或绝对路径</strong>。<code>.phar</code> 是常见的扩展名，但也可以使用其他扩展名（如 <code>.zip</code>、<code>.tar</code> <strong>或其他任意扩展名</strong>）。</li>
+<li><code>path/to/pharfile.phar[ext]</code>：必须是本地可访问的路径（<strong>绝对路径</strong>或当前目录的<strong>相对路径</strong>）。</li>
 <li><code>internal/path/to/file</code>：PHAR 文件内部的文件路径。</li>
 </ul>
-</li>
-</ul>
-<h3 id="zip"><a href="#zip" class="headerlink" title="zip:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;</h3><ul>
-<li><p><strong>作用</strong> ：用于访问 ZIP 压缩文件中的子文件。类似的还有 <code>bzip2://</code>、<code>zlib://</code> 协议。</p>
+<h3 id="zip"><a href="#zip" class="headerlink" title="zip:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;</h3><p><code>zip://</code> 是 PHP 中的一种 <strong>压缩归档伪协议（stream wrapper）</strong>，允许你像访问普通文件一样直接读取<strong>本地 <code>.zip</code> 压缩包</strong>内的<strong>特定文件内容</strong>，<strong>无需手动解压</strong>。它常用于 <code>file_get_contents()</code>、<code>fopen()</code> 等文件读取函数中。</p>
+<p>与之类似的压缩相关协议还有：</p>
 <ul>
-<li><code>bzip2://</code>：用于访问 Bzip2 压缩格式的文件和资源。Bzip2 是一种更高效的压缩算法，在某些场景下可以获得更好的压缩率，对应的文件后缀名为 <code>.bz2</code>。</li>
-<li><code>zlib://</code>： 协议用于访问 Gzip 压缩格式的文件和资源。Gzip 是一种较为普及的压缩算法，在大多数场景下都可以使用，对应的文件后缀名为 <code>.gz</code>。</li>
+<li><code>zlib://</code>：用于读取或写入 <strong>Gzip</strong> 格式的压缩流文件，常用于 <code>.gz</code> 文件。</li>
+<li><code>bzip2://</code>：用于读取或写入 <strong>Bzip2</strong> 格式压缩文件，常用于 <code>.bz2</code> 文件。</li>
 </ul>
-</li>
-<li><p><strong>使用方法</strong> ：指定压缩文件的路径以及其中的子文件路径。</p>
+<p>不过 <code>zlib://</code> 和 <code>bzip2://</code> 是<strong>流协议</strong>，支持顺序读写；<code>zip://</code> 是<strong>归档协议</strong>，支持访问其中的子文件。</p>
+<p><code>zip://</code> 协议的使用与 <code>phar://</code> 协议类似，需要指定压缩文件的路径以及其中的子文件路径。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1318,24 +1906,24 @@
                       alt="zip"
                 ></p>
 <ul>
-<li><code>path/to/your-archive.zip</code>：ZIP 压缩包的<strong>绝对</strong>路径。</li>
+<li><code>path/to/your-archive.zip</code>：ZIP 压缩包的绝对路径或相对路径。</li>
 <li><code>path/within/zip</code>：ZIP 压缩包内部的文件路径。</li>
 </ul>
-</li>
-</ul>
-<h3 id="http-或-https"><a href="#http-或-https" class="headerlink" title="http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;"></a>http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</h3><ul>
-<li><strong>作用</strong> ：用于远程包含，通过 HTTP 或 HTTPS 协议访问远程文件或资源。这种伪协议允许从远程服务器包含文件，是远程文件包含漏洞（RFI）利用的基础。</li>
-<li><strong>前提条件</strong> ：<ul>
-<li><code>allow_url_fopen</code>：On</li>
-<li><code>allow_url_include</code>：On</li>
-</ul>
-</li>
-<li><strong>注意事项</strong> ：通过 HTTP 或 HTTPS 协议访问远程文件或资源通常会经过目标服务器的渲染（例如访问 php 代码实际获取的是 php 代码的执行结果而不是代码本身），如果想实现和 <code>file://</code> 协议类似的远程功能最好目标文件是 <code>.txt</code> 后缀。</li>
-</ul>
-<h3 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h3><ul>
-<li><p><strong>作用</strong> ：自 PHP 5.2.0 起，可以使用 <code>data://</code> 数据流封装器，以直接在 URL 中嵌入传递相应格式的数据，而不需要从外部文件或资源中引用，通常用来执行PHP代码。</p>
-</li>
-<li><p><strong>使用方法</strong> ：</p>
+<h3 id="http-或-https"><a href="#http-或-https" class="headerlink" title="http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;"></a>http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</h3><p><code>http://</code> 和 <code>https://</code> 在 PHP 中<strong>也是伪协议（stream wrapper）</strong>，允许你<strong>像读取本地文件一样访问远程 Web 资源</strong>。由于是远程访问，因此需要开启 <code>allow_url_fopen</code> 和 <code>allow_url_include</code>。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>通过 HTTP 或 HTTPS 协议访问远程文件时，获取的是服务器响应内容，而不是原始文件。对于动态脚本（如 <code>.php</code>、<code>.asp</code>、<code>.jsp</code>），你拿到的是执行后的结果，而不是源代码本身。<br>如果希望获得原始文件内容，最好请求的是静态资源（如 <code>.txt</code>、<code>.json</code>、<code>.log</code> 文件），并确保服务器未对这些文件做特殊处理或拦截。</p>
+
+    </div>
+  </div>
+
+<h3 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h3><p><code>data://</code> 是 PHP 内置的一种<strong>伪协议（stream wrapper）</strong>，用于将<strong>数据直接嵌入到 URL 中</strong>，并以<strong>流的形式读取这些数据</strong>，就像从一个真实文件中读取内容一样。</p>
+<p><code>data://</code> 协议的基本语法如下：</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1345,80 +1933,311 @@
 <ul>
 <li><code>&lt;mediatype&gt;</code>：数据的媒体类型，通常是 MIME 类型，例如 <code>text/plain</code> 或 <code>text/html</code>。默认是 <code>text/plain</code>。</li>
 <li><code>;base64</code>：如果数据是 Base64 编码的，需要加上这个标志。</li>
-<li><code>&lt;data&gt;</code>：实际的数据，可以是普通文本或 Base64 编码的数据。</li>
+<li><code>&lt;data&gt;</code>：实际的数据，可以是普通文本或 Base64 编码的数据。如非 base64，需进行 URL 编码。</li>
 </ul>
+<h1 id="PHP-语言特性"><a href="#PHP-语言特性" class="headerlink" title="PHP 语言特性"></a>PHP 语言特性</h1><h2 id="Hash-比较绕过"><a href="#Hash-比较绕过" class="headerlink" title="Hash 比较绕过"></a>Hash 比较绕过</h2><h3 id="0e-哈希碰撞"><a href="#0e-哈希碰撞" class="headerlink" title="0e 哈希碰撞"></a>0e 哈希碰撞</h3><p>在 PHP 中，如果使用 <code>==</code> 或 <code>!=</code> 比较两个值，<strong>PHP 会自动进行弱类型转换</strong>：若比较双方中 <strong>任一为“数值型字符串”</strong>（如 <code>&quot;123&quot;</code>, <code>&quot;0e12345&quot;</code>），PHP 会将两边都转换为数字再比较。</p>
+<p>当两个字符串都是 <code>0e</code> 开头、后面跟数字（如 <code>&quot;0e123456&quot;</code>），PHP 会将它们解释为：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0e123456  =  0 × 10^123456  = 0</span><br></pre></td></tr></table></figure></div>
+
+<p>所以对于下面两个例子，虽然两个字符串明显不同，<strong>但被当作 float(0) 比较，返回 true</strong>。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="string">&quot;0e12345&quot;</span> == <span class="string">&quot;0&quot;</span>);       <span class="comment">// true</span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="string">&quot;0e12345&quot;</span> == <span class="string">&quot;0e67890&quot;</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="哈希结果比较"><a href="#哈希结果比较" class="headerlink" title="哈希结果比较"></a>哈希结果比较</h4><p>例如下面这段代码：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>]) <span class="keyword">and</span> <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;b&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>] != <span class="variable">$_GET</span>[<span class="string">&#x27;b&#x27;</span>])           <span class="comment">// 条件1：a 和 b 不相等</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">md5</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>]) == <span class="title function_ invoke__">md5</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;b&#x27;</span>])) <span class="comment">// 条件2：a 和 b 的 md5 值相等（使用 ==）</span></span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;Flag: &#x27;</span>.<span class="variable">$flag</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">&#x27;Wrong.&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>由于 <code>md5()</code> 输出是字符串且使用了 <code>==</code>（弱比较），若 <code>md5(a)</code> 和 <code>md5(b)</code> 都是形如 <code>0e\d+</code>，会触发类型转换为 <code>0</code>，此时即使 <code>a != b</code>，也可绕过。</p>
+<p>常见几种 <code>md5</code> 为 <code>0e\d+</code> 形式的字符串如下：</p>
+<table>
+<thead>
+<tr>
+<th>明文（payload）</th>
+<th>md5 值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>QNKCDZO</code></td>
+<td><code>0e830400451993494058024219903391</code></td>
+</tr>
+<tr>
+<td><code>s878926199a</code></td>
+<td><code>0e545993274517709034328855841020</code></td>
+</tr>
+<tr>
+<td><code>s155964671a</code></td>
+<td><code>0e342768416822451524974117254469</code></td>
+</tr>
+<tr>
+<td><code>s214587387a</code></td>
+<td><code>0e848240448830537924465865611904</code></td>
+</tr>
+<tr>
+<td><code>s1091221200a</code></td>
+<td><code>0e940624217856561557816327384675</code></td>
+</tr>
+</tbody></table>
+<p>另外常见几种 <code>sha1</code> 为 <code>0e\d+</code> 形式的字符串如下：</p>
+<table>
+<thead>
+<tr>
+<th>明文（payload）</th>
+<th>sha1 值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>aaroZmOk</code></td>
+<td><code>0e66507019969427134894567494305185566735</code></td>
+</tr>
+<tr>
+<td><code>aaK1STfY</code></td>
+<td><code>0e76658526655756207688271159624026011393</code></td>
+</tr>
+<tr>
+<td><code>aaO8zKZF</code></td>
+<td><code>0e89257456677279068558073954252716165668</code></td>
+</tr>
+<tr>
+<td><code>aa3OFF9m</code></td>
+<td><code>0e36977786278517984959260394024281014729</code></td>
+</tr>
+</tbody></table>
+<h4 id="自身哈希比较"><a href="#自身哈希比较" class="headerlink" title="自身哈希比较"></a>自身哈希比较</h4><p>有些题目会将自身与哈希后的值比较：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>] == <span class="title function_ invoke__">md5</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>]))</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;Flag: &#x27;</span> . <span class="variable">$flag</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">&#x27;Wrong.&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>只需要寻找满足条件的即可：</p>
+<table>
+<thead>
+<tr>
+<th>明文（payload）</th>
+<th>md5 值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0e215962017</code></td>
+<td><code>0e291242476940776845150308577824</code></td>
+</tr>
+</tbody></table>
+<h3 id="数组比较绕过"><a href="#数组比较绕过" class="headerlink" title="数组比较绕过"></a>数组比较绕过</h3><p>PHP 的 <code>md5()</code> 只能接受字符串类型参数，如果传入 <strong>非字符串类型（如数组、对象、资源）</strong>，PHP 会：</p>
+<ul>
+<li><p>发出警告：<code>Warning: md5() expects parameter 1 to be string, array given</code></p>
+</li>
+<li><p>返回：<code>null</code></p>
 </li>
 </ul>
-<h1 id="PHP-语言特性"><a href="#PHP-语言特性" class="headerlink" title="PHP 语言特性"></a>PHP 语言特性</h1><h2 id="preg-match-相关"><a href="#preg-match-相关" class="headerlink" title="preg_match 相关"></a>preg_match 相关</h2><p><code>preg_match()</code> 是 PHP 中用于执行正则表达式匹配的函数。该函数的函数原型如下：</p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="title function_ invoke__">preg_match</span>(<span class="keyword">string</span> <span class="variable">$pattern</span>, <span class="keyword">string</span> <span class="variable">$subject</span> [, <span class="keyword">array</span> &amp;<span class="variable">$matches</span> [, <span class="keyword">int</span> <span class="variable">$flags</span> = <span class="number">0</span> [, <span class="keyword">int</span> <span class="variable">$offset</span> = <span class="number">0</span> ]]])</span><br></pre></td></tr></table></figure></div>
+<p>因此如果<strong>直接将接收到的参数传递到 <code>md5</code> 函数计算哈希</strong>，则可以通过传递数组参数绕过。</p>
+<p>例如下面这个比较，我们可以通过发送 <code>a[]=a&amp;b[]=b</code> 绕过。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">md5</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;a&#x27;</span>]) === <span class="title function_ invoke__">md5</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;b&#x27;</span>])) &#123;</span><br><span class="line">    <span class="comment">// 哈希值必须完全一致才触发</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Same!&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>PHP 8 开始如果 <code>md5</code> 函数参数类型不匹配将直接报错退出，该绕方式无效。</p>
+
+    </div>
+  </div>
+
+<h3 id="哈希强碰撞"><a href="#哈希强碰撞" class="headerlink" title="哈希强碰撞"></a>哈希强碰撞</h3><p>哈希强碰撞就是找到两个不同的字符串，哈希值相同。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span> = (<span class="keyword">string</span>)<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"><span class="variable">$b</span> = (<span class="keyword">string</span>)<span class="variable">$_GET</span>[<span class="string">&#x27;b&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">md5</span>(<span class="variable">$a</span>) === <span class="title function_ invoke__">md5</span>(<span class="variable">$b</span>)) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&#x27;OK&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>下面两组数据（URL 编码过）的 md5 都为 <code>008ee33a9d58b51cfeb425b0959121c9</code>。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2</span><br><span class="line"></span><br><span class="line">M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="intval函数绕过"><a href="#intval函数绕过" class="headerlink" title="intval函数绕过"></a>intval函数绕过</h2><p><code>intval()</code> 函数用于<strong>将一个变量转换为整数</strong>，支持可选进制转换（仅在参数为字符串时生效）。当传入非法类型（如数组或对象）时会返回固定值。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">intval</span>(<span class="params"><span class="keyword">mixed</span> <span class="variable">$value</span>, <span class="keyword">int</span> <span class="variable">$base</span> = <span class="number">10</span></span>): <span class="title">int</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></div>
 
 <ul>
-<li><p><strong>参数：</strong></p>
+<li><strong>参数：</strong><ul>
+<li><code>mixed $value</code>：要转换为整数的变量，支持字符串、布尔、浮点数、数组、对象等类型。</li>
+<li><code>int $base = 10</code>（可选）：用于指定进制（2~36），仅当 <code>$value</code> 为字符串时有效。如果为 <code>0</code>，则自动根据字符串前缀判断进制。</li>
+</ul>
+</li>
+<li><strong>返回值：</strong><ul>
+<li>成功时：返回转换后的整数值；</li>
+<li>失败时：返回 <code>0</code>；</li>
+<li><strong>空数组返回 <code>0</code>；非空数组返回 <code>1</code>；</strong></li>
+<li><code>intval()</code> 不能用于 object，否则会产生 <strong><code>E_WARNING</code></strong> 错误并返回 1。</li>
+</ul>
+</li>
+</ul>
+<h3 id="特殊类型绕过"><a href="#特殊类型绕过" class="headerlink" title="特殊类型绕过"></a>特殊类型绕过</h3><p><code>intval</code> 对于特殊类型的参数会返回一些，例如：</p>
 <ul>
-<li><p><strong><code>$pattern</code></strong> (string)</p>
+<li><strong>对象类型</strong>会产生 <strong><code>E_WARNING</code></strong> 错误并返回 1。</li>
+<li><strong>空数组</strong>返回 <code>0</code>；<strong>非空数组</strong>返回 <code>1</code>。</li>
+</ul>
+<h3 id="进制绕过"><a href="#进制绕过" class="headerlink" title="进制绕过"></a>进制绕过</h3><p>如果 <code>base</code> 是 0，通过检测 <code>value</code> 的格式来决定使用的进制：</p>
 <ul>
-<li><p>要匹配的正则表达式模式。它可以是任何有效的正则表达式字符串（可以使用各种正则表达式语法，如字符集、量词、分组等）。</p>
-</li>
-<li><p>正则表达式必须符合 PHP 正则表达式的语法标准，通常以斜杠 <code>/</code> 包裹。例如：<code>/abc/</code>。</p>
-</li>
+<li>如果字符串包括了 “0x” (或 “0X”) 的前缀，使用 16 进制 (hex)；否则，</li>
+<li>如果字符串以 “0b” (或 “0B”) 开头，使用 2 进制 (binary)；否则，</li>
+<li>如果字符串以 “0” 开始，使用 8 进制(octal)；否则，</li>
+<li>将使用 10 进制 (decimal)</li>
 </ul>
-</li>
-<li><p><strong><code>$subject</code></strong> (string)</p>
-<ul>
-<li>被匹配的输入字符串。这是要在其中查找匹配的目标字符串。</li>
-</ul>
-</li>
-<li><p><strong><code>$matches</code></strong> (array, optional)</p>
-<ul>
-<li><p>如果提供了该参数，函数会将匹配的结果存储到该数组中。匹配项会按顺序存储在 <code>$matches</code> 数组中：</p>
-<ul>
-<li><code>$matches[0]</code> 保存完整的匹配字符串。</li>
-<li><code>$matches[1]</code>、<code>$matches[2]</code> 等保存正则表达式中分组的匹配结果（如果有分组）。</li>
-</ul>
-</li>
-<li><p>该参数是通过引用传递的，因此函数会直接修改该数组的内容。</p>
-</li>
-</ul>
-</li>
-<li><p><strong><code>$flags</code></strong> (int, optional)</p>
-<ul>
-<li><p>控制匹配行为的标志位，默认为 <code>0</code>，即无特殊控制。</p>
-</li>
-<li><p>常见的标志包括：</p>
-<ul>
-<li><strong><code>PREG_OFFSET_CAPTURE</code></strong> ：如果启用此标志，则在 <code>$matches</code> 数组中每个匹配项将包含匹配的偏移量（即该匹配项在原字符串中的位置）。偏移量是一个由字符串和数字组成的数组。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong><code>$offset</code></strong> (int, optional)</p>
-<ul>
-<li><p>设置开始匹配的偏移量。默认为 <code>0</code>，即从字符串的开头开始匹配。</p>
-</li>
-<li><p>可以通过此参数跳过字符串的前几个字符进行匹配。</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>返回值：</strong></p>
-<ul>
-<li><p>如果匹配成功，返回 <strong><code>1</code></strong> ，否则返回 **<code>0</code>**。</p>
-</li>
-<li><p>如果发生错误，返回 **<code>FALSE</code>**。这通常意味着正则表达式的语法不正确。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="数组绕过"><a href="#数组绕过" class="headerlink" title="数组绕过"></a>数组绕过</h3><p><code>preg_match</code> 第二个参数 <code>subject</code> 要求是字符串，如果传入数组时会返回 <code>false</code>。</p>
-<p>例如下面这段代码，传入 <code>num[]=2</code> 即可绕过。</p>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[0-9]/&quot;</span>, <span class="variable">$num</span>)) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;no no no!&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span>(<span class="title function_ invoke__">intval</span>(<span class="variable">$num</span>)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>例如下面这道例题：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable">$num</span> === <span class="string">&quot;4476&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;no no no!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">intval</span>(<span class="variable">$num</span>, <span class="number">0</span>) === <span class="number">4476</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="换行符绕过"><a href="#换行符绕过" class="headerlink" title="换行符绕过"></a>换行符绕过</h3><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^gxngxngxnxn$/&#x27;</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;gxn&#x27;</span>]) &amp;&amp; <span class="variable">$_GET</span>[<span class="string">&#x27;gxn&#x27;</span>] !== <span class="string">&#x27;gxngxngxn&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Neeeeee! Good Job!&lt;br&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p><code>num</code> 为 <code>0x117c</code> 和 <code>010574</code> 都行。另外浮点数例如 <code>4476.1</code> 也可以绕过。</p>
+<h3 id="截断绕过"><a href="#截断绕过" class="headerlink" title="截断绕过"></a>截断绕过</h3><p>如果 <code>$base</code> 为 0 直到遇上数字或正负符号才开始做转换，在遇到非数字或字符串结束时(\0)结束转换，但前提是进行弱类型比较。</p>
+<p>例如下面这道例题，<code>num</code> 为 <code>4476e1</code>，<code>4476.1</code> 都可以绕过。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable">$num</span> == <span class="number">4476</span>) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;no no no!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">intval</span>(<span class="variable">$num</span>, <span class="number">0</span>) === <span class="number">4476</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="preg-match-函数绕过"><a href="#preg-match-函数绕过" class="headerlink" title="preg_match 函数绕过"></a>preg_match 函数绕过</h2><p><code>preg_match()</code> 函数用于<strong>执行正则表达式匹配</strong>，在给定字符串中查找符合正则模式的内容，仅返回<strong>第一次匹配结果</strong>。匹配成功时可通过传入的 <code>$matches</code> 参数获取匹配内容和捕获组。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preg_match</span>(<span class="params"><span class="keyword">string</span> <span class="variable">$pattern</span>, <span class="keyword">string</span> <span class="variable">$subject</span>, <span class="keyword">array</span> &amp;<span class="variable">$matches</span> = <span class="literal">null</span>, <span class="keyword">int</span> <span class="variable">$flags</span> = <span class="number">0</span>, <span class="keyword">int</span> <span class="variable">$offset</span> = <span class="number">0</span></span>): <span class="title">int</span>|<span class="title">false</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>参数：</strong><ul>
+<li><code>string $pattern</code>：要搜索的正则表达式字符串，必须带定界符（如 <code>/pattern/</code>）。</li>
+<li><code>string $subject</code>：待匹配的输入字符串。</li>
+<li><code>array &amp;$matches</code>（可选）：用于返回匹配结果：<ul>
+<li><code>$matches[0]</code> 为完整匹配的子串；</li>
+<li><code>$matches[1]</code> 开始为每个带括号的子模式（捕获组）匹配内容。</li>
+</ul>
+</li>
+<li><code>int $flags = 0</code>（可选）：匹配标志，支持：<ul>
+<li><code>PREG_OFFSET_CAPTURE</code>：每个匹配结果以数组形式返回，包括匹配内容和其在 <code>$subject</code> 中的位置偏移；</li>
+<li><code>PREG_UNMATCHED_AS_NULL</code>：未匹配的捕获组将返回 <code>null</code>（默认是空字符串）。</li>
+</ul>
+</li>
+<li><code>int $offset = 0</code>（可选）：搜索起始位置（以字节为单位），影响搜索起点，但不影响正则中的 <code>^</code>、<code>$</code> 等锚点行为。</li>
+</ul>
+</li>
+<li><strong>返回值：</strong><ul>
+<li><code>1</code>：正则匹配成功；</li>
+<li><code>0</code>：正则未匹配；</li>
+<li><code>false</code>：发生错误（如语法错误）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="换行绕过"><a href="#换行绕过" class="headerlink" title="换行绕过"></a>换行绕过</h3><h4 id="换行截断"><a href="#换行截断" class="headerlink" title="换行截断"></a>换行截断</h4><p>例如下面这行代码中，正则表达式 <code>^.*php.*$</code> 会检查字符串中是否有 <code>php</code> 子串。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^.*php.*$/&#x27;</span>, <span class="variable">$input</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p>其中：</p>
+<ul>
+<li><code>^</code>：匹配整个字符串的开头位置（即第 0 个字符前）</li>
+<li><code>$</code>：匹配整个字符串的结尾位置（即最后一个字符后），另外如果字符串<strong>以单个换行符结尾</strong>（<code>\n</code>、<code>\r</code>、<code>\r\n</code>），<strong>可以匹配在换行符前的位置</strong>。</li>
+<li><code>.</code>：匹配<strong>除换行符 <code>\n</code> 以外</strong>的任意单个字符</li>
+</ul>
+<p>然而 <code>^.*php.*$</code> 并不意味着匹配<strong>整串中是否包含 <code>php</code></strong> ，它的实际含义是：</p>
+<blockquote>
+<p>从字符串起始位置（<code>^</code>）开始，尝试匹配一整串内容（直到 <code>$</code>），其中包含 <code>php</code> 子串。</p>
+</blockquote>
+<p>也就是说<strong>正则表达式本身就是在匹配整个字符串</strong>，而 <code>^...$</code> 的意思是<strong>该正则表达式应当匹配整个字符串</strong>。</p>
+<p>由于正则中的 <code>.</code> 默认不能匹配换行符 <code>\n</code>，所以 <code>.*</code> 在遇到换行时就无法继续扩展匹配，导致正则无法从头匹配到尾，整体匹配失败。</p>
+<p>因此如果我们<strong>在恶意数据前面插入一个换行符</strong>，就可以绕过上述检查。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$input</span> = <span class="string">&quot;normal input\n&lt;?php phpinfo(); ?&gt;&quot;</span>;</span><br></pre></td></tr></table></figure></div>
 
 
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
 
-<h1 id="会话与鉴权相关"><a href="#会话与鉴权相关" class="headerlink" title="会话与鉴权相关"></a>会话与鉴权相关</h1><p><strong>会话跟踪（Session Tracking）</strong> 是 Web 开发中非常重要的一部分，特别是在无状态的 HTTP 协议中。因为 HTTP 是无状态的协议，这意味着每次用户发送请求时，服务器无法自动识别这是不是同一个用户。在这样的背景下，<strong>会话跟踪</strong> 技术帮助 Web 应用程序保持和识别用户状态，从而实现个性化功能、购物车、用户认证等功能。</p>
+    </div>
+    <div class="notel-content markdown-body">
+      <p>正则表达式有 <code>/m</code>（多行模式，Multi Line）和 <code>/s</code>（单行模式，Single Line）两种方式可以避免上述绕过。</p>
+<ul>
+<li><code>/m</code>（多行模式，Multi Line）：改变 <code>^</code> 和 <code>$</code> 的行为，使得正则表达式分别匹配<strong>每一行的开头和结尾</strong>，而不是整个字符串的首尾，这样就可以跳过 <code>\n</code> 的截断。</li>
+<li><code>/s</code>（单行模式，Single Line）：改变 <code>.</code> 的行为， 让 <code>.</code> 也可以匹配换行符 <code>\n</code>。</li>
+</ul>
+
+    </div>
+  </div>
+
+<h4 id="换行忽略"><a href="#换行忽略" class="headerlink" title="换行忽略"></a>换行忽略</h4><p>前面提到过，如果字符串<strong>以单个换行符结尾</strong>（<code>\n</code>、<code>\r</code>、<code>\r\n</code>），<strong>可以匹配在换行符前的位置</strong>。因此例如下面这道例题：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^gxngxngxn$/&#x27;</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;gxn&#x27;</span>]) &amp;&amp; <span class="variable">$_GET</span>[<span class="string">&#x27;gxn&#x27;</span>] !== <span class="string">&#x27;gxngxngxn&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Neeeeee! Good Job!&lt;br&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这道题目要求 <code>$_GET[&#39;gxn&#39;]</code> 不能与字符串 <code>gxngxngxn</code> 严格相等，但是要被 <code>/^gxngxngxnxn$/</code> 匹配。</p>
+<p>这个条件看似矛盾，但是如果我们设置 <code>gxn</code> 参数为 <code>gxngxngxn%0a</code>，那么 <code>$</code> 可以要求 <code>gxngxngxn</code> 只匹配到换行符前面，从而让正则表达式忽略换行符。</p>
+<h3 id="回溯绕过"><a href="#回溯绕过" class="headerlink" title="回溯绕过"></a>回溯绕过</h3><p><strong>回溯绕过</strong>是一种利用正则表达式引擎（如 PHP 中的 PCRE）内部“<strong>回溯限制</strong>”机制，导致正则匹配失败，从而<strong>绕过不严谨的安全检测</strong>的技术。</p>
+<h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p>PHP 中的 <code>preg_match()</code> 使用的是 <strong>PCRE（Perl Compatible Regular Expressions）</strong> 库，其正则引擎是 <strong>NFA（非确定性有限自动机）</strong>，该引擎拥的匹配机制类似 DFS，整个匹配流程：</p>
+<ul>
+<li><p><strong>线性推进</strong> ：从输入字符串第一个字符开始，按顺序逐个匹配；</p>
+</li>
+<li><p><strong>遇到分支&#x2F;重复时</strong> ：引擎会把当前状态“压栈”，记下当前位置、分支点、当前路径；</p>
+</li>
+<li><p><strong>如果后面匹配失败</strong> ：从上一次的记录“出栈”，回退到那个位置尝试别的路径，这个过程称为<strong>回溯（backtracking）</strong>。</p>
+</li>
+</ul>
+<p>然而为了避免过度消耗资源，PHP 在 <code>php.ini</code> 设置了正则匹配的最大回溯次数上限 <code>pcre.backtrack_limit</code>，默认值为 <strong>1000000（100万）</strong>。</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Pcre]</span></span><br><span class="line"><span class="comment">; PCRE library backtracking limit.</span></span><br><span class="line"><span class="comment">; http://php.net/pcre.backtrack-limit</span></span><br><span class="line"><span class="attr">pcre.backtrack_limit</span>=<span class="number">1000000</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>一旦回溯次数超限，<code>preg_match()</code> 会直接返回 <code>false</code>（不是 <code>0</code>）。</strong></p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>我们可以在 <a class="link"   target="_blank" rel="noopener" href="https://regex101.com/" >regex101<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 上调试观察正则表达式的匹配过程。</p>
+
+    </div>
+  </div>
+
+<h4 id="典型案例"><a href="#典型案例" class="headerlink" title="典型案例"></a>典型案例</h4><h5 id="贪婪模式绕过"><a href="#贪婪模式绕过" class="headerlink" title="贪婪模式绕过"></a>贪婪模式绕过</h5><p>例如下面的 <code>is_php</code> 函数图判断用户输入中是否存在 PHP 代码。如果匹配上了，说明是 PHP 代码，不能写入；如果没有匹配上，就写入文件。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_php</span>(<span class="params"><span class="variable">$data</span></span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/&lt;\?.*[(`;?&gt;].*/is&#x27;</span>, <span class="variable">$data</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>其中正则表达式的含义是：</p>
+<ul>
+<li><p><code>&lt;\?</code>：匹配 <code>&lt;?</code></p>
+</li>
+<li><p><code>.*</code>：匹配任意字符（尽可能多，贪婪匹配）</p>
+<blockquote>
+<ul>
+<li><strong>贪婪匹配（Greedy）</strong>指的是匹配尽可能多的字符，只要后面还能匹配上。例如 <code>*</code>, <code>+</code>, <code>&#123;&#125;</code>。</li>
+<li><strong>非贪婪匹配（Lazy&#x2F;Reluctant）</strong>指的是匹配尽可能少的字符，能匹配就立刻停。例如 <code>*?</code>, <code>+?</code>, <code>&#123;n,m&#125;?</code>。</li>
+</ul>
+</blockquote>
+</li>
+<li><p><code>[(`;?&gt;]</code>：匹配 <code>(</code>、<code>`</code>、<code>;</code>、<code>?</code>、<code>&gt;</code> 中的一个字符</p>
+</li>
+<li><p><code>.*</code>：匹配后面剩下的字符。<strong>由于这里是贪婪匹配，因此会先尽量吃掉所有字符。</strong></p>
+</li>
+</ul>
+<p>假设我们输入的是下面这种形式的数据：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">eval</span>(<span class="variable">$_POST</span>[txt]);<span class="comment">//aaaaaaa...aaa</span></span><br></pre></td></tr></table></figure></div>
+
+<p>那么匹配步骤如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/backtracking1.svg"
+                      alt="backtracking1"
+                ></p>
+<ol>
+<li><code>&lt;\?</code> 匹配 <code>&lt;?</code></li>
+<li><code>.*</code> 是贪婪匹配，吃光了后面所有字符直到末尾（默认会把所有 <code>a</code> 都吃掉）</li>
+<li>尝试匹配 <code>[(`;?&gt;]</code>：失败，因为已经到字符串末尾</li>
+<li>引擎开始<strong>回溯</strong>：逐个吐出 a，尝试让 <code>[(`;?&gt;]</code> 匹配得上</li>
+<li>如果 <code>a</code> 的数量非常多，就会造成 <strong>成千上万次回溯</strong></li>
+</ol>
+<p>在这个过程中回溯次数超过上界 <code>pcre.backtrack_limit</code> 就可以让 <code>is_php</code> 返回 <code>false</code>。</p>
+<h4 id="非贪婪模式绕过"><a href="#非贪婪模式绕过" class="headerlink" title="非贪婪模式绕过"></a>非贪婪模式绕过</h4><p>前面的例子的是贪婪匹配 <code>.*</code> 引起的过度回溯，非贪婪匹配 <code>.+?</code> 同样会引起过度回溯。</p>
+<p>例如下面这段代码本意是要拦截 <code>SELECT ... FROM ...</code> 这种典型 SQL 注入语句，虽然是非贪婪匹配，但是仍然可以回溯绕过。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/UNION.+?SELECT/is&#x27;</span>, <span class="variable">$input</span>)) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&#x27;SQL Injection&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>假设我们输入的是下面这种形式的数据：</p>
+<div class="code-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UNION</span><span class="comment">/*aaaaaaa...*/</span><span class="keyword">SELECT</span></span><br></pre></td></tr></table></figure></div>
+
+<p>那么匹配步骤如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2025/03/17/PHP%20%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%9F%BA%E7%A1%80/images/backtracking2.svg"
+                      alt="backtracking2"
+                ></p>
+<ol>
+<li>正则 <code>/UNION.+?SELECT/</code> 从 <code>UNION</code> 开始匹配。</li>
+<li><code>.+?</code> 是非贪婪的，会尽量少地匹配字符，所以先匹配 <code>/</code></li>
+<li>然后正则尝试用 <code>S</code> 来匹配 <code>*</code>，失败了</li>
+<li>所以 <code>.+?</code> 回溯：多吃一个字符，比如 <code>*</code></li>
+<li>再尝试让 <code>S</code> 匹配 <code>a</code>，还是失败，再回溯……</li>
+<li>如此往复，每多一个 <code>a</code>，回溯复杂度都有相应的上升。</li>
+</ol>
+<h4 id="修复措施"><a href="#修复措施" class="headerlink" title="修复措施"></a>修复措施</h4><p>由于 <code>preg_match</code> 函数正常执行是通过返回数字 <code>1</code>&#x2F;<code>0</code> 来表示是否成功匹配。而出错的情况下返回的是布尔值 <code>false</code>。因此我们可以通过 <code>===</code> 来判断 <code>preg_match</code> 返回值并进行错误处理。这样就可以避免会输绕过。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ret</span> = <span class="title function_ invoke__">preg_match</span>(<span class="variable">$pattern</span>, <span class="variable">$input</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$ret</span> === <span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="comment">// 正则执行失败，比如回溯超限</span></span><br><span class="line">    <span class="comment">// 应该中断流程、记录日志或报警</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$ret</span> === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// 匹配成功</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$ret</span> === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// 没匹配上，继续执行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="in-array宽松比较"><a href="#in-array宽松比较" class="headerlink" title="in_array宽松比较"></a>in_array宽松比较</h2><h2 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h2><h2 id="通过数组绕过"><a href="#通过数组绕过" class="headerlink" title="通过数组绕过"></a>通过数组绕过</h2><h2 id="精度绕过"><a href="#精度绕过" class="headerlink" title="精度绕过"></a>精度绕过</h2><h1 id="会话与鉴权相关"><a href="#会话与鉴权相关" class="headerlink" title="会话与鉴权相关"></a>会话与鉴权相关</h1><p><strong>会话跟踪（Session Tracking）</strong> 是 Web 开发中非常重要的一部分，特别是在无状态的 HTTP 协议中。因为 HTTP 是无状态的协议，这意味着每次用户发送请求时，服务器无法自动识别这是不是同一个用户。在这样的背景下，<strong>会话跟踪</strong> 技术帮助 Web 应用程序保持和识别用户状态，从而实现个性化功能、购物车、用户认证等功能。</p>
 <p><strong>Session（会话）</strong> 是一种在客户端和服务器之间跟踪用户状态的技术。会话允许 Web 应用在多个请求之间保持用户的状态（如用户登录状态、用户个性化设置等）。每个用户会话都由一个 <strong>唯一的会话 ID</strong> 标识，服务器根据这个 ID 来识别每个用户的会话。</p>
 <h2 id="基本过程"><a href="#基本过程" class="headerlink" title="基本过程"></a>基本过程</h2><p>PHP 通过 <strong>会话（Session）</strong> 机制来追踪用户的请求。会话跟踪的基本过程是：</p>
 <ol>
@@ -1496,6 +2315,62 @@
 <li><p><strong><code>logout.php</code></strong> ：处理用户注销的页面。</p>
 </li>
 </ul>
+<pre class="mermaid">sequenceDiagram
+    participant Client
+    participant Browser
+    participant PHP
+    participant SessionStorage as SessionStorage(/tmp/sess_abc123)
+
+    %% 🟡 初次访问 login.php（未登录，无 Cookie）
+    opt 🟡 会话初始化
+        Client->>Browser: 打开 login.php
+        Browser->>PHP: 请求 login.php（无 Cookie）
+        PHP->>PHP: session_start()
+        PHP->>PHP: 生成 session_id = abc123
+        PHP->>SessionStorage: 创建 sess_abc123 文件（空）
+        PHP-->>Browser: Set-Cookie: PHPSESSID=abc123
+        Browser-->>Client: 返回登录页面
+    end
+
+    %% 🟢 提交登录表单
+    opt 🟢 登录处理
+        Client->>Browser: 输入用户名/密码并提交表单
+        Browser->>PHP: POST login.php<br>Cookie: PHPSESSID=abc123
+        PHP->>PHP: session_start()
+        PHP->>PHP: 验证用户名/密码
+        alt ✅ 登录成功
+            PHP->>PHP: $_SESSION['user_id'] = "admin"
+            PHP->>SessionStorage: 写入 sess_abc123
+            PHP-->>Browser: 跳转 dashboard.php
+        else ❌ 登录失败
+            PHP-->>Browser: 显示错误提示
+        end
+    end
+
+    %% 🔐 用户访问受限页面 dashboard.php
+    opt 🔐 鉴权判断
+        Client->>Browser: 访问 dashboard.php
+        Browser->>PHP: 请求 dashboard.php<br>Cookie: PHPSESSID=abc123
+        PHP->>PHP: session_start()
+        PHP->>SessionStorage: 读取 sess_abc123
+        alt ✅ 已登录（$_SESSION['user_id'] 存在）
+            PHP-->>Browser: 显示欢迎页面
+        else ❌ 未登录
+            PHP-->>Browser: 跳转 login.php
+        end
+    end
+
+    %% 🔚 注销流程
+    opt 🔚 登出与销毁会话
+        Client->>Browser: 点击 logout 链接
+        Browser->>PHP: 请求 logout.php<br>Cookie: PHPSESSID=abc123
+        PHP->>PHP: session_start()
+        PHP->>PHP: session_unset()
+        PHP->>PHP: session_destroy()
+        PHP->>SessionStorage: 删除 sess_abc123
+        PHP-->>Browser: 跳转 login.php
+    end</pre>
+
 <h3 id="登录页面-login-php"><a href="#登录页面-login-php" class="headerlink" title="登录页面 (login.php)"></a>登录页面 (<code>login.php</code>)</h3><div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">session_start</span>();  <span class="comment">// 启动会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果用户已经登录，直接跳转到控制面板页面</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: dashboard.php&#x27;</span>);</span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟的用户数据库</span></span><br><span class="line"><span class="variable">$users</span> = [</span><br><span class="line">    <span class="string">&#x27;admin&#x27;</span> =&gt; <span class="string">&#x27;password123&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;user&#x27;</span> =&gt; <span class="string">&#x27;mypassword&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理登录表单提交</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>] == <span class="string">&#x27;POST&#x27;</span>) &#123;</span><br><span class="line">    <span class="variable">$username</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line">    <span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查用户名和密码是否正确</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$users</span>[<span class="variable">$username</span>]) &amp;&amp; <span class="variable">$users</span>[<span class="variable">$username</span>] === <span class="variable">$password</span>) &#123;</span><br><span class="line">        <span class="comment">// 用户名和密码正确，登录成功，存储会话数据</span></span><br><span class="line">        <span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>] = <span class="variable">$username</span>;  <span class="comment">// 存储用户的用户名作为会话标识</span></span><br><span class="line">        <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: dashboard.php&#x27;</span>);  <span class="comment">// 登录成功，跳转到控制面板</span></span><br><span class="line">        <span class="keyword">exit</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 登录失败，显示错误信息</span></span><br><span class="line">        <span class="variable">$error</span> = <span class="string">&#x27;Invalid username or password&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Login&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;Login&lt;/h1&gt;</span><br><span class="line">    <span class="meta">&lt;?php</span> <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$error</span>)) &#123; <span class="keyword">echo</span> <span class="string">&quot;&lt;p style=&#x27;color:red;&#x27;&gt;<span class="subst">$error</span>&lt;/p&gt;&quot;</span>; &#125; <span class="meta">?&gt;</span></span><br><span class="line">    &lt;form method=<span class="string">&quot;post&quot;</span> action=<span class="string">&quot;login.php&quot;</span>&gt;</span><br><span class="line">        &lt;label <span class="keyword">for</span>=<span class="string">&quot;username&quot;</span>&gt;Username:&lt;/label&gt;&lt;br&gt;</span><br><span class="line">        &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;username&quot;</span> required&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">        &lt;label <span class="keyword">for</span>=<span class="string">&quot;password&quot;</span>&gt;Password:&lt;/label&gt;&lt;br&gt;</span><br><span class="line">        &lt;input type=<span class="string">&quot;password&quot;</span> name=<span class="string">&quot;password&quot;</span> required&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">        &lt;button type=<span class="string">&quot;submit&quot;</span>&gt;Login&lt;/button&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 <ul>
@@ -2917,7 +3792,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-07-30 00:57:23
+                    :</strong> 2025-07-31 03:30:12
             </li>
         
         <li>
@@ -3046,7 +3921,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">PHP 代码审计基础</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-text">常用工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHPStorm"><span class="nav-text">PHPStorm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHPStudy"><span class="nav-text">PHPStudy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composer"><span class="nav-text">Composer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85-1"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="nav-text">软件使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-graph"><span class="nav-text">object-graph</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85-2"><span class="nav-text">软件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8-1"><span class="nav-text">软件使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95"><span class="nav-text">PHP 代码调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Xdebug-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">Xdebug 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xdebug-%E7%89%88%E6%9C%AC%E4%BD%93%E7%B3%BB"><span class="nav-text">Xdebug 版本体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xdebug-%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9"><span class="nav-text">Xdebug 配置选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Xdebug-2-x-%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="nav-text">Xdebug 2.x 调试配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xdebug-3-x-%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="nav-text">Xdebug 3.x 调试配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xdebug-%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86"><span class="nav-text">Xdebug 调试原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">调试环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E9%85%8D%E7%BD%AE-Xdebug-%E6%8F%92%E4%BB%B6"><span class="nav-text">PHP 配置 Xdebug 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85"><span class="nav-text">Windows 平台安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85"><span class="nav-text">Linux 平台安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Xdebug-Helper-%E6%8F%92%E4%BB%B6"><span class="nav-text">配置 Xdebug Helper 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm"><span class="nav-text">配置 PHPStorm</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE"><span class="nav-text">调试设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="nav-text">服务器路径映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-text">运行&#x2F;调试配置（可选）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PhpStudy"><span class="nav-text">配置 PhpStudy</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHPStorm-%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F"><span class="nav-text">PHPStorm 调试方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="nav-text">点击调试按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E8%B0%83%E8%AF%95%EF%BC%88%E6%8E%A8%E8%8D%90%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-text">开启监听调试（推荐方式）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">远程同步开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-FTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置 FTP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm-1"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">如何远程同步开发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5"><span class="nav-text">PHP 常见概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E5%85%A8%E5%B1%80%E6%95%B0%E7%BB%84"><span class="nav-text">超全局数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-text">PHP 伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-text">file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-input"><span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-filter"><span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phar"><span class="nav-text">phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zip"><span class="nav-text">zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E6%88%96-https"><span class="nav-text">http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data"><span class="nav-text">data:&#x2F;&#x2F;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="nav-text">PHP 语言特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preg-match-%E7%9B%B8%E5%85%B3"><span class="nav-text">preg_match 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="nav-text">数组绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%A2%E8%A1%8C%E7%AC%A6%E7%BB%95%E8%BF%87"><span class="nav-text">换行符绕过</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E4%B8%8E%E9%89%B4%E6%9D%83%E7%9B%B8%E5%85%B3"><span class="nav-text">会话与鉴权相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B"><span class="nav-text">基本过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%9A%E8%AF%9D"><span class="nav-text">启动会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E4%BC%9A%E8%AF%9D%E6%95%B0%E6%8D%AE"><span class="nav-text">访问会话数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%80%E6%AF%81%E4%BC%9A%E8%AF%9D"><span class="nav-text">销毁会话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-text">会话相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-text">会话过期时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-text">会话存储位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BC%9A%E8%AF%9D%E7%9A%84%E8%AE%A4%E8%AF%81%E4%B8%8E%E9%89%B4%E6%9D%83"><span class="nav-text">基于会话的认证与鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2-login-php"><span class="nav-text">登录页面 (login.php)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E9%A1%B5%E9%9D%A2-dashboard-php"><span class="nav-text">控制面板页面 (dashboard.php)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%94%80%E9%A1%B5%E9%9D%A2-logout-php"><span class="nav-text">注销页面 (logout.php)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E7%9B%B8%E5%85%B3"><span class="nav-text">代码执行相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">系统命令执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%BC%95%E5%8F%B7"><span class="nav-text">反引号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-exec"><span class="nav-text">shell_exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec"><span class="nav-text">exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system"><span class="nav-text">system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#passthru"><span class="nav-text">passthru</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#popen"><span class="nav-text">popen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-open"><span class="nav-text">proc_open</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 代码执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eval"><span class="nav-text">eval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assert"><span class="nav-text">assert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#preg-replace%EF%BC%88%E5%B8%A6-e-%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%8C%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">preg_replace（带 &#x2F;e 修饰符，已废弃）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-function%EF%BC%88%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">create_function（已废弃）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-text">回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%87%BD%E6%95%B0"><span class="nav-text">可变函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0"><span class="nav-text">普通函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="nav-text">对象方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-text">类静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0-%EF%BC%88%E9%97%AD%E5%8C%85%EF%BC%89"><span class="nav-text">匿名函数 （闭包）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E8%B0%83%E7%94%A8%E5%99%A8%E5%87%BD%E6%95%B0"><span class="nav-text">通用调用器函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func"><span class="nav-text">call_user_func</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func-array"><span class="nav-text">call_user_func_array</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%9E%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-text">功能型回调函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3"><span class="nav-text">数据库相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95"><span class="nav-text">常见数据库扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PDO-PHP-Data-Objects"><span class="nav-text">PDO (PHP Data Objects)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-text">执行语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQLi-MySQL-Improved"><span class="nav-text">MySQLi (MySQL Improved)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5%E7%9A%84%E8%BF%87%E6%BB%A4%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="nav-text">SQL 注入的过滤与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0"><span class="nav-text">常见过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#addslashes"><span class="nav-text">addslashes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQLi-%E5%92%8C-MySQL-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">MySQLi 和 MySQL 的转义函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PDO-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">PDO 的转义函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%98%B2%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="nav-text">常见防护方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E8%AF%AD%E5%8F%A5"><span class="nav-text">预处理语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">强制类型转换</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%9B%B8%E5%85%B3"><span class="nav-text">文件上传相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%9F%BA%E7%A1%80"><span class="nav-text">PHP 文件上传基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 文件操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-text">文件打开与关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C"><span class="nav-text">文件读写操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E7%A7%BB%E5%8A%A8%E5%92%8C%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6"><span class="nav-text">删除、移动和检查文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="nav-text">目录操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%BF%87%E7%A8%8B"><span class="nav-text">PHP 文件上传过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%AF%B7%E6%B1%82"><span class="nav-text">客户端发送文件上传请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6%E6%96%87%E4%BB%B6%E5%B9%B6%E5%AD%98%E5%82%A8%E5%88%B0%E4%B8%B4%E6%97%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">服务器接收文件并存储到临时目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E5%A4%84%E7%90%86%E4%B8%8A%E4%BC%A0%E7%9A%84%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="nav-text">PHP 代码处理上传的临时文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">判断文件上传检查方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87"><span class="nav-text">文件上传绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">客户端检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%91%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">黑名单检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BD%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">白名单检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%AD%94%E6%95%B0%E6%A3%80%E6%B5%8B"><span class="nav-text">文件魔数检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93"><span class="nav-text">二次渲染</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9B%B8%E5%85%B3"><span class="nav-text">文件包含相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B"><span class="nav-text">文件包含漏洞类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">远程文件包含</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="nav-text">文件包含漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9B%B8%E5%85%B3"><span class="nav-text">模板注入相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8"><span class="nav-text">PHP 原生类利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Error-Exception-%E5%86%85%E7%BD%AE%E7%B1%BB%E8%BF%9B%E8%A1%8C-XSS"><span class="nav-text">使用 Error&#x2F;Exception 内置类进行 XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-SoapClient-%E7%B1%BB%E8%BF%9B%E8%A1%8C-SSRF"><span class="nav-text">利用 SoapClient 类进行 SSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-ZipArchive-%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">利用 ZipArchive 进行文件操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E5%AF%B9%E6%8A%97"><span class="nav-text">PHP 代码混淆对抗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">无扩展方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">PHP 扩展方案</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-text">常用工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHPStorm"><span class="nav-text">PHPStorm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHPStudy"><span class="nav-text">PHPStudy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composer"><span class="nav-text">Composer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85-1"><span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Windows 平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0-1"><span class="nav-text">Linux 平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="nav-text">软件使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-graph"><span class="nav-text">object-graph</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85-2"><span class="nav-text">软件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8-1"><span class="nav-text">软件使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95"><span class="nav-text">PHP 代码调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Xdebug-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">Xdebug 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xdebug-%E7%89%88%E6%9C%AC%E4%BD%93%E7%B3%BB"><span class="nav-text">Xdebug 版本体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xdebug-%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9"><span class="nav-text">Xdebug 配置选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Xdebug-2-x-%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="nav-text">Xdebug 2.x 调试配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xdebug-3-x-%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="nav-text">Xdebug 3.x 调试配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xdebug-%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86"><span class="nav-text">Xdebug 调试原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">调试环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E9%85%8D%E7%BD%AE-Xdebug-%E6%8F%92%E4%BB%B6"><span class="nav-text">PHP 配置 Xdebug 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85"><span class="nav-text">Windows 平台安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85"><span class="nav-text">Linux 平台安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Xdebug-Helper-%E6%8F%92%E4%BB%B6"><span class="nav-text">配置 Xdebug Helper 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm"><span class="nav-text">配置 PHPStorm</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE"><span class="nav-text">调试设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="nav-text">服务器路径映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-text">运行&#x2F;调试配置（可选）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PhpStudy"><span class="nav-text">配置 PhpStudy</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHPStorm-%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F"><span class="nav-text">PHPStorm 调试方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E8%B0%83%E8%AF%95%E6%8C%89%E9%92%AE"><span class="nav-text">点击调试按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E8%B0%83%E8%AF%95%EF%BC%88%E6%8E%A8%E8%8D%90%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-text">开启监听调试（推荐方式）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">远程同步开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-FTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置 FTP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-PHPStorm-1"><span class="nav-text">配置 PHPStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91"><span class="nav-text">如何远程同步开发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5"><span class="nav-text">PHP 常见概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E5%BC%B1%E7%B1%BB%E5%9E%8B"><span class="nav-text">PHP 弱类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD"><span class="nav-text">类型判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83"><span class="nav-text">类型比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%B1%BB%E5%88%AB"><span class="nav-text">类型转换类别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC"><span class="nav-text">显式类型转</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">隐式类型转换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99"><span class="nav-text">类型转换规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E5%AD%97"><span class="nav-text">转换为数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">转换为字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B8%83%E5%B0%94"><span class="nav-text">转换为布尔</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E7%BB%84"><span class="nav-text">转换为数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AF%B9%E8%B1%A1"><span class="nav-text">转换为对象</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E5%85%A8%E5%B1%80%E6%95%B0%E7%BB%84"><span class="nav-text">超全局数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-text">PHP 伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-text">file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-input"><span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-filter"><span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phar"><span class="nav-text">phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zip"><span class="nav-text">zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E6%88%96-https"><span class="nav-text">http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data"><span class="nav-text">data:&#x2F;&#x2F;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="nav-text">PHP 语言特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash-%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87"><span class="nav-text">Hash 比较绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0e-%E5%93%88%E5%B8%8C%E7%A2%B0%E6%92%9E"><span class="nav-text">0e 哈希碰撞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E7%BB%93%E6%9E%9C%E6%AF%94%E8%BE%83"><span class="nav-text">哈希结果比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E8%BA%AB%E5%93%88%E5%B8%8C%E6%AF%94%E8%BE%83"><span class="nav-text">自身哈希比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87"><span class="nav-text">数组比较绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%BC%BA%E7%A2%B0%E6%92%9E"><span class="nav-text">哈希强碰撞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intval%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"><span class="nav-text">intval函数绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87"><span class="nav-text">特殊类型绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87"><span class="nav-text">进制绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%AA%E6%96%AD%E7%BB%95%E8%BF%87"><span class="nav-text">截断绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preg-match-%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"><span class="nav-text">preg_match 函数绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%A2%E8%A1%8C%E7%BB%95%E8%BF%87"><span class="nav-text">换行绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E8%A1%8C%E6%88%AA%E6%96%AD"><span class="nav-text">换行截断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E8%A1%8C%E5%BF%BD%E7%95%A5"><span class="nav-text">换行忽略</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E7%BB%95%E8%BF%87"><span class="nav-text">回溯绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-text">原理分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B"><span class="nav-text">典型案例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B4%AA%E5%A9%AA%E6%A8%A1%E5%BC%8F%E7%BB%95%E8%BF%87"><span class="nav-text">贪婪模式绕过</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E8%B4%AA%E5%A9%AA%E6%A8%A1%E5%BC%8F%E7%BB%95%E8%BF%87"><span class="nav-text">非贪婪模式绕过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E6%8E%AA%E6%96%BD"><span class="nav-text">修复措施</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-array%E5%AE%BD%E6%9D%BE%E6%AF%94%E8%BE%83"><span class="nav-text">in_array宽松比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="nav-text">变量覆盖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="nav-text">通过数组绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B2%BE%E5%BA%A6%E7%BB%95%E8%BF%87"><span class="nav-text">精度绕过</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E4%B8%8E%E9%89%B4%E6%9D%83%E7%9B%B8%E5%85%B3"><span class="nav-text">会话与鉴权相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%87%E7%A8%8B"><span class="nav-text">基本过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%9A%E8%AF%9D"><span class="nav-text">启动会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E4%BC%9A%E8%AF%9D%E6%95%B0%E6%8D%AE"><span class="nav-text">访问会话数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%80%E6%AF%81%E4%BC%9A%E8%AF%9D"><span class="nav-text">销毁会话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-text">会话相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-text">会话过期时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-text">会话存储位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BC%9A%E8%AF%9D%E7%9A%84%E8%AE%A4%E8%AF%81%E4%B8%8E%E9%89%B4%E6%9D%83"><span class="nav-text">基于会话的认证与鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2-login-php"><span class="nav-text">登录页面 (login.php)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%E9%A1%B5%E9%9D%A2-dashboard-php"><span class="nav-text">控制面板页面 (dashboard.php)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%94%80%E9%A1%B5%E9%9D%A2-logout-php"><span class="nav-text">注销页面 (logout.php)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E7%9B%B8%E5%85%B3"><span class="nav-text">代码执行相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">系统命令执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%BC%95%E5%8F%B7"><span class="nav-text">反引号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-exec"><span class="nav-text">shell_exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec"><span class="nav-text">exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system"><span class="nav-text">system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#passthru"><span class="nav-text">passthru</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#popen"><span class="nav-text">popen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-open"><span class="nav-text">proc_open</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 代码执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eval"><span class="nav-text">eval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assert"><span class="nav-text">assert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#preg-replace%EF%BC%88%E5%B8%A6-e-%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%8C%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">preg_replace（带 &#x2F;e 修饰符，已废弃）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-function%EF%BC%88%E5%B7%B2%E5%BA%9F%E5%BC%83%EF%BC%89"><span class="nav-text">create_function（已废弃）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-text">回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%87%BD%E6%95%B0"><span class="nav-text">可变函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0"><span class="nav-text">普通函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="nav-text">对象方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-text">类静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0-%EF%BC%88%E9%97%AD%E5%8C%85%EF%BC%89"><span class="nav-text">匿名函数 （闭包）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E8%B0%83%E7%94%A8%E5%99%A8%E5%87%BD%E6%95%B0"><span class="nav-text">通用调用器函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func"><span class="nav-text">call_user_func</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#call-user-func-array"><span class="nav-text">call_user_func_array</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%9E%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-text">功能型回调函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3"><span class="nav-text">数据库相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95"><span class="nav-text">常见数据库扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PDO-PHP-Data-Objects"><span class="nav-text">PDO (PHP Data Objects)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-text">执行语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQLi-MySQL-Improved"><span class="nav-text">MySQLi (MySQL Improved)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-%E6%B3%A8%E5%85%A5%E7%9A%84%E8%BF%87%E6%BB%A4%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="nav-text">SQL 注入的过滤与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0"><span class="nav-text">常见过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#addslashes"><span class="nav-text">addslashes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQLi-%E5%92%8C-MySQL-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">MySQLi 和 MySQL 的转义函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PDO-%E7%9A%84%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-text">PDO 的转义函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%98%B2%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="nav-text">常见防护方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E8%AF%AD%E5%8F%A5"><span class="nav-text">预处理语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-text">强制类型转换</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%9B%B8%E5%85%B3"><span class="nav-text">文件上传相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%9F%BA%E7%A1%80"><span class="nav-text">PHP 文件上传基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-text">PHP 文件操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-text">文件打开与关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C"><span class="nav-text">文件读写操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E7%A7%BB%E5%8A%A8%E5%92%8C%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6"><span class="nav-text">删除、移动和检查文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="nav-text">目录操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%BF%87%E7%A8%8B"><span class="nav-text">PHP 文件上传过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%AF%B7%E6%B1%82"><span class="nav-text">客户端发送文件上传请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6%E6%96%87%E4%BB%B6%E5%B9%B6%E5%AD%98%E5%82%A8%E5%88%B0%E4%B8%B4%E6%97%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">服务器接收文件并存储到临时目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E5%A4%84%E7%90%86%E4%B8%8A%E4%BC%A0%E7%9A%84%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="nav-text">PHP 代码处理上传的临时文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-text">PHP 文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">判断文件上传检查方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87"><span class="nav-text">文件上传绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">客户端检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%91%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">黑名单检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BD%E5%90%8D%E5%8D%95%E6%A3%80%E6%B5%8B"><span class="nav-text">白名单检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%AD%94%E6%95%B0%E6%A3%80%E6%B5%8B"><span class="nav-text">文件魔数检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93"><span class="nav-text">二次渲染</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9B%B8%E5%85%B3"><span class="nav-text">文件包含相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B"><span class="nav-text">文件包含漏洞类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">远程文件包含</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="nav-text">文件包含漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9B%B8%E5%85%B3"><span class="nav-text">模板注入相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8"><span class="nav-text">PHP 原生类利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Error-Exception-%E5%86%85%E7%BD%AE%E7%B1%BB%E8%BF%9B%E8%A1%8C-XSS"><span class="nav-text">使用 Error&#x2F;Exception 内置类进行 XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-SoapClient-%E7%B1%BB%E8%BF%9B%E8%A1%8C-SSRF"><span class="nav-text">利用 SoapClient 类进行 SSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-ZipArchive-%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">利用 ZipArchive 进行文件操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E5%AF%B9%E6%8A%97"><span class="nav-text">PHP 代码混淆对抗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">无扩展方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88"><span class="nav-text">PHP 扩展方案</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -3077,7 +3952,7 @@
                     </span>
                     
                         <span>
-                            696.5k words in total
+                            701.7k words in total
                         </span>
                     
                 </p>
