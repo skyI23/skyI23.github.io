@@ -463,7 +463,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -501,7 +501,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">41</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -516,6 +516,85 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/windows-user-pwn-basic-knowlege/">
+                            windows user pwn 基础知识
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            环境搭建checksecwinchecksecwinchecksec 是 windows 版的 checksec ，不过有时候结果不太准确。
+checksec（x64dbg）x64dbg 的插件 checksec 检查效果比较准确，并且可以连同加载的 dll 一起检测。将 release 的插件按 32 和 64 位分别放到 x32dbg 和 x64dbg 的 plugins 目录，如果找不...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 20:54:39 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/windows-user/">windows user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-user-pwn/">windows user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/windows-user-pwn-basic-knowlege/">Read more<span class="seo-reader-text">windows user pwn 基础知识</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -1267,90 +1346,6 @@ ret2shellcode将shellcode写入可执行的内存地址处，然后栈溢出覆�
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/08/linux-IO_FILE-exploit/">
-                            linux IO_FILE 利用
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            FILE 结构IO FILE 定义的各种主要结构关系如下图所示。
-
-各种文件结构采用单链表的形式连接起来，通过 _IO_list_all 访问。
-
-vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
-
-初始情况下 _IO_FILE 结构有 _IO_2_1_stderr_ ，_IO_2_1_stdout_，_IO_2_1_stdin_ 三个，通过 _IO_list_all 将...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Nov 08 2024 03:07:36 GMT+0800">
-                
-                    2024-11-08
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/pwn/">pwn</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/pwn/linux-user/">linux user</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/11/08/linux-IO_FILE-exploit/">Read more<span class="seo-reader-text">linux IO_FILE 利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1381,11 +1376,11 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        41 posts in total
+                        42 posts in total
                     </span>
                     
                         <span>
-                            701.7k words in total
+                            706.2k words in total
                         </span>
                     
                 </p>
