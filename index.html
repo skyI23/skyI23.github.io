@@ -477,15 +477,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -515,15 +515,15 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -538,6 +538,434 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/12/Python%20%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">
+                            Python 常见框架安全
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            FlaskFlask 是一个 轻量级的 Python Web 框架，以“微内核 + 扩展”的理念著称。它本身只提供 路由、请求&#x2F;响应、模板渲染 等最核心功能，其他如数据库、认证、表单校验、迁移、缓存等都通过 扩展（extensions） 来按需拼装。
+核心组件：
+
+Werkzeug：WSGI 工具集（请求与响应、路由、调试器）。
+Jinja2：模板引擎（HTML 渲染）。
+Flas...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Aug 12 2025 00:26:57 GMT+0800">
+                
+                    2025-08-12
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/12/Python%20%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">Read more<span class="seo-reader-text">Python 常见框架安全</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/12/Python%20%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">
+                            Python 沙箱逃逸
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            逃逸目标命令执行builtin 模块
+
+
+方法
+多行支持
+返回值
+
+
+
+exec(code)
+✅
+None
+
+
+eval(expr)
+❌
+计算结果
+
+
+eval(compile(code,&quot;exec&quot;))
+✅
+None
+
+
+exec（执行 Python 代码字符串）支持多行代码，执行结果是 None（无返回值），运行环境默认是当前全局&#x2F;局部作用域。
+1exec(...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Aug 12 2025 00:01:08 GMT+0800">
+                
+                    2025-08-12
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/12/Python%20%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">Read more<span class="seo-reader-text">Python 沙箱逃逸</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/11/Pickle%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+                            Pickle 反序列化
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            在 Python 里，pickle 是一个用于 序列化（serialize） 和 反序列化（deserialize） Python 对象的模块。
+
+序列化（pickling）：把内存中的 Python 对象转成字节串，方便存盘、传输、缓存。
+反序列化（unpickling）：把字节串还原回等价的 Python 对象。
+
+它不仅能保存基础类型（int&#x2F;str&#x2F;list&#x...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Aug 11 2025 23:58:04 GMT+0800">
+                
+                    2025-08-11
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/11/Pickle%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">Read more<span class="seo-reader-text">Pickle 反序列化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/11/PHP%20%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8/">
+                            PHP 原生类利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            PHP 原生类利用PHP 原生类指的是 PHP 自带提供、无需用户定义、通常由 PHP 内核或扩展模块实现的类。我们可以通过 get_declared_classes() 函数获取当前脚本中所有已经定义的类的名称，然后枚举其中所有的魔术方法。
+12345678910111213141516171819202122232425262728293031323334&lt;?php// 获取当前已...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Aug 11 2025 23:53:58 GMT+0800">
+                
+                    2025-08-11
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/php-web/">php web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/php-web/">php web</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/11/PHP%20%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8/">Read more<span class="seo-reader-text">PHP 原生类利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/08/11/PHP%20%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
+                            PHP 模板注入
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            SSTI（服务器端模板注入） 是一种攻击方式。攻击者通过控制输入，将恶意“模板语法”注入到后端模板引擎中，使模板引擎在渲染页面时执行这些恶意语句，从而造成信息泄露、权限绕过，甚至远程代码执行（RCE）。
+
+模板引擎（Template Engine） 是一个用于生成动态 HTML 的系统。，开发者可以在其中使用变量、控制语句（如 if、for）、函数、过滤器等来生成网页内容，而无需在 HTML...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Aug 11 2025 23:53:29 GMT+0800">
+                
+                    2025-08-11
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/php-web/">php web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/php-web/">php web</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/08/11/PHP%20%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">Read more<span class="seo-reader-text">PHP 模板注入</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -880,247 +1308,6 @@ Linux 平台...
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/01/03/Linux%20%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/">
-                            Linux 软件分析基础
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Linux 软件分析基础基础工具busyboxBusyBox 是一个集成了许多常用 Unix 工具的轻量级软件包。它将多个标准 Unix 命令（如 ls、cp、cat、mv 等）压缩到一个单独的二进制文件中，因此非常适合用于资源受限的环境，比如嵌入式系统或小型 Linux 系统。
-通常我们分析的 Linux 软件所在的 Linux 系统可能缺少很多分析工具，并且缺少安装软件的源或者不能联网，...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Jan 03 2025 12:43:33 GMT+0800">
-                
-                    2025-01-03
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/01/03/Linux%20%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/">Read more<span class="seo-reader-text">Linux 软件分析基础</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2025/01/02/%E9%80%86%E5%90%91%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7/">
-                            逆向自动化工具
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            KeystoneKeystone 是一个开源的汇编器（assembler），用于生成二进制机器码。它支持多种 CPU 架构和操作模式，并且具有高效、轻量级、跨平台等特点，适合用在逆向工程、漏洞研究、二进制分析等领域。
-keystone-engine 是 Keystone 项目的 Python 绑定，它允许开发者在 Python 环境中使用 Keystone 汇编器的强大功能。通过 keyst...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Jan 02 2025 01:21:55 GMT+0800">
-                
-                    2025-01-02
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2025/01/02/%E9%80%86%E5%90%91%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7/">Read more<span class="seo-reader-text">逆向自动化工具</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/30/CVE-2024-26809/">
-                            CVE-2024-26809 分析
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <p>Here’s something encrypted, password is required to continue reading.</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Nov 30 2024 17:27:36 GMT+0800">
-                
-                    2024-11-30
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/11/30/CVE-2024-26809/">Read more<span class="seo-reader-text">CVE-2024-26809 分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/29/windows-kernel-pwn/">
-                            windows kernel pwn
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Windows 内核双机调试使用 VMware 进行双机串口调试 Windows 内核是一种非常常见的内核调试方式，能够在不影响宿主机系统稳定性的情况下进行调试。通过串口连接，你可以在一台虚拟机（目标机）上运行 Windows 内核，并通过另一台虚拟机或宿主机（调试机）来控制调试过程。
-双机串口调试的基本步骤1. 配置 VMware 虚拟机首先，你需要配置两台虚拟机：一台作为目标机运行 Wi...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Nov 29 2024 23:48:08 GMT+0800">
-                
-                    2024-11-29
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/pwn/">pwn</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/pwn/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-pwn/">windows kernel pwn</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2024/11/29/windows-kernel-pwn/">Read more<span class="seo-reader-text">windows kernel pwn</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2024/11/19/CVE-2024-47575/">
-                            CVE-2024-47575 分析
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <p>Here’s something encrypted, password is required to continue reading.</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Nov 19 2024 00:59:12 GMT+0800">
-                
-                    2024-11-19
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2024/11/19/CVE-2024-47575/">Read more<span class="seo-reader-text">CVE-2024-47575 分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1151,11 +1338,11 @@ keystone-engine 是 Keystone 项目的 Python 绑定，它允许开发者在 Pyt
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        42 posts in total
+                        47 posts in total
                     </span>
                     
                         <span>
-                            709.3k words in total
+                            758.1k words in total
                         </span>
                     
                 </p>

