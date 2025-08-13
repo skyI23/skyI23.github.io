@@ -1282,8 +1282,8 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">
-                            windows 句柄表
+                        <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">
+                            windows 内核回调
                         </a>
                     </h3>
 
@@ -1291,11 +1291,18 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                         
                             
                             https://www.vergiliusproject.com/
-在 Windows 操作系统中，句柄（Handle） 是一种 用于标识和管理系统对象的抽象引用。它本质上是一个 索引值或小整数，由内核分配给用户态程序，用户通过它间接访问和操作内核对象。
-在内核中，句柄是通过句柄表（Handle Table）管理的：
+系统通知型回调（Notify Callbacks）系统通知型回调是 Windows 内核提供的一类机制，允许内核模式驱动程序注册回调函数，以便在系统关键事件（如进程&#x2F;线程创建、模块加载、句柄操作、注册表修改等）发生时收到通知。
+常见的系统通知型回调有下面几种类型：
 
-用户得到的是一个 整数句柄值（HANDLE）。
-该值是句柄表的一个索引，...
+
+
+事件类型
+注册函数
+回调函数类型
+
+
+
+进程...
                         
                     </div>
 
@@ -1350,7 +1357,7 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
         
     </div>
 
-    <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">Read more<span class="seo-reader-text">windows 句柄表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">Read more<span class="seo-reader-text">windows 内核回调</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1390,7 +1397,7 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                     </span>
                     
                         <span>
-                            763.4k words in total
+                            786.4k words in total
                         </span>
                     
                 </p>

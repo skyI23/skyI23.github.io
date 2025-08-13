@@ -526,18 +526,20 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
-                            windows 用户态逆向开发
+                        <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">
+                            windows 句柄表
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            基础VS 导入第三方 lib 库待更新
-获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
-CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
-1234cppCopy codeHANDLE CreateTo...
+                            https://www.vergiliusproject.com/
+在 Windows 操作系统中，句柄（Handle） 是一种 用于标识和管理系统对象的抽象引用。它本质上是一个 索引值或小整数，由内核分配给用户态程序，用户通过它间接访问和操作内核对象。
+在内核中，句柄是通过句柄表（Handle Table）管理的：
+
+用户得到的是一个 整数句柄值（HANDLE）。
+该值是句柄表的一个索引，...
                         
                     </div>
 
@@ -569,7 +571,7 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
                         </li>
                     
                     
@@ -584,7 +586,7 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
                     
                         <li>
                             
-                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
+                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -592,7 +594,7 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
         
     </div>
 
-    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">Read more<span class="seo-reader-text">windows 句柄表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -675,6 +677,87 @@ CPU 的模式x86 CPU 的三个主要模式分别是实模式（Real Mode）、�
     </div>
 
     <a href="/2022/09/28/windows%20%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">Read more<span class="seo-reader-text">windows 保护模式</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
+                            windows 用户态逆向开发
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            基础VS 导入第三方 lib 库待更新
+获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
+CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
+1234cppCopy codeHANDLE CreateTo...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1001,96 +1084,6 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">
-                            windows 内核回调
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            https://www.vergiliusproject.com/
-系统通知型回调（Notify Callbacks）系统通知型回调是 Windows 内核提供的一类机制，允许内核模式驱动程序注册回调函数，以便在系统关键事件（如进程&#x2F;线程创建、模块加载、句柄操作、注册表修改等）发生时收到通知。
-常见的系统通知型回调有下面几种类型：
-
-
-
-事件类型
-注册函数
-回调函数类型
-
-
-
-进程...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">Read more<span class="seo-reader-text">windows 内核回调</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -1125,7 +1118,7 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
                     </span>
                     
                         <span>
-                            763.4k words in total
+                            786.4k words in total
                         </span>
                     
                 </p>
