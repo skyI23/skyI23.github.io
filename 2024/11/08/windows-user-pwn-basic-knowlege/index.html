@@ -420,15 +420,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-06-01 18:08:06</span>
-            <span class="mobile">2025-06-01 18:08:06</span>
+            <span class="desktop">2025-08-19 01:15:22</span>
+            <span class="mobile">2025-08-19 01:15:22</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -1186,7 +1186,13 @@
 <li>TEB&#x2F;PEB&#x2F;heap&#x2F;stack 的基址每次运行程序都会改变</li>
 <li>一些内核相关的 dll 例如 ntdll.dll 和 kernel32.dll 在所有进程中基址相同</li>
 <li>绕过方法<ul>
-<li>泄露地址<br>- 一些 dll 的加载基址在所有进程都相同，因此可以在另一个进程中泄露基址。<br>      - 模块加载基址每次重启才会改变，因此只要靶机不重启不必每次运行程序时泄露基址。</li>
+<li>泄露地址<ul>
+<li>一些 dll 的加载基址在所有进程都相同，因此可以在另一个进程中泄露基址。<ul>
+<li>模块加载基址每次重启才会改变，因此只要靶机不重启不必每次运行程序时泄露基址。</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>爆破<ul>
 <li>由于在 32 位程序中地址只随机 8 字节，因此爆破有 1&#x2F;256 的几率成功。</li>
 </ul>
@@ -1312,7 +1318,7 @@
 </li>
 <li><p>程序基址</p>
 <p>在 <code>ntdll!LdrpInitializeProcess</code> 函数中有如下代码：</p>
-<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall <span class="title function_">LdrpAllocateModuleEntry</span><span class="params">(__int64 a1)</span></span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">	Heap = RtlAllocateHeap(LdrpHeap, (NtdllBaseTag + <span class="number">0x40000</span>) | <span class="number">8u</span>, <span class="number">288</span>i64);</span><br><span class="line">	...</span><br><span class="line">  <span class="keyword">return</span> Heap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> __fastcall <span class="title function_">LdrpInsertDataTableEntry</span><span class="params">(<span class="type">void</span> *a1)</span></span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">	qword_1801653D0 = (__int64)a1;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">v63 = LdrpAllocateModuleEntry(v137);</span><br><span class="line">...</span><br><span class="line">LdrpImageEntry = v63;</span><br><span class="line">...</span><br><span class="line">v76 = ProcessEnvironmentBlock-&gt;ImageBaseAddress;</span><br><span class="line">v70 = LdrpImageEntry;</span><br><span class="line">...</span><br><span class="line">*(_QWORD *)(v70 + <span class="number">48</span>) = v76;</span><br><span class="line">LdrpInsertDataTableEntry(v70);</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall <span class="title function_">LdrpAllocateModuleEntry</span><span class="params">(__int64 a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  Heap = RtlAllocateHeap(LdrpHeap, (NtdllBaseTag + <span class="number">0x40000</span>) | <span class="number">8u</span>, <span class="number">288</span>i64);</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> Heap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> __fastcall <span class="title function_">LdrpInsertDataTableEntry</span><span class="params">(<span class="type">void</span> *a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  qword_1801653D0 = (__int64)a1;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">v63 = LdrpAllocateModuleEntry(v137);</span><br><span class="line">...</span><br><span class="line">LdrpImageEntry = v63;</span><br><span class="line">...</span><br><span class="line">v76 = ProcessEnvironmentBlock-&gt;ImageBaseAddress;</span><br><span class="line">v70 = LdrpImageEntry;</span><br><span class="line">...</span><br><span class="line">*(_QWORD *)(v70 + <span class="number">48</span>) = v76;</span><br><span class="line">LdrpInsertDataTableEntry(v70);</span><br></pre></td></tr></table></figure></div>
 
 <p>可以看到，程序在在一个堆地址 <code>v70 + 48</code> 的地方写了一个程序基址。而 <code>v70</code> 是一个堆地址，存储在 ntdll 的全局变量 <code>qword_1801653D0</code> 上。由于 <code>LdrpAllocateModuleEntry</code> 的调用是在默认堆创建不久之后调用的，因此这个堆地址相对于默认堆的基址偏移固定且比较靠近默认堆基址（偏移不超过 16 bit，不会受堆地址随机化影响）。</p>
 <p>因此我们可以先用一次任意地址读泄露 <code>qword_1801653D0</code> 存储的数据，根据 <code>qword_1801653D0</code> 的低 16 bit 泄露其与堆基址之间的偏移。</p>
@@ -2470,7 +2476,8 @@
 <li>由于 <code>Size &gt; 0x20000</code> 因此不考虑 VS 堆的分配。</li>
 <li>由于不满足 <code>Size &gt; Heap-&gt;SegContexts[1].MaxAllocationSize</code> 即 <code>Size &gt; 0x7f0000</code> ，因此不考虑 Large Block 堆的分配。</li>
 <li>根据 <code>Size</code> 是否小于等于 <code>Heap-&gt;SegContexts[0].MaxAllocationSize</code> 决定是使用 <code>Heap-&gt;SegContexts[0]</code> 还是 <code>Heap-&gt;SegContexts[1]</code> 作为 <code>SegContexts</code> 。这两个结构的区别主要在于一个 <code>PageDescriptor</code> 维护的内存的大小， <code>Heap-&gt;SegContexts[0]</code> 对应的是 0x1000 ，而 <code>Heap-&gt;SegContexts[1]</code> 对应的是 0x10000 。然后调用核心分配函数 <code>RtlpHpSegAlloc</code> 进行内存分配。<ul>
-<li>调用 <code>RtlpHpSegPageRangeAllocate</code> 函数获取合适的 <code>Block</code> 对应的 <code>PageRangeDescriptor</code> 。<br>- 计算 <code>UnitCount</code> 等于 <code>PageCount</code> 除以 <code>(1 &lt;&lt; HeapSegContext-&gt;PagesPerUnitShift)</code> 向上取整。 <ul>
+<li>调用 <code>RtlpHpSegPageRangeAllocate</code> 函数获取合适的 <code>Block</code> 对应的 <code>PageRangeDescriptor</code> 。<ul>
+<li>计算 <code>UnitCount</code> 等于 <code>PageCount</code> 除以 <code>(1 &lt;&lt; HeapSegContext-&gt;PagesPerUnitShift)</code> 向上取整。 </li>
 <li>尝试从红黑树 <code>FreePageRanges</code> 中找合适的 <code>Block</code> 对应的 <code>PageRangeDescriptor</code> 。<ul>
 <li>如果找到了合适的 <code>Block</code> 就会将该 <code>PageRangeDescriptor</code> 从红黑树中取出，然后初始化 <code>PageRangeDescriptor-&gt;TreeSignature = 0xCCDDCCDD</code>。</li>
 <li>如果没有找到合适的 <code>Block</code><ul>
@@ -2608,7 +2615,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-06-01 18:08:06
+                    :</strong> 2025-08-19 01:15:22
             </li>
         
         <li>
@@ -2764,11 +2771,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        47 posts in total
+                        50 posts in total
                     </span>
                     
                         <span>
-                            786.4k words in total
+                            811.2k words in total
                         </span>
                     
                 </p>

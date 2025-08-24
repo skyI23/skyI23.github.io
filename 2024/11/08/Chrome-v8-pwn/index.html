@@ -420,15 +420,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-06-02 23:46:04</span>
-            <span class="mobile">2025-06-02 23:46:04</span>
+            <span class="desktop">2025-08-19 00:59:04</span>
+            <span class="mobile">2025-08-19 00:59:04</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -2310,8 +2310,6 @@
 
 <h3 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><p>该漏洞修复<a href="httpschromium.googlesource.comv8v8+8b35091b2d244c975975e1c78e4cd09cb479b5dc%5E!#F0">补丁</a>如下：</p>
 <div class="code-container" data-rel="Diff"><figure class="iseeu highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">diff --git asrcbuiltinspromise-any.tq bsrcbuiltinspromise-any.tq</span></span><br><span class="line"><span class="comment">index ffb285a..7e707e6 100644</span></span><br><span class="line"><span class="comment">--- asrcbuiltinspromise-any.tq</span></span><br><span class="line"><span class="comment">+++ bsrcbuiltinspromise-any.tq</span></span><br><span class="line"><span class="meta">@@ -119,7 +119,19 @@</span></span><br><span class="line">           kPromiseAnyRejectElementRemainingSlot);</span><br><span class="line"> </span><br><span class="line">    9. Set errors[index] to x.</span><br><span class="line"><span class="deletion">-  const newCapacity = IntPtrMax(SmiUntag(remainingElementsCount), index + 1);</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+   The max computation below is an optimization to avoid excessive allocations</span></span><br><span class="line"><span class="addition">+   in the case of input promises being asynchronously rejected in ascending</span></span><br><span class="line"><span class="addition">+   index order.</span></span><br><span class="line"><span class="addition">+  </span></span><br><span class="line"><span class="addition">+   Note that subtracting 1 from remainingElementsCount is intentional. The</span></span><br><span class="line"><span class="addition">+   value of remainingElementsCount is 1 larger than the actual value during</span></span><br><span class="line"><span class="addition">+   iteration. So in the case of synchronous rejection, newCapacity is the</span></span><br><span class="line"><span class="addition">+   correct size by subtracting 1. In the case of asynchronous rejection this</span></span><br><span class="line"><span class="addition">+   is 1 smaller than the correct size, but is not incorrect as it is maxed</span></span><br><span class="line"><span class="addition">+   with index + 1.</span></span><br><span class="line"><span class="addition">+  const newCapacity =</span></span><br><span class="line"><span class="addition">+      IntPtrMax(SmiUntag(remainingElementsCount) - 1, index + 1);</span></span><br><span class="line">   if (newCapacity  errors.length_intptr) deferred &#123;</span><br><span class="line">       errors = ExtractFixedArray(errors, 0, errors.length_intptr, newCapacity);</span><br><span class="line">       ContextSlot(</span><br><span class="line"><span class="meta">@@ -306,6 +318,7 @@</span></span><br><span class="line">           PromiseAnyRejectElementContextSlots</span><br><span class="line">               kPromiseAnyRejectElementErrorsSlot);</span><br><span class="line"> </span><br><span class="line"><span class="addition">+      check(errors.length == index - 1);</span></span><br><span class="line">       const error = ConstructAggregateError(errors);</span><br><span class="line">        3. Return ThrowCompletion(error).</span><br><span class="line">       goto Reject(error);</span><br></pre></td></tr></table></figure></div>
-
-
 		</div>
 
 		
@@ -2325,7 +2323,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-06-02 23:46:04
+                    :</strong> 2025-08-19 00:59:04
             </li>
         
         <li>
@@ -2481,11 +2479,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        47 posts in total
+                        50 posts in total
                     </span>
                     
                         <span>
-                            786.4k words in total
+                            811.2k words in total
                         </span>
                     
                 </p>

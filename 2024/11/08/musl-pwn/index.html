@@ -420,15 +420,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-06-01 18:08:15</span>
-            <span class="mobile">2025-06-01 18:08:15</span>
+            <span class="desktop">2025-08-19 01:08:54</span>
+            <span class="mobile">2025-08-19 01:08:54</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -945,12 +945,12 @@
 </tbody></table>
 </li>
 </ul>
-<h3 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bin</span> &#123;</span></span><br><span class="line">	<span class="keyword">volatile</span> <span class="type">int</span> lock[<span class="number">2</span>];</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> *<span class="title">head</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> *<span class="title">tail</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<h3 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bin</span> &#123;</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">int</span> lock[<span class="number">2</span>];</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> *<span class="title">head</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> *<span class="title">tail</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 
 <p>存放空闲 <code>chunk</code> 的双向链表，存放 <code>chunk</code> 从 <code>tail</code> 端放，取 <code>chunk</code> 从 <code>head</code> 端取。<br><code>bin</code> 中的 <code>head</code> 和 <code>tail</code> 初始为 0 ，但是在使用 <code>bin</code> 时一般会先调用 <code>lock_bin</code> ，此时如果 <code>bin</code> 为空会将 <code>head</code> 和 <code>tail</code> 设为 <code>&amp;bin[i] - 0x10</code> 。</p>
 <div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">lock_bin</span><span class="params">(<span class="type">int</span> i)</span> &#123;</span><br><span class="line">    lock(mal.bins[i].lock);</span><br><span class="line">    <span class="keyword">if</span> (!mal.bins[i].head)</span><br><span class="line">        mal.bins[i].head = mal.bins[i].tail = BIN_TO_CHUNK(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="chunk"><a href="#chunk" class="headerlink" title="chunk"></a>chunk</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> &#123;</span></span><br><span class="line">	<span class="type">size_t</span> psize, csize;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> *<span class="title">next</span>, *<span class="title">prev</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<h3 id="chunk"><a href="#chunk" class="headerlink" title="chunk"></a>chunk</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> &#123;</span></span><br><span class="line">    <span class="type">size_t</span> psize, csize;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">chunk</span> *<span class="title">next</span>, *<span class="title">prev</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 
 <p><code>chunk</code> 头部结构跟 glibc 差不多，不过没有 <code>nextsize</code> 指针，<code>chunk</code> 之间不重用 <code>psize</code> 字段。<br><code>psize</code> 和 <code>csize</code> 字段都有标志位（glibc 只有 <code>size</code> 字段有），但只有一种位于最低位的标志位 <code>C_INUSE</code>（glibc 最低三位都有标志位）。若 <code>csize</code> 设置 <code>C_INUSE</code> 标志位（最低位为 1 ），表示 <code>chunk</code> 正在被使用；若没有设置 <code>C_INUSE</code> 标志位（最低位为 0 ），表示 <code>chunk</code> 已经被释放或者通过 mmap 分配的，需要通过 <code>psize</code> 的标志位来进一步判断 <code>chunk</code> 的状态。若 <code>psize</code> 设置 <code>C_INUSE</code> 标志位表示前一个 <code>chunk</code> 正在被使用。<br>另外，<code>chunk</code> 的大小关于 0x20 对齐。</p>
 <h4 id="宏定义"><a href="#宏定义" class="headerlink" title="宏定义"></a>宏定义</h4><p><code>chunk</code> 的相关宏定义如下：</p>
@@ -1554,7 +1554,7 @@
 <div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ctx.usage_by_class[sc] += cnt;</span><br><span class="line">m-&gt;avail_mask = (<span class="number">2u</span> &lt;&lt; active_idx) - <span class="number">1</span>;</span><br><span class="line">m-&gt;freed_mask = (<span class="number">2u</span> &lt;&lt; (cnt - <span class="number">1</span>)) - <span class="number">1</span> - m-&gt;avail_mask;</span><br><span class="line">m-&gt;mem = (<span class="type">void</span> *) p;</span><br><span class="line">m-&gt;mem-&gt;meta = m;</span><br><span class="line">m-&gt;mem-&gt;active_idx = active_idx;</span><br><span class="line">m-&gt;last_idx = cnt - <span class="number">1</span>;</span><br><span class="line">m-&gt;freeable = <span class="number">1</span>;</span><br><span class="line">m-&gt;sizeclass = sc;</span><br><span class="line"><span class="keyword">return</span> m;</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="chunk-1"><a href="#chunk-1" class="headerlink" title="chunk"></a>chunk</h3><p>musl heap 中的 chunk 没有具体定义，但是根据程序可以分析出 chunk 的结构：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">chunk</span> &#123;</span><br><span class="line">	<span class="type">uint32_t</span> offset_32;</span><br><span class="line">	<span class="type">uint8_t</span> use_32_offset;</span><br><span class="line">    <span class="type">uint8_t</span> inedx:<span class="number">5</span>;</span><br><span class="line">	<span class="type">uint8_t</span> flag:<span class="number">3</span>;</span><br><span class="line">	<span class="type">uint16_t</span> offset_16;</span><br><span class="line">	<span class="type">char</span> user_data[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">chunk</span> &#123;</span><br><span class="line">    <span class="type">uint32_t</span> offset_32;</span><br><span class="line">    <span class="type">uint8_t</span> use_32_offset;</span><br><span class="line">    <span class="type">uint8_t</span> inedx:<span class="number">5</span>;</span><br><span class="line">    <span class="type">uint8_t</span> flag:<span class="number">3</span>;</span><br><span class="line">    <span class="type">uint16_t</span> offset_16;</span><br><span class="line">    <span class="type">char</span> user_data[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>由于一般 <code>offset_32</code> 不使用，因此 <code>chunk</code> 结构如下图所示。<br><img  
                      lazyload
@@ -1822,7 +1822,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-06-01 18:08:15
+                    :</strong> 2025-08-19 01:08:54
             </li>
         
         <li>
@@ -1978,11 +1978,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        47 posts in total
+                        50 posts in total
                     </span>
                     
                         <span>
-                            786.4k words in total
+                            811.2k words in total
                         </span>
                     
                 </p>

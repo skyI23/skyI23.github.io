@@ -420,15 +420,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">47</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-06-01 18:07:47</span>
-            <span class="mobile">2025-06-01 18:07:47</span>
+            <span class="desktop">2025-08-19 01:08:21</span>
+            <span class="mobile">2025-08-19 01:08:21</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -627,7 +627,7 @@
 <p>64 位的指令如下，32 位的话寄存器会改下名，opcode 不变。</p>
 <div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00</span> <span class="number">40</span> <span class="number">00</span>                 add    BYTE PTR [rax+<span class="number">0x0</span>],  al</span><br><span class="line"><span class="number">00</span> <span class="number">41</span> <span class="number">00</span>                 add    BYTE PTR [rcx+<span class="number">0x0</span>],  al</span><br><span class="line"><span class="number">00</span> <span class="number">42</span> <span class="number">00</span>                 add    BYTE PTR [rdx+<span class="number">0x0</span>],  al</span><br><span class="line"><span class="number">00</span> <span class="number">43</span> <span class="number">00</span>                 add    BYTE PTR [rbx+<span class="number">0x0</span>],  al</span><br><span class="line"><span class="number">00</span> <span class="number">45</span> <span class="number">00</span>                 add    BYTE PTR [rbp+<span class="number">0x0</span>],  al</span><br><span class="line"><span class="number">00</span> <span class="number">46</span> <span class="number">00</span>                 add    BYTE PTR [rsi+<span class="number">0x0</span>],  al</span><br><span class="line"><span class="number">00</span> <span class="number">47</span> <span class="number">00</span>                 add    BYTE PTR [rdi+<span class="number">0x0</span>],  al</span><br></pre></td></tr></table></figure></div>
 
-<h2 id="测试-shellcode"><a href="#测试-shellcode" class="headerlink" title="测试 shellcode"></a>测试 shellcode</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// gcc -zexecstack -g -m32 -o shellcode-test shellcode-test.c</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">char</span> shellcode[]=<span class="string">&quot;PYIIIIIIIIIIQZVTX30VX4AP0A3HH0A00ABAABTAAQ2AB2BB0BBXP8ACJJISZTK1HMIQBSVCX6MU3K9M7CXVOSC3XS0BHVOBBE9RNLIJC62ZH5X5PS0C0FOE22I2NFOSCRHEP0WQCK9KQ8MK0AA&quot;</span>;</span><br><span class="line">	<span class="built_in">void</span>(*run)()=(<span class="built_in">void</span>(*)())shellcode;</span><br><span class="line">	<span class="built_in">run</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="测试-shellcode"><a href="#测试-shellcode" class="headerlink" title="测试 shellcode"></a>测试 shellcode</h2><div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// gcc -zexecstack -g -m32 -o shellcode-test shellcode-test.c</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="type">char</span> shellcode[]=<span class="string">&quot;PYIIIIIIIIIIQZVTX30VX4AP0A3HH0A00ABAABTAAQ2AB2BB0BBXP8ACJJISZTK1HMIQBSVCX6MU3K9M7CXVOSC3XS0BHVOBBE9RNLIJC62ZH5X5PS0C0FOE22I2NFOSCRHEP0WQCK9KQ8MK0AA&quot;</span>;</span><br><span class="line">  <span class="built_in">void</span>(*run)()=(<span class="built_in">void</span>(*)())shellcode;</span><br><span class="line">  <span class="built_in">run</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <h1 id="ret2syscall"><a href="#ret2syscall" class="headerlink" title="ret2syscall"></a>ret2syscall</h1><p>构造rop链模拟系统调用过程</p>
 <p><code>ROPgadget</code>有时可自动构造，但可能长度过长，建议手动构造。</p>
@@ -744,14 +744,12 @@
   <div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">one_gadget libc-2.23.so</span></span><br><span class="line">0x45216 execve(&quot;/bin/sh&quot;, rsp+0x30, environ)</span><br><span class="line">constraints:</span><br><span class="line">  rax == NULL</span><br><span class="line"></span><br><span class="line">0x4526a execve(&quot;/bin/sh&quot;, rsp+0x30, environ)</span><br><span class="line">constraints:</span><br><span class="line">  [rsp+0x30] == NULL</span><br><span class="line"></span><br><span class="line">0xf0274 execve(&quot;/bin/sh&quot;, rsp+0x50, environ)</span><br><span class="line">constraints:</span><br><span class="line">  [rsp+0x50] == NULL</span><br><span class="line"></span><br><span class="line">0xf1117 execve(&quot;/bin/sh&quot;, rsp+0x70, environ)</span><br><span class="line">constraints:</span><br><span class="line">  [rsp+0x70] == NULL</span><br></pre></td></tr></table></figure></div>
 
 <h1 id="canary-绕过"><a href="#canary-绕过" class="headerlink" title="canary 绕过"></a>canary 绕过</h1><h2 id="泄露canary"><a href="#泄露canary" class="headerlink" title="泄露canary"></a>泄露canary</h2><ul>
-<li><p>利用栈溢出泄露canary<br>canary 以 <code>\x00</code> 结尾，通过栈溢出覆盖 canary 最低字节，之后输出输入内容时会连带将 canary 一同输出。</p>
-</li>
-<li><p>利用格式化字符串漏洞泄露 canary。</p>
-<p>  由于 canary 存储在栈上，因此很容易就可以利用格式化字符串漏洞泄露。</p>
-</li>
+<li>利用栈溢出泄露canary<br>canary 以 <code>\x00</code> 结尾，通过栈溢出覆盖 canary 最低字节，之后输出输入内容时会连带将 canary 一同输出。</li>
+<li>利用格式化字符串漏洞泄露 canary。</li>
 </ul>
+<p>  由于 canary 存储在栈上，因此很容易就可以利用格式化字符串漏洞泄露。</p>
 <h2 id="逐字节爆破"><a href="#逐字节爆破" class="headerlink" title="逐字节爆破"></a>逐字节爆破</h2><p>例如下面的程序：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">	<span class="type">pid_t</span> id = fork();</span><br><span class="line">	<span class="keyword">if</span>(id &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(id) &#123;</span><br><span class="line">		<span class="built_in">wait</span>(<span class="number">0</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">vuln</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="type">pid_t</span> id = fork();</span><br><span class="line">  <span class="keyword">if</span>(id &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(id) &#123;</span><br><span class="line">    <span class="built_in">wait</span>(<span class="number">0</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">vuln</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>由于 <strong>fork 产生的子进程的 canary 与父进程相同</strong>，因此可以根据子进程是否打印报错信息来逐字节爆破 canary 。</p>
 <h2 id="劫持-stack-chk-failed-函数"><a href="#劫持-stack-chk-failed-函数" class="headerlink" title="劫持 __stack_chk_failed 函数"></a>劫持 __stack_chk_failed 函数</h2><p>canary 检测失败会调用 __stack_chk_failed 函数，可以通过比如格式化字符串漏洞修改 got 表中对应 __stack_chk_failed 的位置为后门函数的地址来实施攻击。</p>
@@ -810,7 +808,7 @@
 <li><p><code>arg_cnt</code>：要匹配的参数数量，如果没有参数需要匹配，则 <code>arg_cnt</code> 应该为 0 。</p>
 </li>
 <li><p><code>...</code>：可变参数列表，用于指定要匹配的参数值。对于每个参数，需要指定一个 <code>scmp_arg_cmp</code> 结构体，这个结构体包含了参数的比较方式和比较值。<code>scmp_arg_cmp</code> 结构体定义如下：</p>
-<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">scmp_arg_cmp</span> &#123;</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> arg;	<span class="comment">/**&lt; argument number, starting at 0 */</span></span><br><span class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">scmp_compare</span> <span class="title">op</span>;</span>	<span class="comment">/**&lt; the comparison op, e.g. SCMP_CMP_* */</span></span><br><span class="line">	<span class="type">scmp_datum_t</span> datum_a;</span><br><span class="line">	<span class="type">scmp_datum_t</span> datum_b;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">scmp_arg_cmp</span> &#123;</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> arg;	<span class="comment">/**&lt; argument number, starting at 0 */</span></span><br><span class="line">  <span class="class"><span class="keyword">enum</span> <span class="title">scmp_compare</span> <span class="title">op</span>;</span>	<span class="comment">/**&lt; the comparison op, e.g. SCMP_CMP_* */</span></span><br><span class="line">  <span class="type">scmp_datum_t</span> datum_a;</span><br><span class="line">  <span class="type">scmp_datum_t</span> datum_b;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li><code>arg</code>：要比较的参数序号，从0开始。</li>
@@ -936,7 +934,7 @@
 <li><code>r_offset</code>：加上<strong>传入的参数</strong> <code>link_map-&gt;l_addr</code> 等于该函数对应 got 表地址。</li>
 <li><code>r_info</code> ：符号索引的低 8 位（32 位 ELF）或低 32 位（64 位 ELF）指示符号的类型这里设为 7 即可，高 24 位（32 位 ELF）或高 32 位（64 位 ELF）指示符号的索引即 <code>Sym</code> 构造的数组中的索引。</li>
 </ul>
-<h3 id="link-map"><a href="#link-map" class="headerlink" title="link_map"></a>link_map</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">link_map</span></span></span><br><span class="line"><span class="class">  &#123;</span></span><br><span class="line">    ElfW(Addr) l_addr;		<span class="comment">/* Difference between the address in the ELF</span></span><br><span class="line"><span class="comment">				   file and the addresses in memory.  */</span></span><br><span class="line">    ...</span><br><span class="line">    ElfW(Dyn) *l_info[DT_NUM + DT_THISPROCNUM + DT_VERSIONTAGNUM</span><br><span class="line">		      + DT_EXTRANUM + DT_VALNUM + DT_ADDRNUM];</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h3 id="link-map"><a href="#link-map" class="headerlink" title="link_map"></a>link_map</h3><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">link_map</span></span></span><br><span class="line"><span class="class">  &#123;</span></span><br><span class="line">    ElfW(Addr) l_addr;		<span class="comment">/* Difference between the address in the ELF</span></span><br><span class="line"><span class="comment">           file and the addresses in memory.  */</span></span><br><span class="line">    ...</span><br><span class="line">    ElfW(Dyn) *l_info[DT_NUM + DT_THISPROCNUM + DT_VERSIONTAGNUM</span><br><span class="line">          + DT_EXTRANUM + DT_VALNUM + DT_ADDRNUM];</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 <p><code>link_map</code> 是存储目标函数查询结果的一个结构体，我们主要关心 <code>l_addr</code> 和 <code>l_info</code> 两个成员即可。</p>
 <ul>
@@ -1068,7 +1066,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-06-01 18:07:47
+                    :</strong> 2025-08-19 01:08:21
             </li>
         
         <li>
@@ -1224,11 +1222,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        47 posts in total
+                        50 posts in total
                     </span>
                     
                         <span>
-                            786.4k words in total
+                            811.2k words in total
                         </span>
                     
                 </p>

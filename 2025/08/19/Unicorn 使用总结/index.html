@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="sky123">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://skyi23.github.io/2025/08/19/unicorn 使用总结/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/null" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/null">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/null">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Unicorn 使用总结 | sky123&#39;s site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"skyi23.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":false,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"sky123's blog","subtitle":{"text":["书有未曾经我读，事无不可对人言"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-folder","path":"/categories/"},"标签":{"icon":"fa-solid fa-tags","path":"/tags/"},"书签":{"icon":"fa-solid fa-bookmark","path":"/bookmarks/"}},"search":{"enable":true,"preload":true}},"page_templates":{"bookmarks_column":3,"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/11/7 00:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css" integrity="sha256-TThEtR+XalhWKkfF383YLOrI50NGNeIqrzS+q08afrY=" crossorigin="anonymous"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                sky123&#39;s site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bookmarks/"
+                                        >
+                                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                                    书签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bookmarks/"
+                        >
+                            <span>
+                                书签
+                            </span>
+                            
+                                <i class="fa-solid fa-bookmark fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Unicorn 使用总结</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/icon.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">sky123</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-08-19 02:12:45</span>
+        <span class="mobile">2025-08-19 02:12:45</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-08-19 02:16:58</span>
+            <span class="mobile">2025-08-19 02:16:58</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/basic-reverse/">basic reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/basic-reverse/">basic reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.8k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>16 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p><strong>Unicorn</strong> 是一个轻量级、跨平台的开源模拟器（Emulator），可以用于模拟不同架构的程序执行。它基于 QEMU 项目，但比 QEMU 更加轻量和易于使用，主要面向动态分析、漏洞挖掘和逆向工程等领域。Unicorn 允许开发者模拟目标平台的指令集架构（ISA），并且能够执行二进制代码，模拟程序运行时的行为，捕捉寄存器、内存等状态。</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.unicorn-engine.org/docs/tutorial.html" >Unicorn 官方文档<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h1 id="Unicorn-安装"><a href="#Unicorn-安装" class="headerlink" title="Unicorn 安装"></a>Unicorn 安装</h1><p>可以通过 Python 的包管理工具 <code>pip</code> 安装：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install unicorn</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><h2 id="创建-Unicorn-对象"><a href="#创建-Unicorn-对象" class="headerlink" title="创建 Unicorn 对象"></a>创建 Unicorn 对象</h2><p>和前面提到的 Keystone 和 Capstone 的流程类似，Unicorn 模拟执行首先需要创建一个 Unicorn 对象，并设置目标架构和模式。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> unicorn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># X86-64</span></span><br><span class="line"><span class="keyword">from</span> unicorn.x86_const <span class="keyword">import</span> *</span><br><span class="line">mu = Uc(UC_ARCH_X86, UC_MODE_64)</span><br><span class="line">mu.mem_map(<span class="number">0</span>, <span class="number">0x1000</span>) <span class="comment"># 避免异常 &quot;mov rax, gs:[0x28]&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ARM</span></span><br><span class="line"><span class="keyword">from</span> unicorn.arm_const <span class="keyword">import</span> *</span><br><span class="line">mu = Uc(UC_ARCH_ARM, UC_MODE_THUMB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># AARCH64</span></span><br><span class="line"><span class="keyword">from</span> unicorn.arm64_const <span class="keyword">import</span> *</span><br><span class="line">mu = Uc(UC_ARCH_ARM64, UC_MODE_ARM)</span><br></pre></td></tr></table></figure></div>
+
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>在模拟 x86 架构时，程序可能会访问特定段（如 <code>gs</code> 或 <code>fs</code>）中的数据，这些数据通常与操作系统、线程信息、TLS（线程局部存储）等有关（例如 <code>mov rax, gs:[0x28]</code> 指令获取 canary）。</p>
+<p>由于 Unicorn 模拟器仅提供模拟功能，导致像 <code>fs</code>、<code>gs</code> 这样的段寄存器都被默认初始化为 0，因此访问这些段中数据的指令会触发程序内存读写异常。</p>
+<p>为了避免这种情况影响程序模拟执行，最好在 0 地址处映射一段内存。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mu.mem_map(<span class="number">0</span>, <span class="number">0x1000</span>) <span class="comment"># 避免异常 &quot;mov rax, gs:[0x28]&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+    </div>
+  </div>
+
+<h2 id="寄存器操作"><a href="#寄存器操作" class="headerlink" title="寄存器操作"></a>寄存器操作</h2><p>Unicorn 允许你模拟寄存器的读写操作，你可以通过 <code>mu.reg_write()</code> 来写入寄存器的值，使用 <code>mu.reg_read()</code> 来读取寄存器的值。</p>
+<h3 id="写入寄存器"><a href="#写入寄存器" class="headerlink" title="写入寄存器"></a>写入寄存器</h3><p><code>mu.reg_write(reg_id, value)</code> 用来写入寄存器的值，<code>reg_id</code> 是寄存器的标识符，<code>value</code> 是要写入的值。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>一些特殊的寄存器如 <code>gs</code> 寄存器不能直接通过 <code>reg_write</code> 修改。</p>
+
+    </div>
+  </div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mu.reg_write(UC_X86_REG_RIP, <span class="number">0x1000</span>)  <span class="comment"># 设置 RIP 寄存器的值</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="读取寄存器"><a href="#读取寄存器" class="headerlink" title="读取寄存器"></a>读取寄存器</h3><p><code>mu.reg_read(reg_id)</code> 返回指定寄存器的当前值。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rip_value = mu.reg_read(UC_X86_REG_RIP)  <span class="comment"># 读取 RIP 寄存器的值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;RIP: <span class="subst">&#123;rip_value&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="内存操作"><a href="#内存操作" class="headerlink" title="内存操作"></a>内存操作</h2><p>Unicorn 允许你模拟内存的读写操作，模拟程序运行时的内存访问。你可以通过 <code>mu.mem_map()</code> 来映射内存区域，通过 <code>mu.mem_write()</code> 来写入数据，通过 <code>mu.mem_read()</code> 来读取内存数据。</p>
+<h3 id="映射内存"><a href="#映射内存" class="headerlink" title="映射内存"></a>映射内存</h3><p><code>mu.mem_map(start, size)</code> 用来映射一段内存区域，<code>start</code> 是内存起始地址，<code>size</code> 是内存的大小。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li><code>start</code> 和 <code>end</code> 要关于 0x1000 对齐。</li>
+<li>要确保映射的内存地址空间不要与之前映射的内存出现重叠。</li>
+</ul>
+
+    </div>
+  </div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mu.mem_map(<span class="number">0x1000</span>, <span class="number">0x1000</span>)  <span class="comment"># 映射 0x1000 大小的内存</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="写入内存"><a href="#写入内存" class="headerlink" title="写入内存"></a>写入内存</h3><p><code>mu.mem_write(addr, data)</code> 将数据写入指定地址的内存区域。<code>data</code> 是二进制数据（字节串），<code>addr</code> 是写入的地址。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">code = <span class="string">b&quot;\x48\x31\xc0&quot;</span>  <span class="comment"># x86_64: xor rax, rax</span></span><br><span class="line">mu.mem_write(<span class="number">0x1000</span>, code)  <span class="comment"># 将机器码写入模拟内存</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="读取内存"><a href="#读取内存" class="headerlink" title="读取内存"></a>读取内存</h3><p><code>mu.mem_read(addr, size)</code> 从指定地址读取 <code>size</code> 字节的数据。</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = mu.mem_read(<span class="number">0x1000</span>, <span class="number">4</span>)  <span class="comment"># 从地址 0x1000 读取 4 字节</span></span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="加载二进制程序"><a href="#加载二进制程序" class="headerlink" title="加载二进制程序"></a>加载二进制程序</h3><p>实际情况下我们可能需要模拟执行一个二进制程序中的某个解密算法函数。与 shellcode 不同，在二进制程序中即使一个纯算法函数也不是只加载代码段就可以正常仿真的，因为这个函数在执行过程中还可能访问全局变量。因此我们需要想办法将这个二进制程序加载到内存中，因此通常 Unicorn 还要配合 angr 的静态分析功能使用。</p>
+<p>下面这段代码是加载二进制到 Unicorn 中的模板，可以应对大多数情况。</p>
+
+  <div class="note-large blue">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>提示</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <ul>
+<li>这个模板的段映射部分写的很奇怪，这是因为有的二进制程序（比如一些 Linux 内核镜像）的段并不是关于 0x1000 对齐，但是 Unicorn 的 <code>mem_map</code> 要求地址范围按 0x1000 对齐，并且不能与之前映射的内存重叠。因此这里要做内存对齐处理并且多次捕获异常。</li>
+<li>x86 架构设置 <code>bp</code> 寄存器是因为有的函数会通过 <code>bp</code> 寄存器访问函数的参数和局部变量。</li>
+<li>为了实现代码复用，通常的做法是把每个架构相关的操作抽象为接口类，然后每个架构实现这个接口类，而真正的核心逻辑不需要关注架构的细节。下面的模板就是遵循这一设计原则。</li>
+</ul>
+
+    </div>
+  </div>
+
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义 amd64 架构的上下文</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">amd64_ctx</span>:</span><br><span class="line">    <span class="comment"># 架构寄存器映射</span></span><br><span class="line">    regs = &#123;</span><br><span class="line">        <span class="string">&#x27;sp&#x27;</span>: UC_X86_REG_RSP,  <span class="comment"># 堆栈指针寄存器（RSP）</span></span><br><span class="line">        <span class="string">&#x27;bp&#x27;</span>: UC_X86_REG_RBP,  <span class="comment"># 基指针寄存器（RBP）</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_emu</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 创建并返回一个 X86-64 架构的模拟器对象</span></span><br><span class="line">        emu = Uc(UC_ARCH_X86, UC_MODE_64)</span><br><span class="line">        emu.mem_map(<span class="number">0</span>, <span class="number">0x1000</span>)  <span class="comment"># 映射内存，以避免访问 gs 或 fs 时发生异常</span></span><br><span class="line">        <span class="keyword">return</span> emu</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义 ARM 架构的上下文</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">arm_ctx</span>:</span><br><span class="line">    <span class="comment"># 架构寄存器映射</span></span><br><span class="line">    regs = &#123;</span><br><span class="line">        <span class="string">&#x27;sp&#x27;</span>: UC_ARM_REG_SP,  <span class="comment"># 堆栈指针寄存器（SP）</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_emu</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 创建并返回一个 ARM 架构的模拟器对象（使用 THUMB 模式）</span></span><br><span class="line">        <span class="keyword">return</span> Uc(UC_ARCH_ARM, UC_MODE_THUMB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义 AARCH64 架构的上下文</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">aarch64_ctx</span>:</span><br><span class="line">    <span class="comment"># 架构寄存器映射</span></span><br><span class="line">    regs = &#123;</span><br><span class="line">        <span class="string">&#x27;sp&#x27;</span>: UC_ARM64_REG_SP,  <span class="comment"># 堆栈指针寄存器（SP）</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_emu</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 创建并返回一个 AARCH64 架构的模拟器对象（使用 ARM 模式）</span></span><br><span class="line">        <span class="keyword">return</span> Uc(UC_ARCH_ARM64, UC_MODE_ARM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 angr 项目，加载目标二进制文件，禁用自动加载库</span></span><br><span class="line">project = angr.Project(binary, load_options=&#123;<span class="string">&#x27;auto_load_libs&#x27;</span>: <span class="literal">False</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据架构类型选择对应的上下文对象</span></span><br><span class="line"><span class="keyword">if</span> project.arch.name == <span class="string">&quot;ARMEL&quot;</span>:</span><br><span class="line">    arch_ctx = arm_ctx()</span><br><span class="line"><span class="keyword">elif</span> project.arch.name == <span class="string">&quot;AMD64&quot;</span>:</span><br><span class="line">    arch_ctx = amd64_ctx()</span><br><span class="line"><span class="keyword">elif</span> project.arch.name == <span class="string">&quot;AARCH64&quot;</span>:</span><br><span class="line">    arch_ctx = aarch64_ctx()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 如果不支持的架构，抛出异常</span></span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">&quot;Unsupported architecture&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取模拟器对象</span></span><br><span class="line">emu = arch_ctx.get_emu()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置堆栈地址和大小</span></span><br><span class="line">STACK_ADDRESS = <span class="number">0x1234000</span></span><br><span class="line">STACK_SIZE = <span class="number">0x3000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 为堆栈区域映射内存</span></span><br><span class="line">emu.mem_map(STACK_ADDRESS, STACK_SIZE)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置堆栈指针（SP）寄存器</span></span><br><span class="line">emu.reg_write(arch_ctx.regs[<span class="string">&#x27;sp&#x27;</span>], STACK_ADDRESS + STACK_SIZE - <span class="number">0x1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果有基指针（BP）寄存器，设置 BP 寄存器</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;bp&#x27;</span> <span class="keyword">in</span> arch_ctx.regs:</span><br><span class="line">    emu.reg_write(arch_ctx.regs[<span class="string">&#x27;bp&#x27;</span>], STACK_ADDRESS + STACK_SIZE - <span class="number">0x1000</span> + <span class="number">0x300</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 映射二进制文件的各个段到模拟器内存</span></span><br><span class="line"><span class="keyword">for</span> seg <span class="keyword">in</span> project.loader.main_object.segments:</span><br><span class="line">    <span class="comment"># 计算段的起始地址和结束地址（对齐到页面边界）</span></span><br><span class="line">    mem_start = seg.vaddr &amp; ~<span class="number">0xFFF</span></span><br><span class="line">    mem_end = (seg.vaddr + seg.memsize + <span class="number">0xFFF</span>) &amp; ~<span class="number">0xFFF</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 映射内存区域</span></span><br><span class="line">        emu.mem_map(mem_start, mem_end - mem_start)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="comment"># 如果映射失败，尝试重新计算起始地址</span></span><br><span class="line">        mem_start = (seg.vaddr + <span class="number">0xFFF</span>) &amp; ~<span class="number">0xFFF</span></span><br><span class="line">        <span class="keyword">if</span> mem_start &lt; mem_end <span class="keyword">and</span> mem_start:</span><br><span class="line">            emu.mem_map(mem_start, mem_end - mem_start)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将段的内容写入模拟器内存</span></span><br><span class="line">    emu.mem_write(seg.vaddr, project.loader.memory.load(seg.vaddr, seg.filesize))</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="模拟执行"><a href="#模拟执行" class="headerlink" title="模拟执行"></a>模拟执行</h2><h3 id="虚拟机启动"><a href="#虚拟机启动" class="headerlink" title="虚拟机启动"></a>虚拟机启动</h3><p>当前期虚拟机初始化完成之后（主要是程序加载、栈初始化、寄存器设置等），就可以启动虚拟机进行模拟了。虚拟机通过 <code>emu_start</code> 函数启动，该函数定义如下：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">emu_start</span>(<span class="params">self, begin: <span class="built_in">int</span>, until: <span class="built_in">int</span>, timeout: <span class="built_in">int</span>=<span class="number">0</span>, count: <span class="built_in">int</span>=<span class="number">0</span></span>) -&gt; <span class="literal">None</span>:</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong><code>begin</code></strong> ：仿真开始的地址。表示从该地址开始执行机器码，通常是程序的入口点。</li>
+<li><strong><code>until</code></strong> ：仿真结束的地址。表示程序执行到该地址时仿真停止。<code>until</code> 应大于 <code>begin</code>，否则可能导致仿真无限执行。</li>
+<li><strong><code>timeout</code></strong> ：超时设置（单位：毫秒）。在仿真执行过程中，如果超时值非零，仿真会在超时后自动停止。如果设置为 0，表示不限制时间。</li>
+<li><strong><code>count</code></strong> ：执行次数。如果 <code>count</code> 非零，仿真会执行指定的次数后停止。如果为 0，表示按地址范围执行，直到 <code>end</code> 地址或其他条件触发。</li>
+</ul>
+<p>在虚拟机执行过程中可能会抛出异常，如访问非法内存地址、执行未定义指令等，通常这些异常会触发钩子函数或返回错误信息。为了应对这些可能的异常，可以通过在模拟中添加错误处理代码，保证仿真顺利进行或在发生错误时及时停止仿真。</p>
+<p>常见的异常包括：</p>
+<ul>
+<li><strong><code>UC_ERR_READ_UNMAPPED</code></strong> ：尝试读取未映射的内存。</li>
+<li><strong><code>UC_ERR_WRITE_UNMAPPED</code></strong> ：尝试写入未映射的内存。</li>
+<li><strong><code>UC_ERR_FETCH_UNMAPPED</code></strong> ：尝试获取未映射的指令。</li>
+<li><strong><code>UC_ERR_READ_PROT</code></strong> ：尝试读取保护内存。</li>
+<li><strong><code>UC_ERR_WRITE_PROT</code></strong> ：尝试写入保护内存。</li>
+<li><strong><code>UC_ERR_FETCH_PROT</code></strong> ：尝试获取受保护的指令。</li>
+</ul>
+<p>异常处理可以通过 <code>try-except</code> 结构来完成。下面是一个例子，展示了如何捕捉异常并处理：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 启动仿真，从地址 0x1000 开始执行，直到 0x1003</span></span><br><span class="line">    mu.emu_start(<span class="number">0x1000</span>, <span class="number">0x1003</span>)</span><br><span class="line"><span class="keyword">except</span> UcError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Error during emulation: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="事件监控"><a href="#事件监控" class="headerlink" title="事件监控"></a>事件监控</h3><p>Unicorn 提供了事件钩子（hooks）功能，用于在程序执行过程中捕获特定的事件（如指令执行、内存读写、寄存器访问等）。通过钩子机制，用户可以在仿真时监控程序的特定行为并调用用户自己实现的回调函数处理。</p>
+<p>Unicorn 提供了多种类型的监控事件，这里只介绍我们常用的事件类型。</p>
+
+  <div class="note-large red">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>注意</p>
+
+    </div>
+    <div class="notel-content markdown-body">
+      <p>在添加事件钩子之后 Unicorn 的执行效率会变得非常低。因此在实际编写脚本的时候应当尽量避免使用 Unicorn 的事件监控功能，而是将其作为调试脚本的工具。</p>
+<p>例如在一段代码中间的某个位置处需要做一些额外操作，时候可以可以以该位置为边界将代码分为两部分模拟，而不是设置一个指令执行事件来监控程序只不是执行到需要做额外操作的位置了。</p>
+
+    </div>
+  </div>
+
+<h4 id="指令执行事件"><a href="#指令执行事件" class="headerlink" title="指令执行事件"></a>指令执行事件</h4><p>指令执行事件 <code>UC_HOOK_CODE</code> 在每执行一条指令时触发，该事件对应的回调函数如下：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hook_code</span>(<span class="params">uc, address, size, user_data</span>):</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong><code>uc</code></strong> ：当前的 Unicorn 仿真对象，类型为 <code>Uc</code>。它是对当前仿真状态的一个引用，用户可以通过它访问模拟环境中的寄存器、内存等。</li>
+<li><strong><code>address</code></strong> ：当前执行指令的地址（内存中的位置）。这个地址是指指令被执行时在仿真内存中加载的地址。</li>
+<li><strong><code>size</code></strong> ：当前指令的大小（以字节为单位）。这表示指令在内存中占用的字节数。</li>
+<li><strong><code>user_data</code></strong> ：用户自定义的数据。可以在调用 <code>hook_add</code> 时传入，通常用于传递上下文信息或者保持状态。</li>
+</ul>
+<p>我们通常使用下面这个模板打印模拟执行的汇编指令来调试脚本：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> capstone <span class="keyword">import</span> *</span><br><span class="line">cs = Cs(CS_ARCH_X86, CS_MODE_64)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个回调函数，用于监控指令执行</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hook_code</span>(<span class="params">uc, address, size, user_data</span>):</span><br><span class="line">    insn = <span class="built_in">next</span>(cs.disasm(uc.mem_read(address, size), address))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;address:#x&#125;</span>: <span class="subst">&#123;insn.mnemonic&#125;</span> <span class="subst">&#123;insn.op_str&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">mu.hook_add(UC_HOOK_CODE, hook_code)  <span class="comment"># 注册指令执行钩子</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="内存事件"><a href="#内存事件" class="headerlink" title="内存事件"></a>内存事件</h4><p>我们常用的内存事件有<strong>内存读入事件</strong>（<code>UC_HOOK_MEM_READ</code>）和<strong>内存写入事件</strong>（<code>UC_HOOK_MEM_WRITE</code>），另外针对指令的有<strong>获取指令事件</strong>（<code>UC_HOOK_MEM_FETCH</code>）。对应的回调函数定义如下：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hook_mem</span>(<span class="params">uc, access, address, size, value, user_data</span>):</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong><code>uc</code></strong> ：当前的 Unicorn 仿真对象，类型为 <code>Uc</code>，同样提供对仿真环境的访问。</li>
+<li><strong><code>access</code></strong> ：内存访问的类型。可以是以下几种类型：<ul>
+<li><code>UC_MEM_READ</code>：表示是数据读取。</li>
+<li><code>UC_MEM_WRITE</code>：表示是数据写入。</li>
+<li><code>UC_MEM_FETCH</code>：表示读取的是指令（通常用于指令获取）。</li>
+</ul>
+</li>
+<li><strong><code>address</code></strong> ：发生内存访问的地址（内存中的位置）。这个地址指的是访问的内存单元的地址。</li>
+<li><strong><code>size</code></strong> ：内存读取操作的大小（以字节为单位）。表示读取或写入了多少字节的数据。</li>
+<li><strong><code>value</code></strong> ：读取或写入的值。指在指定地址处读取或写入的实际内容（以整数形式表示）。</li>
+<li><strong><code>user_data</code></strong> ：用户自定义的数据，通常用于在钩子中传递一些额外的上下文信息。</li>
+</ul>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义一个回调函数，用于监控内存读取</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hook_mem_read</span>(<span class="params">uc, access, address, size, value, user_data</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Memory read at address: 0x<span class="subst">&#123;address:X&#125;</span>, size: <span class="subst">&#123;size&#125;</span>, value: 0x<span class="subst">&#123;value:X&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个回调函数，用于监控内存写入</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hook_mem_write</span>(<span class="params">uc, access, address, size, value, user_data</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Memory write at address: 0x<span class="subst">&#123;address:X&#125;</span>, size: <span class="subst">&#123;size&#125;</span>, value: 0x<span class="subst">&#123;value:X&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个回调函数，用于监控内存获取指令</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hook_mem_fetch</span>(<span class="params">uc, address, size, user_data</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Instruction fetched from address: 0x<span class="subst">&#123;address:X&#125;</span>, size: <span class="subst">&#123;size&#125;</span> bytes&quot;</span>)</span><br><span class="line">    </span><br><span class="line">mu.hook_add(UC_HOOK_MEM_READ, hook_mem_read)  <span class="comment"># 注册内存读取钩子</span></span><br><span class="line">mu.hook_add(UC_HOOK_MEM_WRITE, hook_mem_write)  <span class="comment"># 注册内存写入钩子</span></span><br><span class="line">mu.hook_add(UC_HOOK_MEM_FETCH, hook_mem_fetch)  <span class="comment"># 注册内存获取指令钩子</span></span><br></pre></td></tr></table></figure></div>
+
+<h1 id="常用脚本"><a href="#常用脚本" class="headerlink" title="常用脚本"></a>常用脚本</h1><h2 id="trace-shellcode"><a href="#trace-shellcode" class="headerlink" title="trace shellcode"></a>trace shellcode</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> unicorn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> unicorn.x86_const <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> capstone <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">CODE_ADDRESS = <span class="number">0x74B000</span>  <span class="comment"># 0x6F8618  # Shellcode 的加载地址</span></span><br><span class="line">STACK_ADDRESS = <span class="number">0x0019C000</span>  <span class="comment"># 栈的起始地址（分配在高地址区域）</span></span><br><span class="line">STACK_SIZE = <span class="number">0x00080000</span>  <span class="comment"># 栈大小</span></span><br><span class="line">ORIG_SP = STACK_ADDRESS + STACK_SIZE // <span class="number">2</span></span><br><span class="line">JUMP_BLOCK_RANGE = <span class="built_in">range</span>(CODE_ADDRESS + <span class="number">0x3fd0</span>, CODE_ADDRESS + <span class="number">0x137f0</span>)</span><br><span class="line"></span><br><span class="line">shellcode = <span class="built_in">open</span>(<span class="string">&quot;shellcode.bin&quot;</span>, <span class="string">&quot;rb&quot;</span>).read()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 Unicorn 模拟器</span></span><br><span class="line">mu = Uc(UC_ARCH_X86, UC_MODE_32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 映射内存</span></span><br><span class="line">mu.mem_map(CODE_ADDRESS &amp; ~<span class="number">0xFFF</span>, ((<span class="built_in">len</span>(shellcode) + <span class="number">0xFFF</span>) &amp; ~<span class="number">0xFFF</span>) + <span class="number">0x1000</span>)  <span class="comment"># 为代码分配内存</span></span><br><span class="line"></span><br><span class="line">mu.mem_map(STACK_ADDRESS, STACK_SIZE)  <span class="comment"># 为栈分配内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入 Shellcode</span></span><br><span class="line">mu.mem_write(CODE_ADDRESS, shellcode)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化栈指针（ESP 指向栈顶）</span></span><br><span class="line">mu.reg_write(UC_X86_REG_ESP, STACK_ADDRESS + <span class="number">0x0019F998</span> - <span class="number">0x0019C000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 Capstone 用于反汇编</span></span><br><span class="line">cs = Cs(CS_ARCH_X86, CS_MODE_32)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;trace.txt&quot;</span>, <span class="string">&quot;w+&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TraceInfo</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, uc: unicorn.Uc, address, size</span>):</span><br><span class="line">        code = uc.mem_read(address, size)</span><br><span class="line">        <span class="variable language_">self</span>.addr = address</span><br><span class="line">        <span class="variable language_">self</span>.insn = <span class="built_in">next</span>(cs.disasm(code, address))</span><br><span class="line">        <span class="variable language_">self</span>.regs = <span class="variable language_">self</span>.get_registers(uc)</span><br><span class="line">        <span class="variable language_">self</span>.regs_change = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.mem_change = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_registers</span>(<span class="params">self, uc: unicorn.Uc</span>):</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;eax&#x27;</span>: uc.reg_read(UC_X86_REG_EAX),</span><br><span class="line">            <span class="string">&#x27;ebx&#x27;</span>: uc.reg_read(UC_X86_REG_EBX),</span><br><span class="line">            <span class="string">&#x27;ecx&#x27;</span>: uc.reg_read(UC_X86_REG_ECX),</span><br><span class="line">            <span class="string">&#x27;edx&#x27;</span>: uc.reg_read(UC_X86_REG_EDX),</span><br><span class="line">            <span class="string">&#x27;esi&#x27;</span>: uc.reg_read(UC_X86_REG_ESI),</span><br><span class="line">            <span class="string">&#x27;edi&#x27;</span>: uc.reg_read(UC_X86_REG_EDI),</span><br><span class="line">            <span class="string">&#x27;esp&#x27;</span>: uc.reg_read(UC_X86_REG_ESP),</span><br><span class="line">            <span class="string">&#x27;ebp&#x27;</span>: uc.reg_read(UC_X86_REG_EBP),</span><br><span class="line">            <span class="comment"># &#x27;eip&#x27;: uc.reg_read(UC_X86_REG_EIP),</span></span><br><span class="line">            <span class="string">&#x27;eflags&#x27;</span>: uc.reg_read(UC_X86_REG_EFLAGS),</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 段寄存器（如需要可以添加调试信息）</span></span><br><span class="line">            <span class="comment"># &#x27;cs&#x27;: uc.reg_read(UC_X86_REG_CS),</span></span><br><span class="line">            <span class="comment"># &#x27;ds&#x27;: uc.reg_read(UC_X86_REG_DS),</span></span><br><span class="line">            <span class="comment"># &#x27;es&#x27;: uc.reg_read(UC_X86_REG_ES),</span></span><br><span class="line">            <span class="comment"># &#x27;fs&#x27;: uc.reg_read(UC_X86_REG_FS),</span></span><br><span class="line">            <span class="comment"># &#x27;gs&#x27;: uc.reg_read(UC_X86_REG_GS),</span></span><br><span class="line">            <span class="comment"># &#x27;ss&#x27;: uc.reg_read(UC_X86_REG_SS),</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">set_regs_change</span>(<span class="params">self, uc: unicorn.Uc</span>):</span><br><span class="line">        new_regs = <span class="variable language_">self</span>.get_registers(uc)</span><br><span class="line">        diffs = []</span><br><span class="line">        <span class="keyword">for</span> reg, old_val <span class="keyword">in</span> <span class="variable language_">self</span>.regs.items():</span><br><span class="line">            new_val = new_regs[reg]</span><br><span class="line">            <span class="keyword">if</span> old_val != new_val:</span><br><span class="line">                diffs.append(<span class="string">f&quot;<span class="subst">&#123;reg&#125;</span>: <span class="subst">&#123;<span class="built_in">hex</span>(old_val)&#125;</span>-&gt; <span class="subst">&#123;<span class="built_in">hex</span>(new_val)&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="variable language_">self</span>.regs_change = <span class="string">&quot; &quot;</span>.join(diffs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">set_mem_change</span>(<span class="params">self, uc: unicorn.Uc, address, size, value</span>):</span><br><span class="line">        old_value = <span class="built_in">int</span>.from_bytes(uc.mem_read(address, size), byteorder=<span class="string">&quot;little&quot;</span>)</span><br><span class="line">        <span class="variable language_">self</span>.mem_change = <span class="string">f&quot;<span class="subst">&#123;<span class="built_in">hex</span>(address)&#125;</span>: <span class="subst">&#123;<span class="built_in">hex</span>(old_value)&#125;</span>-&gt; <span class="subst">&#123;<span class="built_in">hex</span>(value)&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_state_trace_info</span>(<span class="params">self</span>):</span><br><span class="line">        addr_str = <span class="string">f&quot;<span class="subst">&#123;<span class="built_in">hex</span>(self.addr)&#125;</span>&quot;</span>.ljust(<span class="number">10</span>)</span><br><span class="line">        insn_str = <span class="string">f&quot;<span class="subst">&#123;self.insn.mnemonic&#125;</span> <span class="subst">&#123;self.insn.op_str&#125;</span>&quot;</span>.ljust(<span class="number">40</span>)</span><br><span class="line">        regs_str = <span class="variable language_">self</span>.regs_change.ljust(<span class="number">60</span>)</span><br><span class="line">        mem_str = <span class="variable language_">self</span>.mem_change.ljust(<span class="number">60</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;<span class="subst">&#123;addr_str&#125;</span> | <span class="subst">&#123;insn_str&#125;</span> | <span class="subst">&#123;regs_str&#125;</span> | <span class="subst">&#123;mem_str&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">trace_info: TraceInfo = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Hook：捕获内存写入</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hook_mem_write</span>(<span class="params">uc, access, address, size, value, user_data</span>):</span><br><span class="line">    trace_info.set_mem_change(uc, address, size, value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化计数器和时间</span></span><br><span class="line">trace_count = <span class="number">0</span></span><br><span class="line">start_time = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Hook：捕获指令执行后的状态</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hook_code</span>(<span class="params">uc, address, size, user_data</span>):</span><br><span class="line">    <span class="keyword">global</span> trace_info, trace_count, start_time</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新指令计数器</span></span><br><span class="line">    trace_count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 动态显示执行速度</span></span><br><span class="line">    current_time = time.time()</span><br><span class="line">    elapsed_time = current_time - start_time</span><br><span class="line">    <span class="keyword">if</span> elapsed_time &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(</span><br><span class="line">            <span class="string">f&quot;\rProcessed: <span class="subst">&#123;trace_count&#125;</span> instructions, Speed: <span class="subst">&#123;trace_count / elapsed_time:<span class="number">.2</span>f&#125;</span> instructions/sec&quot;</span>,</span><br><span class="line">            end=<span class="string">&quot;&quot;</span>,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> trace_info <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        trace_info.set_regs_change(uc)</span><br><span class="line">        <span class="built_in">print</span>(trace_info.get_state_trace_info(), file=f)</span><br><span class="line"></span><br><span class="line">    trace_info = TraceInfo(uc, address, size)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 Hook</span></span><br><span class="line">mu.hook_add(UC_HOOK_MEM_WRITE, hook_mem_write)  <span class="comment"># 捕获内存写入</span></span><br><span class="line">mu.hook_add(UC_HOOK_CODE, hook_code)  <span class="comment"># 捕获指令执行后的状态</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始模拟执行</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Starting execution...&quot;</span>)</span><br><span class="line">    mu.emu_start(CODE_ADDRESS, CODE_ADDRESS + <span class="built_in">len</span>(shellcode))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Execution finished.&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> UcError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Unicorn execution failed: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">hex</span>(mu.reg_read(UC_X86_REG_ESP)))</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">hex</span>(mu.reg_read(UC_X86_REG_EIP)))</span><br><span class="line">    esp = mu.reg_read(UC_X86_REG_ESP)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(esp, esp + <span class="number">0x50</span>, <span class="number">4</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">hex</span>(<span class="built_in">int</span>.from_bytes(mu.mem_read(i, <span class="number">4</span>), byteorder=<span class="string">&quot;little&quot;</span>)))</span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Unicorn 使用总结</li>
+        <li><strong>Author:</strong> sky123</li>
+        <li><strong>Created at
+                :</strong> 2025-08-19 02:12:45</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-08-19 02:16:58
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://skyi23.github.io/2025/08/19/Unicorn 使用总结/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/basic-reverse/">#basic reverse</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/08/25/Java%20RMI%20&amp;%20JNDI/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Java RMI &amp; JNDI</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/08/19/angr%20%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">angr 使用总结</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'skyI23/my-giscus-discussions',
+                'data-repo-id': 'R_kgDONL9k_w',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDONL9k_84CkEdK',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Unicorn 使用总结</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicorn-%E5%AE%89%E8%A3%85"><span class="nav-text">Unicorn 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Unicorn-%E5%AF%B9%E8%B1%A1"><span class="nav-text">创建 Unicorn 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="nav-text">寄存器操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">写入寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">读取寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%93%8D%E4%BD%9C"><span class="nav-text">内存操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E5%86%85%E5%AD%98"><span class="nav-text">映射内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E5%86%85%E5%AD%98"><span class="nav-text">写入内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%86%85%E5%AD%98"><span class="nav-text">读取内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%A8%8B%E5%BA%8F"><span class="nav-text">加载二进制程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C"><span class="nav-text">模拟执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="nav-text">虚拟机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9B%91%E6%8E%A7"><span class="nav-text">事件监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%BA%8B%E4%BB%B6"><span class="nav-text">指令执行事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BA%8B%E4%BB%B6"><span class="nav-text">内存事件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC"><span class="nav-text">常用脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#trace-shellcode"><span class="nav-text">trace shellcode</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">sky123</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        50 posts in total
+                    </span>
+                    
+                        <span>
+                            811.2k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+    
+<script src="/js/build/layouts/bookmarkNav.js" type="module"></script>
+
+
+	
+</body>
+
+</html>
