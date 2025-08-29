@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-28 01:39:48</span>
-            <span class="mobile">2025-08-28 01:39:48</span>
+            <span class="desktop">2025-08-30 00:31:20</span>
+            <span class="mobile">2025-08-30 00:31:20</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>52.8k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>53.2k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>227 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>229 Mins</span>
         </span>
     
     
@@ -636,6 +636,9 @@
 <li>密码：<code>Java_2024</code></li>
 </ul>
 <h4 id="OpenJDK"><a href="#OpenJDK" class="headerlink" title="OpenJDK"></a>OpenJDK</h4><p><strong>OpenJDK</strong> 是 Java 的开源实现，是由多个开源社区（包括 Oracle）共同开发和维护的 JDK 版本。</p>
+<blockquote>
+<p><strong>“Oracle JDK 是闭源”是个历史印象。</strong>早年（JDK6&#x2F;7&#x2F;8 的很长一段时间）Oracle JDK里确实带了一些<strong>专有&#x2F;未开源的组件</strong>和“商业功能”，而 OpenJDK 完全是 <strong>GPLv2 + Classpath Exception</strong> 的开源代码；所以大家才把 Oracle JDK 叫“闭源”。<br>从 <strong>JDK 11 开始</strong>，Oracle JDK 与 OpenJDK 在<strong>代码上基本等价</strong>（核心代码同源），主要区别变成了<strong>许可证和支持策略</strong>，而不是“有没有源码”。</p>
+</blockquote>
 <p>OpenJDK 是 <strong>Java SE</strong> 的标准实现，并且是完全开源的，遵循 GNU General Public License（GPL）许可证。它没有 Oracle JDK 中的一些商业功能（如 Java Flight Recorder 等），但对于大多数开发者来说，OpenJDK 足以满足需求。</p>
 <p>OpenJDK 是 Java SE 的参考实现，因此任何符合 Java SE 规范的 JDK 实现都可以被称为 “JDK”。多个公司和组织都基于 OpenJDK 提供了不同版本的 JDK，并提供相应的支持。例如：</p>
 <ul>
@@ -647,6 +650,10 @@
 <ul>
 <li><a class="link"   target="_blank" rel="noopener" href="https://hg.openjdk.org/jdk8u/jdk8u/tags" >https://hg.openjdk.org/jdk8u/jdk8u/tags<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 <li><a class="link"   target="_blank" rel="noopener" href="https://hg.openjdk.org/jdk/jdk/tags" >https://hg.openjdk.org/jdk/jdk/tags<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<p>如果官网访问不了还何以去 github 下载：</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/openjdk" >https://github.com/openjdk<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
 <p>例如我们运行 <code>java -version</code> 后的输出内容如下：</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;1.8.0_112&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_112-b15)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.112-b15, mixed mode)</span><br></pre></td></tr></table></figure></div>
@@ -662,6 +669,21 @@
 </ul>
 </blockquote>
 <p>点击 <code>zip</code> 下载源码压缩包后，将 <code>sun</code> 目录复制到JDK的安装目录下的 <code>src</code>，IDEA 中 <code>Project Structure-&gt;SDKs-&gt;SourcePath</code>，添加 <code>src</code> 目录。</p>
+<p>高版本 JDK 的目录变了，并且下压缩包不利于离线，一种方法是直接把 <code>jdk8u-dev</code> 和 <code>jdk8u</code> 仓库下载到本地，然后导出指定版本的 Java 源码压缩包。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆并取全量标签</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/openjdk/jdk8u-dev.git &amp;&amp; <span class="built_in">cd</span> jdk8u-dev</span><br><span class="line">git fetch --tags --force</span><br><span class="line"><span class="comment"># 2) 看看都有哪些 8u 标签（可选）</span></span><br><span class="line">git tag -l <span class="string">&#x27;jdk8u*-b*&#x27;</span> | <span class="built_in">sort</span> -V | <span class="built_in">tail</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> .. &amp;&amp; git <span class="built_in">clone</span> https://github.com/openjdk/jdk8u.git &amp;&amp; <span class="built_in">cd</span> jdk8u</span><br><span class="line">git fetch --tags --force</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<ul>
+<li><p><strong><code>jdk8u-dev</code><strong>：</strong>开发&#x2F;集成库</strong>（development）。新 backport、修复先并到这里，做集成测试、预发。</p>
+</li>
+<li><p><strong><code>jdk8u</code><strong>：</strong>稳定&#x2F;发布库</strong>（release）。当某个 update 版本稳定后，从 <code>-dev</code> 迁到这里，作为正式发布基线。</p>
+</li>
+</ul>
+<p>很多 <strong>release 标签</strong>（比如 <code>jdk8u191-b12</code>）在两个库里都能找到；极少数老&#x2F;特殊标签可能只在其中一个。</p>
+</blockquote>
+<p>然后根据需求导出指定版本的 JDK 源码目录为 ZIP 压缩包：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只导出 JDK Java 源码（IDEA 绑定源码更轻）</span></span><br><span class="line">git archive --format=zip --prefix=<span class="string">&quot;jdk-src-<span class="variable">$TAG</span>/&quot;</span> -o <span class="string">&quot;../jdk-src-<span class="variable">$TAG</span>.zip&quot;</span> <span class="string">&quot;<span class="variable">$TAG</span>&quot;</span> jdk/src</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;DONE:&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;  ../src-<span class="variable">$TAG</span>.zip       （IDEA 建议用这份当 JDK 源码）&quot;</span></span><br></pre></td></tr></table></figure></div>
+
 <h3 id="JDK-的版本号演变"><a href="#JDK-的版本号演变" class="headerlink" title="JDK 的版本号演变"></a>JDK 的版本号演变</h3><h4 id="JDK-1-x-阶段（Java-的早期版本）"><a href="#JDK-1-x-阶段（Java-的早期版本）" class="headerlink" title="JDK 1.x 阶段（Java 的早期版本）"></a>JDK 1.x 阶段（Java 的早期版本）</h4><p>在这一阶段，Java 的版本号采用的是 <code>1.x</code> 的命名方式。从 <strong>JDK 1.0</strong> 到 <strong>JDK 1.4</strong>，每次更新都依赖于 <strong>1.x</strong> 的版本号来标识，包含了 Java 语言的最初发展和许多核心特性。</p>
 <ul>
 <li><strong>JDK 1.0 (1996)</strong> ：Java 的第一个版本，提供了最基本的类库和工具，标志着 Java 语言的正式发布。</li>
@@ -2351,6 +2373,8 @@
 
 <p>另外如果想看 CGLIB 动态生成的代理类的实现可以添加如下设置：</p>
 <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, <span class="string">&quot;output/&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+
 		</div>
 
 		
@@ -2364,7 +2388,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-28 01:39:48
+                    :</strong> 2025-08-30 00:31:20
             </li>
         
         <li>
@@ -2524,7 +2548,7 @@
                     </span>
                     
                         <span>
-                            855.6k words in total
+                            870.3k words in total
                         </span>
                     
                 </p>
