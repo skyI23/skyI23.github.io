@@ -463,7 +463,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">51</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -501,7 +501,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">50</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">51</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -516,6 +516,90 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-IO_FILE-exploit/">
+                            linux IO_FILE 利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            FILE 结构IO FILE 定义的各种主要结构关系如下图所示。
+
+各种文件结构采用单链表的形式连接起来，通过 _IO_list_all 访问。
+
+vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
+
+初始情况下 _IO_FILE 结构有 _IO_2_1_stderr_ ，_IO_2_1_stdout_，_IO_2_1_stdin_ 三个，通过 _IO_list_all 将...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:07:36 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-user/">linux user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-IO_FILE-exploit/">Read more<span class="seo-reader-text">linux IO_FILE 利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -672,6 +756,170 @@
     </div>
 
     <a href="/2022/09/28/linux%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">linux 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
+                            windows 用户态逆向开发
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            基础VS 导入第三方 lib 库待更新
+获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
+CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
+1234cppCopy codeHANDLE CreateTo...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">
+                            windows 句柄表
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            https://www.vergiliusproject.com/
+在 Windows 操作系统中，句柄（Handle） 是一种 用于标识和管理系统对象的抽象引用。它本质上是一个 索引值或小整数，由内核分配给用户态程序，用户通过它间接访问和操作内核对象。
+在内核中，句柄是通过句柄表（Handle Table）管理的：
+
+用户得到的是一个 整数句柄值（HANDLE）。
+该值是句柄表的一个索引，...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">Read more<span class="seo-reader-text">windows 句柄表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -858,170 +1106,6 @@ CPU 的模式x86 CPU 的三个主要模式分别是实模式（Real Mode）、�
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">
-                            windows 句柄表
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            https://www.vergiliusproject.com/
-在 Windows 操作系统中，句柄（Handle） 是一种 用于标识和管理系统对象的抽象引用。它本质上是一个 索引值或小整数，由内核分配给用户态程序，用户通过它间接访问和操作内核对象。
-在内核中，句柄是通过句柄表（Handle Table）管理的：
-
-用户得到的是一个 整数句柄值（HANDLE）。
-该值是句柄表的一个索引，...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">Read more<span class="seo-reader-text">windows 句柄表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
-                            windows 用户态逆向开发
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            基础VS 导入第三方 lib 库待更新
-获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
-CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
-1234cppCopy codeHANDLE CreateTo...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
                         <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">
                             windows 系统调用
                         </a>
@@ -1088,86 +1172,6 @@ R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的
     </div>
 
     <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">Read more<span class="seo-reader-text">windows 系统调用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">
-                            windows 驱动基础
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Windows 基础内核对象内核对象（Kernel Object），是 Windows 内核里对各种内核资源进行统一管理、统一命名、统一访问控制、统一生命周期控制的一种抽象机制。
-设计思想在没有内核对象之前，Windows 内核里存在着大量不同类型的资源（如设备，文件，进程线程等），这些资源每种结构体都不一样，但是每种都要支持用户态访问（有名字，有权限控制，有引用计数，有安全策略）。
-因此 ...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">Read more<span class="seo-reader-text">windows 驱动基础</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1338,7 +1342,7 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/page/4/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+	<a class="extend prev" rel="prev" href="/page/4/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1364,11 +1368,11 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        50 posts in total
+                        51 posts in total
                     </span>
                     
                         <span>
-                            875.7k words in total
+                            949.7k words in total
                         </span>
                     
                 </p>
