@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+<defs>
+<marker id="arrow" markerWidth="14" markerHeight="10" refX="12" refY="5" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L12,5 L0,10 z" fill="#253241"/>
+</marker>
+</defs>
+<rect x="60" y="60" width="460" height="170" rx="16" ry="16" fill="#F4F6F8" stroke="#253241" stroke-width="3"/>
+<rect x="60" y="260" width="460" height="170" rx="16" ry="16" fill="#F4F6F8" stroke="#253241" stroke-width="3"/>
+<rect x="860" y="150" width="280" height="180" rx="16" ry="16" fill="#E8F5E9" stroke="#253241" stroke-width="3"/>
+<ellipse cx="680" cy="240" rx="130" ry="70" fill="#EAF3FF" stroke="#253241" stroke-width="3"/>
+<text x="76" y="94" font-size="22px" font-weight="700" fill="#253241" font-family="DejaVu Sans, Arial, sans-serif">Template</text>
+<text x="76" y="294" font-size="22px" font-weight="700" fill="#253241" font-family="DejaVu Sans, Arial, sans-serif">Java objects</text>
+<text x="876" y="184" font-size="22px" font-weight="700" fill="#253241" font-family="DejaVu Sans, Arial, sans-serif">Output</text>
+<text x="76" y="130" font-size="18px" font-family="JetBrains Mono, DejaVu Sans Mono, monospace" fill="#1A1F28">
+<tspan x="76" dy="0em">&lt;html&gt;</tspan>
+<tspan x="76" dy="1.3em">  ...</tspan>
+<tspan x="76" dy="1.3em">  Hello ${name}!</tspan>
+<tspan x="76" dy="1.3em">&lt;/html&gt;</tspan>
+</text>
+<text x="76" y="330" font-size="18px" font-family="JetBrains Mono, DejaVu Sans Mono, monospace" fill="#1A1F28">
+<tspan x="76" dy="0em">...</tspan>
+<tspan x="76" dy="1.3em">model.setName("World");</tspan>
+<tspan x="76" dy="1.3em">...</tspan>
+</text>
+<text x="876" y="220" font-size="18px" font-family="JetBrains Mono, DejaVu Sans Mono, monospace" fill="#1A1F28">
+<tspan x="876" dy="0em">&lt;html&gt;</tspan>
+<tspan x="876" dy="1.3em">  ...</tspan>
+<tspan x="876" dy="1.3em">  Hello World!</tspan>
+<tspan x="876" dy="1.3em">&lt;/html&gt;</tspan>
+</text>
+<text x="680" y="240" text-anchor="middle" dominant-baseline="middle" font-size="22px" font-weight="700" fill="#1A1F28" font-family="DejaVu Sans, Arial, sans-serif">FreeMarker</text>
+<line x1="520" y1="145" x2="550" y2="240" stroke="#253241" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="520" y1="345" x2="560" y2="260" stroke="#253241" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="810" y1="240" x2="860" y2="240" stroke="#253241" stroke-width="3" marker-end="url(#arrow)"/>
+</svg>

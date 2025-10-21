@@ -463,7 +463,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">51</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">55</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -501,7 +501,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">51</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">55</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -516,6 +516,367 @@
 			<div class="main-content">
 				<div class="home-content-container">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-heap-exploit-basic-knowlege/">
+                            linux 堆利用基础知识
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            ptmalloc2 是目前 Linux 标准发行版中使用的堆分配器。
+内存分配基本思想
+堆管理器负责向操作系统申请内存，然后将其返回给用户程序，但是频繁的系统调用会造成大量的开销。为了保持内存管理的高效性，内核一般都会预先分配很大的一块连续的内存，然后让堆管理器通过某种算法管理这块内存。只有当出现了堆空间不足的情况，堆管理器才会再次与操作系统进行交互。
+一般来说，用户释放的内存并不是直接返还...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 13:29:47 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-user/">linux user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-heap-exploit-basic-knowlege/">Read more<span class="seo-reader-text">linux 堆利用基础知识</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-heap-exploit/">
+                            linux 堆利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            debug glibc：对于一些复杂的堆利用，可以先用支持源码调试的 libc 完成利用，然后改偏移打题目提供的 libc 。
+Unlink假设正常情况下，每申请一个 chunk 会保存一个指向该 chunk 内存块的指针。在 chunk1 伪造 fake chunk ，需要注意：
+
+为了绕过
+12if (__builtin_expect(FD-&gt;bk != P || BK-&gt;f...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:15:01 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-user/">linux user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-heap-exploit/">Read more<span class="seo-reader-text">linux 堆利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-format-string-exploit/">
+                            linux 格式化字符串利用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            基础知识常见格式化字符串函数
+
+
+函数
+基本介绍
+
+
+
+printf
+输出到stdout
+
+
+fprintf
+输出到指定FILE流
+
+
+vprintf
+根据参数列表格式化输出到stdout
+
+
+vfprintf
+根据参数列表格式化输出到FILE流
+
+
+sprintf
+输出到字符串
+
+
+snprintf
+输出指定字节数到字符串
+
+
+vsprintf
+根据参数列表格式化输出到字符串
+
+
+vsnp...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:13:03 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-user/">linux user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-format-string-exploit/">Read more<span class="seo-reader-text">linux 格式化字符串利用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/11/08/linux-stack-overflow/">
+                            linux 栈溢出
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            逻辑漏洞栈溢出往往可以覆盖栈上的其他局部变量造成逻辑漏洞。
+ret2text栈溢出覆盖返回地址为后门函数从而获取shell。
+ret2shellcode将shellcode写入可执行的内存地址处，然后栈溢出覆盖返回地址到shellcode从而执行shellcode获取shell。测试 shellcode 例题：
+
+32位例题：wdb_2018_3rd_soEasy
+
+64位例题：ciscn_...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Nov 08 2024 03:10:56 GMT+0800">
+                
+                    2024-11-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/pwn/">pwn</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/pwn/linux-user/">linux user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-user-pwn/">linux user pwn</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2024/11/08/linux-stack-overflow/">Read more<span class="seo-reader-text">linux 栈溢出</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
         
             <li class="home-article-item">
 
@@ -770,96 +1131,6 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">
-                            windows 内核回调
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            https://www.vergiliusproject.com/
-系统通知型回调（Notify Callbacks）系统通知型回调是 Windows 内核提供的一类机制，允许内核模式驱动程序注册回调函数，以便在系统关键事件（如进程&#x2F;线程创建、模块加载、句柄操作、注册表修改等）发生时收到通知。
-常见的系统通知型回调有下面几种类型：
-
-
-
-事件类型
-注册函数
-回调函数类型
-
-
-
-进程...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">Read more<span class="seo-reader-text">windows 内核回调</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
                         <a href="/2022/09/28/windows%20%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">
                             windows 保护模式
                         </a>
@@ -928,87 +1199,6 @@ CPU 的模式x86 CPU 的三个主要模式分别是实模式（Real Mode）、�
     </div>
 
     <a href="/2022/09/28/windows%20%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">Read more<span class="seo-reader-text">windows 保护模式</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
-                            windows 用户态逆向开发
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            基础VS 导入第三方 lib 库待更新
-获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
-CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
-1234cppCopy codeHANDLE CreateTo...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1106,17 +1296,18 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">
-                            windows 系统调用
+                        <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">
+                            windows 用户态逆向开发
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            https://www.vergiliusproject.com/
-R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的逻辑。
-12345678910111213[User App 调用 OpenProcess]       │       ▼kernel32.dll!OpenProcess(导出 API 函数，实际上是个 IAT 跳板 thunk...
+                            基础VS 导入第三方 lib 库待更新
+获取进程句柄这里指的是如何通过进程名来获取目标进程 id 。这样做的好处是代码更具有通用性，因为通常每次程序启动 pid 会变化但进程名不变。
+CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程、模块或堆的快照。我们使用它来获取当前系统中所有进程的快照。
+1234cppCopy codeHANDLE CreateTo...
                         
                     </div>
 
@@ -1148,7 +1339,7 @@ R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
+                            <a href="/categories/reverse/windows-user/">windows user</a>&nbsp;
                         </li>
                     
                     
@@ -1163,7 +1354,7 @@ R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的
                     
                         <li>
                             
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
+                            <a href="/tags/windows-user-reverse/">windows user reverse</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1171,166 +1362,7 @@ R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的
         
     </div>
 
-    <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">Read more<span class="seo-reader-text">windows 系统调用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">
-                            windows 驱动基础
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Windows 基础内核对象内核对象（Kernel Object），是 Windows 内核里对各种内核资源进行统一管理、统一命名、统一访问控制、统一生命周期控制的一种抽象机制。
-设计思想在没有内核对象之前，Windows 内核里存在着大量不同类型的资源（如设备，文件，进程线程等），这些资源每种结构体都不一样，但是每种都要支持用户态访问（有名字，有权限控制，有引用计数，有安全策略）。
-因此 ...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E9%A9%B1%E5%8A%A8%E5%9F%BA%E7%A1%80/">Read more<span class="seo-reader-text">windows 驱动基础</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">
-                            windows 进程线程
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            https://www.vergiliusproject.com/
-KPCR12345678910111213141516171819202122232425262728293031323334353637383940414243444546// 0x3748 bytes (sizeof)struct _KPCR&#123;    union    &#123;        struct ...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">Read more<span class="seo-reader-text">windows 进程线程</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2022/09/28/windows%20%E7%94%A8%E6%88%B7%E6%80%81%E9%80%86%E5%90%91%E5%BC%80%E5%8F%91/">Read more<span class="seo-reader-text">windows 用户态逆向开发</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1366,11 +1398,11 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        51 posts in total
+                        55 posts in total
                     </span>
                     
                         <span>
-                            963.6k words in total
+                            1048.2k words in total
                         </span>
                     
                 </p>
