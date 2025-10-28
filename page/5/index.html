@@ -1131,6 +1131,86 @@ vatble 为函数指针结构体，存放着各种 IO 相关的函数的指针。
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">
+                            windows 系统调用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            https://www.vergiliusproject.com/
+R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的逻辑。
+12345678910111213[User App 调用 OpenProcess]       │       ▼kernel32.dll!OpenProcess(导出 API 函数，实际上是个 IAT 跳板 thunk...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">Read more<span class="seo-reader-text">windows 系统调用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
                         <a href="/2022/09/28/windows%20%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">
                             windows 保护模式
                         </a>
@@ -1199,89 +1279,6 @@ CPU 的模式x86 CPU 的三个主要模式分别是实模式（Real Mode）、�
     </div>
 
     <a href="/2022/09/28/windows%20%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">Read more<span class="seo-reader-text">windows 保护模式</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">
-                            windows 句柄表
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            https://www.vergiliusproject.com/
-在 Windows 操作系统中，句柄（Handle） 是一种 用于标识和管理系统对象的抽象引用。它本质上是一个 索引值或小整数，由内核分配给用户态程序，用户通过它间接访问和操作内核对象。
-在内核中，句柄是通过句柄表（Handle Table）管理的：
-
-用户得到的是一个 整数句柄值（HANDLE）。
-该值是句柄表的一个索引，...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">Read more<span class="seo-reader-text">windows 句柄表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1402,7 +1399,7 @@ CreateToolhelp32Snapshot 函数用于创建一个包含系统中进程、线程�
                     </span>
                     
                         <span>
-                            1048.2k words in total
+                            1070.8k words in total
                         </span>
                     
                 </p>

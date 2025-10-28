@@ -616,8 +616,8 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">
-                            windows 系统调用
+                        <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">
+                            windows 句柄表
                         </a>
                     </h3>
 
@@ -625,8 +625,11 @@
                         
                             
                             https://www.vergiliusproject.com/
-R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的逻辑。
-12345678910111213[User App 调用 OpenProcess]       │       ▼kernel32.dll!OpenProcess(导出 API 函数，实际上是个 IAT 跳板 thunk...
+在 Windows 操作系统中，句柄（Handle） 是一种 用于标识和管理系统对象的抽象引用。它本质上是一个 索引值或小整数，由内核分配给用户态程序，用户通过它间接访问和操作内核对象。
+在内核中，句柄是通过句柄表（Handle Table）管理的：
+
+用户得到的是一个 整数句柄值（HANDLE）。
+该值是句柄表的一个索引，...
                         
                     </div>
 
@@ -681,7 +684,89 @@ R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的
         
     </div>
 
-    <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">Read more<span class="seo-reader-text">windows 系统调用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">Read more<span class="seo-reader-text">windows 句柄表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">
+                            异架构相关
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            环境搭建qemu 仿真 QEMU（Quick Emulator） 是一个开源的通用虚拟化和仿真框架，该框架主要有如下分类：
+
+qemu-user：提供用户态的简单仿真。适用于对一些相对简单程序的进行仿真。
+
+qemu-system：提供完整的系统级仿真。例如有些固件的运行需要一整套复杂的环境，单纯使用 qemu-user 仿真比较麻烦并且容易出问题，因此一个比较简单的方法是把整个 IOT 设...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/linux-user/">linux user</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/linux-user-reverse/">linux user reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">Read more<span class="seo-reader-text">异架构相关</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -846,88 +931,6 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">
-                            异架构相关
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            环境搭建qemu 仿真 QEMU（Quick Emulator） 是一个开源的通用虚拟化和仿真框架，该框架主要有如下分类：
-
-qemu-user：提供用户态的简单仿真。适用于对一些相对简单程序的进行仿真。
-
-qemu-system：提供完整的系统级仿真。例如有些固件的运行需要一整套复杂的环境，单纯使用 qemu-user 仿真比较麻烦并且容易出问题，因此一个比较简单的方法是把整个 IOT 设...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/linux-user/">linux user</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/linux-user-reverse/">linux user reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/%E5%BC%82%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/">Read more<span class="seo-reader-text">异架构相关</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -962,7 +965,7 @@ qemu-system：提供完整的系统级仿真。例如有些固件的运行需要
                     </span>
                     
                         <span>
-                            1048.2k words in total
+                            1070.8k words in total
                         </span>
                     
                 </p>
