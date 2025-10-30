@@ -455,15 +455,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">55</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -493,15 +493,15 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">14</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">55</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -526,27 +526,19 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">
-                            windows 内核回调
+                        <a href="/2022/09/28/windows%20%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">
+                            windows 保护模式
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            https://www.vergiliusproject.com/
-系统通知型回调（Notify Callbacks）系统通知型回调是 Windows 内核提供的一类机制，允许内核模式驱动程序注册回调函数，以便在系统关键事件（如进程&#x2F;线程创建、模块加载、句柄操作、注册表修改等）发生时收到通知。
-常见的系统通知型回调有下面几种类型：
-
-
-
-事件类型
-注册函数
-回调函数类型
-
-
-
-进程...
+                            参考 英特尔开发手册
+CPU 的模式x86 CPU 的三个主要模式分别是实模式（Real Mode）、保护模式（Protected Mode）和虚拟8086模式（Virtual 8086 Mode）。它们各自的功能和特点如下：
+实模式（Real Mode）
+简介 ：实模式是x86架构最早的工作模式，与8086 CPU的工作方式相同。
+内存管理 ：在实模式下，CPU可以访问1MB的内存。内存地...
                         
                     </div>
 
@@ -601,7 +593,7 @@
         
     </div>
 
-    <a href="/2022/09/28/windows%20%E5%86%85%E6%A0%B8%E5%9B%9E%E8%B0%83/">Read more<span class="seo-reader-text">windows 内核回调</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2022/09/28/windows%20%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">Read more<span class="seo-reader-text">windows 保护模式</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -685,6 +677,165 @@
     </div>
 
     <a href="/2022/09/28/windows%20%E5%8F%A5%E6%9F%84%E8%A1%A8/">Read more<span class="seo-reader-text">windows 句柄表</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">
+                            windows 系统调用
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            https://www.vergiliusproject.com/
+R3 调用过程这里以 OpenProcess 为例分析 Windows API 在 3 环部分的逻辑。
+12345678910111213[User App 调用 OpenProcess]       │       ▼kernel32.dll!OpenProcess(导出 API 函数，实际上是个 IAT 跳板 thunk...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">Read more<span class="seo-reader-text">windows 系统调用</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">
+                            windows 进程线程
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            https://www.vergiliusproject.com/
+KPCR12345678910111213141516171819202122232425262728293031323334353637383940414243444546// 0x3748 bytes (sizeof)struct _KPCR&#123;    union    &#123;        struct ...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
+                
+                    2022-09-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/reverse/">reverse</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">Read more<span class="seo-reader-text">windows 进程线程</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -852,85 +1003,6 @@ qemu-system：提供完整的系统级仿真。例如有些固件的运行需要
                 </div>
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">
-                            windows 进程线程
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            https://www.vergiliusproject.com/
-KPCR12345678910111213141516171819202122232425262728293031323334353637383940414243444546// 0x3748 bytes (sizeof)struct _KPCR&#123;    union    &#123;        struct ...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Sep 28 2022 11:45:14 GMT+0800">
-                
-                    2022-09-28
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/reverse/">reverse</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/reverse/windows-kernel/">windows kernel</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/windows-kernel-reverse/">windows kernel reverse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">Read more<span class="seo-reader-text">windows 进程线程</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
     </ul>
 
     <div class="home-paginator px-7 py-5">
@@ -961,11 +1033,11 @@ KPCR1234567891011121314151617181920212223242526272829303132333435363738394041424
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        55 posts in total
+                        56 posts in total
                     </span>
                     
                         <span>
-                            1070.8k words in total
+                            1114.7k words in total
                         </span>
                     
                 </p>
