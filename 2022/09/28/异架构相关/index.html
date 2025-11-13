@@ -428,7 +428,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">57</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-19 01:17</span>
-            <span class="mobile">2025-08-19 01:17</span>
+            <span class="desktop">2025-11-10 01:45:32</span>
+            <span class="mobile">2025-11-10 01:45:32</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.4k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>12 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>18 Mins</span>
         </span>
     
     
@@ -785,7 +785,179 @@
 <td align="left">Arm’s solution for mobile devices</td>
 </tr>
 </tbody></table>
-<h2 id="ARM32"><a href="#ARM32" class="headerlink" title="ARM32"></a>ARM32</h2><h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><h2 id="ARM64"><a href="#ARM64" class="headerlink" title="ARM64"></a>ARM64</h2><h1 id="MIPS"><a href="#MIPS" class="headerlink" title="MIPS"></a>MIPS</h1>
+<h2 id="ARM32"><a href="#ARM32" class="headerlink" title="ARM32"></a>ARM32</h2><h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><h4 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>约定名</th>
+<th>典型角色（AAPCS&#x2F;EABI 主流）</th>
+<th>保存约定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r0–r3</td>
+<td>—</td>
+<td><strong>参数 1–4</strong>、<strong>返回值</strong>（r0；64 位返回用 r0–r1），临时值</td>
+<td><strong>调用者保存</strong>（caller‑saved）</td>
+</tr>
+<tr>
+<td>r4–r11</td>
+<td>—（r11 常作 FP）</td>
+<td><strong>被调方可保留使用的通用寄存器</strong>；有的编译器把 <strong>r11</strong> 当 <strong>帧指针 FP</strong></td>
+<td><strong>被调保存</strong>（callee‑saved）</td>
+</tr>
+<tr>
+<td>r12</td>
+<td><strong>IP</strong>（Intra‑procedure scratch）</td>
+<td><strong>过程内临时寄存器</strong>；链接器 veneer&#x2F;PLT 经常用它做跳板&#x2F;中转</td>
+<td><strong>调用者保存</strong></td>
+</tr>
+<tr>
+<td>r13</td>
+<td><strong>SP</strong></td>
+<td><strong>栈指针</strong>（各异常模式多数都有<strong>独立的 r13</strong>，见 1.3）</td>
+<td>特殊</td>
+</tr>
+<tr>
+<td>r14</td>
+<td><strong>LR</strong></td>
+<td><strong>返回地址</strong>（<code>BL/BLX</code> 写入）；函数若继续 <code>call</code> 他人应先<strong>入栈保存</strong></td>
+<td>特殊</td>
+</tr>
+<tr>
+<td>r15</td>
+<td><strong>PC</strong></td>
+<td><strong>程序计数器</strong>。读到的是“<strong>当前指令地址 + 偏移</strong>”（ARM≈+8，Thumb≈+4）；写入&#x3D;跳转&#x2F;切态</td>
+<td>特殊</td>
+</tr>
+</tbody></table>
+<p><strong>r9（SB&#x2F;平台寄存器）</strong>：AAPCS 指定 <strong>r9 可作为“平台寄存器”</strong>，常被某些平台&#x2F;工具链拿来充当 <strong>GOT&#x2F;小数据静态基（SB）</strong> 或 TLS 指针（具体由平台约定）。在很多 Linux&#x2F;EABI + 现代 GCC&#x2F;Clang 的 <strong>PC 相对&#x2F;PIC</strong> 代码里，r9 可能空闲，但也可能被用作 <strong>GOT 基址</strong>。</p>
+<h4 id="程序状态寄存器-CPSR"><a href="#程序状态寄存器-CPSR" class="headerlink" title="程序状态寄存器 CPSR"></a>程序状态寄存器 CPSR</h4><ul>
+<li><p><strong>条件标志</strong>：<code>N</code>(负), <code>Z</code>(零), <code>C</code>(进位), <code>V</code>(溢出), <code>Q</code>(饱和)。</p>
+</li>
+<li><p><strong>控制位</strong>：</p>
+<ul>
+<li><code>T</code>（Thumb 状态标志；1&#x3D;Thumb，0&#x3D;ARM）；</li>
+<li><code>E</code>（端序；1&#x3D;BE，0&#x3D;LE，平台固定&#x2F;受控）；</li>
+<li><code>A/I/F</code>（禁用异步中止&#x2F;IRQ&#x2F;FIQ）；</li>
+<li><code>GE[3:0]</code>（SIMD 比较分组结果）；</li>
+<li><code>IT</code> 域（Thumb 的 <code>IT</code> 块状态）；</li>
+<li><code>M[4:0]</code>（处理器模式位）。</li>
+</ul>
+</li>
+<li><p><strong>访问</strong>：<code>MRS/MSR CPSR</code>；异常模式还可 <code>MRS/MSR SPSR</code>。</p>
+</li>
+</ul>
+<h4 id="浮点-向量寄存器（VFP-NEON）"><a href="#浮点-向量寄存器（VFP-NEON）" class="headerlink" title="浮点&#x2F;向量寄存器（VFP&#x2F;NEON）"></a>浮点&#x2F;向量寄存器（VFP&#x2F;NEON）</h4><ul>
+<li><p><strong>VFP&#x2F;NEON 统一寄存器文件</strong>：</p>
+<ul>
+<li><strong>Q0–Q15</strong>（128 位）↔ <strong>D0–D31</strong>（64 位）↔ <strong>S0–S31</strong>（32 位）三套视图互相重叠。</li>
+<li>有的实现只有 <strong>D0–D15（VFPv3‑D16）</strong>。</li>
+</ul>
+</li>
+<li><p><strong>硬浮点 ABI（armhf）保存约定</strong>（AAPCS）：</p>
+<ul>
+<li><strong>被调保存</strong>：<code>D8–D15</code>（即 <code>S16–S31</code> &#x2F; <code>Q4–Q7</code> 涉及到的片段）。</li>
+<li>其余（<code>D0–D7</code>、<code>D16–D31</code>）<strong>调用者保存</strong>。</li>
+</ul>
+</li>
+<li><p><strong>参数&#x2F;返回</strong>：硬浮点下，<strong>浮点参数优先走 s&#x2F;d&#x2F;q</strong>；返回用 <code>s0/d0</code>（或 <code>q0</code> 某视图）。</p>
+</li>
+</ul>
+<h3 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h3><h3 id="调用约定"><a href="#调用约定" class="headerlink" title="调用约定"></a>调用约定</h3><ul>
+<li><p><strong>参数寄存器</strong>：<code>r0–r3</code>；多余参数走栈（按 4 字节对齐）。</p>
+</li>
+<li><p><strong>返回</strong>：<code>r0</code>（64 位放 <code>r0–r1</code>；结构体可能经隐藏指针）。</p>
+</li>
+<li><p><strong>易失&#x2F;保存</strong>：</p>
+<ul>
+<li><strong>caller‑saved</strong>：<code>r0–r3</code>、<code>r12</code>；VFP 的 <code>D0–D7</code>、<code>D16–D31</code>；</li>
+<li><strong>callee‑saved</strong>：<code>r4–r11</code>（以及 VFP 的 <code>D8–D15</code>）。</li>
+</ul>
+</li>
+<li><p><strong>栈</strong>：<strong>满递减</strong>（向低地址生长），跨调用点需 <strong>8 字节对齐</strong>。</p>
+</li>
+<li><p><strong>系统调用（Linux）</strong>：<code>r7 = NR；r0..r6 = args；svc 0</code>（返回在 r0，负值为 -errno）。</p>
+</li>
+<li><p><strong>Thumb 下 r7</strong>：某些编译器把 r7 用作 <strong>帧指针</strong>；若手写 syscall（<code>svc</code>），要确保不与编译器的 r7 用途冲突（常用 <strong>内联汇编约束</strong> 或禁用 FP）。</p>
+</li>
+</ul>
+<h3 id="其它特性"><a href="#其它特性" class="headerlink" title="其它特性"></a>其它特性</h3><h2 id="ARM64"><a href="#ARM64" class="headerlink" title="ARM64"></a>ARM64</h2><h3 id="寄存器-1"><a href="#寄存器-1" class="headerlink" title="寄存器"></a>寄存器</h3><p>AArch64 共有 <strong>31 个 64 位通用寄存器</strong>：<code>x0–x30</code>（32 位别名为 <code>w0–w30</code>），外加**栈指针 <code>sp</code>**（有 <code>wsp</code> 别名）与不可直接寻址的 <code>pc</code>。</p>
+<h4 id="通用寄存器-1"><a href="#通用寄存器-1" class="headerlink" title="通用寄存器"></a>通用寄存器</h4><table>
+<thead>
+<tr>
+<th>范围</th>
+<th>名称</th>
+<th>角色（要点）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x0–x7</code></td>
+<td>参数&#x2F;返回寄存器</td>
+<td>函数<strong>前 8 个整型&#x2F;指针参数</strong>与<strong>返回值</strong>使用；<strong>caller-saved</strong>（被调用者可破坏）。</td>
+</tr>
+<tr>
+<td><code>x8</code></td>
+<td><strong>间接结果位置寄存器</strong> (IRL)</td>
+<td>当返回“大对象&#x2F;结构体”时，<strong>调用者</strong>把返回缓冲区地址放在 <code>x8</code> 传给被调函数；此外在 <strong>Linux 系统调用</strong>里，<code>x8</code> 还装<strong>系统调用号</strong>（与 C 调用约定无关）。</td>
+</tr>
+<tr>
+<td><code>x9–x15</code></td>
+<td>临时（scratch）</td>
+<td><strong>caller-saved</strong>，函数内部临时值。</td>
+</tr>
+<tr>
+<td><code>x16–x17</code></td>
+<td><strong>IP0 &#x2F; IP1</strong></td>
+<td><strong>“过程内调用临时寄存器”</strong>，可被<strong>链接器的跳板&#x2F;PLT veneer</strong>使用；在普通代码里也可做临时，但要知道<strong>随时会被尾调用&#x2F;跳板改写</strong>。<strong>caller-saved</strong>。</td>
+</tr>
+<tr>
+<td><code>x18</code></td>
+<td><strong>平台寄存器</strong></td>
+<td>AAPCS64 保留给<strong>平台约定</strong>：如果平台需要跨调用携带状态（如线程上下文），<strong>就用 x18</strong>；否则可作临时。<strong>可移植汇编最好避免使用</strong>。在 <strong>Apple 平台</strong>强制保留（不要用），<strong>Windows&#x2F;ARM64</strong>也保留；<strong>Linux&#x2F;ARM64</strong>通常当普通 caller‑saved 使用。</td>
+</tr>
+<tr>
+<td><code>x19–x28</code></td>
+<td><strong>callee‑saved</strong></td>
+<td>被调用者必须在返回前恢复它们（<strong>64 位全宽</strong>必须保留）。常用于保存长期活跃的局部变量&#x2F;指针。</td>
+</tr>
+<tr>
+<td><code>x29</code></td>
+<td><strong>FP（帧指针）</strong></td>
+<td>AAPCS64 允许作为通用 callee‑saved 或维持帧链；<strong>Apple 平台要求始终保持有效帧记录</strong>（便于回溯）。</td>
+</tr>
+<tr>
+<td><code>x30</code></td>
+<td><strong>LR（链接寄存器）</strong></td>
+<td><code>BL/BLR</code> 写返回地址到 <code>x30</code>；<code>RET</code> 从 <code>x30</code> 返回。调用者如需保留需入栈。</td>
+</tr>
+<tr>
+<td><code>SP</code></td>
+<td>栈指针</td>
+<td><strong>16 字节对齐</strong>；只能在有限指令形态中参与（如 <code>ADD/SUB (imm)</code> 调整栈，或做访存基址）。**任何通过 SP 的访存都要求 <code>SP % 16 == 0</code>**。</td>
+</tr>
+<tr>
+<td><code>XZR/WZR</code></td>
+<td><strong>零寄存器</strong></td>
+<td>读恒为 0，写被丢弃；可作为算术“把结果丢弃&#x2F;与 0 运算”的操作数。<strong>注意</strong>：编码上与 <code>SP</code> 复用寄存器号 31，具体解释取决于指令语境。</td>
+</tr>
+<tr>
+<td><code>PC</code></td>
+<td>程序计数器</td>
+<td>不可当通用寄存器直接读写；PC 相对地址由 <code>ADR/ADRP</code> 计算。</td>
+</tr>
+</tbody></table>
+<p><strong>32 位别名（<code>w0–w30</code>）写入会</strong>把对应的 <code>xN</code> <strong>高 32 位清 0</strong>（零扩展语义），很多时候你只需对 <code>wN</code> 写就相当于完成了零扩展。</p>
+<p><strong><code>x16/x17</code></strong> 可能被 <strong>PLT&#x2F;Veneer</strong> 暂用，不要指望跨函数调用保存其内容（哪怕你没显式用它们）。</p>
+<h3 id="汇编指令-1"><a href="#汇编指令-1" class="headerlink" title="汇编指令"></a>汇编指令</h3><h3 id="调用约定-1"><a href="#调用约定-1" class="headerlink" title="调用约定"></a>调用约定</h3><p><strong>C 调用</strong>：<strong>调用者</strong>把返回缓冲区地址放入 <strong><code>x8</code><strong>，被调用者把结果写回该地址后以“<code>void</code>”返回；这是 AAPCS64 的</strong>间接结果位置寄存器</strong>规则。</p>
+<p><strong>Linux 系统调用</strong>：<strong>参数 <code>x0–x5</code>，系统调用号在 <code>x8</code>，返回在 <code>x0</code>，通过 <code>svc #0</code> 进入内核</strong>。</p>
+<div class="code-container" data-rel="Armasm"><figure class="iseeu highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">stp</span>   <span class="built_in">x29</span>, <span class="built_in">x30</span>, [<span class="built_in">sp</span>, #-<span class="number">16</span>]!</span><br><span class="line"><span class="keyword">mov</span>   <span class="built_in">x29</span>, <span class="built_in">sp</span></span><br><span class="line">    ...                    <span class="comment">// 保存 x19–x28 / v8–v15（按需）</span></span><br><span class="line"><span class="symbol">ldp</span>   <span class="built_in">x29</span>, <span class="built_in">x30</span>, [<span class="built_in">sp</span>], <span class="number">#16</span></span><br><span class="line"><span class="symbol">ret</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h1 id="MIPS"><a href="#MIPS" class="headerlink" title="MIPS"></a>MIPS</h1>
 		</div>
 
 		
@@ -799,7 +971,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-19 01:17:00
+                    :</strong> 2025-11-10 01:45:32
             </li>
         
         <li>
@@ -837,12 +1009,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2022/09/28/windows%20%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/">
+				<a class="prev" rel="prev" href="/2022/09/28/windows%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">windows 进程线程</span>
+						<span class="post-nav-title-item truncate max-w-48">windows 系统调用</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>
@@ -928,7 +1100,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">异架构相关</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu-%E4%BB%BF%E7%9C%9F"><span class="nav-text">qemu 仿真</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu-user"><span class="nav-text">qemu-user</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-text">安装与使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="nav-text">常用参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#binfmt"><span class="nav-text">binfmt</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu-system"><span class="nav-text">qemu-system</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91"><span class="nav-text">交叉编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-text">交叉编译工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crosstool-ng"><span class="nav-text">crosstool-ng</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#crosstool-ng-%E5%AE%89%E8%A3%85"><span class="nav-text">crosstool-ng 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-text">构建交叉编译工具链</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ARM"><span class="nav-text">ARM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARM-%E7%89%88%E6%9C%AC%E4%BD%93%E7%B3%BB"><span class="nav-text">ARM 版本体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ARM-%E6%9E%B6%E6%9E%84%E7%89%88%E6%9C%AC%EF%BC%88ISA%EF%BC%89"><span class="nav-text">ARM 架构版本（ISA）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARM%E6%A0%B8%E5%BF%83%E7%89%88%E6%9C%AC%EF%BC%88Core%EF%BC%89"><span class="nav-text">ARM核心版本（Core）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARM-%E5%B9%B3%E5%8F%B0%E5%92%8C%E4%BA%A7%E5%93%81%E7%B3%BB%E5%88%97"><span class="nav-text">ARM 平台和产品系列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARM32"><span class="nav-text">ARM32</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARM64"><span class="nav-text">ARM64</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MIPS"><span class="nav-text">MIPS</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu-%E4%BB%BF%E7%9C%9F"><span class="nav-text">qemu 仿真</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu-user"><span class="nav-text">qemu-user</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-text">安装与使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="nav-text">常用参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#binfmt"><span class="nav-text">binfmt</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu-system"><span class="nav-text">qemu-system</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91"><span class="nav-text">交叉编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-text">交叉编译工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crosstool-ng"><span class="nav-text">crosstool-ng</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#crosstool-ng-%E5%AE%89%E8%A3%85"><span class="nav-text">crosstool-ng 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-text">构建交叉编译工具链</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ARM"><span class="nav-text">ARM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARM-%E7%89%88%E6%9C%AC%E4%BD%93%E7%B3%BB"><span class="nav-text">ARM 版本体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ARM-%E6%9E%B6%E6%9E%84%E7%89%88%E6%9C%AC%EF%BC%88ISA%EF%BC%89"><span class="nav-text">ARM 架构版本（ISA）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARM%E6%A0%B8%E5%BF%83%E7%89%88%E6%9C%AC%EF%BC%88Core%EF%BC%89"><span class="nav-text">ARM核心版本（Core）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARM-%E5%B9%B3%E5%8F%B0%E5%92%8C%E4%BA%A7%E5%93%81%E7%B3%BB%E5%88%97"><span class="nav-text">ARM 平台和产品系列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARM32"><span class="nav-text">ARM32</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8-CPSR"><span class="nav-text">程序状态寄存器 CPSR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9-%E5%90%91%E9%87%8F%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88VFP-NEON%EF%BC%89"><span class="nav-text">浮点&#x2F;向量寄存器（VFP&#x2F;NEON）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-text">汇编指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A"><span class="nav-text">调用约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E7%89%B9%E6%80%A7"><span class="nav-text">其它特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARM64"><span class="nav-text">ARM64</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8-1"><span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8-1"><span class="nav-text">通用寄存器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-1"><span class="nav-text">汇编指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A-1"><span class="nav-text">调用约定</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MIPS"><span class="nav-text">MIPS</span></a></li></ol>
 
 	</div>
 </div>
@@ -955,11 +1127,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        56 posts in total
+                        57 posts in total
                     </span>
                     
                         <span>
-                            1114.7k words in total
+                            1173.7k words in total
                         </span>
                     
                 </p>

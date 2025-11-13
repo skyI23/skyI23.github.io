@@ -428,7 +428,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">57</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-19 01:08:42</span>
-            <span class="mobile">2025-08-19 01:08:42</span>
+            <span class="desktop">2025-11-10 03:39:05</span>
+            <span class="mobile">2025-11-10 03:39:05</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>32.4k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>32.5k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>135 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>136 Mins</span>
         </span>
     
     
@@ -1255,31 +1255,84 @@
 <p><strong>注意动态链接不包括合并代码和数据段的过程，各个模块在内存中独立存在。</strong></p>
 <h3 id="装载时重定位"><a href="#装载时重定位" class="headerlink" title="装载时重定位"></a>装载时重定位</h3><p>由于需要将多个模块装载到内存中，因此动态链接难免会有地址冲突问题，这就需要我们在加载的时候将模块中的相关地址修改为正确的值，这就是装载时重定位。</p>
 <p>Linux和GCC支持这种装载时重定位的方法，在产生共享对象时，使用了两个GCC参数 <code>-shared</code> 和 <code>-fPIC</code> ，如果只使用 <code>-shared</code> ，那么输出的共享对象就是使用装载时重定位的方法。</p>
-<h3 id="地址无关代码"><a href="#地址无关代码" class="headerlink" title="地址无关代码"></a>地址无关代码</h3><p>如果采用装载时重定位的方法虽然能够做到任意地址装载，但存在弊端。比如模块装载到不同位置会导致模块的代码段内容发生改变，无法实现共享库的复用，造成内存浪费；每次装载重定位会影响性能等。</p>
-<p>地址无关代码的出现很好的解决了装载时重定位的缺点。地址无关代码的基本想法就是把指令中那些需要被修改的部分分离出来，跟数据部分放在一起，这样指令部分就可以保持不变，而数据部分可以在每个进程中拥有一个副本。这种方案就是目前被称为地址无关代码（PIC,Position-independent Code）的技术。这也就是 GCC 的 <code>-fPIC</code> 编译参数。</p>
-<p>模块中各种类型的地址引用方式有以下 4 种：</p>
+<h3 id="地址无关代码"><a href="#地址无关代码" class="headerlink" title="地址无关代码"></a>地址无关代码</h3><p>把同一个模块装到不同虚拟地址，如果在代码里写死了绝对地址，就需要<strong>修改代码段</strong>里的指令（所谓“对 .text 做重定位”），这会让代码页变成私有页，<strong>无法在多个进程间共享</strong>，也拉低启动性能。</p>
+<p>用 <strong>地址无关代码</strong>（PIC）把“和绝对地址相关的东西”挪到<strong>数据表</strong>里就可以解决上述问题：</p>
 <ul>
-<li>模块内部的函数调用、跳转等。</li>
-<li>模块内部的数据访问，比如模块中定义的全局变量、静态变量。</li>
-<li>模块外部的函数调用、跳转等。</li>
-<li>模块外部的数据访问，比如其他模块中定义的全局变量。</li>
+<li>代码中的控制流（<code>call/jmp</code>）尽量用<strong>相对位移</strong>；</li>
+<li>代码若要取“某个符号的绝对地址”，就先去 <strong>GOT（全局偏移表）</strong> 拿该符号当前进程里的真实地址，再访问；</li>
+<li>调<strong>外部函数</strong>用 <strong>PLT（过程链接表）</strong>：<code>call foo@plt</code> → PLT 查&#x2F;填 GOT → 真正跳到函数。首次调用解析，之后命中 GOT（延迟绑定）。</li>
 </ul>
-<p>对于前两种引用方式由于是在模块内部，相对地址偏移固定，因此可以通过 <code>[rip + xxx]</code> （注意这里的 rip 是当前指令的<strong>下一条指令</strong>的地址，下一条指令指的是<strong>地址相邻</strong>的下一条指令）的方式进行引用，从而做到地址无关。因此关键在于后两种怎么解决。</p>
-<p>模块间的访问比模块内部稍微麻烦一点，因为模块间的数据访问目标地址要等到装载时才决定，我们前面提到要使得代码地址无关，基本的思想就是把跟地址相关的部分放到数据段里面，很明显，这些其他模块的全局变量的地址是跟模块装载地址有关的。ELF 的做法是在数据段里面建立一个指向这些变量的指针数组，也被称为全局偏移表（Global Offset Table，GOT），当代码需要引用该全局变量时，可以通过 GOT 中相对应的项间接引用。</p>
-<p>前面模块内部的解决方法实际上并不严谨，比如一些全局变量以及函数声明没有初始化会被认为是若弱符号，这些弱符号编译器并不知道是否只在本模块定义，因此不能仅使用 <code>[rip + xxx]</code> 的方式访问。</p>
-<p>针对这种情况的解决办法是所有的使用这个变量的指令都指向位于可执行文件中的那个副本。ELF 共享库在编译时，默认都把定义在模块内部的全局变量当作定义在其他模块的全局变量，也就是说当作前面的类型四，通过 GOT 来实现变量的访问。当共享模块被装载时，如果某个全局变量在可执行文件中拥有副本，那么动态链接器就会把 GOT 中的相应地址指向该副本，这样该变量在运行时实际上最终就只有一个实例。如果变量在共享模块中被初始化，那么动态链接器还需要将该初始化值复制到程序主模块中的变量副本；如果该全局变量在程序主模块中没有副本，那么 GOT 中的相应地址就指向共享模块内部的该变量副本。<strong>这就是为什么 libc 的 GOT 表中会有自身函数。</strong></p>
-<p>地址无关代码虽然解决了模块复用的问题，但是本质还是装载时重定位因此没有解决性能问题，实际上 ELF 采用了<strong>延迟绑定</strong>的方法来解决这一问题。</p>
-<p>地址无关代码技术除了可以用在共享对象上面，它也可以用于<strong>可执行文件</strong>，一个以地址无关方式编译的可执行文件被称作地址无关可执行文件（<strong>PIE</strong>, Position-Independent Executable）。与 GCC 的 <code>-fPIC</code> 和 <code>-fpic</code> 参数类似，产生 PIE 的参数为 <code>-fPIE</code> 或 <code>-fpie</code> 。</p>
-<h3 id="延迟绑定"><a href="#延迟绑定" class="headerlink" title="延迟绑定"></a>延迟绑定</h3><p>在动态链接下，程序模块之间包含了大量的函数引用（全局变量往往比较少，因为大量的全局变量会导致模块之间耦合度变大），所以在程序开始执行前，动态链接会耗费不少时间用于解决模块之间的函数引用的符号查找以及重定位。可以想象，在一个程序运行过程中，可能很多函数在程序执行完时都不会被用到，比如一些错误处理函数或者是一些用户很少用到的功能模块等，如果一开始就把所有函数都链接好实际上是一种浪费。所以 ELF 采用了一种叫做延迟绑定（Lazy Binding）的做法，基本的思想就是当函数第一次被用到时才进行绑定（符号查找、重定位等），如果没有用到则不进行绑定。所以程序开始执行时，模块间的函数调用都没有进行绑定，而是需要用到时才由动态链接器来负责绑定。这样的做法可以大大加快程序的启动速度，特别有利于一些有大量函数引用和大量模块的程序。</p>
-<p><strong>注意，延迟绑定一般只出先在未开启 FULL RELRO 的时候，如果开启 FULL RELRO 则 got 表不可写，程序在装载时完成 got 表的重定位。当然特殊情况也有在开启 FULL RELRO 的时候进行重定位，比如 ret2dlresolve 。</strong></p>
+<p>此时<strong>模块内与模块间</strong></p>
+<ul>
+<li><p><strong>模块内控制流</strong>：天然 PC‑relative，对<strong>同一模块内</strong>的符号，用“相对当前指令的偏移”寻址（不依赖装载基址），无需表项。</p>
+<blockquote>
+<p>注：x86‑64 上 RIP 是<strong>顺序下一条指令</strong>的地址（fall‑through），PC‑relative 以它为基准计算偏移。</p>
+</blockquote>
+</li>
+<li><p><strong>模块内数据</strong>：</p>
+<ul>
+<li><code>static</code>&#x2F;<code>hidden</code>：直接 RIP‑relative；</li>
+<li>默认可见全局：为支持 ELF <strong>符号截获</strong>语义，经 GOT 间接。</li>
+</ul>
+</li>
+<li><p><strong>模块间</strong>：</p>
+<ul>
+<li><strong>函数</strong>：PLT+GOT（支持延迟绑定）；</li>
+<li><strong>数据</strong>：通过 GOT 间接；若主程序是<strong>非 PIE</strong>而直接引用共享库变量，可能触发 <strong>Copy relocation</strong>（启动时把值拷贝一份到主程序的 <code>.bss</code>）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="延迟绑定"><a href="#延迟绑定" class="headerlink" title="延迟绑定"></a>延迟绑定</h3><p>在使用动态链接的程序里，模块之间常常存在<strong>大量的函数调用</strong>（而为了降低耦合，跨模块的可写全局变量一般较少）。如果在<strong>程序启动</strong>时就把所有外部函数的地址都解析并重定位完，会带来不必要的启动开销——毕竟很多函数在一次运行中<strong>从未被调用</strong>。因此，ELF&#x2F;ld.so 采用<strong>延迟绑定</strong>：<strong>仅在函数第一次被调用时</strong>，才进行符号查找与对应 GOT 表的修补；未被用到的函数<strong>不会</strong>提前绑定，从而缩短启动时间，特别适合依赖众多库、外部调用巨量的程序。</p>
+<blockquote>
+<p><strong>只对“函数调用”可延迟。</strong> 变量（数据）引用的动态重定位<strong>一般在装载时一次性完成</strong>，不会延迟绑定。通过 <code>dlopen()</code> 也能强制“立即（NOW）”或“延迟（LAZY）”解析，但“延迟”只适用于函数。</p>
+</blockquote>
+<p>大多数系统&#x2F;构建默认<strong>启用</strong>懒绑定（除非显式要求“立即绑定”）。可以用<strong>环境变量</strong> <code>LD_BIND_NOW=1</code> 或链接选项 <strong><code>-Wl,-z,now</code></strong> 禁用懒绑定，改为<strong>装载时就解析全部外部函数</strong>。</p>
+<p><strong>与 RELRO 的关系</strong>：</p>
+<ul>
+<li><p><strong>Partial RELRO</strong>：仅将一部分动态链接数据区标记为只读，<strong>保留 <code>.got.plt</code> 可写</strong>以支持懒绑定。</p>
+</li>
+<li><p><strong>Full RELRO</strong>：要求在进入 <code>main</code> 前<strong>全部解析函数符号</strong>并把 <strong>GOT（含 <code>.got.plt</code>）设为只读</strong>，这就<strong>事实上禁用了延迟绑定</strong>（等价于 <code>-z now</code>）。代价是启动时多做一点工作，换来运行期更强的防篡改性。</p>
+<blockquote>
+<p>当然特殊情况也有在开启 FULL RELRO 的时候进行重定位，比如 ret2dlresolve 。</p>
+</blockquote>
+</li>
+</ul>
 <p>我们以调用 <code>puts</code> 函数为例讲解一下延迟绑定的过程。</p>
 <p>首先第一次调用 <code>puts</code> 时由于 <code>puts@got</code> 没有进行重定位，因此会调用 <code>_dl_runtime_resolve</code> 函数进行重定位，<code>_dl_runtime_resolve</code> 函数将查找到的 <code>puts</code> 函数地址填写到 <code>puts@got</code> 后会调用 <code>puts</code> 函数。</p>
+<p>**第一次调用 <code>puts</code>**（尚未解析）：</p>
+<ol>
+<li><p>调用点发出 <code>call puts@PLT</code>，跳到该函数的 <strong>PLT 入口</strong>（每个外部函数有自己的 <code>pltN</code>）。</p>
+</li>
+<li><p>进入 <code>puts@plt</code> 后（典型两段式）：</p>
+<div class="code-container" data-rel="X86asm"><figure class="iseeu highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; --- 通用 PLT0 桩 ---</span></span><br><span class="line"><span class="symbol">plt0:</span></span><br><span class="line">    <span class="keyword">push</span>    <span class="built_in">qword</span> <span class="built_in">ptr</span> [<span class="built_in">rip</span> + .got<span class="number">.</span>plt + <span class="number">8</span>]  <span class="comment">; = .got.plt[1] =&gt; link_map</span></span><br><span class="line">    <span class="keyword">jmp</span>     <span class="built_in">qword</span> <span class="built_in">ptr</span> [<span class="built_in">rip</span> + .got<span class="number">.</span>plt + <span class="number">16</span>] <span class="comment">; = .got.plt[2] =&gt; 解析器入口</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; --- 单个函数的专属 PLT 桩（俗称 pltN）---</span></span><br><span class="line"><span class="comment">; label: puts@plt</span></span><br><span class="line"><span class="symbol">puts@plt:</span></span><br><span class="line">    <span class="keyword">jmp</span>     <span class="built_in">qword</span> <span class="built_in">ptr</span> [<span class="built_in">rip</span> + puts@GOTPLT]   <span class="comment">; 已解析：直接跳真实 puts</span></span><br><span class="line">    <span class="keyword">push</span>    <span class="built_in">dword</span> <span class="built_in">ptr</span> idx_puts              <span class="comment">; 首调：压入 .rela.plt 的表项序号</span></span><br><span class="line">    <span class="keyword">jmp</span>     plt0                            <span class="comment">; 进入通用桩</span></span><br></pre></td></tr></table></figure></div>
+
+<p>由于 <code>puts@GOTPLT</code> 被初始化成<strong>指回本桩的第二条指令</strong>（也可理解为“一个 PLT 局部小跳板”）。因此第 ① 步<strong>并不会</strong>离开本桩，而是<strong>落到</strong>后面的 <code>push $idx</code>。这个 <strong><code>idx</code></strong> 就是该函数在 <strong><code>.rela.plt</code></strong> 里的<strong>表项序号</strong>。</p>
+</li>
+<li><p><strong>PLT0</strong> 从 GOT 中取到当前模块的 <code>link_map</code>，再跳转到运行时解析器（<code>dl_runtime_resolve</code> 族）入口。</p>
+<blockquote>
+<p><strong>.got.plt</strong>（函数用 GOT）前 <strong>3 个条目</strong>是保留位，后续每个条目对应一个可延迟解析的<strong>函数</strong>。</p>
+<ul>
+<li><p><strong><code>.got.plt[0]</code> → <code>_DYNAMIC</code> 的链接时地址</strong><br>给动态链接器（ld.so）做“自举&#x2F;定位”的锚点：它能让 ld.so 通过 <code>_DYNAMIC</code> 找到该对象的 <strong><code>.dynamic</code> 段</strong>，进而读到 <code>DT_PLTGOT</code>、<code>DT_JMPREL</code>、<code>DT_SYMTAB</code>、<code>DT_STRTAB</code> 等指针，用来完成 PLT&#x2F;GOT 的修补、符号解析等工作。这个槽<strong>不直接参与</strong>一次函数调用的跳转，但对装载期和解析期的元数据定位很重要。</p>
+</li>
+<li><p><strong><code>.got.plt[1]</code> → 当前对象的“描述符”（<code>link_map</code> 指针）</strong><br>这是传给解析桩的<strong>第一个参数</strong>。首调时，PLT 桩会把 <code>.got.plt[1]</code> 压栈&#x2F;放寄存器，ld.so 由此拿到当前 ELF 对象的 **<code>link_map</code>**，再根据 <code>link_map-&gt;l_info[DT_*]</code> 找到 <code>.rela.plt/.rel.plt</code>、<code>.dynsym</code>、<code>.dynstr</code> 等表去解析符号、写回真实地址。</p>
+</li>
+<li><p><strong><code>.got.plt[2]</code> → 解析器入口（resolver trampoline）</strong><br>这是 PLT0 要 <strong><code>jmp</code></strong> 去的目标（也就是 <code>_dl_runtime_resolve</code> 的汇编桩入口；在 glibc 上常见别名如 <code>_dl_runtime_resolve_xsave[_c]</code>）。PLT0 把上一步准备好的参数（<code>link_map</code> + 重定位索引）“交给”这个解析桩，解析桩再调用 C 例程 <code>_dl_fixup</code> 完成 <strong><code>R_X86_64_JUMP_SLOT</code></strong> 的解析与<strong>回填 <code>.got.plt[n]</code><strong>，并</strong>尾调用</strong>到真实函数。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>解析器依据 <code>link_map</code> 查 <code>.dynsym/.dynstr</code> 和 **<code>.rela.plt</code>**（注意：x86‑64 使用 <strong><code>Elf64_Rela</code><strong>，即 <strong>RELA</strong> 形式），通过重定位条目的 <code>r_info</code> 找到目标符号，按动态链接的搜索顺序解析出</strong>真实地址</strong>。</p>
+</li>
+<li><p>解析器把真实地址<strong>写回</strong>该函数的 <strong>GOT 槽（<code>.got.plt</code> 的对应项）</strong>，随后<strong>跳转</strong>到 <code>puts</code> 真身继续执行。</p>
+</li>
+</ol>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2024/11/07/linux-user-pwn-basic-knowlege/images/image-20241108004319385.png"
                       alt="image-20241108004319385"
-                ><br>再次调用 <code>puts</code> 函数时由于 <code>puts@got</code> 已经完成重定位，因此会直接调用 <code>puts</code> 函数。</p>
+                ></p>
+<p><strong>再次调用 <code>puts</code><strong>，<code>puts@PLT</code> 直接从 <strong><code>puts@GOTPLT</code></strong> 读取</strong>已解析好的函数地址</strong>并跳转，<strong>不再进入解析器</strong>，因此热路径只有一次间接跳转开销。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1294,6 +1347,16 @@
 <li>在动态链接库查找这个函数的地址，并且把地址赋值给 <code>*rel-&gt;r_offset</code> ，即 GOT 表。</li>
 <li>调用这个函数。</li>
 </ul>
+<blockquote>
+<p>把 <code>puts@GOTPLT</code> 改成指向 <strong><code>printf@plt</code> 的第二条指令</strong>（也就是它的 <code>push idx_printf</code>）：</p>
+<ol>
+<li>调用 <code>puts@PLT</code> → 第一条 <code>jmp [rip+puts@GOTPLT]</code> 会<strong>跳到 <code>printf@plt</code> 的 fallback</strong>。</li>
+<li><code>printf@plt</code> 的 fallback 会 <code>push idx_printf; jmp plt0</code>，于是解析器拿到的 <strong><code>idx</code> 是 <code>printf</code> 的</strong>。</li>
+<li><code>_dl_fixup</code> 解析 <strong><code>printf</code><strong>，并把</strong>真实 <code>printf</code> 地址写回</strong> <code>.rela.plt[idx_printf].r_offset</code> 指向的槽（即 **<code>printf@GOTPLT</code><strong>）——</strong>不是 <code>puts@GOTPLT</code>**。</li>
+<li>你的 <code>puts@GOTPLT</code> 仍然指向 <code>printf@plt</code> 的 fallback；以后每次 <code>puts@PLT</code> 都会“借道 printf 的 fallback”，解析器会很快认出已解析过，再尾调用真实 <code>printf</code>。</li>
+</ol>
+<p><strong>结论</strong>：这种劫持让 <code>puts()</code> 实际上调用了 <code>printf()</code>，且解析器<strong>修改的是 <code>printf</code> 的 GOT 槽</strong>，与“你最初跳出来的那个 GOT 槽”无关。</p>
+</blockquote>
 <h3 id="动态链接的步骤和实现"><a href="#动态链接的步骤和实现" class="headerlink" title="动态链接的步骤和实现"></a>动态链接的步骤和实现</h3><h4 id="动态链接器自举"><a href="#动态链接器自举" class="headerlink" title="动态链接器自举"></a>动态链接器自举</h4><p>在 ELF 格式的程序中，如果启用了动态链接（即不是 <code>-static</code> 编译），那么程序的启动流程会先进入动态链接器（如 64 位系统上的 <code>/lib64/ld-linux-x86-64.so.2</code>）。但由于动态链接器本身也是一个 ELF 可执行体，它也有重定位需求，必须先完成<strong>自我重定位</strong>才能开始为主程序服务，这一过程称为<strong>自举（Bootstrap）</strong>。</p>
 <p>动态链接器的入口地址就是自举代码的起点，当内核将控制权交给动态链接器时，它会执行如下步骤：</p>
 <ol>
@@ -2155,7 +2218,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-19 01:08:42
+                    :</strong> 2025-11-10 03:39:05
             </li>
         
         <li>
@@ -2311,11 +2374,11 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        56 posts in total
+                        57 posts in total
                     </span>
                     
                         <span>
-                            1114.7k words in total
+                            1173.7k words in total
                         </span>
                     
                 </p>
