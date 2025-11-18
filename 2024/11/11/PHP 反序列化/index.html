@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-19 01:10:32</span>
-            <span class="mobile">2025-08-19 01:10:32</span>
+            <span class="desktop">2025-11-18 13:11:17</span>
+            <span class="mobile">2025-11-18 13:11:17</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>20.1k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>20.6k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>84 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>86 Mins</span>
         </span>
     
     
@@ -678,7 +678,7 @@
 <li><code>&quot;\0*\0&lt;property_name&gt;&quot;</code> 是属性名，用两个 null 字符（<code>\0</code>）和一个 <code>*</code> 字符分隔。</li>
 <li><code>&lt;property_value&gt;</code> 是属性值。</li>
 </ul>
-<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$var</span> = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>); </span><br><span class="line"><span class="comment">// 结果: O:4:&quot;Test&quot;:1:&#123;s:8:&quot;\0*\0var&quot;;s:5:&quot;Hello&quot;;&#125;</span></span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$var</span> = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$obj</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$obj</span>); </span><br><span class="line"><span class="comment">// 结果: O:4:&quot;Test&quot;:1:&#123;s:6:&quot;\0*\0var&quot;;s:5:&quot;Hello&quot;;&#125;</span></span><br></pre></td></tr></table></figure></div>
 
 <h4 id="私有属性（Private-Properties）"><a href="#私有属性（Private-Properties）" class="headerlink" title="私有属性（Private Properties）"></a><strong>私有属性（Private Properties）</strong></h4><p><strong>私有属性（<code>private</code>）</strong>表示该属性<strong>只能在定义它的类内部访问</strong>，<strong>外部和子类都不能访问</strong>。PHP 序列化私有属性时，会将属性名编码为 <code>\0类名\0属性名</code>。</p>
 <p><strong>格式</strong> ：<code>s:&lt;length&gt;:&quot;\0&lt;class_name&gt;\0&lt;property_name&gt;&quot;;&lt;property_value&gt;</code></p>
@@ -731,12 +731,13 @@
 
     </div>
     <div class="notel-content markdown-body">
-      <p>PHP 的<strong>对象引用仅适用于对象</strong>；对于标量类型，如字符串、数字、<strong>数组</strong>等，默认是值拷贝，只有在使用 <code>&amp;</code> 创建变量引用时，才会使用 <code>R:n</code> 表示指针引用。</p>
+      <p>PHP 的<strong>对象引用仅适用于对象</strong>；对于标量类型，如字符串、数字等，默认是值拷贝，只有在使用 <code>&amp;</code> 创建变量引用时，才会使用 <code>R:n</code> 表示指针引用。</p>
+<p>数组是<strong>复合类型</strong>，默认走<strong>值语义（写时复制）</strong>；对象变量则保存的是<strong>对象标识</strong>（句柄），赋值会共享同一对象。</p>
 
     </div>
   </div>
 
-<h3 id="指针引用（变量引用）"><a href="#指针引用（变量引用）" class="headerlink" title="指针引用（变量引用）"></a>指针引用（变量引用）</h3><p><strong>变量引用（或指针引用）</strong>是指多个变量名绑定到同一个变量本体（zval）。</p>
+<h3 id="指针引用（变量引用）"><a href="#指针引用（变量引用）" class="headerlink" title="指针引用（变量引用）"></a>指针引用（变量引用）</h3><p><strong>变量引用（或指针引用）</strong>是指多个变量名绑定到同一个变量本体（zval）。变量引用是通过 <code>&amp;</code> 明确创建的，例如 <code>$b = &amp;$a;</code>，表示 <code>$b</code> 是 <code>$a</code> 的引用。</p>
 <blockquote>
 <p>在 PHP 中，每个变量名（如 <code>$a</code>）实际上是指向一个 <strong>zval 结构</strong>。<code>zval</code> 是 PHP 内部的“值容器”，包含：</p>
 <ul>
@@ -755,27 +756,29 @@
 <thead>
 <tr>
 <th>操作</th>
-<th>对象引用</th>
-<th>变量引用（&amp;）</th>
+<th>对象引用（同一对象）</th>
+<th>变量引用（<code>&amp;</code>，同一 zval）</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>修改属性或值</td>
-<td>✅ 会影响</td>
-<td>✅ 会影响</td>
+<td>修改属性&#x2F;值</td>
+<td>✅ 会影响（同一对象）</td>
+<td>✅ 会影响（同一 zval）</td>
 </tr>
 <tr>
-<td>改变指向（<code>$b = 新对象</code>）</td>
+<td>改变指向（<code>$b = 新对象/新值</code>）</td>
 <td>❌ 不影响 <code>$a</code></td>
-<td>✅ 会影响 <code>$a</code></td>
+<td>✅ 会影响 <code>$a</code>（别名一起改）</td>
 </tr>
 <tr>
 <td><code>unset($b)</code></td>
 <td>❌ <code>$a</code> 不受影响</td>
-<td>✅ <code>$a</code> 被解绑&#x2F;失效</td>
+<td>❌ <strong>只</strong>解绑 <code>$b</code>；<code>$a</code> 仍有效</td>
 </tr>
 </tbody></table>
-<p>变量引用是通过 <code>&amp;</code> 明确创建的，例如 <code>$b = &amp;$a;</code>，表示 <code>$b</code> 是 <code>$a</code> 的引用。</p>
+<blockquote>
+<p><code>unset($b)</code> 只解除<strong>变量名 <code>$b</code> 与值</strong>的绑定，<strong>不会</strong>让 <code>$a</code> 失效，<code>$a</code> 仍然指向原来的值。</p>
+</blockquote>
 
   <div class="note-large blue">
     <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
@@ -886,7 +889,7 @@
 <div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$username</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$password</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span>, <span class="variable">$password</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$password</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__serialize</span>(<span class="params"></span>): <span class="title">array</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">            <span class="string">&#x27;username&#x27;</span> =&gt; <span class="variable language_">$this</span>-&gt;username,</span><br><span class="line">            <span class="string">&#x27;password&#x27;</span> =&gt; <span class="variable language_">$this</span>-&gt;password</span><br><span class="line">        ];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__unserialize</span>(<span class="params"><span class="keyword">array</span> <span class="variable">$data</span></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$data</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$data</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建对象并序列化</span></span><br><span class="line"><span class="variable">$user</span> = <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;alice&quot;</span>, <span class="string">&quot;securepass&quot;</span>);</span><br><span class="line"><span class="variable">$serialized</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$user</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Serialized: <span class="subst">$serialized</span>\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化对象</span></span><br><span class="line"><span class="variable">$restored</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$serialized</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$restored</span>);</span><br></pre></td></tr></table></figure></div>
 
 <p>当运行上述代码时，输出结果将是：</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Serialized: O:4:&quot;User&quot;:2:&#123;s:8:&quot;username&quot;;s:5:&quot;alice&quot;;s:14:&quot;Userpassword&quot;;s:10:&quot;securepass&quot;;&#125;</span><br><span class="line">User Object</span><br><span class="line">(</span><br><span class="line">    [username] =&gt; alice</span><br><span class="line">    [password:User:private] =&gt; securepass</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Serialized: O:4:&quot;User&quot;:2:&#123;s:8:&quot;username&quot;;s:5:&quot;alice&quot;;s:8:&quot;password&quot;;s:10:&quot;securepass&quot;;&#125;</span><br><span class="line">User Object</span><br><span class="line">(</span><br><span class="line">    [username] =&gt; alice</span><br><span class="line">    [password:User:private] =&gt; securepass</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 
 <h1 id="PHP-魔术方法"><a href="#PHP-魔术方法" class="headerlink" title="PHP 魔术方法"></a>PHP 魔术方法</h1><p>魔术方法是 PHP 中以 <code>__</code>（双下划线）开头的一组特殊方法，它们由 PHP 解释器在特定时机<strong>自动调用</strong>，允许你定制类的行为。</p>
 <h2 id="常见魔术方法"><a href="#常见魔术方法" class="headerlink" title="常见魔术方法"></a>常见魔术方法</h2><h3 id="生命周期相关"><a href="#生命周期相关" class="headerlink" title="生命周期相关"></a>生命周期相关</h3><table>
@@ -1028,8 +1031,15 @@
 </li>
 <li><p><strong>函数实现</strong> ：函数实现涉及对对象的字符串操作时会触发对象的 <code>__toString</code> 调用。</p>
 <ul>
-<li><strong><code>in_array()</code> 函数</strong> ：第一个参数是反序列化对象，第二个参数的数组中有 <code>__toString</code> 返回的字符串时触发。</li>
-<li><strong>格式化字符串</strong> ：反序列化对象参与格式化字符串时触发，如 <code>printf</code> 或 <code>sprintf</code>。</li>
+<li><p><strong><code>in_array()</code> 函数</strong> ：第一个参数是反序列化对象，第二个参数的数组中有字符串时触发。</p>
+<p>在 <code>in_array($needle, $haystack)</code> 的<strong>非严格模式</strong>下（默认），它会用 <code>==</code> 逐个把 <code>$needle</code> 和 <code>$haystack</code> 的元素比较；当某个元素是<strong>字符串</strong>时，这次比较会把对象放进“字符串语境”，于是就**调用 <code>$needle-&gt;__toString()</code>**，不管最后比出来是 <code>true</code> 还是 <code>false</code>。只有当返回值恰好等于该元素时，这一轮比较才为真，<code>in_array</code> 才会整体返回 <code>true</code>。</p>
+<ul>
+<li><strong>是否触发</strong>：<code>$haystack</code> 中<strong>凡是字符串元素</strong>，与对象做 <code>==</code> 时都会触发 <code>$needle-&gt;__toString()</code>（逐个元素地触发）。传第三参 <code>true</code>（严格模式）就<strong>不会触发</strong>了，类型不同直接 <code>false</code>。</li>
+<li><strong>是否命中</strong>：只有当某次触发返回的字符串与该元素<strong>相等</strong>时才命中；否则继续比较下一个元素。</li>
+</ul>
+<div class="code-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="variable">$cnt</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;cnt++;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__toString called #<span class="subst">&#123;$this-&gt;cnt&#125;</span>\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hit&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$x</span> = <span class="keyword">new</span> <span class="title function_ invoke__">X</span>();</span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">in_array</span>(<span class="variable">$x</span>, [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;hit&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]));</span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// __toString called #1   （和 &#x27;a&#x27; 比较）</span></span><br><span class="line"><span class="comment">// __toString called #2   （和 &#x27;b&#x27; 比较）</span></span><br><span class="line"><span class="comment">// __toString called #3   （和 &#x27;hit&#x27; 比较，命中）</span></span><br><span class="line"><span class="comment">// bool(true)</span></span><br></pre></td></tr></table></figure></div></li>
+<li><p><strong>格式化字符串</strong> ：反序列化对象参与格式化字符串时触发，如 <code>printf</code> 或 <code>sprintf</code>。</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -1064,8 +1074,8 @@
 <li><strong><code>__autoload()</code></strong> ：当代码中调用不存在的类时，会自动调用该方法。</li>
 <li><strong><code>spl_autoload_register()</code></strong> ：注册自动加载函数，替代 <code>__autoload()</code>。</li>
 </ul>
-<h1 id="反序列化基础利用"><a href="#反序列化基础利用" class="headerlink" title="反序列化基础利用"></a>反序列化基础利用</h1><h2 id="POP-链"><a href="#POP-链" class="headerlink" title="POP 链"></a>POP 链</h2><p>POP 链（Property-Oriented Programming Chain）是指从现有运行环境中寻找一系列的代码（通常是一些类的魔术方法），然后根据需求通过<strong>类的属性</strong>构造出一组连续的调用链。</p>
-<p>反序列化利用就是要找到合适的 POP 链。其实就是构造一条符合原代码需求的链条，去找到可以控制的属性或方法，从而构造 POP 链达到攻击的目的。</p>
+<h1 id="反序列化基础利用"><a href="#反序列化基础利用" class="headerlink" title="反序列化基础利用"></a>反序列化基础利用</h1><h2 id="POP-链"><a href="#POP-链" class="headerlink" title="POP 链"></a>POP 链</h2><p><strong>POP 链</strong>（Property‑Oriented Programming chain，又称 <em>gadget</em> 链）是指在<strong>不注入新代码</strong>的前提下，攻击者从目标程序及其依赖库中挑选多个可复用的方法&#x2F;函数片段（gadgets），并通过<strong>可控的对象属性值</strong>满足这些片段的前置条件，使其在对象<strong>生命周期钩子</strong>（如 <code>__wakeup</code>、<code>__destruct</code>、<code>__toString</code> 等）或其他触发点被调用时按既定顺序自动衔接执行，最终抵达<strong>敏感操作（sink）</strong>。</p>
+<p><strong>反序列化利用</strong>的实质，就是找到一个可触发的入口（触发点）与一条从该入口通向敏感操作的 POP 链，并通过构造序列化数据中的属性值将这条链“串”起来，促使程序在反序列化过程中执行原本不期望的行为。<strong>魔术方法只是常见触发点之一，POP 链并不限于它们。</strong></p>
 <p>寻找POP链的思路：</p>
 <ol>
 <li>寻找参数是否可控的 <code>unserialize()</code> 函数；</li>
@@ -1696,7 +1706,7 @@
 
 <p>只是因为PHP 的流封装器允许嵌套使用，下面是几个常见组合：</p>
 <ul>
-<li><code>compress.zlib://phar://...</code>：使用 zlib 解压，再作为 phar 读取。</li>
+<li><code>compress.zlib://phar://...</code>：<strong>先由 <code>phar://</code> 打开归档并定位到归档里的那个文件</strong>，然后<strong>最外层的 <code>compress.zlib://</code> 把“读到的文件内容”当作 gzip 流再解压</strong>。</li>
 <li><code>compress.bzip2://phar://...</code>：同上，适用于 bzip2 格式。</li>
 <li><code>php://filter/read=.../resource=phar://...</code>：添加过滤器处理（如 base64 编码）</li>
 </ul>
@@ -1842,7 +1852,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-19 01:10:32
+                    :</strong> 2025-11-18 13:11:17
             </li>
         
         <li>
@@ -2002,7 +2012,7 @@
                     </span>
                     
                         <span>
-                            1173.7k words in total
+                            1173.8k words in total
                         </span>
                     
                 </p>

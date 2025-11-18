@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-11-10 03:39:05</span>
-            <span class="mobile">2025-11-10 03:39:05</span>
+            <span class="desktop">2025-11-18 00:10:50</span>
+            <span class="mobile">2025-11-18 00:10:50</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,12 +526,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>32.5k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>32.8k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>136 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>137 Mins</span>
         </span>
     
     
@@ -2058,69 +2058,72 @@
 <tr>
 <th>函数</th>
 <th>是否读空格</th>
-<th>截断条件</th>
-<th>自动加 <code>\0</code></th>
-<th>是否限制长度</th>
-<th>常见用途 &#x2F; 利用提示</th>
+<th>截断条件（停止条件）</th>
+<th>自动加 <code>&#39;\0&#39;</code></th>
+<th>长度控制</th>
+<th>备注 &#x2F; 安全提示</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>gets(buf)</code></td>
 <td>✅ 能</td>
-<td><code>\n</code> 或 EOF</td>
-<td>✅ 是</td>
-<td>❌ 否</td>
-<td>栈溢出首选，直接覆盖返回地址。旧 libc 才支持。</td>
+<td>遇到首个 <code>\n</code>（<strong>丢弃</strong>该换行）或 EOF</td>
+<td>✅ 是（成功时）</td>
+<td>❌ 无</td>
+<td><strong>已被 C11 移除，严禁使用</strong>；无法限制长度，极不安全。</td>
 </tr>
 <tr>
 <td><code>fgets(buf, n, stdin)</code></td>
 <td>✅ 能</td>
-<td><code>\n</code> 或 <code>n-1</code> 字符</td>
-<td>✅ 是</td>
-<td>✅ 是</td>
-<td>常用于“安全读入”，注意换行残留。</td>
+<td>读到 <code>\n</code>（<strong>保留</strong>在缓冲区）、或读满 <code>n-1</code>、或 EOF&#x2F;错误</td>
+<td>✅ 是＊（若至少读到 1 字节；否则返回 <code>NULL</code>）</td>
+<td>✅ 由 <code>n</code> 限制</td>
+<td>常见坑：换行会保留；若一开始就 EOF&#x2F;错误，缓冲区<strong>不改动</strong>、返回 <code>NULL</code>。</td>
 </tr>
 <tr>
 <td><code>scanf(&quot;%s&quot;, buf)</code></td>
-<td>❌ 不能（空格、\t、\n 截断）</td>
-<td>空白字符</td>
-<td>✅ 是</td>
-<td>❌ 否</td>
-<td>比较常见的溢出点，不读空格。</td>
+<td>❌ 不能（以任一空白为分隔）</td>
+<td>遇到空白字符（空格&#x2F;<code>\t</code>&#x2F;<code>\n</code> 等；会<strong>跳过前导空白</strong>）</td>
+<td>✅ 是＊（成功匹配时）</td>
+<td>❌ 默认无；应写宽度如 <code>%Ns</code></td>
+<td>对 <code>%s</code> 和 <code>%[</code> <strong>必须</strong>写入字段宽度，否则同样不安全；<code>s</code> 会写终止符。</td>
 </tr>
 <tr>
 <td><code>scanf(&quot;%[^\n]&quot;, buf)</code></td>
 <td>✅ 能</td>
-<td><code>\n</code></td>
-<td>✅ 是</td>
-<td>❌ 否</td>
-<td>能读整行但容易溢出，利用性比 <code>%s</code> 更强。</td>
+<td>遇到 <code>\n</code>（<strong>不消费</strong>该换行，仍留在输入流中）或达字段宽度</td>
+<td>✅ 是＊（成功匹配时）</td>
+<td>❌ 默认无；应写 <code>%N[^\n]</code></td>
+<td>扫描集会把空格读入结果；由于不消费换行，后续读取前最好先丢弃该换行。</td>
 </tr>
 <tr>
 <td><code>read(fd, buf, size)</code></td>
 <td>✅ 能</td>
-<td><code>size</code> 或 EOF</td>
+<td>读满 <code>size</code> 或 EOF（返回已读字节数）</td>
 <td>❌ 否</td>
-<td>✅ 是</td>
-<td>精准控制写入，用于栈&#x2F;堆&#x2F;shellcode&#x2F;SROP。</td>
+<td>✅ 由 <code>size</code> 精确控制</td>
+<td>原始字节读取（系统调用），<strong>不会</strong>追加终止符；若要当 C 字符串用，需手动补 <code>&#39;\0&#39;</code>。</td>
 </tr>
 <tr>
 <td><code>getline(&amp;buf, &amp;len, stdin)</code></td>
 <td>✅ 能</td>
-<td><code>\n</code> 或 EOF</td>
-<td>✅ 是</td>
-<td>自动扩容</td>
-<td>用于高版本 libc，适合长字符串或脚本输入。</td>
-</tr>
-<tr>
-<td><code>gets_s(buf, size)</code></td>
-<td>✅ 能</td>
-<td><code>\n</code> 或 size</td>
-<td>✅ 是</td>
-<td>✅ 是</td>
-<td>C11 安全函数，不常见，但可绕黑名单检测。</td>
+<td>读到 <code>\n</code>（<strong>保留</strong>在缓冲区）或 EOF&#x2F;错误</td>
+<td>✅ 是（成功时）</td>
+<td>✅ <strong>自动扩容</strong>（必要时 <code>realloc</code>）</td>
+<td>POSIX 接口（ISO C 未定义）；返回字节数（<strong>包含</strong>换行，不包含终止 <code>&#39;\0&#39;</code>）。</td>
 </tr>
 </tbody></table>
+<blockquote>
+<p>在 <strong>C 语言 <code>C</code> locale</strong> 下，<code>isspace()</code> 判定为空白的<strong>仅</strong>以下 6 个字符（也是 <code>scanf</code>&#x2F;<code>printf</code> 相关规则里的空白集合）：</p>
+<ul>
+<li>空格：<code>&#39; &#39;</code></li>
+<li>水平制表：<code>&#39;\t&#39;</code> (HT)</li>
+<li>换行：<code>&#39;\n&#39;</code> (LF)</li>
+<li>垂直制表：<code>&#39;\v&#39;</code> (VT)</li>
+<li>换页：<code>&#39;\f&#39;</code> (FF)</li>
+<li>回车：<code>&#39;\r&#39;</code> (CR)</li>
+</ul>
+</blockquote>
 <h1 id="调用约定"><a href="#调用约定" class="headerlink" title="调用约定"></a>调用约定</h1><h2 id="栈结构"><a href="#栈结构" class="headerlink" title="栈结构"></a>栈结构</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -2218,7 +2221,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-11-10 03:39:05
+                    :</strong> 2025-11-18 00:10:50
             </li>
         
         <li>
@@ -2378,7 +2381,7 @@
                     </span>
                     
                         <span>
-                            1173.7k words in total
+                            1173.8k words in total
                         </span>
                     
                 </p>
