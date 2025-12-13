@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-19 01:07:05</span>
-            <span class="mobile">2025-08-19 01:07:05</span>
+            <span class="desktop">2025-11-29 11:47:48</span>
+            <span class="mobile">2025-11-29 11:47:48</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -526,7 +526,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>58k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>58.1k Words</span>
         </span>
     
     
@@ -2706,6 +2706,16 @@
     </div>
   </div>
 
+<p>对 SUID 程序，Linux 的策略是：</p>
+<blockquote>
+<p>当一个 SUID&#x2F;SGID 程序被非特权用户 “trace”（比如通过 gdb&#x2F;pwndbg），<strong>内核会基于安全考虑去掉 SUID&#x2F;SGID 的效果</strong>，防止你通过调试器“半只脚变 root”。</p>
+</blockquote>
+<p>因此，<strong>在调试场景下</strong>，真实情况很可能是：</p>
+<ul>
+<li><code>getuid() == geteuid() == 你的普通用户 ID（比如 1000）</code>；</li>
+<li>也就是说，<strong>在 gdb 里跑 <code>./pwn</code>，程序其实没提权，根本不是 root 进程</strong>；</li>
+<li>这时内核看到一个非 root 进程调用 <code>setuid(0)</code>，自然返回 <code>-EPERM</code>，也就是你看到的 <code>EAX = 0xffffffff</code>。</li>
+</ul>
 <h3 id="相关提权思路"><a href="#相关提权思路" class="headerlink" title="相关提权思路"></a>相关提权思路</h3><h4 id="commit-creds-提权"><a href="#commit-creds-提权" class="headerlink" title="commit_creds 提权"></a>commit_creds 提权</h4><p>只要我们改变一个进程的 <code>cred</code> 结构体，就能改变其执行权限。</p>
 <p>内核空间下面有两个函数，都位于 <code>kernel/cred.c</code> 中：</p>
 <ul>
@@ -3445,7 +3455,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-19 01:07:05
+                    :</strong> 2025-11-29 11:47:48
             </li>
         
         <li>
@@ -3605,7 +3615,7 @@
                     </span>
                     
                         <span>
-                            1173.9k words in total
+                            1193.9k words in total
                         </span>
                     
                 </p>
